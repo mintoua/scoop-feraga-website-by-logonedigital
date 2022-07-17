@@ -8,7 +8,7 @@ Create a directory named logonedigitalProjects xD
 #cd scoop-feraga-website-by-logonedigital
 #composer update
 #php bin/console d:d:c ( or symfony console d:d:c) 
-#php bin/console m:migration
+#php bin/console make:migration
 #php bin/console d:m:m
 
 Make sure you have this:
