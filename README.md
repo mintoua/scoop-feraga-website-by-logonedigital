@@ -13,6 +13,6 @@ Create a directory named logonedigitalProjects xD
 #php bin/console d:m:m
 
 Make sure you have this:
-PHP version 7 or higher ( recommended PHP 8.0.2)
+PHP version 8 or higher ( recommended PHP 8.0.2)
 PhpMyAdmin with MySQL ( version 5.* or higher)
 
