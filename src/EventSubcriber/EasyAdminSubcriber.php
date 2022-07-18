@@ -31,9 +31,10 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         $extension = pathinfo($_FILES['Product']['name']['product_image']['file'], PATHINFO_EXTENSION,);
 
         $project_dir = $this->appKernel->getProjectDir();
-        var_dump($filename);
-        dd(move_uploaded_file($tmp_name, $project_dir.'/public/uploads/images/'.$filename.'.'.$extension));
+        move_uploaded_file($tmp_name, $project_dir.'/public/uploads/images/'.$filename.'.'.$extension);
 
         $entity->setProductImage($filename.'.'.$extension);
+       // dump($entity->getProductImage());
+        //dd('here');
     }
 }
