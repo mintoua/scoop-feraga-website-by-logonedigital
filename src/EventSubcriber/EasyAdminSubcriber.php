@@ -34,7 +34,6 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         move_uploaded_file($tmp_name, $project_dir.'/public/uploads/images/'.$filename.'.'.$extension);
 
         $entity->setProductImage($filename.'.'.$extension);
-       // dump($entity->getProductImage());
-        //dd('here');
+
     }
 }
