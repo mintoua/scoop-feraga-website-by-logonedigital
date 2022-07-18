@@ -13,7 +13,7 @@
           <div
             class="row align-items-center justify-content-between no-gutters"
           >
-            <a class="top-bar__logo site-logo" href="index.html">
+            <a class="top-bar__logo site-logo" href="{{path('app_home')}}">
               <img class="img-fluid" src="{{ asset('frontoffice/img/site_logo.png') }}" alt="demo" />
             </a>
 
@@ -61,7 +61,7 @@
                     </li>
 
                     <li>
-                      <a href="#">Se connecter</a>
+                      <a href="{{path("app_sign_in")}}">Se connecter</a>
                     </li>
 
                     <li class="li-btn">
