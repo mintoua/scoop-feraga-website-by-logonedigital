@@ -18,12 +18,13 @@
 	<link rel="shortcut icon" href="{{asset('frontoffice/')}}img/favicon.ico">
 	<link rel="apple-touch-icon" href="{{asset('frontoffice/')}}img/apple-touch-icon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="{{asset('frontoffice/')}}img/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="{{asset('frontoffice/')}}img/apple-touch-icon-114x114.png">
+	<link
+			rel="apple-touch-icon" sizes="114x114" href="{{asset('frontoffice/')}}img/apple-touch-icon-114x114.png">
 
 	<!-- Critical styles
             ================================================== -->
-	<link rel="stylesheet" href="{{asset('frontoffice/')}}css/critical.min.css" type="text/css">
-    
+	<link
+			rel="stylesheet" href="{{asset('frontoffice/')}}css/critical.min.css" type="text/css">
 
 	<!-- Load google font
             ================================================== -->
@@ -42,7 +43,6 @@
 			s.parentNode.insertBefore(wf, s);
 		})();
 	</script>
-    .
 
 	<!-- Load other scripts
             ================================================== -->
@@ -116,7 +116,7 @@
 											</li>
 
 											<li class="li-profile ">
-												<a href="{{path('app_register')}}">
+												<a href="{{path("app_sign_in")}}">
 													<i class="fontello-profile"></i>
 												</a>
 											</li>
@@ -163,7 +163,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-12 col-md-7">
-							<h1 class="__title"><span>Scoops feraga</span> Créer un compte</h1>
+							<h1 class="__title"><span>Agro Shop</span> s'inscrire</h1>
 
 							<p>
 								The point of using is that it has a more-or-less normal distribution of letters, as opposed to using Content here content here making it look
@@ -238,103 +238,82 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-12 col-md-6 col-lg-5 col-xl-4">
-								<h2>s'   <span>inscrire</span></h2>
+								<h2>Se <span>connecter</span></h2>
 
 								<!-- start form -->
-                                {% form_theme form 'bootstrap_4_layout.html.twig' %}
-                                {{form_start(form)}}
-                                <div class="auth-form">
-                                <div class="input-wrp">
-									{{
-                                        form_row(form.lastname, {
-                                        label: false,
-                                        attr: {
-                                            placeholder: "Nom",
-                                            class: "textfield form-control",
-                                            
-                                        }
-                                        })
-                                    }}
-                                </div>
-                                <div class="input-wrp">
-									{{
-                                        form_row(form.firstname, {
-                                        label: false,
-                                        attr: {
-                                            placeholder: "Prenom",
-                                            class: "textfield form-control",
-                                            
-                                        }
-                                        })
-                                    }}
-                                </div>
-                                <div class="input-wrp">
-									{{
-                                        form_row(form.email, {
-                                        label: false,
-                                        attr: {
-                                            placeholder: "Email",
-                                            class: "textfield form-control",
-                                            
-                                        }
-                                        })
-                                    }}
-                                </div>
-                                <div class="input-wrp">
-									{{
-                                        form_row(form.password, {
-                                        label: false,
-                                        attr: {
-                                            placeholder: "Mot de passe",
-                                            class: "textfield form-control",
-                                            
-                                        }
-                                    })
-                                    }}
-                                </div>
-                                <div class="input-wrp">
-									{{
-                                        form_row(form.passwordConfirm, {
-                                        label: false,
-                                        attr: {
-                                            placeholder: "Confirmez le mot de passe",
-                                            class: "textfield form-control",
-                                            
-                                        }
-                                        })
-                                    }}
-                                </div>
-								<div class="row align-items-center justify-content-between">
-									<div class="col-auto">
-											{{
-												form_row(form.rgpd, {
-												label: "J'accepte les conditions générales d'utilisation",
-												attr: {
-													class: "checkfield align-bottom",
-												}
-												})
-											}}
+								<form class="auth-form" method="post">
+                                      {% if error %}
+                                        <div class="alert alert-danger">
+                                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                                        </div>
+                                       {% endif %} {% if app.user %}
+                                       <div class="mb-3">
+                                            Vous êtes connecté en tant que{{ app.user.userIdentifier }},
+                                            <a href="{{ path('app_logout') }}">Deconnexion</a>
+                                        </div>
+                                        {% endif %}
+									<div class="input-wrp">
+                                        <input
+                                            type="email"
+                                            value="{{ last_username }}"
+                                            name="email"
+                                            id="inputEmail"
+                                            class="textfield"
+                                            autocomplete="email"
+                                            placeholder="Username or email address *"
+                                            required
+                                            autofocus
+                                        />
 									</div>
-								</div>
 
-                                <div class="d-table mt-8">
+									<div class="input-wrp">
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            id="inputPassword"
+                                            class="textfield"
+                                            autocomplete="current-password"
+                                            placeholder="mot de passe"
+                                            required
+                                        />
+									</div>
+
+                                    <input
+                                        type="hidden"
+                                        name="_csrf_token"
+                                        value="{{ csrf_token('authenticate') }}"
+                                    />
+
+									<div class="row align-items-center justify-content-between">
+										<div class="col-auto">
+											<label class="checkfield align-bottom">
+												<input type="checkbox" checked="">
+												<i></i>
+												Remember me
+											</label>
+										</div>
+
+										<div class="col-auto">
+											<a class="link-forgot" href="#">Lost your password?</a>
+										</div>
+									</div>
+
+									<div class="d-table mt-8">
 										<div class="d-table-cell align-middle">
-											<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button" value="submit">S'inscire</button>
+											<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">se connecter</button>
 										</div>
 
 										<div class="d-table-cell align-middle">
-											<a class="link-to" href="{{path('app_register')}}">Se connecter</a>
+											<a class="link-to" href="{{path('app_inscire')}}">s'inscire</a>
 										</div>
-								</div>
-                                </div>
-                                {{form_end(form)}}
+									</div>
+								</form>
 								<!-- end form -->
 
 								<div class="spacer py-6 d-md-none"></div>
 
 							</div>
 
-							
 						</div>
 					</div>
 				</section>
@@ -372,7 +351,7 @@
 					<div class="row">
 						<div class="col-12 col-sm-4 col-md-3 col-lg-2">
 							<div class="footer__item">
-								<a class="site-logo" href="{{path("app_home")}}">
+								<a class="site-logo" href="{{path('app_home')}}">
 									<img class="img-fluid  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo"/>
 								</a>
 							</div>
@@ -386,8 +365,8 @@
 											<h5 class="footer__item__title h6">Menu</h5>
 
 											<ul>
-												<li>
-													<a href="{{path("app_home")}}">Home</a>
+												<li class="active">
+													<a href="{{path('app_home')}}">Home</a>
 												</li>
 												<li>
 													<a href="#">About</a>

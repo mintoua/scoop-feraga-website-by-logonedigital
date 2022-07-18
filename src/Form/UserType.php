@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\EmailValidator;
 use Symfony\Component\Validator\Constraints\EqualTo;
+use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 
@@ -48,7 +49,11 @@ class UserType extends AbstractType
                 ]
             ])
             
-            ->add('rgpd', CheckboxType::class)
+            ->add('rgpd', CheckboxType::class, [
+                "constraints" => [
+                    new IsTrue(['message'=>"vous n'avez pas acceptez les conditions générales d'utilisatioin"])
+                ]
+            ])
         ;
     }
 
