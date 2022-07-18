@@ -5,6 +5,7 @@ Things to do
 Create a directory named logonedigitalProjects xD
 #cd logonedigitalProjects
 #git clone "url_of_the_repo"
+#git pull
 #cd scoop-feraga-website-by-logonedigital
 #composer update
 #php bin/console d:d:c ( or symfony console d:d:c) 
