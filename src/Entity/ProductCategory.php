@@ -27,6 +27,12 @@ class ProductCategory
         $this->products = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        // TODO: Implement __toString() method.
+        return $this->getName();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
