@@ -25,7 +25,7 @@ class EasyAdminSubcriber implements EventSubscriberInterface
 
     public function setProductImage(BeforeEntityPersistedEvent $event){
         $entity = $event->getEntityInstance();
-        $tmp_name = $entity->getProductImage();
+        $tmp_name = $_FILES['Product']['name']['product_image']['file'];
         $filename =uniqid();
 
         $extension = pathinfo($_FILES['Product']['name']['product_image']['file'], PATHINFO_EXTENSION,);
