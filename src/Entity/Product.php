@@ -41,7 +41,7 @@ class Product
         return $this->id;
     }
 
-    public function getProductName(): ?string
+    public function getProduct_name(): ?string
     {
         return $this->product_name;
     }
@@ -65,7 +65,7 @@ class Product
         return $this;
     }
 
-    public function getProductDescription(): ?string
+    public function getProduct_description(): ?string
     {
         return $this->product_description;
     }
@@ -77,7 +77,7 @@ class Product
         return $this;
     }
 
-    public function getProductImage(): ?string
+    public function getProduct_image(): ?string
     {
         return $this->product_image;
     }
@@ -89,7 +89,7 @@ class Product
         return $this;
     }
 
-    public function getProductPrice(): ?float
+    public function getProduct_price(): ?float
     {
         return $this->product_price;
     }
@@ -101,7 +101,7 @@ class Product
         return $this;
     }
 
-    public function getProductQuantity(): ?int
+    public function getProduct_quantity(): ?int
     {
         return $this->product_quantity;
     }
