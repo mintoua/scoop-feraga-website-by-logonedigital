@@ -15,15 +15,24 @@ class CategoryPicture
     #[ORM\Column()]
     private ?int $id = null;
 
+
     #[ORM\Column(length: 255)]
     private ?string $designation = null;
 
     #[ORM\OneToMany(mappedBy: 'categoryPicture', targetEntity: FarmPictures::class, orphanRemoval: true)]
     private Collection $farmPictures;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->farmPictures = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->designation;
     }
 
     public function getId(): ?int
@@ -69,6 +78,18 @@ class CategoryPicture
                 $farmPicture->setCategoryPicture(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

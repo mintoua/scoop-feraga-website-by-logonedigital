@@ -1,457 +1,167 @@
-{% extends 'base_frontoffice.html.twig'%}
-      {% block header %}
-        {% include('includes/frontoffice/header.html.twig')%}
-      {% endblock header %}
-{% block content %}
-      <!-- start hero -->
-      <div
-        id="hero"
-        class="jarallax"
-        data-speed="0.7"
-        data-img-position="50% 80%"
-        style="background-image: url({{asset('frontoffice/')}}img/intro_img/2.jpg)"
-      >
-        <div class="container">
-          <div class="row">
-            <div class="col-12 col-lg-7">
-              <h1 class="__title"><span>Ferme</span> A la ferme</h1>
+{% extends 'base_frontoffice.html.twig'%} {% block header %} {%
+include('includes/frontoffice/header.html.twig')%} {% endblock header %} {%
+block content %}
+<!-- start hero -->
+<div
+  id="hero"
+  class="jarallax"
+  data-speed="0.7"
+  data-img-position="50% 80%"
+  style="background-image: url({{ asset('frontoffice/') }}img/intro_img/2.jpg)"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-7">
+        <h1 class="__title"><span>Ferme</span> A la ferme</h1>
 
-              <p>
-                The point of using Lorem Ipsum is that it has a more-or-less
-                normal distribution of letters, as opposed to using 'Content
-                here, content here', making it look like readable English
-              </p>
-            </div>
-          </div>
-        </div>
+        <p>
+          The point of using Lorem Ipsum is that it has a more-or-less normal
+          distribution of letters, as opposed to using 'Content here, content
+          here', making it look like readable English
+        </p>
       </div>
-      <!-- end hero -->
+    </div>
+  </div>
+</div>
+<!-- end hero -->
 
-      <!-- start main -->
-      <main role="main">
-        <!-- Common styles
+<!-- start main -->
+<main role="main">
+  <!-- Common styles
 				================================================== -->
-        <link rel="stylesheet" href="{{asset('frontoffice/')}}css/style.min.css" type="text/css" />
+  <link
+    rel="stylesheet"
+    href="{{ asset('frontoffice/') }}css/style.min.css"
+    type="text/css"
+  />
 
-        <!-- Load lazyLoad scripts
+  <!-- Load lazyLoad scripts
 				================================================== -->
-        <script>
-          (function (w, d) {
-            var m = d.getElementsByTagName("main")[0],
-              s = d.createElement("script"),
-              v = !("IntersectionObserver" in w) ? "8.17.0" : "10.19.0",
-              o = {
-                elements_selector: ".lazy",
-                data_src: "src",
-                data_srcset: "srcset",
-                threshold: 500,
-                callback_enter: function (element) {},
-                callback_load: function (element) {
-                  element.removeAttribute("data-src");
+  <script>
+    (function (w, d) {
+      var m = d.getElementsByTagName("main")[0],
+        s = d.createElement("script"),
+        v = !("IntersectionObserver" in w) ? "8.17.0" : "10.19.0",
+        o = {
+          elements_selector: ".lazy",
+          data_src: "src",
+          data_srcset: "srcset",
+          threshold: 500,
+          callback_enter: function (element) {},
+          callback_load: function (element) {
+            element.removeAttribute("data-src");
 
-                  oTimeout = setTimeout(function () {
-                    clearTimeout(oTimeout);
+            oTimeout = setTimeout(function () {
+              clearTimeout(oTimeout);
 
-                    AOS.refresh();
-                  }, 1000);
-                },
-                callback_set: function (element) {},
-                callback_error: function (element) {
-                  element.src =
-                    "https://placeholdit.imgix.net/~text?txtsize=21&txt=Image%20not%20load&w=200&h=200";
-                },
-              };
-            s.type = "text/javascript";
-            s.async = true; // This includes the script as async. See the "recipes" section for more information about async loading of LazyLoad.
-            s.src =
-              "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" +
-              v +
-              "/dist/lazyload.min.js";
-            m.appendChild(s);
-            // m.insertBefore(s, m.firstChild);
-            w.lazyLoadOptions = o;
-          })(window, document);
-        </script>
+              AOS.refresh();
+            }, 1000);
+          },
+          callback_set: function (element) {},
+          callback_error: function (element) {
+            element.src =
+              "https://placeholdit.imgix.net/~text?txtsize=21&txt=Image%20not%20load&w=200&h=200";
+          },
+        };
+      s.type = "text/javascript";
+      s.async = true; // This includes the script as async. See the "recipes" section for more information about async loading of LazyLoad.
+      s.src =
+        "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" +
+        v +
+        "/dist/lazyload.min.js";
+      m.appendChild(s);
+      // m.insertBefore(s, m.firstChild);
+      w.lazyLoadOptions = o;
+    })(window, document);
+  </script>
 
-        <!-- start section -->
-        <section class="section">
-          <div class="container">
-            <ul id="gallery-set" class="text-center">
-              <li><a class="selected" data-cat="*" href="#">All</a></li>
-              <li><a data-cat="category-1" href="#">The Crops</a></li>
-              <li><a data-cat="category-2" href="#">Vegatables</a></li>
-              <li><a data-cat="category-3" href="#">Fruits</a></li>
-              <li><a data-cat="category-4" href="#">Farm Livestock</a></li>
-              <li><a data-cat="category-5" href="#">Agro Machinery</a></li>
-            </ul>
+  <!-- start section -->
+  <section class="section">
+    <div class="container">
+      <ul id="gallery-set" class="text-center">
+        <li><a class="selected" data-cat="*" href="#">Toutes nos photos</a></li>
 
-            <div class="gallery gallery--style-1">
-              <div class="__inner">
-                <div
-                  class="row js-isotope"
-                  data-isotope-options='{
+        {#
+        <li><a data-cat="category-1" href="#">The Crops</a></li>
+        <li><a data-cat="category-2" href="#">Vegatables</a></li>
+        <li><a data-cat="category-3" href="#">Fruits</a></li>
+        <li><a data-cat="category-4" href="#">Farm Livestock</a></li>
+        <li><a data-cat="category-5" href="#">Agro Machinery</a></li>
+        #} {% for categoryPicture in categoriesPictures %}
+        <li>
+          <a
+            data-cat="{{ categoryPicture.slug }}"
+            title="{{ categoryPicture.slug }}"
+            href="#"
+            >{{ categoryPicture.designation }}</a
+          >
+        </li>
+        {% endfor %}
+      </ul>
+
+      <div class="gallery gallery--style-1">
+        <div class="__inner">
+          <div
+            class="row js-isotope"
+            data-isotope-options='{
 										"itemSelector": ".js-isotope__item",
 										"transitionDuration": "0.8s",
 										"percentPosition": "true",
 										"masonry": { "columnWidth": ".js-isotope__sizer" }
 									}'
-                >
-                  <div class="col-12 col-sm-6 col-lg-4 js-isotope__sizer"></div>
+          >
+            <div class="col-12 col-sm-6 col-lg-4 js-isotope__sizer"></div>
 
-                  <!-- start item -->
-                  <div
-                    class="col-12 col-sm-6 col-lg-4 js-isotope__item category-1"
-                  >
-                    <div class="__item">
-                      <figure class="__image">
-                        <img
-                          class="lazy"
-                          src="{{asset('frontoffice/')}}img/blank.gif"
-                          data-src="{{asset('frontoffice/')}}img/gallery_img/1.jpg"
-                          alt="demo"
-                        />
+            <!-- start item -->
+            {% for farmPicture in farmPictures %}
+            <div
+              class="col-12 col-sm-6 col-lg-4 js-isotope__item {{
+                farmPicture.categoryPicture.slug
+              }}"
+            >
+              <div class="__item">
+                <figure class="__image">
+                  <img
+                    class="lazy"
+                    src="{{ asset('uploads/FarmImages/'~farmPicture.link) }}"
+                    data-src="{{ asset('uploads/FarmImages/'~farmPicture.link) }}"
+                    alt="image de {{ farmPicture.designation }}"
+                  />
 
-                        <div class="__content">
-                          <h5 class="__content__title">Strawberry</h5>
-                          <span>Better than organic</span>
-                        </div>
-
-                        <a
-                          class="__link"
-                          data-fancybox="gallery"
-                          href="{{asset('frontoffice/')}}img/gallery_img/1.jpg"
-                        ></a>
-                      </figure>
-                    </div>
+                  <div class="__content">
+                    <h5 class="__content__title">
+                      {{ farmPicture.designation }}
+                    </h5>
+                    <span>{{ farmPicture.description | raw }}</span>
+                    {{ farmPicture.categoryPicture }}
                   </div>
-                  <!-- end item -->
 
-                  <!-- start item -->
-                  <div
-                    class="col-12 col-sm-6 col-lg-4 js-isotope__item category-2"
-                  >
-                    <div class="__item">
-                      <figure class="__image">
-                        <img
-                          class="lazy"
-                          src="{{asset('frontoffice/')}}img/blank.gif"
-                          data-src="{{asset('frontoffice/')}}img/gallery_img/2.jpg"
-                          alt="demo"
-                        />
-
-                        <div class="__content">
-                          <h5 class="__content__title">cabbage</h5>
-                          <span>Highest quality</span>
-                        </div>
-
-                        <a
-                          class="__link"
-                          data-fancybox="gallery"
-                          href="{{asset('frontoffice/')}}img/gallery_img/2.jpg"
-                        ></a>
-                      </figure>
-                    </div>
-                  </div>
-                  <!-- end item -->
-
-                  <!-- start item -->
-                  <div
-                    class="col-12 col-sm-6 col-lg-4 js-isotope__item category-3"
-                  >
-                    <div class="__item">
-                      <figure class="__image">
-                        <img
-                          class="lazy"
-                          src="{{asset('frontoffice/')}}img/blank.gif"
-                          data-src="{{asset('frontoffice/')}}img/gallery_img/3.jpg"
-                          alt="demo"
-                        />
-
-                        <div class="__content">
-                          <h5 class="__content__title">Chili pepper</h5>
-                          <span>Specialized hot peppers</span>
-                        </div>
-
-                        <a
-                          class="__link"
-                          data-fancybox="gallery"
-                          href="{{asset('frontoffice/')}}img/gallery_img/3.jpg"
-                        ></a>
-                      </figure>
-                    </div>
-                  </div>
-                  <!-- end item -->
-
-                  <!-- start item -->
-                  <div
-                    class="col-12 col-sm-6 col-lg-4 js-isotope__item category-4"
-                  >
-                    <div class="__item">
-                      <figure class="__image">
-                        <img
-                          class="lazy"
-                          src="{{asset('frontoffice/')}}img/blank.gif"
-                          data-src="{{asset('frontoffice/')}}img/gallery_img/4.jpg"
-                          alt="demo"
-                        />
-
-                        <div class="__content">
-                          <h5 class="__content__title">basil</h5>
-                          <span>Limited number</span>
-                        </div>
-
-                        <a
-                          class="__link"
-                          data-fancybox="gallery"
-                          href="{{asset('frontoffice/')}}img/gallery_img/4.jpg"
-                        ></a>
-                      </figure>
-                    </div>
-                  </div>
-                  <!-- end item -->
-
-                  <!-- start item -->
-                  <div
-                    class="col-12 col-sm-6 col-lg-4 js-isotope__item category-5"
-                  >
-                    <div class="__item">
-                      <figure class="__image">
-                        <img
-                          class="lazy"
-                          src="{{asset('frontoffice/')}}img/blank.gif"
-                          data-src="{{asset('frontoffice/')}}img/gallery_img/5.jpg"
-                          alt="demo"
-                        />
-
-                        <div class="__content">
-                          <h5 class="__content__title">corn</h5>
-                          <span>Organic vegetables</span>
-                        </div>
-
-                        <a
-                          class="__link"
-                          data-fancybox="gallery"
-                          href="{{asset('frontoffice/')}}img/gallery_img/5.jpg"
-                        ></a>
-                      </figure>
-                    </div>
-                  </div>
-                  <!-- end item -->
-
-                  <!-- start item -->
-                  <div
-                    class="col-12 col-sm-6 col-lg-4 js-isotope__item category-1"
-                  >
-                    <div class="__item">
-                      <figure class="__image">
-                        <img
-                          class="lazy"
-                          src="{{asset('frontoffice/')}}img/blank.gif"
-                          data-src="{{asset('frontoffice/')}}img/gallery_img/6.jpg"
-                          alt="demo"
-                        />
-
-                        <div class="__content">
-                          <h5 class="__content__title">gardens</h5>
-                          <span>High Altitude</span>
-                        </div>
-
-                        <a
-                          class="__link"
-                          data-fancybox="gallery"
-                          href="{{asset('frontoffice/')}}img/gallery_img/6.jpg"
-                        ></a>
-                      </figure>
-                    </div>
-                  </div>
-                  <!-- end item -->
-
-                  <!-- start item -->
-                  <div
-                    class="col-12 col-sm-6 col-lg-4 js-isotope__item category-2"
-                  >
-                    <div class="__item">
-                      <figure class="__image">
-                        <img
-                          class="lazy"
-                          src="{{asset('frontoffice/')}}img/blank.gif"
-                          data-src="{{asset('frontoffice/')}}img/gallery_img/7.jpg"
-                          alt="demo"
-                        />
-
-                        <div class="__content">
-                          <h5 class="__content__title">the crop</h5>
-                          <span>Harvest more</span>
-                        </div>
-
-                        <a
-                          class="__link"
-                          data-fancybox="gallery"
-                          href="{{asset('frontoffice/')}}img/gallery_img/7.jpg"
-                        ></a>
-                      </figure>
-                    </div>
-                  </div>
-                  <!-- end item -->
-
-                  <!-- start item -->
-                  <div
-                    class="col-12 col-sm-6 col-lg-4 js-isotope__item category-3"
-                  >
-                    <div class="__item">
-                      <figure class="__image">
-                        <img
-                          class="lazy"
-                          src="{{asset('frontoffice/')}}img/blank.gif"
-                          data-src="{{asset('frontoffice/')}}img/gallery_img/8.jpg"
-                          alt="demo"
-                        />
-
-                        <div class="__content">
-                          <h5 class="__content__title">blueberry</h5>
-                          <span>Fresh berry</span>
-                        </div>
-
-                        <a
-                          class="__link"
-                          data-fancybox="gallery"
-                          href="{{asset('frontoffice/')}}img/gallery_img/8.jpg"
-                        ></a>
-                      </figure>
-                    </div>
-                  </div>
-                  <!-- end item -->
-
-                  <!-- start item -->
-                  <div
-                    class="col-12 col-sm-6 col-lg-4 js-isotope__item category-4"
-                  >
-                    <div class="__item">
-                      <figure class="__image">
-                        <img
-                          class="lazy"
-                          src="{{asset('frontoffice/')}}img/blank.gif"
-                          data-src="{{asset('frontoffice/')}}img/gallery_img/9.jpg"
-                          alt="demo"
-                        />
-
-                        <div class="__content">
-                          <h5 class="__content__title">cow</h5>
-                          <span>The best farms</span>
-                        </div>
-
-                        <a
-                          class="__link"
-                          data-fancybox="gallery"
-                          href="{{asset('frontoffice/')}}img/gallery_img/9.jpg"
-                        ></a>
-                      </figure>
-                    </div>
-                  </div>
-                  <!-- end item -->
-
-                  <!-- start item -->
-                  <div
-                    class="col-12 col-sm-6 col-lg-4 js-isotope__item category-5"
-                  >
-                    <div class="__item">
-                      <figure class="__image">
-                        <img
-                          class="lazy"
-                          src="{{asset('frontoffice/')}}img/blank.gif"
-                          data-src="{{asset('frontoffice/')}}img/gallery_img/10.jpg"
-                          alt="demo"
-                        />
-
-                        <div class="__content">
-                          <h5 class="__content__title">asparagus</h5>
-                          <span>No pesticide</span>
-                        </div>
-
-                        <a
-                          class="__link"
-                          data-fancybox="gallery"
-                          href="{{asset('frontoffice/')}}img/gallery_img/10.jpg"
-                        ></a>
-                      </figure>
-                    </div>
-                  </div>
-                  <!-- end item -->
-
-                  <!-- start item -->
-                  <div
-                    class="col-12 col-sm-6 col-lg-4 js-isotope__item category-2"
-                  >
-                    <div class="__item">
-                      <figure class="__image">
-                        <img
-                          class="lazy"
-                          src="{{asset('frontoffice/')}}img/blank.gif"
-                          data-src="{{asset('frontoffice/')}}img/gallery_img/11.jpg"
-                          alt="demo"
-                        />
-
-                        <div class="__content">
-                          <h5 class="__content__title">pig</h5>
-                          <span>Control every aspect</span>
-                        </div>
-
-                        <a
-                          class="__link"
-                          data-fancybox="gallery"
-                          href="{{asset('frontoffice/')}}img/gallery_img/11.jpg"
-                        ></a>
-                      </figure>
-                    </div>
-                  </div>
-                  <!-- end item -->
-
-                  <!-- start item -->
-                  <div
-                    class="col-12 col-sm-6 col-lg-4 js-isotope__item category-4"
-                  >
-                    <div class="__item">
-                      <figure class="__image">
-                        <img
-                          class="lazy"
-                          src="{{asset('frontoffice/')}}img/blank.gif"
-                          data-src="{{asset('frontoffice/')}}img/gallery_img/12.jpg"
-                          alt="demo"
-                        />
-
-                        <div class="__content">
-                          <h5 class="__content__title">grapes</h5>
-                          <span>Taste the difference</span>
-                        </div>
-
-                        <a
-                          class="__link"
-                          data-fancybox="gallery"
-                          href="{{asset('frontoffice/')}}img/gallery_img/12.jpg"
-                        ></a>
-                      </figure>
-                    </div>
-                  </div>
-                  <!-- end item -->
-                </div>
+                  <a
+                    class="__link"
+                    data-fancybox="gallery"
+                    href="{{ asset('uploads/FarmImages/'~farmPicture.link) }}"
+                  ></a>
+                </figure>
               </div>
             </div>
-
-            <div class="text-center">
-              <a
-                id="gallery-more-btn"
-                class="custom-btn custom-btn--medium custom-btn--style-1"
-                href="javascript:void(0);"
-                >More images</a
-              >
-            </div>
+            {% endfor %}
           </div>
-        </section>
-        <!-- end section -->
-      </main>
-      <!-- end main -->
+        </div>
+      </div>
 
-{% endblock content %}
-      {% block footer %}
-        {% include('includes/frontoffice/footer.html.twig')%}
-      {% endblock footer %}
+      <div class="text-center">
+        <a
+          id="gallery-more-btn"
+          class="custom-btn custom-btn--medium custom-btn--style-1"
+          href="javascript:void(0);"
+          >More images</a
+        >
+      </div>
+    </div>
+  </section>
+  <!-- end section -->
+</main>
+<!-- end main -->
+
+{% endblock content %} {% block footer %} {%
+include('includes/frontoffice/footer.html.twig')%} {% endblock footer %}

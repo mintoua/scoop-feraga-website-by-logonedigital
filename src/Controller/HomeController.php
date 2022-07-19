@@ -20,11 +20,11 @@ class HomeController extends AbstractController
         return $this->render('frontoffice/about.html.twig');
     }
 
-    #[Route('/vie_a_la_ferme', name: 'app_activities')]
-    public function vie_a_la_ferme(): Response
-    {
-        return $this->render('frontoffice/activities.html.twig');
-    }
+    // #[Route('/vie_a_la_ferme', name: 'app_activities')]
+    // public function vie_a_la_ferme(): Response
+    // {
+    //     return $this->render('frontoffice/activities.html.twig');
+    // }
 
     #[Route('/nos_actualités', name: 'app_blog')]
     public function blog(): Response
