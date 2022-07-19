@@ -41,7 +41,12 @@ class Product
         return $this->id;
     }
 
-    public function getProduct_name(): ?string
+    public function getProductName(): ?string
+    {
+        return $this->product_name;
+    }
+
+        public function getProduct_name(): ?string
     {
         return $this->product_name;
     }
@@ -65,11 +70,15 @@ class Product
         return $this;
     }
 
-    public function getProduct_description(): ?string
+    public function getProductDescription(): ?string
     {
         return $this->product_description;
     }
 
+    public function getProduct_description(): ?string
+    {
+        return $this->product_description;
+    }
     public function setProductDescription(string $product_description): self
     {
         $this->product_description = $product_description;
@@ -77,7 +86,11 @@ class Product
         return $this;
     }
 
-    public function getProduct_image(): ?string
+    public function getProductImage(): ?string
+    {
+        return $this->product_image;
+    }
+        public function getProduct_image(): ?string
     {
         return $this->product_image;
     }
@@ -87,6 +100,11 @@ class Product
         $this->product_image = $product_image;
 
         return $this;
+    }
+
+    public function getProductPrice(): ?float
+    {
+        return $this->product_price;
     }
 
     public function getProduct_price(): ?float
@@ -101,7 +119,7 @@ class Product
         return $this;
     }
 
-    public function getProduct_quantity(): ?int
+    public function getProductQuantity(): ?int
     {
         return $this->product_quantity;
     }
