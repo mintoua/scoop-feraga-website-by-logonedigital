@@ -353,106 +353,20 @@
                       <!-- start widget -->
                       {{ form_start(form) }}
                       <div class="widget widget--search">
-                        <form class="form--horizontal" action="#" method="get">
                           <div class="input-wrp">
                             {{ form_widget(form.string) }}
                           </div>
-
                           <!-- start widget -->
-                          <div class="widget widget--categories">
-                            <h4 class="h6 widget-title">CAtegories</h4>
-
-                            <ul class="list">
-                              <li class="list__item">
-                                {{ form_widget(form.categories) }}
-                              </li>
-                            </ul>
+                          <div class="widget widget--additional">
+                            <h4 class="h6 widget-title">Catégories</h4>
+                              {{ form_widget(form.categories) }}
                           </div>
                           <!-- end widget -->
-
-                          <button
-                            class="custom-btn custom-btn--tiny custom-btn--style-1"
-                            type="submit"
-                            role="button"
-                          >
-                            Find
-                          </button>
-                        </form>
+                        {{ form_end(form) }}
                       </div>
                       <!-- end widget -->
 
-                      <!-- start widget -->
-                      <div class="widget widget--price">
-                        <h4 class="h6 widget-title">Price</h4>
-                        <div>
-                          <input
-                            type="text"
-                            class="js-range-slider"
-                            name="my_range"
-                            value=""
-                            data-type="double"
-                            data-min="0"
-                            data-max="500"
-                            data-from="48"
-                            data-to="365"
-                            data-grid="false"
-                            data-skin="round"
-                            data-prefix="$"
-                            data-hide-from-to="true"
-                            data-hide-min-max="true"
-                          />
 
-                          <div class="row">
-                            <div class="col-6">
-                              <input
-                                class="range-slider-min-value"
-                                type="text"
-                                value="48"
-                                name="min-value"
-                                readonly="readonly"
-                              />
-                            </div>
-
-                            <div class="col-6">
-                              <input
-                                class="range-slider-max-value"
-                                type="text"
-                                value="365"
-                                name="max-value"
-                                readonly="readonly"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- end widget -->
-
-                      <!-- start widget -->
-                      <div class="widget widget--additional">
-                        <h4 class="h6 widget-title">Additional</h4>
-
-                        <ul>
-
-                          <li>
-                            <label class="checkfield">
-
-                              <i></i>
-
-                            </label>
-                          </li>
-
-                          <li>
-                            <label class="checkfield">
-                              <input type="checkbox" />
-                              <i></i>
-                              Sales
-                            </label>
-                          </li>
-
-                        </ul>
-                      </div>
-                      <!-- end widget -->
-                      {{ form_end(form) }}
 
                       <!-- start widget -->
                       <div class="widget">

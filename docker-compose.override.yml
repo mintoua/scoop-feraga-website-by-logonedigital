@@ -6,3 +6,16 @@ services:
     ports:
       - "5432"
 ###< doctrine/doctrine-bundle ###
+
+###> TypeSense ###
+  typesense:
+    image: typesense/typesense:0.22.2
+    environment:
+      TYPESENSE_DATA_DIR: /product
+      TYPESENSE_API_KEY: xyz
+    volumes:
+      - /tmp/typesense-server-data:/product
+    ports:
+      - 8108:8108
+    restart: "no"
+###< TypeSense ###

@@ -2,10 +2,11 @@
 
 namespace App\Form;
 
-use App\Classes\Search;
+use App\Services\Search;
 use App\Entity\ProductCategory;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,6 +31,12 @@ class SearchType extends AbstractType
                 'class'=>ProductCategory::class,
                 'multiple'=>true,
                 'expanded'=>true,
+            ])
+            ->add('submit', SubmitType::class,[
+                'label'=>'Filtrer',
+                'attr'=>[
+                    'class'=>'custom-btn custom-btn--tiny custom-btn--style-1'
+                ]
             ])
         ;
     }
