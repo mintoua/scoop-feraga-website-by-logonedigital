@@ -20,6 +20,10 @@ class FarmPictures
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'farmPictures')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?CategoryPicture $categoryPicture = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +49,18 @@ class FarmPictures
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCategoryPicture(): ?CategoryPicture
+    {
+        return $this->categoryPicture;
+    }
+
+    public function setCategoryPicture(?CategoryPicture $categoryPicture): self
+    {
+        $this->categoryPicture = $categoryPicture;
 
         return $this;
     }

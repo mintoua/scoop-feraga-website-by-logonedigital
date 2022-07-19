@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\CategoryPicture;
+use App\Entity\FarmPictures;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
 use App\Entity\User;
@@ -50,5 +51,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Produits', 'fas fa-store', Product::class);
         MenuItem::section('Farm pictures');
         yield MenuItem::linkToCrud('Type d\'image', 'fas fa-images', CategoryPicture::class);
+        yield MenuItem::linkToCrud('Images', 'fas fa-image', FarmPictures::class);
     }
 }
