@@ -18,13 +18,12 @@
 	<link rel="shortcut icon" href="{{asset('frontoffice/')}}img/favicon.ico">
 	<link rel="apple-touch-icon" href="{{asset('frontoffice/')}}img/apple-touch-icon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="{{asset('frontoffice/')}}img/apple-touch-icon-72x72.png">
-	<link
-			rel="apple-touch-icon" sizes="114x114" href="{{asset('frontoffice/')}}img/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="{{asset('frontoffice/')}}img/apple-touch-icon-114x114.png">
 
 	<!-- Critical styles
             ================================================== -->
-	<link
-			rel="stylesheet" href="{{asset('frontoffice/')}}css/critical.min.css" type="text/css">
+	<link rel="stylesheet" href="{{asset('frontoffice/')}}css/critical.min.css" type="text/css">
+    
 
 	<!-- Load google font
             ================================================== -->
@@ -43,6 +42,7 @@
 			s.parentNode.insertBefore(wf, s);
 		})();
 	</script>
+    .
 
 	<!-- Load other scripts
             ================================================== -->
@@ -116,7 +116,7 @@
 											</li>
 
 											<li class="li-profile ">
-												<a href="{{path("app_sign_in")}}">
+												<a href="{{path('app_register')}}">
 													<i class="fontello-profile"></i>
 												</a>
 											</li>
@@ -163,7 +163,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-12 col-md-7">
-							<h1 class="__title"><span>Agro Shop</span> se connecter</h1>
+							<h1 class="__title"><span>Scoops feraga</span> Créer un compte</h1>
 
 							<p>
 								The point of using is that it has a more-or-less normal distribution of letters, as opposed to using Content here content here making it look
@@ -224,62 +224,117 @@
 				<!-- start section -->
 				<section class="section">
 					<div class="decor-el decor-el--1" data-jarallax-element="-70" data-speed="0.2">
-						<img class="lazy" width="286" height="280" src="{{asset('frontoffice/')}}img/blank.gif" data-src="img/decor-el_1.jpg" alt="demo"/>
+						<img class="lazy" width="286" height="280" src="img/blank.gif" data-src="img/decor-el_1.jpg" alt="demo"/>
 					</div>
 
 					<div class="decor-el decor-el--3" data-jarallax-element="-70" data-speed="0.2">
-						<img class="lazy" width="115" height="117" src="{{asset('frontoffice/')}}img/blank.gif" data-src="img/decor-el_3.jpg" alt="demo"/>
+						<img class="lazy" width="115" height="117" src="img/blank.gif" data-src="img/decor-el_3.jpg" alt="demo"/>
 					</div>
 
 					<div class="decor-el decor-el--4" data-jarallax-element="-70" data-speed="0.2">
-						<img class="lazy" width="84" height="76" src="{{asset('frontoffice/')}}img/blank.gif" data-src="img/decor-el_4.jpg" alt="demo"/>
+						<img class="lazy" width="84" height="76" src="img/blank.gif" data-src="img/decor-el_4.jpg" alt="demo"/>
 					</div>
 
 					<div class="container">
 						<div class="row">
 							<div class="col-12 col-md-6 col-lg-5 col-xl-4">
-								<h2>Se <span>connecter</span></h2>
+								<h2>s'   <span>inscrire</span></h2>
 
 								<!-- start form -->
-								<form class="auth-form" action="#">
-									<div class="input-wrp">
-										<input class="textfield" type="text" placeholder="Username or email address *" />
+                                {% form_theme form 'bootstrap_4_layout.html.twig' %}
+                                {{form_start(form)}}
+                                <div class="auth-form">
+                                <div class="input-wrp">
+									{{
+                                        form_row(form.lastname, {
+                                        label: false,
+                                        attr: {
+                                            placeholder: "Nom",
+                                            class: "textfield form-control",
+                                            
+                                        }
+                                        })
+                                    }}
+                                </div>
+                                <div class="input-wrp">
+									{{
+                                        form_row(form.firstname, {
+                                        label: false,
+                                        attr: {
+                                            placeholder: "Prenom",
+                                            class: "textfield form-control",
+                                            
+                                        }
+                                        })
+                                    }}
+                                </div>
+                                <div class="input-wrp">
+									{{
+                                        form_row(form.email, {
+                                        label: false,
+                                        attr: {
+                                            placeholder: "Email",
+                                            class: "textfield form-control",
+                                            
+                                        }
+                                        })
+                                    }}
+                                </div>
+                                <div class="input-wrp">
+									{{
+                                        form_row(form.password, {
+                                        label: false,
+                                        attr: {
+                                            placeholder: "Mot de passe",
+                                            class: "textfield form-control",
+                                            
+                                        }
+                                    })
+                                    }}
+                                </div>
+                                <div class="input-wrp">
+									{{
+                                        form_row(form.passwordConfirm, {
+                                        label: false,
+                                        attr: {
+                                            placeholder: "Confirmez le mot de passe",
+                                            class: "textfield form-control",
+                                            
+                                        }
+                                        })
+                                    }}
+                                </div>
+								<div class="row align-items-center justify-content-between">
+									<div class="col-auto">
+											{{
+												form_row(form.rgpd, {
+												label: "J'accepte les conditions générales d'utilisation",
+												attr: {
+													class: "checkfield align-bottom",
+												}
+												})
+											}}
 									</div>
+								</div>
 
-									<div class="input-wrp">
-										<input class="textfield" type="text" placeholder="Password" />
-									</div>
-
-									<div class="row align-items-center justify-content-between">
-										<div class="col-auto">
-											<label class="checkfield align-bottom">
-												<input type="checkbox" checked="">
-												<i></i>
-												Remember me
-											</label>
-										</div>
-
-										<div class="col-auto">
-											<a class="link-forgot" href="#">Lost your password?</a>
-										</div>
-									</div>
-
-									<div class="d-table mt-8">
+                                <div class="d-table mt-8">
 										<div class="d-table-cell align-middle">
-											<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">se connecter</button>
+											<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button" value="submit">S'inscire</button>
 										</div>
 
 										<div class="d-table-cell align-middle">
-											<a class="link-to" href="{{path('app_inscire')}}">s'inscire</a>
+											<a class="link-to" href="{{path('app_register')}}">Se connecter</a>
 										</div>
-									</div>
-								</form>
+								</div>
+                                </div>
+                                {{form_end(form)}}
 								<!-- end form -->
 
 								<div class="spacer py-6 d-md-none"></div>
 
 							</div>
 
+							
 						</div>
 					</div>
 				</section>
@@ -317,7 +372,7 @@
 					<div class="row">
 						<div class="col-12 col-sm-4 col-md-3 col-lg-2">
 							<div class="footer__item">
-								<a class="site-logo" href="{{path('app_home')}}">
+								<a class="site-logo" href="{{path("app_home")}}">
 									<img class="img-fluid  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo"/>
 								</a>
 							</div>
@@ -331,8 +386,8 @@
 											<h5 class="footer__item__title h6">Menu</h5>
 
 											<ul>
-												<li class="active">
-													<a href="{{path('app_home')}}">Home</a>
+												<li>
+													<a href="{{path("app_home")}}">Home</a>
 												</li>
 												<li>
 													<a href="#">About</a>
