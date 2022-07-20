@@ -32,17 +32,5 @@ class HomeController extends AbstractController
         return $this->render('frontoffice/blog.html.twig');
     }
 
-    
 
-    #[Route('/panier', name: 'app_cart')]
-    public function panier(): Response
-    {
-        return $this->render('frontoffice/cart.html.twig');
-    }
-
-    #[Route('/sign-in', name: 'sign_in')]
-    public function signIn(): Response
-    {
-        return $this->render('frontoffice/checkout.html.twig');
-    }
 }
