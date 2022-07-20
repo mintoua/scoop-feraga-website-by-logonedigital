@@ -1,4 +1,4 @@
-# config/packages/acseo_typesense.yaml
+# config/packages/acseo_typesense.yml
 acseo_typesense:
     # Typesense host settings
     typesense:
