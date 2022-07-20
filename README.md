@@ -16,10 +16,7 @@ Make sure you have this:
 PHP version 7 or higher ( recommended PHP 8.0.2)
 PhpMyAdmin with MySQL ( version 5.* or higher)
 
-Always do a pull first, before pushing your changes.
+Things To Always Do
 
-After executing the project correctly, you can now go to the branch with your name, 
-make a rebase of the master branch in our current branch and you can start
-
-(Am always available if you need help)
-
+*Before coding make sure to be in your branch: Make a #git pull, #composer update, then symfony console d:s:u --force
+*Always do commits and push before switching to another branch.
