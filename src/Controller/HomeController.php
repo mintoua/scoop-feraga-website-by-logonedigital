@@ -32,11 +32,7 @@ class HomeController extends AbstractController
         return $this->render('frontoffice/blog.html.twig');
     }
 
-    #[Route('/contacts', name: 'app_contacts')]
-    public function contacts(): Response
-    {
-        return $this->render('frontoffice/contacts.html.twig');
-    }
+    
 
     #[Route('/panier', name: 'app_cart')]
     public function panier(): Response
