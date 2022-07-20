@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OffreViewController">
+   <children>
+      <Button fx:id="btnimage" layoutX="14.0" layoutY="339.0" mnemonicParsing="false" onAction="#uploadimage" text="Choose image" />
+      <TableView fx:id="tableoffre" layoutX="315.0" layoutY="38.0" prefHeight="525.0" prefWidth="865.0">
+         <columns>
+            <TableColumn fx:id="colname" prefWidth="95.0" text="Name" />
+            <TableColumn fx:id="coldestination" prefWidth="92.0" text="Destination" />
+            <TableColumn fx:id="colplace_dispo" prefWidth="73.0" text="Place dispo" />
+            <TableColumn fx:id="colprix" prefWidth="68.0" text="Prix" />
+            <TableColumn fx:id="colvalable_de" prefWidth="84.0" text="Valable de" />
+            <TableColumn fx:id="colvalable_a" prefWidth="75.0" text="Valable a" />
+            <TableColumn fx:id="colimage" prefWidth="90.0" text="Image" />
+            <TableColumn fx:id="coldescription" prefWidth="90.0" text="Description" />
+            <TableColumn fx:id="colguide" prefWidth="70.0" text="Guide" />
+            <TableColumn fx:id="colhotel" prefWidth="55.0" text="Hotel" />
+            <TableColumn fx:id="colvol" prefWidth="72.0" text="Vol" />
+         </columns>
+      </TableView>
+      <TextField fx:id="tfid" editable="false" layoutX="139.0" layoutY="14.0" />
+      <Label layoutX="14.0" layoutY="16.0" prefHeight="20.0" prefWidth="53.0" text="ID" />
+      <TextField fx:id="tfname" layoutX="139.0" layoutY="59.0" />
+      <Label layoutX="14.0" layoutY="59.0" prefHeight="20.0" prefWidth="53.0" text="Name" />
+      <Label layoutX="14.0" layoutY="105.0" prefHeight="20.0" prefWidth="71.0" text="Destination" />
+      <TextField fx:id="tfdestination" layoutX="139.0" layoutY="105.0" />
+      <Label layoutX="14.0" layoutY="151.0" prefHeight="20.0" prefWidth="71.0" text="Place dispo" />
+      <TextField fx:id="tfplacedispo" layoutX="139.0" layoutY="151.0" />
+      <TextField fx:id="tfprix" layoutX="139.0" layoutY="195.0" />
+      <Label layoutX="14.0" layoutY="195.0" prefHeight="20.0" prefWidth="71.0" text="Prix" />
+      <Label layoutX="14.0" layoutY="244.0" prefHeight="20.0" prefWidth="71.0" text="Valable de" />
+      <Label layoutX="14.0" layoutY="292.0" prefHeight="20.0" prefWidth="71.0" text="Valable a" />
+      <TextField fx:id="tfimage" editable="false" layoutX="139.0" layoutY="339.0" />
+      <TextField fx:id="tfdescription" layoutX="139.0" layoutY="384.0" />
+      <Label layoutX="14.0" layoutY="384.0" prefHeight="20.0" prefWidth="71.0" text="Description" />
+      <ComboBox fx:id="combovol" layoutX="139.0" layoutY="432.0" prefWidth="150.0" />
+      <ComboBox fx:id="combohotel" layoutX="139.0" layoutY="474.0" prefWidth="150.0" />
+      <ComboBox fx:id="comboguide" layoutX="139.0" layoutY="513.0" prefWidth="150.0" />
+      <Label layoutX="14.0" layoutY="435.0" prefHeight="20.0" prefWidth="71.0" text="Vol" />
+      <Label layoutX="14.0" layoutY="477.0" prefHeight="20.0" prefWidth="71.0" text="Hotel" />
+      <Label layoutX="14.0" layoutY="516.0" prefHeight="20.0" prefWidth="71.0" text="Guide" />
+      <Button fx:id="btnadd" layoutX="22.0" layoutY="551.0" mnemonicParsing="false" onAction="#addoffre" prefHeight="25.0" prefWidth="43.0" text="Add" />
+      <DatePicker fx:id="tfvalablede" layoutX="137.0" layoutY="242.0" prefHeight="25.0" prefWidth="150.0" />
+      <DatePicker fx:id="tfvalablea" layoutX="137.0" layoutY="290.0" prefHeight="25.0" prefWidth="150.0" />
+      <Button fx:id="btnupdate" layoutX="85.0" layoutY="551.0" mnemonicParsing="false" onAction="#updateoffre" prefHeight="25.0" prefWidth="60.0" text="Update" />
+      <Button fx:id="btndelete" layoutX="167.0" layoutY="551.0" mnemonicParsing="false" onAction="#deleteoffre" prefHeight="25.0" prefWidth="60.0" text="Delete" />
+      <Button fx:id="btnsort" layoutX="240.0" layoutY="551.0" mnemonicParsing="false" onAction="#sortoffre" prefHeight="25.0" prefWidth="60.0" text="Sort" />
+   </children>
+</AnchorPane>
