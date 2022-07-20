@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
@@ -43,6 +45,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?bool $rgpd = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: AddressLivraison::class)]
+    private Collection $addressLivraisons;
+
+    public function __construct()
+    {
+        $this->addressLivraisons = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -175,5 +185,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getPasswordConfirm()
     {
         return $this->passwordConfirm;
+    }
+
+    /**
+     * @return Collection<int, AddressLivraison>
+     */
+    public function getAddressLivraisons(): Collection
+    {
+        return $this->addressLivraisons;
+    }
+
+    public function addAddressLivraison(AddressLivraison $addressLivraison): self
+    {
+        if (!$this->addressLivraisons->contains($addressLivraison)) {
+            $this->addressLivraisons[] = $addressLivraison;
+            $addressLivraison->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddressLivraison(AddressLivraison $addressLivraison): self
+    {
+        if ($this->addressLivraisons->removeElement($addressLivraison)) {
+            // set the owning side to null (unless already changed)
+            if ($addressLivraison->getUser() === $this) {
+                $addressLivraison->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
