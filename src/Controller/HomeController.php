@@ -26,12 +26,6 @@ class HomeController extends AbstractController
         return $this->render('frontoffice/activities.html.twig');
     }
 
-    #[Route('/boutique', name: 'app_shop')]
-    public function boutique(): Response
-    {
-        return $this->render('frontoffice/shop_catalog.html.twig');
-    }
-
     #[Route('/nos_actualités', name: 'app_blog')]
     public function blog(): Response
     {
@@ -48,5 +42,11 @@ class HomeController extends AbstractController
     public function panier(): Response
     {
         return $this->render('frontoffice/cart.html.twig');
+    }
+
+    #[Route('/sign-in', name: 'sign_in')]
+    public function signIn(): Response
+    {
+        return $this->render('frontoffice/checkout.html.twig');
     }
 }

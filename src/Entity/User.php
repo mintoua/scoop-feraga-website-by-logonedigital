@@ -2,13 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`User`')]
+#[UniqueEntity('email')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -28,11 +32,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[Assert\EqualTo(propertyPath:"password",  message:"Your password must match")]
+    private ?string $passwordConfirm = null;
+
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
+
+    #[ORM\Column]
+    private ?bool $rgpd = null;
 
     public function getId(): ?int
     {
@@ -145,5 +155,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->lastname = $lastname;
 
         return $this;
+    }
+
+    public function isRgpd(): ?bool
+    {
+        return $this->rgpd;
+    }
+
+    public function setRgpd(bool $rgpd): self
+    {
+        $this->rgpd = $rgpd;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of passwordConfirm
+     */ 
+    public function getPasswordConfirm()
+    {
+        return $this->passwordConfirm;
     }
 }
