@@ -50,7 +50,7 @@ class AppCustomAuthAuthenticator extends AbstractLoginFormAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {   
          
-          if($this->authChecker->isGranted('ROLE_ADMIN') and $this->){
+          if($this->authChecker->isGranted('ROLE_ADMIN') ){
             return new RedirectResponse($this->urlGenerator->generate('admin'));
           }else if($this->authChecker->isGranted('ROLE_USER')){
             return new RedirectResponse($this->urlGenerator->generate('app_user_account'));
