@@ -60,12 +60,14 @@ class BoutiqueController extends AbstractController
     #[Route('/mon_panier', name: 'app_cart')]
     public function myCart(){
 
+
         return $this->render('frontoffice/cart.html.twig');
     }
 
 
     #[Route('/mon_panier/ajouter/{slug}', name: 'app_add_to_cart')]
     public function addToCart($slug){
+        
         dd($slug);
         return $this->render('frontoffice/cart.html.twig');
     }
