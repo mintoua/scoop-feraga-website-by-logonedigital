@@ -51,4 +51,9 @@ class UserController extends AbstractController
         return $this->render('frontoffice/sign_in.html.twig');
         
     }
+
+    #[Route(path:"/mon-compte", name:"app_user_account")]
+    public function account(){
+        return $this->render("frontoffice/account.html.twig");
+    }
 }
