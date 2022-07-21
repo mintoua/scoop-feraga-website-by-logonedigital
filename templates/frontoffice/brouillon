@@ -44,3 +44,100 @@
 
   <div class="spacer py-6 d-md-none"></div>
 </div>
+                            {{ form_start(form) }}
+                            <div class="input-wrp">
+                                {{
+                                form_row(form.name, {
+                                    attr: {
+                                        class: "textfield",
+                                    }
+                                })
+                                }}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-wrp">
+                                        {{
+                                        form_row(form.lastname, {
+                                            attr: {
+                                                class: "textfield",
+                                            }
+                                        })
+                                        }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-wrp">
+                                        {{
+                                        form_row(form.firstname, {
+                                            attr: {
+                                                class: "textfield",
+                                            }
+                                        })
+                                        }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-wrp">
+                                {{
+                                form_row(form.company, {
+                                    attr: {
+                                        class: "textfield",
+                                    }
+                                })
+                                }}
+                            </div>
+                            <div class="input-wrp">
+                                {{
+                                form_row(form.address, {
+                                    attr: {
+                                        class: "textfield",
+                                    }
+                                })
+                                }}
+                            </div>
+                            <div class="input-wrp">
+                                {{
+                                form_row(form.postal, {
+                                    attr: {
+                                        class: "textfield",
+                                    }
+                                })
+                                }}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-wrp">
+                                        {{
+                                        form_row(form.country, {
+                                            attr: {
+                                                class: "textfield wide js-select",
+                                            }
+                                        })
+                                        }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-wrp">
+                                        {{
+                                        form_row(form.city, {
+                                            attr: {
+                                                class: "textfield",
+                                            }
+                                        })
+                                        }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-wrp">
+                                {{
+                                form_row(form.phone, {
+                                    attr: {
+                                        class: "textfield",
+                                    }
+                                })
+                                }}
+                            </div>
+                            {{ form_end(form) }}

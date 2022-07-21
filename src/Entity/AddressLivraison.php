@@ -41,6 +41,15 @@ class AddressLivraison
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $phone = null;
+
+    public function __toString(): string
+    {
+        // TODO: Implement __toString() method.
+        return $this->getName().'[br]'.$this->getAddress().'[br]'.$this->getCity().'-'.$this->getCountry();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -150,6 +159,18 @@ class AddressLivraison
     public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }

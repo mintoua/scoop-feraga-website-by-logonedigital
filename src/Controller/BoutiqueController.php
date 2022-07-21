@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\OrderType;
 use App\Services\Cart;
 use App\Services\Search;
 use App\Entity\Product;
@@ -23,6 +24,17 @@ class BoutiqueController extends AbstractController
         $this->cart = $cart;
     }
 
+    /*
+ * ############################
+ * LOGIC FOR THE PRODUCTS
+ * ###########################
+ */
+
+
+    /**
+     * @param Request $request
+     * @return Response
+     */
     #[Route('/boutique/nos_produits', name: 'app_shop')]
     public function index(Request $request)
     {
@@ -104,5 +116,28 @@ class BoutiqueController extends AbstractController
         $this->cart->decrease($slug);
         return $this->redirectToRoute("app_cart");
     }
+
+    /*
+ * ############################
+ * LOGIC FOR THE SHOPPING CART SYSTEM
+ * ###########################
+ */
+
+    #[Route('/boutique/commande', name: 'app_checkout')]
+    public function checkout(){
+
+        if(!$this->getUser()->getAddressLivraisons()->getValues()){
+            return $this->redirectToRoute('app_account_address_add');
+        }
+
+        $form = $this->createForm(OrderType::class, null, [
+            'user'=>$this->getUser()
+        ]);
+        return $this->render('frontoffice/checkout.html.twig',[
+            'form'=>$form->createView()
+        ]);
+    }
+
+
 
 }
