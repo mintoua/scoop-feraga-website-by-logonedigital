@@ -1,0 +1,43 @@
+
+
+
+
+
+        <br>
+        <!-- start posts -->
+
+                    <!-- start item -->
+                    {% for i in posts %}
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="__item __item--preview">
+                                <figure class="__image">
+                                    <img
+                                            src="{{ asset('uploads/images'~asset(i.postimage)) }}"
+                                            alt="demo"
+                                    />
+                                </figure>
+
+                                <div class="__content">
+                                    <p class="__category">
+                                        <a href="#">{{i.postcategory.name}}</a>
+                                    </p>
+
+                                    <h3 class="__title h5">
+                                        <a href="{{ path('blog_details',{'id':i.id}) }}">{{ i.title }}</a
+                                        >
+                                    </h3>
+
+                                    <p>
+                                        {{ i.description|striptags[:50] ~ '...' }}
+                                    </p>
+                                </div>
+
+                                <span class="__date-post"> <strong>{{ i.getCreatedAt().format('j') }}</strong>{{ i.getCreatedAt().format('M') }} </span>
+                            </div>
+                        </div>
+                        <!-- end item -->
+                    {% endfor %}
+
+        <!-- end posts -->
+
+<!-- end section -->

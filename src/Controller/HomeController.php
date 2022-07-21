@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Repository\PostCategoryRepository;
 use App\Repository\PostsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -35,10 +37,24 @@ class HomeController extends AbstractController
     }
 
     #[Route('/nos_actualités', name: 'app_blog')]
-    public function blog(PostsRepository $repository , PostCategoryRepository $categoryRepository): Response
+    public function blog(PostsRepository $repository , PostCategoryRepository $categoryRepository , Request $request): Response
     {
+        $posts = $repository->findAll();
+        $cat = $request->get("catId");
+        if( !$cat ==null){
+            $posts = $repository->findBy(['postCategory'=>$cat]);
+        }
+        // on verifie si on a un requette ajax ou non
+        if($request->get("ajax")){
+        return new JsonResponse([
+        "content" =>  $this->renderView('frontoffice/blogList.html.twig',[
+                'posts'=>$posts,
+            ])
+
+]);
+        }
         return $this->render('frontoffice/blog.html.twig',[
-            'posts'=>$repository->findAll() ,
+            'posts'=>$posts,
             'category'=>$categoryRepository->findAll()
             ]
         );

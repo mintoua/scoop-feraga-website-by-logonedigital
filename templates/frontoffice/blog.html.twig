@@ -74,77 +74,59 @@
             w.lazyLoadOptions = o;
           })(window, document);
 
+
+          // filter JS
+
           function chooseCategory() {
             var v = document.getElementById("choiceId").value;
-            var url = '{{ path("Blog_filter",{ "id":"c" }) }}';
-            url = url.replace('c',v);
-
-            var text = '<a href='+url+' class="btn btn-warning ">Filtrer</a>'
-            document.getElementById("filtreP").innerHTML=text;
+            //on recupere l URL active
+            const url = new URL(window.location.href);
+            // on lance la requette ajax
+            fetch(url.pathname + "?" + "catId="+v.toString() + "&ajax=1",{
+              headers: {
+                "X-Requested-With": "XMLHttpRequest"
+              }
+            }
+            ).then(response=>response.json()
+            ).then(data => {
+              // chercher la zonne de continue
+              var content = document.getElementById("blog_content");
+              //remplace le continue
+              content.innerHTML = data.content;
+                    }
+            ).catch(e=>console.log(e));
           }
+
+
 
         </script>
 
-        <!-- start section -->
+        <!-- start blog list -->
+
         <section class="section">
           <div class="container">
-            <select id="choiceId" class="mdb-select md-form" onchange="chooseCategory()">
+            <select id="choiceId" name="choiceId" class="mdb-select md-form" onchange="chooseCategory()">
               <option value="" disabled selected>Filter selon Categorie</option>
               <option value="0">Tous</option>
               {% for c in category %}
                 <option value={{ c.id }}>{{ c.name }}</option>
               {% endfor %}
             </select>
-            <p id="filtreP">
-
-            </p>
-            <br>
-            <!-- start posts -->
+            <br> <br>
             <div class="posts posts--style-1">
               <div class="__inner">
-                <div class="row">
-                  <!-- start item -->
-                  {% for i in posts %}
-                  <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="__item __item--preview">
-                      <figure class="__image">
-                        <img
-                          class="lazy"
-                          src="{{asset('frontoffice/')}}img/blank.gif"
-                          data-src="{{ asset('uploads/images/'~asset(i.postimage)) }}"
-                          alt="demo"
-                        />
-                      </figure>
+                <div class="row" id="blog_content">
 
-                      <div class="__content">
-                        <p class="__category">
-                          <a href="#">{{i.postcategory.name}}</a>
-                        </p>
+{% include "frontoffice/blogList.html.twig" %}
 
-                        <h3 class="__title h5">
-                          <a href="{{ path('blog_details',{'id':i.id}) }}">{{ i.title }}</a
-                          >
-                        </h3>
-
-                        <p>
-                          {{ i.description|striptags[:50] ~ '...' }}
-                        </p>
-                      </div>
-
-                      <span class="__date-post"> <strong>{{ i.getCreatedAt().format('j') }}</strong>{{ i.getCreatedAt().format('M') }} </span>
-                    </div>
-                  </div>
-                  <!-- end item -->
-                  {% endfor %}
                 </div>
               </div>
             </div>
-            <!-- end posts -->
+
           </div>
         </section>
-        <!-- end section -->
+        <!-- start blog list -->
 
-        <!-- start section -->
         <section class="section section--no-pt">
           <div class="container">
             <ul class="page-nav">
