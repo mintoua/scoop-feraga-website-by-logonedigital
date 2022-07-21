@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classes\Mail;
 use App\Entity\Contact;
 use App\Form\ContactType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,6 +25,10 @@ class ContactController extends AbstractController
             
             $em->persist($contact);
             $em->flush();
+
+            $mail = new Mail();
+            $mail->send($contact->getEmail(), $contact->getPrenom(), 'NOUVEAU CONTACT', $contact->getMsg());
+            
 
             return $this->redirectToRoute('app_contact');
         }

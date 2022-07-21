@@ -25,7 +25,7 @@ class FarmPicturesCrudController extends AbstractCrudController
             TextField::new('designation'),
             SlugField::new('slug')->setTargetFieldName('designation'),
             AssociationField::new('categoryPicture'),
-            ImageField::new('link')->setBasePath(' uploads/')
+            ImageField::new('link')->setBasePath('uploads/FarmImages')
                 ->setUploadDir('public/uploads/FarmImages')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')->setRequired(false),
             TextEditorField::new('description'),
