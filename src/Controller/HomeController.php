@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\PostCategoryRepository;
+use App\Repository\PostsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,9 +35,13 @@ class HomeController extends AbstractController
     }
 
     #[Route('/nos_actualités', name: 'app_blog')]
-    public function blog(): Response
+    public function blog(PostsRepository $repository , PostCategoryRepository $categoryRepository): Response
     {
-        return $this->render('frontoffice/blog.html.twig');
+        return $this->render('frontoffice/blog.html.twig',[
+            'posts'=>$repository->findAll() ,
+            'category'=>$categoryRepository->findAll()
+            ]
+        );
     }
 
     #[Route('/contacts', name: 'app_contacts')]
