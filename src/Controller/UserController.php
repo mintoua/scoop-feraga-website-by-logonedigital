@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ChangePasswordType;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +16,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserController extends AbstractController
 {
 
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+     $this->em=$em;   
+    }
    
 
     #[Route('/s-inscire', name: 'app_inscire')]
@@ -46,8 +54,6 @@ class UserController extends AbstractController
     #[Route('/se-connecter', name:'app_sign_in')]
     public function seConnecter(){
 
-        
-
         return $this->render('frontoffice/sign_in.html.twig');
         
     }
@@ -55,5 +61,35 @@ class UserController extends AbstractController
     #[Route(path:"/mon-compte", name:"app_user_account")]
     public function account(){
         return $this->render("frontoffice/account.html.twig");
+    }
+
+    #[Route(path:"/mon-compte/mofier-mon-mot-de-passe", name:'app_user_password')]
+    public function accountChangePassword(
+        Request $req, 
+        UserPasswordHasherInterface $passwordHasher,
+        FlashyNotifier $flashy){
+        $user = $this->getUser();
+        $form = $this->createForm(ChangePasswordType::class, $user);
+
+        $form->handleRequest($req);
+
+        if($form->isSubmitted() and $form->isValid()){
+            $old_password = $form->get('old_password')->getData();
+            if($passwordHasher->isPasswordValid($user, $old_password)){
+                $new_password = $form->get('new_password')->getData();
+                
+                $hashedPassword = $passwordHasher->hashPassword($user, $new_password);
+                $user->setPassword($hashedPassword);
+
+                $this->em->flush();
+                $flashy->success('Votre mot de passe à bien été modifier !');
+            }else{
+                $flashy->error("Mot de passe incorrect !");
+            }
+        }
+
+        return $this->render('frontoffice/account-infos.html.twig', [
+            'form'=>$form->createView()
+        ]);
     }
 }
