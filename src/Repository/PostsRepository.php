@@ -54,13 +54,36 @@ class PostsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Posts
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   public function getPaginatedPosts($page , $limit , $cat = null)
+    {
+        $query = $this->createQueryBuilder('p');
+            //filtre les posts
+            if( !$cat ==null ){
+                $query->andWhere("p.postCategory = :cat")
+                    ->setParameter("cat",$cat);
+            }
+
+            $query->orderBy("p.createdAt","desc")
+            ->setFirstResult(($page * $limit) - $limit)
+            ->setMaxResults($limit)
+
+
+        ;
+            return $query->getQuery()->getResult();
+
+    }
+
+    public function getTotalPosts($cat=null)
+     {
+        $query = $this->createQueryBuilder('p');
+         $query->select("count(p)");
+         //filtre les posts
+         if( !$cat ==null ){
+             $query->where("p.postCategory = :cat")
+                 ->setParameter("cat",$cat);
+         }
+
+        ;
+         return $query->getQuery()->getSingleScalarResult();
+    }
 }

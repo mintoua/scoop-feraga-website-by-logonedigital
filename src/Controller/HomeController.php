@@ -39,8 +39,20 @@ class HomeController extends AbstractController
     #[Route('/nos_actualités', name: 'app_blog')]
     public function blog(PostsRepository $repository , PostCategoryRepository $categoryRepository , Request $request): Response
     {
-        $posts = $repository->findAll();
         $cat = $request->get("catId");
+        // on definie le nombre d'element par page
+        $limit = 2;
+        // o n recupere le num de la page
+        $page = (int)$request->query->get("page",1);
+        // Return tous les posts par page
+        $postsP = $repository->getPaginatedPosts($page , $limit , $cat);
+
+        //on recupere le nombre totale du posts
+        $total = $repository->getTotalPosts($cat);
+
+
+        $posts = $repository->findAll();
+
         if( !$cat ==null){
             $posts = $repository->findBy(['postCategory'=>$cat]);
         }
@@ -48,14 +60,21 @@ class HomeController extends AbstractController
         if($request->get("ajax")){
         return new JsonResponse([
         "content" =>  $this->renderView('frontoffice/blogList.html.twig',[
-                'posts'=>$posts,
+                'posts'=>$postsP,
+            'total' => $total,
+            'limit'=> $limit,
+            'page' => $page
+
             ])
 
 ]);
         }
         return $this->render('frontoffice/blog.html.twig',[
-            'posts'=>$posts,
-            'category'=>$categoryRepository->findAll()
+            'posts'=>$postsP,
+            'category'=>$categoryRepository->findAll(),
+                'total' => $total,
+                'limit'=> $limit,
+                'page' => $page
             ]
         );
     }

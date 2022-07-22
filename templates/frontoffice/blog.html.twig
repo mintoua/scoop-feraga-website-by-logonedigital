@@ -3,7 +3,7 @@
         {% include('includes/frontoffice/header.html.twig')%}
       {% endblock header %}
 {% block content %}
-
+  {% set queryParams = app.request.query.all |filter((v,k)=>k!="page") %}
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script><!-- start hero -->
       <div
@@ -93,6 +93,7 @@
               var content = document.getElementById("blog_content");
               //remplace le continue
               content.innerHTML = data.content;
+              history.pushState({},null,url.pathname + "?" + "catId="+v.toString());
                     }
             ).catch(e=>console.log(e));
           }
@@ -103,46 +104,38 @@
 
         <!-- start blog list -->
 
+
         <section class="section">
           <div class="container">
             <select id="choiceId" name="choiceId" class="mdb-select md-form" onchange="chooseCategory()">
               <option value="" disabled selected>Filter selon Categorie</option>
               <option value="0">Tous</option>
               {% for c in category %}
-                <option value={{ c.id }}>{{ c.name }}</option>
+                {% if queryParams is not empty and queryParams.catId is not empty %}
+                  {% set selected = (c.id == queryParams.catId) ? "selected" : ""%}
+                {% else %}
+                  {% set selected = ""%}
+                {% endif %}
+                <option value={{ c.id }} {{ selected }}>{{ c.name }}</option>
               {% endfor %}
             </select>
-            <br> <br>
             <div class="posts posts--style-1">
-              <div class="__inner">
-                <div class="row" id="blog_content">
+              <div class="__inner" id="blog_content" >
 
-{% include "frontoffice/blogList.html.twig" %}
 
-                </div>
+              {% include "frontoffice/blogList.html.twig" %}
+
+
               </div>
             </div>
 
-          </div>
-        </section>
-        <!-- start blog list -->
 
-        <section class="section section--no-pt">
-          <div class="container">
-            <ul class="page-nav">
-              <li class="page-nav__item">
-                <a href="#" class="page-nav__link page-nav__link--prev"
-                  ><i class="ico fontello-left-1"></i>Older post</a
-                >
-              </li>
-              <li class="page-nav__item">
-                <a href="#" class="page-nav__link page-nav__link--next"
-                  >Newer post<i class="ico fontello-right-1"></i
-                ></a>
-              </li>
-            </ul>
           </div>
+
         </section>
+
+
+
         <!-- end section -->
       </main>
       <!-- end main -->
