@@ -60,25 +60,41 @@
 		<div id="app">
 			<!-- start header -->
 			<header id="top-bar" class="top-bar top-bar--style-2">
-				<div class="top-bar__bg" style="background-color: #FFF;background-image: url({{asset('frontoffice/')}}img/top_bar_bg-2.png);background-repeat: no-repeat;background-position: center bottom;"></div>
+				<div
+						class="top-bar__bg"
+						style="
+								background-color: #fff;
+								background-image: url({{asset('frontoffice/')}}img/top_bar_bg-2.png);
+								background-repeat: no-repeat;
+								background-position: center bottom;
+								"
+				></div>
 
 				<div class="container position-relative">
 					<div class="row justify-content-between no-gutters">
-
-						<a class="top-bar__logo site-logo" href="index_4.html">
-							<img class="img-fluid" src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo"/>
+						<a class="top-bar__logo site-logo" href="{{ path('app_home') }}">
+							<img class="img-fluid" src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo" />
 						</a>
 
-						<a id="top-bar__navigation-toggler" class="top-bar__navigation-toggler top-bar__navigation-toggler--dark" href="javascript:void(0);">
-							<span></span>
-						</a>
+						<a
+								id="top-bar__navigation-toggler"
+								class="top-bar__navigation-toggler top-bar__navigation-toggler--dark"
+								href="javascript:void(0);"
+						><span></span
+							></a>
 
-						<div id="top-bar__inner" class="top-bar__inner  text-lg-right">
+						<div id="top-bar__inner" class="top-bar__inner text-lg-right">
 							<div>
-								<div class="d-lg-flex flex-lg-column-reverse align-items-lg-end">
-									<nav id="top-bar__navigation" class="top-bar__navigation navigation" role="navigation">
+								<div
+										class="d-lg-flex flex-lg-column-reverse align-items-lg-end"
+								>
+									<nav
+											id="top-bar__navigation"
+											class="top-bar__navigation navigation"
+											role="navigation"
+									>
 										<ul>
-											<li>
+											<li >
 												<a href="{{path('app_home')}}">Accueil</a>
 											</li>
 											<li>
@@ -88,60 +104,55 @@
 											<li>
 												<a href="{{path('app_activities')}}">Vie à la ferme</a>
 											</li>
-											<li class="active">
-												<a href="{{path('app_shop')}}">Boutique</a>
-											</li>
+											<li class="active"><a href="{{path('app_shop')}}">Boutique</a></li>
 
 											<ul class="submenu">
-												<li>
-													<a href="shop_catalog.html">Categ-1</a>
-												</li>
-												<li>
-													<a href="single_product.html">Categ-2</a>
-												</li>
-												<li>
-													<a href="cart.html">Categ-2</a>
-												</li>
-												<li>
-													<a href="checkout.html">Checkout</a>
-												</li>
-												<li>
-													<a href="sign_in.html">Sign In/Up</a>
-												</li>
+												<li><a href="shop_catalog.html">Categ-1</a></li>
 											</ul>
 											</li>
+
 
 											<li>
 												<a href="{{path('app_blog')}}">Nos Actualités</a>
 											</li>
 
 											<li class="li-profile">
-												<a href="#">
-													<i class="fontello-profile"></i>
-												</a>
+												<a href="{{ path('app_login') }}"
+												><i class="fontello-profile"></i
+													></a>
 											</li>
 
 											<li class="li-cart">
-												<a href="#">
-													<i class="fontello-shopping-bag"></i>
-													<span class="total">0</span>
-												</a>
+												<a href="{{path('app_cart')}}"
+												><i class="fontello-shopping-bag"></i
+													><span class="total">{{ app.session.get('cart') | length }}</span></a
+												>
 											</li>
 
 											<li class="li-btn">
-												<a class="custom-btn custom-btn--small custom-btn--style-2" href="#">Get in Touch</a>
+												<a
+														class="custom-btn custom-btn--small custom-btn--style-2"
+														href="{{path('app_contact')}}"
+												>Contactez-nous</a
+												>
 											</li>
 										</ul>
 									</nav>
 
 									<div class="top-bar__contacts">
-										<span>523 Sylvan Ave, 5th Floor Mountain View, CA 940 USA</span>
-										<span>
-										<a href="#">+1 (234) 56789</a>,&nbsp;&nbsp;<a href="#">+1 987 654 3210</a>
-									</span>
-										<span>
-										<a href="mailto:support@agrocompany.com">support@agrocompany.com</a>
-									</span>
+                    <span
+					>523 Sylvan Ave, 5th Floor Mountain View, CA 940 USA</span
+					>
+										<span
+										><a href="#">+1 (234) 56789</a>,&nbsp;&nbsp;<a href="#"
+											>+1 987 654 3210</a
+											></span
+										>
+										<span
+										><a href="mailto:support@agrocompany.com"
+											>support@agrocompany.com</a
+											></span
+										>
 
 										<div class="social-btns">
 											<a class="fontello-twitter" href="#"></a>
@@ -152,7 +163,6 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</header>
@@ -258,85 +268,12 @@
 									<form class="checkout__form" action="#">
 										<div class="row justify-content-xl-between">
 											<div class="col-12 col-md-5 col-lg-6">
-												<div><h6>Personal Information</h6></div>
-
-												<div class="row">
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="First name *" type="text" />
-														</div>
-													</div>
-
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="Last name *" type="text" />
-														</div>
-													</div>
-
-													<div class="col-12">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="Company name (optional)" type="text" />
-														</div>
-													</div>
-
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="Phone *" type="text" />
-														</div>
-													</div>
-
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="Email address *" type="text" />
-														</div>
-													</div>
-												</div>
-
-												<div class="spacer py-6"></div>
-
-												<div><h6>Adress</h6></div>
-
-												<div class="row">
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<select class="textfield wide js-select">
-																<option>Country * 1</option>
-																<option>Country * 2</option>
-																<option>Country * 3</option>
-																<option>Country * 4</option>
-																<option>Country * 5</option>
-															</select>
-														</div>
-													</div>
-
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="Town / City *" type="text" />
-														</div>
-													</div>
-
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="State / County *" type="text" />
-														</div>
-													</div>
-
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="ZIP *" type="text" />
-														</div>
-													</div>
-
-													<div class="col-12">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="Street address *" type="text" />
-														</div>
-													</div>
-
-													<div class="col-12">
-														<div class="input-wrp">
-															<textarea class="textfield" placeholder="Order notes (optional)"></textarea>
-														</div>
+												<div><h6>Choississez votre adresse de Livraison</h6>
+													<div class="col-md-5">
+														{% set formHtml %}
+															{{ form(form) }}
+														{% endset %}
+														{{ formHtml|replace({'[br]':'<br/>'})|raw }}
 													</div>
 												</div>
 

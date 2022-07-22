@@ -96,18 +96,6 @@
 												<li>
 													<a href="shop_catalog.html">Categ-1</a>
 												</li>
-												<li>
-													<a href="single_product.html">Categ-2</a>
-												</li>
-												<li>
-													<a href="cart.html">Categ-2</a>
-												</li>
-												<li>
-													<a href="checkout.html">Checkout</a>
-												</li>
-												<li>
-													<a href="sign_in.html">Sign In/Up</a>
-												</li>
 											</ul>
 											</li>
 
@@ -122,10 +110,10 @@
 											</li>
 
 											<li class="li-cart">
-												<a href="#">
-													<i class="fontello-shopping-bag"></i>
-													<span class="total">0</span>
-												</a>
+												<a href="{{path('app_cart')}}"
+												><i class="fontello-shopping-bag"></i
+													><span class="total">{{ app.session.get('cart') | length }}</span></a
+												>
 											</li>
 
 											<li class="li-btn">

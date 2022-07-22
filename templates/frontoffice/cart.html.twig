@@ -97,18 +97,6 @@ _html.classList.add(isTouch ? "touch" : "no-touch");
 												<li>
 													<a href="shop_catalog.html">Categ-1</a>
 												</li>
-												<li>
-													<a href="single_product.html">Categ-2</a>
-												</li>
-												<li>
-													<a href="cart.html">Categ-2</a>
-												</li>
-												<li>
-													<a href="checkout.html">Checkout</a>
-												</li>
-												<li>
-													<a href="sign_in.html">Sign In/Up</a>
-												</li>
 											</ul>
 										</li>
 
@@ -116,18 +104,18 @@ _html.classList.add(isTouch ? "touch" : "no-touch");
 											<a href="{{path('app_blog')}}">Nos Actualités</a>
 										</li>
 
-										<li class="li-profile">
-											<a href="#">
-												<i class="fontello-profile"></i>
-											</a>
-										</li>
+											<li class="li-profile">
+												<a href="{{ path('app_login') }}"
+												><i class="fontello-profile"></i
+													></a>
+											</li>
 
-										<li class="li-cart">
-											<a href="#">
-												<i class="fontello-shopping-bag"></i>
-												<span class="total">0</span>
-											</a>
-										</li>
+											<li class="li-cart">
+												<a href="{{path('app_cart')}}"
+												><i class="fontello-shopping-bag"></i
+													><span class="total">{{ app.session.get('cart') | length }}</span></a
+												>
+											</li>
 
 										<li class="li-btn">
 											<a class="custom-btn custom-btn--small custom-btn--style-2" href="#">Get in Touch</a>
@@ -165,8 +153,8 @@ _html.classList.add(isTouch ? "touch" : "no-touch");
 				<div class="row">
 					<div class="col-12 col-md-7">
 						<h1 class="__title">
-							<span>Agro Shop</span>
-							Cart</h1>
+							<span>SCOOPS FERAGA</span>
+							Panier</h1>
 
 						<p>
 							The point of using is that it has a more-or-less normal distribution of letters, as opposed to using Content here content here making it look
@@ -252,6 +240,7 @@ w.lazyLoadOptions = o;
 							<div class="cart">
 								<form class="cart__form" action="#">
 									<div class="cart__table">
+										{% if cart|length > 0 %}
 										<table>
 											<thead>
 												<tr>
@@ -265,113 +254,45 @@ w.lazyLoadOptions = o;
 											</thead>
 
 											<tbody>
-												<tr>
+
+											 	{% set total = null %}
+												{% for product in cart %}
+													<tr>
 													<td>
 														<figure class="__image">
-															<a href="#">
-																<img class="lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/goods_img/5.jpg" alt="demo"/>
+															<a href="{{ path('app_single_product',{'slug':product.product.slug}) }}">
+																<img class="lazy" src="{{ asset('uploads/images/'~product.product.product_image) }}" data-src="{{ asset('uploads/images/'~product.product.product_image) }}" alt="demo"/>
 															</a>
 														</figure>
 													</td>
 
 													<td>
-														<a href="#" class="__name">Big Banana</a>
+														<a href="{{ path('app_single_product',{'slug':product.product.slug}) }}" class="__name">{{ product.product.product_name }}</a>
 													</td>
 
 													<td>
-														<span class="__price">2.99 $</span>
-													</td>
-
-													<td>
-														<div class="quantity-counter js-quantity-counter">
-															<span class="__btn __btn--minus"></span>
-															<input class="__q-input" type="text" value="1"/>
-															<span class="__btn __btn--plus"></span>
-														</div>
-													</td>
-
-													<td>
-														<span class="__total">2.99 $</span>
-													</td>
-
-													<td>
-														<a class="__remove" href="#" aria-label="Remove this item">
-															<i class="fontello-cancel"></i>
-														</a>
-													</td>
-												</tr>
-
-												<tr>
-													<td>
-														<figure class="__image">
-															<a href="#">
-																<img class="lazy" src="img/blank.gif" data-src="img/goods_img/8.jpg" alt="demo"/>
-															</a>
-														</figure>
-													</td>
-
-													<td>
-														<a href="#" class="__name">Freash Peach</a>
-													</td>
-
-													<td>
-														<span class="__price">2.99 $</span>
+														<span class="__price"> {{ (product.product.product_price / 100)  }} FCFA</span>
 													</td>
 
 													<td>
 														<div class="quantity-counter js-quantity-counter">
-															<span class="__btn __btn--minus"></span>
-															<input class="__q-input" type="text" value="1"/>
-															<span class="__btn __btn--plus"></span>
+															<a href="{{ path('app_decrease_quantity_cart',{'slug': product.product.slug}) }}" class="__btn __btn--minus"></a>
+															<input class="__q-input" type="text" value="{{ product.quantity }}"/>
+															<a href="{{ path('app_add_to_cart',{'slug': product.product.slug}) }}" class="__btn __btn--plus"></a>
 														</div>
 													</td>
-
-													<td>
-														<span class="__total">2.99 $</span>
+														<span class="__total">{{ ((product.product.product_price * product.quantity) / 100)  }} FCFA</span>
 													</td>
 
 													<td>
-														<a class="__remove" href="#" aria-label="Remove this item">
+														<a class="__remove" href="{{path('app_remove_to_cart', {'slug': product.product.slug})}}" aria-label="Remove this item">
 															<i class="fontello-cancel"></i>
 														</a>
 													</td>
 												</tr>
+													{% set total = total + (product.product.product_price * product.quantity)%}
+												{% endfor %}
 
-												<tr>
-													<td>
-														<figure class="__image">
-															<a href="#">
-																<img class="lazy" src="img/blank.gif" data-src="img/goods_img/2.jpg" alt="demo"/>
-															</a>
-														</figure>
-													</td>
-
-													<td>
-														<a href="#" class="__name">Awesome Brocoli</a>
-													</td>
-
-													<td>
-														<span class="__price">2.99 $</span>
-													</td>
-
-													<td>
-														<div class="quantity-counter js-quantity-counter">
-															<span class="__btn __btn--minus"></span>
-															<input class="__q-input" type="text" value="1"/>
-															<span class="__btn __btn--plus"></span>
-														</div>
-													</td>
-
-													<td>
-														<span class="__total">2.99 $</span>
-													</td>
-
-													<td>
-														<a class="__remove" href="#" aria-label="Remove this item">
-															<i class="fontello-cancel"></i>
-														</a>
-													</td>
-												</tr>
 											</tbody>
 										</table>
 									</div>
@@ -399,8 +320,8 @@ w.lazyLoadOptions = o;
 													<thead>
 														<tr>
 															<td colspan="2">
-																<h3>CART
-																	<span>TOTALS</span>
+																<h3>PANIER
+																	<span>TOTAL</span>
 																</h3>
 															</td>
 														</tr>
@@ -409,26 +330,26 @@ w.lazyLoadOptions = o;
 													<tfoot>
 														<tr>
 															<td colspan="2">
-																<a class="custom-btn custom-btn--medium custom-btn--style-1" href="#">Proceed to checkout</a>
+																<a class="custom-btn custom-btn--medium custom-btn--style-1" href="{{ path('app_checkout') }}">Proceed to checkout</a>
 															</td>
 														</tr>
 													</tfoot>
 
 													<tbody>
 														<tr>
-															<td>Subtotal:</td>
-															<td>$96.00</td>
+															<td>Total:</td>
+															<td>{{ (total / 100)  }} FCFA</td>
 														</tr>
 
 														<tr>
-															<td>Shipping</td>
-															<td>Flat rate: $3.00
-																<br>Shipping to Ukraine.</td>
+															<td>Livraison</td>
+															<td>Gratuit
+																<br>Livraison dans tous le cameroun</td>
 														</tr>
 
 														<tr>
 															<td>Total</td>
-															<td>$99.00</td>
+															<td>{{ (total / 100)  }} FCFA</td>
 														</tr>
 													</tbody>
 												</table>
@@ -438,7 +359,11 @@ w.lazyLoadOptions = o;
 								</form>
 							</div>
 							<!-- start cart -->
-
+							{% else %}
+								<h3>Désole, votre panier est vide <br><br>
+									<span>nous vous invitons à faire un tour dans notre catalogue de produits &#128521; </span>
+								</h3>
+							{% endif %}
 						</div>
 					</div>
 				</div>
