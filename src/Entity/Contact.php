@@ -26,6 +26,8 @@ class Contact
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $msg = null;
 
+    private $captcha;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +77,26 @@ class Contact
     public function setMsg(?string $msg): self
     {
         $this->msg = $msg;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of captcha
+     */ 
+    public function getCaptcha()
+    {
+        return $this->captcha;
+    }
+
+    /**
+     * Set the value of captcha
+     *
+     * @return  self
+     */ 
+    public function setCaptcha($captcha)
+    {
+        $this->captcha = $captcha;
 
         return $this;
     }
