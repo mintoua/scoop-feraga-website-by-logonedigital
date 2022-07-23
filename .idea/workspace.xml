@@ -2,167 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="687bf48b-627b-40ab-b7fb-071161127bf9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/web_profiler.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/routes/web_profiler.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/FarmImages/13c24d280a56a570c71ead1a98f98110c5e9b2f3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/FarmImages/2113f991f3f4e6266cc25920736461c3b0bfd59c.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/FarmImages/505ec9051b4ed3324a05a33fadebe9815c119f38.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/FarmImages/83bc59d0780b462da1a9fedfb025bdf813628544.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/FarmImages/8a45a3f1e03734d2b2173a1a3235fd50bb6cabf9.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/FarmImages/8d7b968987299c3caa442729aefe32964eca8f69.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/FarmImages/997bfd70f69deb650dc1153625c8c33edc6da418.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/FarmImages/beddafdfed80e3f6778c5019181ae7e457c40a88.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/FarmImages/c12b2578a45201ff3c383500e3d42d3082ea34f1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/FarmImages/e24494bf56d62b2eb0de49bd3aed0f67d68ea9b6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/FarmImages/e6c2492efc65060f63a15d18028e26c426dd548d.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/FarmImages/e9dd7c73000ee0f3764de125028e579b04d17113.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/00ee842b706f7d904c40726748be861c80a24504.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/0750d6400979f7263f11f08474e71e9a22f4973d.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/80af82e2fdd1a7b90691d796a65eef6f300ea5e6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/bonnet1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/bonnet2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/d8cf6ea4df7e706e73dc61e949a9d8b381072862.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/dc39b7bf30b1622384f1e32630e2ce05bad423f9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/echarpe1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/echarpe2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/efc3df38f7fd6ec7297b159e9a6faf21e7dd1e1a.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/f2adb27283342c4637e7a6825be4fab5600fe4dc.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/f78addb2cb0b11456a64ded8dea834a7245936c8.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/manteau1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/manteau2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/moissonneuse.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/tomate.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/tshirt1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/tshirt2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/images/vache.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/Mail.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/AccountAddressController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/Admin/CarrierCrudController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/Admin/CategoryPictureCrudController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/Admin/ContactCrudController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/Admin/FarmPicturesCrudController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/Admin/ProductCrudController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/BoutiqueController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/ContactController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/PortefolioController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/ResetPasswordController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/AddressLivraison.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Carrier.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/CategoryPicture.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Contact.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/FarmPictures.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Order.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/OrderDetails.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Product.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/ResetPassword.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/AddressLivraisonType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/ChangePasswordType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/ContactType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/OrderType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/ResetPasswordType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/SearchType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/UserType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/AddressLivraisonRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/CarrierRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/CategoryPictureRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/ContactRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/FarmPicturesRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/OrderDetailsRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/OrderRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/ProductRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/ResetPasswordRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/AppCustomAuthAuthenticator.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Cart.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/CurlService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Services/Search.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/account_address/address_form.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/account_address/index.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/frontoffice/account-infos.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/frontoffice/account.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/frontoffice/brouillon" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/frontoffice/forgot_password.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/frontoffice/reset_password.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/frontoffice/s-inscire.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/.vscode/settings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/build.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/build/classes/Services/ServicesGuide.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/build/classes/Services/ServicesOffre.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/build/classes/Services/ServicesResoffre.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/build/classes/Util/Myconnection.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/build/classes/edu/entities/Guide.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/build/classes/edu/entities/Offre.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/build/classes/edu/entities/Resoffre.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/build/classes/gui/GuideView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/build/classes/gui/GuideViewController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/build/classes/gui/HomePage$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/build/classes/gui/HomePage.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/build/classes/gui/OffreView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/build/classes/gui/OffreViewController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/build/classes/testapp/Testapp.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/manifest.mf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/mysql-connector-java-5.1.23-bin.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/mysql-connector-java-8.0.28.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/nbproject/build-impl.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/nbproject/genfiles.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/nbproject/private/private.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/nbproject/private/private.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/nbproject/project.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/nbproject/project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/src/Services/ServicesGuide.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/src/Services/ServicesOffre.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/src/Services/ServicesResoffre.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/src/Util/Myconnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/src/edu/entities/Guide.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/src/edu/entities/Offre.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/src/edu/entities/Resoffre.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/src/gui/GuideView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/src/gui/GuideViewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/src/gui/HomePage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/src/gui/OffreView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/src/gui/OffreViewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testapp/src/testapp/Testapp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/scoop-feraga-website-by-logonedigital.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/scoop-feraga-website-by-logonedigital.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/acseo_typesense.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/acseo_typesense.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/twig.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account_address/addresses.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20220717165541.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20220717165742.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20220720122257.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/testapp/build/classes/.netbeans_automatic_build" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/BlogController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BlogController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/testapp/build/classes/.netbeans_update_resources" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Posts.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Posts.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/ProductCategory.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/ProductCategory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/frontoffice/activities.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/frontoffice/activities.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/frontoffice/blog_details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/frontoffice/blog_details.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/frontoffice/cart.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/frontoffice/cart.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/frontoffice/checkout.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/frontoffice/checkout.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/frontoffice/contacts.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/frontoffice/contacts.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/frontoffice/shop_catalog.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/frontoffice/shop_catalog.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/frontoffice/sign_in.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/frontoffice/sign_in.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/frontoffice/single_product.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/frontoffice/single_product.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/includes/frontoffice/footer.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/includes/frontoffice/footer.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/includes/frontoffice/header.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/includes/frontoffice/header.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -285,6 +128,17 @@
       <path value="$PROJECT_DIR$/vendor/symfony/debug-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/web-server-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/vendor/curl/curl" />
+      <path value="$PROJECT_DIR$/vendor/mercuryseries/flashy-bundle" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/symfony/web-profiler-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/vendor/symfony/proxy-manager-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/vendor/mailjet/mailjet-apiv3-php" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
     </include_path>
   </component>
   <component name="ProjectId" id="2CFgznCewi2C9OtG1L7AZE2lLRW" />
@@ -314,7 +168,8 @@
       <workItem from="1658418646147" duration="5117000" />
       <workItem from="1658485189740" duration="15918000" />
       <workItem from="1658567900649" duration="1934000" />
-      <workItem from="1658569950982" duration="17190000" />
+      <workItem from="1658569950982" duration="17415000" />
+      <workItem from="1658589967626" duration="2390000" />
     </task>
     <servers />
   </component>

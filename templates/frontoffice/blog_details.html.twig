@@ -74,24 +74,28 @@
 
 
             function addLike(){
-                //on recupere l URL active
-                const url = new URL(window.location.href);
-                // on lance la requette ajax
-                fetch(url.pathname + "?" + "postId="+ {{ post[0].id }}+ "&ajax=1",{
-                        headers: {
-                            "X-Requested-With": "XMLHttpRequest"
+                    //on recupere l URL active
+                    const url = new URL(window.location.href);
+                    // on lance la requette ajax
+                    fetch(url.pathname + "?" + "postId=" + {{ post[0].id }}+"&ajax=1", {
+                            headers: {
+                                "X-Requested-With": "XMLHttpRequest"
+                            }
                         }
-                    }
-                ).then(response=>response.json()
-                ).then(data => {
-                    console.log(data);
-                //        // chercher la zonne de continue
-                        var content = document.getElementById("like");
-                //        //remplace le continue
-                        content.innerHTML = data.content;
-                //        history.pushState({},null,url.pathname + "?" + "catId="+v.toString());
-                    }
-                ).catch(e=>console.log(e));
+                    ).then(response => response.json()
+                    ).then(data => {
+                            console.log(data);
+                            //        // chercher la zonne de continue
+                            var content = document.getElementById("like");
+                            //        //remplace le continue
+                            content.innerHTML = data.content;
+                            //        history.pushState({},null,url.pathname + "?" + "catId="+v.toString());
+                        }
+                    ).catch(e => console.log(e));
+
+            }
+            function redirectToLogin(){
+                location.href = "{{ path('app_sign_in') }}";
             }
 
         </script>
@@ -114,7 +118,13 @@
                                     <div class="__content">
 
                                         <div class="mb-6 mb-md-8">
-                                            <span id="like"  onclick="addLike()">
+                                            <span id="like"
+                                                  {% if app.user %}
+                                                  onclick="addLike()"
+                                                  {% else %}
+                                                    onclick="redirectToLogin()"
+                                                  {% endif %}
+                                            >
                                                 {% if isLiked %}
                                                 {% include("frontoffice/like.html.twig") %}
                                                 {% else %}
