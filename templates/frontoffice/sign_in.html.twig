@@ -1,70 +1,77 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
-	<head>
-		<title>AGRO</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+	<title>AGRO</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-		<meta name="viewport" content="user-scalable=no, width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+	<meta name="viewport" content="user-scalable=no, width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui"/>
 
-		<meta name="theme-color" content="#FCDB5A" />
-		<meta name="msapplication-navbutton-color" content="#FCDB5A" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="#FCDB5A" />
+	<meta name="theme-color" content="#FCDB5A"/>
+	<meta name="msapplication-navbutton-color" content="#FCDB5A"/>
+	<meta
+			name="apple-mobile-web-app-status-bar-style" content="#FCDB5A"/>
 
-		<!-- Favicons
-		================================================== -->
-		<link rel="shortcut icon" href="img/favicon.ico">
-		<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+	<!-- Favicons
+            ================================================== -->
+	<link rel="shortcut icon" href="{{asset('frontoffice/')}}img/favicon.ico">
+	<link rel="apple-touch-icon" href="{{asset('frontoffice/')}}img/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="{{asset('frontoffice/')}}img/apple-touch-icon-72x72.png">
+	<link
+			rel="apple-touch-icon" sizes="114x114" href="{{asset('frontoffice/')}}img/apple-touch-icon-114x114.png">
 
-		<!-- Critical styles
-		================================================== -->
-		<link rel="stylesheet" href="css/critical.min.css" type="text/css">
+	<!-- Critical styles
+            ================================================== -->
+	<link
+			rel="stylesheet" href="{{asset('frontoffice/')}}css/critical.min.css" type="text/css">
 
-		<!-- Load google font
-		================================================== -->
-		<script type="text/javascript">
-			WebFontConfig = {
-				google: { families: [ 'Open+Sans:300,400,500,600,700,800', 'Raleway:100,400,400i,500,500i,700,700i,900'] }
-			};
-			(function() {
-				var wf = document.createElement('script');
-				wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
-				wf.type = 'text/javascript';
-				wf.async = 'true';
-				var s = document.getElementsByTagName('script')[0];
-				s.parentNode.insertBefore(wf, s);
-			})();
-		</script>
+	<!-- Load google font
+            ================================================== -->
+	<script type="text/javascript">
+		WebFontConfig = {
+			google: {
+				families: ['Open+Sans:300,400,500,600,700,800', 'Raleway:100,400,400i,500,500i,700,700i,900']
+			}
+		};
+		(function () {
+			var wf = document.createElement('script');
+			wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+			wf.type = 'text/javascript';
+			wf.async = 'true';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(wf, s);
+		})();
+	</script>
 
-		<!-- Load other scripts
-		================================================== -->
-		<script type="text/javascript">
-			var _html = document.documentElement,
+	<!-- Load other scripts
+            ================================================== -->
+	<script type="text/javascript">
+		var _html = document.documentElement,
 				isTouch = (('ontouchstart' in _html) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints));
 
-			_html.className = _html.className.replace("no-js","js");
-			_html.classList.add( isTouch ? "touch" : "no-touch");
-		</script>
-		<script type="text/javascript" src="js/device.min.js"></script>
-	</head>
+		_html.className = _html.className.replace("no-js", "js");
+		_html.classList.add(isTouch ? "touch" : "no-touch");
+	</script>
+	<script type="text/javascript" src="{{asset('frontoffice/')}}js/device.min.js"></script>
+</head>
 
 	<body class="woocommerce-page auth-page">
 		<div id="app">
 			<!-- start header -->
 			<header id="top-bar" class="top-bar top-bar--style-2">
-				<div class="top-bar__bg" style="background-color: #FFF;background-image: url(img/top_bar_bg-2.png);background-repeat: no-repeat;background-position: center bottom;"></div>
+				<div class="top-bar__bg" style="background-color: #FFF;background-image: url({{asset('frontoffice/')}}img/top_bar_bg-2.png);background-repeat: no-repeat;background-position: center bottom;"></div>
 
 				<div class="container position-relative">
 					<div class="row justify-content-between no-gutters">
 
-						<a class="top-bar__logo site-logo" href="index_4.html">
-							<img class="img-fluid" src="img/site_logo.png" alt="demo" />
+						<a class="top-bar__logo site-logo" href="{{path('app_home')}}">
+							<img class="img-fluid" src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo"/>
 						</a>
 
-						<a id="top-bar__navigation-toggler" class="top-bar__navigation-toggler top-bar__navigation-toggler--dark" href="javascript:void(0);"><span></span></a>
+						<a id="top-bar__navigation-toggler" class="top-bar__navigation-toggler top-bar__navigation-toggler--dark" href="javascript:void(0);">
+							<span></span>
+						</a>
 
 						<div id="top-bar__inner" class="top-bar__inner  text-lg-right">
 							<div>
@@ -72,43 +79,41 @@
 									<nav id="top-bar__navigation" class="top-bar__navigation navigation" role="navigation">
 										<ul>
 											<li>
-												<a href="index.html">Accueil</a>
+												<a href="{{path('app_home')}}">Accueil</a>
+											</li>
+											<li>
+												<a href="{{path('app_about')}}">A propos</a>
 											</li>
 
 											<li>
-												<a href="about.html">A propos</a>
+												<a href="{{path('app_activities')}}">Vie à la ferme</a>
+											</li>
+											<li >
+												<a href="{{path('app_shop')}}">Boutique</a>
+											</li>
+
+											<ul class="submenu">
+												<li>
+													<a href="shop_catalog.html">Categ-1</a>
+												</li>
+											</ul>
 											</li>
 
 											<li>
-												<a href="gallery_1.html">Vie à la ferme</a>
+												<a href="{{path('app_blog')}}">Nos Actualités</a>
 											</li>
 
-											<li class="has-submenu active">
-												<a href="javascript:void(0);">Boutique</a>
-
-												<ul class="submenu">
-													<li><a href="shop_catalog.html">Shop Catalog</a></li>
-													<li><a href="single_product.html">Single Product</a></li>
-													<li><a href="cart.html">Cart</a></li>
-													<li><a href="checkout.html">Checkout</a></li>
-													<li class="active"><a href="sign_in.html">Sign In/Up</a></li>
-												</ul>
-											</li>
-
-											<li>
-												<a href="blog.html">Nos Actualités </a>
-											</li>
-
-											<li>
-												<a href="contacts.html">Contacts</a>
-											</li>
-
-											<li class="li-profile">
-												<a href="#"><i class="fontello-profile"></i></a>
+											<li class="li-profile ">
+												<a href="{{path("app_sign_in")}}">
+													<i class="fontello-profile"></i>
+												</a>
 											</li>
 
 											<li class="li-cart">
-												<a href="#"><i class="fontello-shopping-bag"></i><span class="total">0</span></a>
+												<a href="{{path('app_cart')}}"
+												><i class="fontello-shopping-bag"></i
+													><span class="total">{{ app.session.get('cart') | length }}</span></a
+												>
 											</li>
 
 											<li class="li-btn">
@@ -119,8 +124,12 @@
 
 									<div class="top-bar__contacts">
 										<span>523 Sylvan Ave, 5th Floor Mountain View, CA 940 USA</span>
-										<span><a href="#">+1 (234) 56789</a>,&nbsp;&nbsp;<a href="#">+1 987 654 3210</a></span>
-										<span><a href="mailto:support@agrocompany.com">support@agrocompany.com</a></span>
+										<span>
+										<a href="#">+1 (234) 56789</a>,&nbsp;&nbsp;<a href="#">+1 987 654 3210</a>
+									</span>
+										<span>
+										<a href="mailto:support@agrocompany.com">support@agrocompany.com</a>
+									</span>
 
 										<div class="social-btns">
 											<a class="fontello-twitter" href="#"></a>
@@ -138,11 +147,11 @@
 			<!-- end header -->
 
 			<!-- start hero -->
-			<div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 40%" style="background-image: url(img/intro_img/15.jpg);color: #333;">
+			<div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 40%" style="background-image: url({{asset('frontoffice/')}}img/intro_img/15.jpg);color: #333;">
 				<div class="container">
 					<div class="row">
 						<div class="col-12 col-md-7">
-							<h1 class="__title"><span>Agro Shop</span> Sign in/up</h1>
+							<h1 class="__title"><span>Agro Shop</span> se connecter</h1>
 
 							<p>
 								The point of using is that it has a more-or-less normal distribution of letters, as opposed to using Content here content here making it look
@@ -157,7 +166,7 @@
 			<main role="main">
 				<!-- Common styles
 				================================================== -->
-				<link rel="stylesheet" href="css/style.min.css" type="text/css">
+				<link rel="stylesheet" href="{{asset('frontoffice/')}}css/style.min.css" type="text/css">
 
 				<!-- Load lazyLoad scripts
 				================================================== -->
@@ -203,21 +212,21 @@
 				<!-- start section -->
 				<section class="section">
 					<div class="decor-el decor-el--1" data-jarallax-element="-70" data-speed="0.2">
-						<img class="lazy" width="286" height="280" src="img/blank.gif" data-src="img/decor-el_1.jpg" alt="demo"/>
+						<img class="lazy" width="286" height="280" src="{{asset('frontoffice/')}}img/blank.gif" data-src="img/decor-el_1.jpg" alt="demo"/>
 					</div>
 
 					<div class="decor-el decor-el--3" data-jarallax-element="-70" data-speed="0.2">
-						<img class="lazy" width="115" height="117" src="img/blank.gif" data-src="img/decor-el_3.jpg" alt="demo"/>
+						<img class="lazy" width="115" height="117" src="{{asset('frontoffice/')}}img/blank.gif" data-src="img/decor-el_3.jpg" alt="demo"/>
 					</div>
 
 					<div class="decor-el decor-el--4" data-jarallax-element="-70" data-speed="0.2">
-						<img class="lazy" width="84" height="76" src="img/blank.gif" data-src="img/decor-el_4.jpg" alt="demo"/>
+						<img class="lazy" width="84" height="76" src="{{asset('frontoffice/')}}img/blank.gif" data-src="img/decor-el_4.jpg" alt="demo"/>
 					</div>
 
 					<div class="container">
 						<div class="row">
 							<div class="col-12 col-md-6 col-lg-5 col-xl-4">
-								<h2>Sign <span>in</span></h2>
+								<h2>Se <span>connecter</span></h2>
 
 								<!-- start form -->
 								<form class="auth-form" action="#">
@@ -239,17 +248,17 @@
 										</div>
 
 										<div class="col-auto">
-											<a class="link-forgot" href="#">Lost your password?</a>
+											<a class="link-forgot" href="#">Mot de passe oublié</a>
 										</div>
 									</div>
 
 									<div class="d-table mt-8">
 										<div class="d-table-cell align-middle">
-											<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Login in</button>
+											<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">se connecter</button>
 										</div>
 
 										<div class="d-table-cell align-middle">
-											<a class="link-to" href="#">Sign up</a>
+											<a class="link-to" href="{{path('app_inscire')}}">s'inscire</a>
 										</div>
 									</div>
 								</form>
@@ -259,39 +268,6 @@
 
 							</div>
 
-							<div class="col-12 col-md-6 col-lg-5 col-xl-4 offset-lg-1 offset-xl-2">
-								<h2>Sign <span>Up</span></h2>
-
-								<!-- start form -->
-								<form class="auth-form" action="#">
-									<div class="input-wrp">
-										<input class="textfield" type="text" placeholder="Full name *" />
-									</div>
-
-									<div class="input-wrp">
-										<input class="textfield" type="text" placeholder="Email *" />
-									</div>
-
-									<div class="input-wrp">
-										<input class="textfield" type="text" placeholder="Password" />
-									</div>
-
-									<div class="input-wrp">
-										<input class="textfield" type="text" placeholder="Confirm password" />
-									</div>
-
-									<div class="d-table mt-8">
-										<div class="d-table-cell align-middle">
-											<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Sign up</button>
-										</div>
-
-										<div class="d-table-cell align-middle">
-											<a class="link-to" href="#">Sign in</a>
-										</div>
-									</div>
-								</form>
-								<!-- end form -->
-							</div>
 						</div>
 					</div>
 				</section>
@@ -329,8 +305,8 @@
 					<div class="row">
 						<div class="col-12 col-sm-4 col-md-3 col-lg-2">
 							<div class="footer__item">
-								<a class="site-logo" href="index.html">
-									<img class="img-fluid  lazy" src="img/blank.gif" data-src="img/site_logo.png" alt="demo" />
+								<a class="site-logo" href="{{path('app_home')}}">
+									<img class="img-fluid  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo"/>
 								</a>
 							</div>
 						</div>
@@ -343,12 +319,24 @@
 											<h5 class="footer__item__title h6">Menu</h5>
 
 											<ul>
-												<li class="active"><a href="index.html">Home</a></li>
-												<li><a href="#">About</a></li>
-												<li><a href="#">Pages</a></li>
-												<li><a href="#">Gallery</a></li>
-												<li><a href="#">Blog</a></li>
-												<li><a href="#">Contacts</a></li>
+												<li class="active">
+													<a href="{{path('app_home')}}">Home</a>
+												</li>
+												<li>
+													<a href="#">About</a>
+												</li>
+												<li>
+													<a href="#">Pages</a>
+												</li>
+												<li>
+													<a href="#">Gallery</a>
+												</li>
+												<li>
+													<a href="#">Blog</a>
+												</li>
+												<li>
+													<a href="#">Contacts</a>
+												</li>
 											</ul>
 										</div>
 
@@ -392,7 +380,7 @@
 									</p>
 
 									<p>
-										+1 (234) 56789,  +1 987 654 3210 
+										+1 (234) 56789,  +1 987 654 3210
 									</p>
 
 									<p>
@@ -401,9 +389,15 @@
 								</address>
 
 								<div class="social-btns">
-									<a href="#"><i class="fontello-twitter"></i></a>
-									<a href="#"><i class="fontello-facebook"></i></a>
-									<a href="#"><i class="fontello-linkedin-squared"></i></a>
+									<a href="#">
+										<i class="fontello-twitter"></i>
+									</a>
+									<a href="#">
+										<i class="fontello-facebook"></i>
+									</a>
+									<a href="#">
+										<i class="fontello-linkedin-squared"></i>
+									</a>
 								</div>
 							</div>
 						</div>
@@ -412,7 +406,13 @@
 					<div class="row align-items-lg-end justify-content-lg-between copyright">
 						<div class="col-12 col-lg-6">
 							<div class="footer__item">
-								<span class="__copy">© 2019, AgroTheme by <a class="__dev" href="https://themeforest.net/user/artureanec" target="_blank">Artureanec</a> | <a href="#">Privacy Policy</a> | <a href="#">Sitemap</a></span>
+							<span class="__copy">© 2019, AgroTheme by
+								<a class="__dev" href="https://themeforest.net/user/artureanec" target="_blank">Artureanec</a>
+								|
+								<a href="#">Privacy Policy</a>
+								|
+								<a href="#">Sitemap</a>
+							</span>
 							</div>
 						</div>
 
@@ -421,7 +421,7 @@
 								<form class="form--horizontal no-gutters" action="#">
 									<div class="col-sm-6">
 										<div class="input-wrp">
-											<input class="textfield" name="s" type="text" placeholder="Your E-mail" />
+											<input class="textfield" name="s" type="text" placeholder="Your E-mail"/>
 										</div>
 									</div>
 
@@ -442,9 +442,9 @@
 		</div>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-		<script>window.jQuery || document.write('<script src="js/jquery-2.2.4.min.js"><\/script>')</script>
+		<script>window.jQuery || document.write('<script src="{{asset('frontoffice/')}}js/jquery-2.2.4.min.js"><\/script>')</script>
 
-		<script type="text/javascript" src="js/main.min.js"></script>
+		<script type="text/javascript" src="{{asset('frontoffice/')}}js/main.min.js"></script>
 		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 		<script>
 			(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
