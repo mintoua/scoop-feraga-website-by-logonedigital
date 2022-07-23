@@ -11,6 +11,7 @@ use App\Services\Search;
 use App\Entity\Product;
 use App\Form\SearchType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,19 +40,23 @@ class BoutiqueController extends AbstractController
      * @return Response
      */
     #[Route('/boutique/nos_produits', name: 'app_shop')]
-    public function index(Request $request)
+    public function index(Request $request, PaginatorInterface $paginator)
     {
         $search = new Search();
         $form = $this->createForm(SearchType::class,$search);
 
         $form->handleRequest($request);
+        $data = null;
 
         if ($form->isSubmitted() && $form->isValid()){
-            $products = $this->entityManager->getRepository(Product::class)->findWithSearch($search);
+            $data = $this->entityManager->getRepository(Product::class)->findWithSearch($search);
         }else{
-            $products =  $this->entityManager->getRepository(Product::class)->findAll();
+            $data =  $this->entityManager->getRepository(Product::class)->findAll();
         }
-
+        $products = $paginator->paginate(
+            $data,
+            $request->query->getInt('page', 1),8
+        );
         return $this->render('frontoffice/shop_catalog.html.twig', [
             'products' => $products,
             'form'=>$form->createView()
