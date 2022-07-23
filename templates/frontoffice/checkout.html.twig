@@ -60,25 +60,41 @@
 		<div id="app">
 			<!-- start header -->
 			<header id="top-bar" class="top-bar top-bar--style-2">
-				<div class="top-bar__bg" style="background-color: #FFF;background-image: url({{asset('frontoffice/')}}img/top_bar_bg-2.png);background-repeat: no-repeat;background-position: center bottom;"></div>
+				<div
+						class="top-bar__bg"
+						style="
+								background-color: #fff;
+								background-image: url({{asset('frontoffice/')}}img/top_bar_bg-2.png);
+								background-repeat: no-repeat;
+								background-position: center bottom;
+								"
+				></div>
 
 				<div class="container position-relative">
 					<div class="row justify-content-between no-gutters">
-
-						<a class="top-bar__logo site-logo" href="index_4.html">
-							<img class="img-fluid" src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo"/>
+						<a class="top-bar__logo site-logo" href="{{ path('app_home') }}">
+							<img class="img-fluid" src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo" />
 						</a>
 
-						<a id="top-bar__navigation-toggler" class="top-bar__navigation-toggler top-bar__navigation-toggler--dark" href="javascript:void(0);">
-							<span></span>
-						</a>
+						<a
+								id="top-bar__navigation-toggler"
+								class="top-bar__navigation-toggler top-bar__navigation-toggler--dark"
+								href="javascript:void(0);"
+						><span></span
+							></a>
 
-						<div id="top-bar__inner" class="top-bar__inner  text-lg-right">
+						<div id="top-bar__inner" class="top-bar__inner text-lg-right">
 							<div>
-								<div class="d-lg-flex flex-lg-column-reverse align-items-lg-end">
-									<nav id="top-bar__navigation" class="top-bar__navigation navigation" role="navigation">
+								<div
+										class="d-lg-flex flex-lg-column-reverse align-items-lg-end"
+								>
+									<nav
+											id="top-bar__navigation"
+											class="top-bar__navigation navigation"
+											role="navigation"
+									>
 										<ul>
-											<li>
+											<li >
 												<a href="{{path('app_home')}}">Accueil</a>
 											</li>
 											<li>
@@ -88,60 +104,55 @@
 											<li>
 												<a href="{{path('app_activities')}}">Vie à la ferme</a>
 											</li>
-											<li class="active">
-												<a href="{{path('app_shop')}}">Boutique</a>
-											</li>
+											<li class="active"><a href="{{path('app_shop')}}">Boutique</a></li>
 
 											<ul class="submenu">
-												<li>
-													<a href="shop_catalog.html">Categ-1</a>
-												</li>
-												<li>
-													<a href="single_product.html">Categ-2</a>
-												</li>
-												<li>
-													<a href="cart.html">Categ-2</a>
-												</li>
-												<li>
-													<a href="checkout.html">Checkout</a>
-												</li>
-												<li>
-													<a href="sign_in.html">Sign In/Up</a>
-												</li>
+												<li><a href="shop_catalog.html">Categ-1</a></li>
 											</ul>
 											</li>
+
 
 											<li>
 												<a href="{{path('app_blog')}}">Nos Actualités</a>
 											</li>
 
 											<li class="li-profile">
-												<a href="#">
-													<i class="fontello-profile"></i>
-												</a>
+												<a href="{{ path('app_login') }}"
+												><i class="fontello-profile"></i
+													></a>
 											</li>
 
 											<li class="li-cart">
-												<a href="#">
-													<i class="fontello-shopping-bag"></i>
-													<span class="total">0</span>
-												</a>
+												<a href="{{path('app_cart')}}"
+												><i class="fontello-shopping-bag"></i
+													><span class="total">{{ app.session.get('cart') | length }}</span></a
+												>
 											</li>
 
 											<li class="li-btn">
-												<a class="custom-btn custom-btn--small custom-btn--style-2" href="#">Get in Touch</a>
+												<a
+														class="custom-btn custom-btn--small custom-btn--style-2"
+														href="{{path('app_contact')}}"
+												>Contactez-nous</a
+												>
 											</li>
 										</ul>
 									</nav>
 
 									<div class="top-bar__contacts">
-										<span>523 Sylvan Ave, 5th Floor Mountain View, CA 940 USA</span>
-										<span>
-										<a href="#">+1 (234) 56789</a>,&nbsp;&nbsp;<a href="#">+1 987 654 3210</a>
-									</span>
-										<span>
-										<a href="mailto:support@agrocompany.com">support@agrocompany.com</a>
-									</span>
+                    <span
+					>523 Sylvan Ave, 5th Floor Mountain View, CA 940 USA</span
+					>
+										<span
+										><a href="#">+1 (234) 56789</a>,&nbsp;&nbsp;<a href="#"
+											>+1 987 654 3210</a
+											></span
+										>
+										<span
+										><a href="mailto:support@agrocompany.com"
+											>support@agrocompany.com</a
+											></span
+										>
 
 										<div class="social-btns">
 											<a class="fontello-twitter" href="#"></a>
@@ -152,7 +163,6 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</header>
@@ -255,94 +265,24 @@
 
 									<div class="spacer py-3"></div>
 
-									<form class="checkout__form" action="#">
+
+										{{ form_start(form, {action:path('app_add_order')}) }}
 										<div class="row justify-content-xl-between">
 											<div class="col-12 col-md-5 col-lg-6">
-												<div><h6>Personal Information</h6></div>
 
-												<div class="row">
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="First name *" type="text" />
-														</div>
-													</div>
+												<h6>Choississez votre adresses de Livraison</h6>
+												<a class="custom-btn custom-btn--tiny custom-btn--style-1"  href="{{ path('app_account_address_add') }}">Ship to different address?</a>
+															{% set formHtml %}
+																{{ form_widget(form.addresses) }}
+															{% endset %}
+															{{ formHtml|replace({'[br]':'<br/>'})|raw }}
 
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="Last name *" type="text" />
-														</div>
-													</div>
 
-													<div class="col-12">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="Company name (optional)" type="text" />
-														</div>
-													</div>
-
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="Phone *" type="text" />
-														</div>
-													</div>
-
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="Email address *" type="text" />
-														</div>
-													</div>
-												</div>
-
-												<div class="spacer py-6"></div>
-
-												<div><h6>Adress</h6></div>
-
-												<div class="row">
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<select class="textfield wide js-select">
-																<option>Country * 1</option>
-																<option>Country * 2</option>
-																<option>Country * 3</option>
-																<option>Country * 4</option>
-																<option>Country * 5</option>
-															</select>
-														</div>
-													</div>
-
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="Town / City *" type="text" />
-														</div>
-													</div>
-
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="State / County *" type="text" />
-														</div>
-													</div>
-
-													<div class="col-12 col-sm-6 col-md-12 col-lg-6">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="ZIP *" type="text" />
-														</div>
-													</div>
-
-													<div class="col-12">
-														<div class="input-wrp">
-															<input class="textfield" placeholder="Street address *" type="text" />
-														</div>
-													</div>
-
-													<div class="col-12">
-														<div class="input-wrp">
-															<textarea class="textfield" placeholder="Order notes (optional)"></textarea>
-														</div>
-													</div>
-												</div>
-
-												<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Ship to different address?</button>
-
-												<div class="spacer py-6 d-md-none"></div>
+												<h6>{{ form_label(form.carriers) }}</h6>
+															{% set formHtml1 %}
+																{{ form(form.carriers) }}
+															{% endset %}
+															{{ formHtml1|replace({'[br]':'<br/>'})|raw }}
 											</div>
 
 											<div class="col-12 col-md-7 col-lg-6 col-xl-5">
@@ -351,136 +291,44 @@
 												<div class="checkout__table">
 													<table>
 														<tbody>
+														{% for product in cart %}
 															<tr>
 																<td width="65%">
 																	<div class="d-table">
 																		<div class="d-table-cell align-middle">
 																			<figure class="__image">
-																				<a href="#">
-																					<img class="lazy" src="img/blank.gif" data-src="img/goods_img/5.jpg" alt="demo" />
+																				<a href="{{ path('app_single_product',{'slug':product.product.slug}) }}">
+																					<img class="lazy" src="{{ asset('uploads/images/'~product.product.product_image) }}" data-src="{{ asset('uploads/images/'~product.product.product_image) }}" alt="demo" />
 																				</a>
 																			</figure>
 																		</div>
 
 																		<div class="d-table-cell align-middle">
-																			<a href="#" class="__name">Big Banana</a>
+																			<a href="{{ path('app_single_product',{'slug':product.product.slug}) }}" class="__name">{{ product.product.product_name }}</a>
 																		</div>
 																	</div>
 																</td>
 
 																<td>
-																	<span class="__amount">x1</span>
+																	<span class="__amount">x{{ product.quantity }}</span>
 																</td>
 
 																<td width="1%">
-																	<span class="__total">2.99 $</span>
+																	<span class="__total">{{ ((product.product.product_price * product.quantity) / 100) | number_format }} FCFA</span>
 																</td>
 															</tr>
-
-															<tr>
-																<td width="65%">
-																	<div class="d-table">
-																		<div class="d-table-cell align-middle">
-																			<figure class="__image">
-																				<a href="#">
-																					<img class="lazy" src="img/blank.gif" data-src="img/goods_img/8.jpg" alt="demo" />
-																				</a>
-																			</figure>
-																		</div>
-
-																		<div class="d-table-cell align-middle">
-																			<a href="#" class="__name">Freash Peach</a>
-																		</div>
-																	</div>
-																</td>
-
-																<td>
-																	<span class="__amount">x1</span>
-																</td>
-
-																<td width="1%">
-																	<span class="__total">2.99 $</span>
-																</td>
-															</tr>
-
-															<tr>
-																<td width="65%">
-																	<div class="d-table">
-																		<div class="d-table-cell align-middle">
-																			<figure class="__image">
-																				<a href="#">
-																					<img class="lazy" src="img/blank.gif" data-src="img/goods_img/2.jpg" alt="demo" />
-																				</a>
-																			</figure>
-																		</div>
-
-																		<div class="d-table-cell align-middle">
-																			<a href="#" class="__name">Awesome Brocoli</a>
-																		</div>
-																	</div>
-																</td>
-
-																<td>
-																	<span class="__amount">x1</span>
-																</td>
-
-																<td width="1%">
-																	<span class="__total">2.99 $</span>
-																</td>
-															</tr>
+														{% endfor %}
 														</tbody>
 													</table>
 												</div>
 
-												<div class="checkout__total">
-													<table>
-														<thead>
-															<tr>
-																<td colspan="2"><h3>YOUR <span>ORDER</span></h3></td>
-															</tr>
-														</thead>
-
-														<tfoot>
-															<tr>
-																<td colspan="2" class="__note">
-																	<p class="__ttl">Direct bank transfer</p>
-
-																	<p>
-																		Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
-																	</p>
-																</td>
-															</tr>
-
-															<tr>
-																<td colspan="2">
-																	<p>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
-
-																	<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Place Order</button>
-																</td>
-															</tr>
-														</tfoot>
-
-														<tbody>
-															<tr>
-																<td>Subtotal:</td>
-																<td>$96.00</td>
-															</tr>
-
-															<tr>
-																<td>Shipping</td>
-																<td>Flat rate: $3.00 <br>Shipping to Ukraine.</td>
-															</tr>
-
-															<tr>
-																<td>Total</td>
-																<td>$99.00</td>
-															</tr>
-														</tbody>
-													</table>
+												<div class="checkout__">
+													{{ form_widget(form.submit) }}
 												</div>
 											</div>
 										</div>
-									</form>
+										{{ form_end(form) }}
+
 								</div>
 								<!-- end checkout -->
 

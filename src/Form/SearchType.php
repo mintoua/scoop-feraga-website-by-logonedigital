@@ -31,6 +31,9 @@ class SearchType extends AbstractType
                 'class'=>ProductCategory::class,
                 'multiple'=>true,
                 'expanded'=>true,
+                'attr'=>[
+                    'class'=>'widget widget--additional'
+                ]
             ])
             ->add('submit', SubmitType::class,[
                 'label'=>'Filtrer',

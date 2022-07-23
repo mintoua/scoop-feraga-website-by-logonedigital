@@ -123,12 +123,6 @@
 
                       <ul class="submenu">
                         <li><a href="shop_catalog.html">Categ-1</a></li>
-                        <li>
-                          <a href="single_product.html">Categ-2</a>
-                        </li>
-                        <li><a href="cart.html">Categ-2</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="sign_in.html">Sign In/Up</a></li>
                       </ul>
                     </li>
 
@@ -138,7 +132,7 @@
                       </li>
 
                       <li class="li-profile">
-                        <a href="sign_in.html"
+                        <a href="{{ path('app_login') }}"
                           ><i class="fontello-profile"></i
                         ></a>
                       </li>
@@ -146,14 +140,14 @@
                       <li class="li-cart">
                         <a href="{{path('app_cart')}}"
                           ><i class="fontello-shopping-bag"></i
-                          ><span class="total">0</span></a
+                          ><span class="total">{{ app.session.get('cart') | length }}</span></a
                         >
                       </li>
 
                       <li class="li-btn">
                         <a
                           class="custom-btn custom-btn--small custom-btn--style-2"
-                          href="{{path('app_contacts')}}"
+                          href="{{path('app_contact')}}"
                           >Contactez-nous</a
                         >
                       </li>
@@ -203,7 +197,7 @@
         <div class="container">
           <div class="row">
             <div class="col-12 col-md-7">
-              <h1 class="__title"><span>Agro Shop</span> Catalog</h1>
+              <h1 class="__title"><span>SCOOPS FERAGA</span> Catalogue Produits</h1>
 
               <p>
                 The point of using is that it has a more-or-less normal
@@ -455,7 +449,7 @@
 
                               <a
                                 class="custom-btn custom-btn--medium custom-btn--style-1"
-                                href="#"
+                                href="{{ path('app_add_to_cart',{'slug': product.slug}) }}"
                                 ><i class="fontello-shopping-bag"></i>Ajouter
                                 panier</a
                               >
@@ -593,7 +587,7 @@
 										<a href="{{ path('app_blog') }}">Blog</a>
 									</li>
 									<li>
-										<a href="{{ path('app_contacts') }}">Contacts</a>
+										<a href="{{ path('app_contact') }}">Contacts</a>
 									</li>
 								</ul>
 							</div>

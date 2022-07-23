@@ -1,54 +1,143 @@
-{% extends 'base_frontoffice.html.twig' %} {% block title %}Connexion{% endblock
-%} {% block body %}
-<form method="post">
-  {% if error %}
-  <div class="alert alert-danger">
-    {{ error.messageKey|trans(error.messageData, 'security') }}
+<div class="row">
+  <h2>Votre <span>Compte</span></h2>
+
+  <!-- start form -->
+  <div class="row">
+    <div class="col-12 col-sm-6 col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">
+            With supporting text below as a natural lead-in to additional
+            content.
+          </p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">
+            With supporting text below as a natural lead-in to additional
+            content.
+          </p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">
+            With supporting text below as a natural lead-in to additional
+            content.
+          </p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
   </div>
-  {% endif %} {% if app.user %}
-  <div class="mb-3">
-    You are logged in as {{ app.user.userIdentifier }},
-    <a href="{{ path('app_logout') }}">Logout</a>
-  </div>
-  {% endif %}
+  <!-- end form -->
 
-  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-  <label for="inputEmail">Email</label>
-  <input
-    type="email"
-    value="{{ last_username }}"
-    name="email"
-    id="inputEmail"
-    class="form-control"
-    autocomplete="email"
-    required
-    autofocus
-  />
-  <label for="inputPassword">Password</label>
-  <input
-    type="password"
-    name="password"
-    id="inputPassword"
-    class="form-control"
-    autocomplete="current-password"
-    required
-  />
+  <div class="spacer py-6 d-md-none"></div>
+</div>
+                            {{ form_start(form) }}
+                            <div class="input-wrp">
+                                {{
+                                form_row(form.name, {
+                                    attr: {
+                                        class: "textfield",
+                                    }
+                                })
+                                }}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-wrp">
+                                        {{
+                                        form_row(form.lastname, {
+                                            attr: {
+                                                class: "textfield",
+                                            }
+                                        })
+                                        }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-wrp">
+                                        {{
+                                        form_row(form.firstname, {
+                                            attr: {
+                                                class: "textfield",
+                                            }
+                                        })
+                                        }}
+                                    </div>
+                                </div>
+                            </div>
 
-  <input
-    type="hidden"
-    name="_csrf_token"
-    value="{{ csrf_token('authenticate') }}"
-  />
+                            <div class="input-wrp">
+                                {{
+                                form_row(form.company, {
+                                    attr: {
+                                        class: "textfield",
+                                    }
+                                })
+                                }}
+                            </div>
+                            <div class="input-wrp">
+                                {{
+                                form_row(form.address, {
+                                    attr: {
+                                        class: "textfield",
+                                    }
+                                })
+                                }}
+                            </div>
+                            <div class="input-wrp">
+                                {{
+                                form_row(form.postal, {
+                                    attr: {
+                                        class: "textfield",
+                                    }
+                                })
+                                }}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-wrp">
+                                        {{
+                                        form_row(form.country, {
+                                            attr: {
+                                                class: "textfield wide js-select",
+                                            }
+                                        })
+                                        }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-wrp">
+                                        {{
+                                        form_row(form.city, {
+                                            attr: {
+                                                class: "textfield",
+                                            }
+                                        })
+                                        }}
+                                    </div>
+                                </div>
+                            </div>
 
-  {# Uncomment this section and add a remember_me option below your firewall to
-  activate remember me functionality. See
-  https://symfony.com/doc/current/security/remember_me.html
-
-  <div class="checkbox mb-3">
-    <label> <input type="checkbox" name="_remember_me" /> Remember me </label>
-  </div>
-  #}
-
-  <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
-</form>
-{% endblock %}
+                            <div class="input-wrp">
+                                {{
+                                form_row(form.phone, {
+                                    attr: {
+                                        class: "textfield",
+                                    }
+                                })
+                                }}
+                            </div>
+                            {{ form_end(form) }}

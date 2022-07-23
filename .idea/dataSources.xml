@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Scoop Feraga" uuid="12d3a7c3-96b7-4fff-b9f9-36a5572e84e2">
+    <data-source source="LOCAL" name="Scoop Feraga" uuid="9160970c-0ec8-437b-946f-cf3dc46fc673">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://127.0.0.1:3306/scoop_feraga_database</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/scoop_feraga_database</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
