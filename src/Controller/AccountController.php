@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\AddressLivraison;
+use App\Entity\Order;
 use App\Form\AddressLivraisonType;
 use App\Services\Cart;
 use Doctrine\ORM\EntityManagerInterface;
@@ -96,7 +97,24 @@ class AccountController extends AbstractController
     #[Route('/mon-compte/mes-commandes', name: 'app_account_orders')]
     public function userOrder()
     {
-        return $this->render('account/account_orders.html.twig');
+        $orders = $this->entityManager->getRepository(Order::class)->findSuccessOrders($this->getUser());
+
+        return $this->render('account/orders.html.twig',[
+            'orders'=>$orders
+        ]);
+    }
+
+    #[Route('/mon-compte/mes-commandes/{reference}', name: 'app_account_orders_show')]
+    public function userDetailedOrder($reference)
+    {
+        $order = $this->entityManager->getRepository(Order::class)->findOneByReference($reference);
+
+        if(!$order || $order->getUser() != $this->getUser()){
+            return $this->redirectToRoute('app_account_orders');
+        }
+        return $this->render('account/orders_show.html.twig',[
+            'order'=>$order
+        ]);
     }
 
 }
