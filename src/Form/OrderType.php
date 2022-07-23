@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\AddressLivraison;
+use App\Entity\Carrier;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,6 +23,20 @@ class OrderType extends AbstractType
                 'choices'=>$user->getAddressLivraisons(),
                 'multiple'=>false,
                 'expanded'=>true,
+            ])
+            ->add('carriers', EntityType::class,[
+                'label'=>'Choississez un transporteur',
+                'required'=>true,
+                'class'=>Carrier::class,
+                'multiple'=>false,
+                'expanded'=>true,
+            ])
+            ->add('submit',SubmitType::class,[
+                'label'=>'Valider',
+                'attr'=>[
+                    'class'=>'custom-btn custom-btn--medium custom-btn--style-1',
+                    'role'=>'button'
+                ]
             ])
         ;
     }

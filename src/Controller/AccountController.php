@@ -11,20 +11,30 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AccountAddressController extends AbstractController
+
+class AccountController extends AbstractController
 {
     private $entityManager;
 
+    /**
+     * @param EntityManagerInterface $entityManager
+     */
     public function __construct(EntityManagerInterface $entityManager){
         $this->entityManager = $entityManager;
     }
-    #[Route('/compte/address', name: 'app_account_address')]
+
+
+    //
+    //ALL ABOUT THE USER ADDRESSES
+    //
+
+    #[Route('/mon-compte/address', name: 'app_account_address')]
     public function index(): Response
     {
-        return $this->render('account_address/index.html.twig');
+        return $this->render('account/index.html.twig');
     }
 
-    #[Route('/compte/ajouter-une-adresse', name: 'app_account_address_add')]
+    #[Route('/mon-compte/ajouter-une-adresse', name: 'app_account_address_add')]
     public function addAddress(Request $request, Cart $cart)
     {
         $address = new AddressLivraison();
@@ -40,12 +50,12 @@ class AccountAddressController extends AbstractController
             }
             return $this->redirectToRoute('app_account_address');
         }
-        return $this->render('account_address/address_form.html.twig',[
+        return $this->render('account/address_form.html.twig',[
             'form'=>$form->createView()
         ]);
     }
 
-    #[Route('/compte/modifier-une-adresse/{id}', name: 'app_account_address_edit')]
+    #[Route('/mon-compte/modifier-une-adresse/{id}', name: 'app_account_address_edit')]
     public function editAddress(Request $request, $id)
     {
         $address = $this->entityManager->getRepository(AddressLivraison::class)->findOneById($id);
@@ -62,12 +72,12 @@ class AccountAddressController extends AbstractController
 
             return $this->redirectToRoute('app_account_address');
         }
-        return $this->render('account_address/address_form.html.twig',[
+        return $this->render('account/address_form.html.twig',[
             'form'=>$form->createView()
         ]);
     }
 
-    #[Route('/compte/supprimer-une-adresse/{id}', name: 'app_account_address_delete')]
+    #[Route('/mon-compte/supprimer-une-adresse/{id}', name: 'app_account_address_delete')]
     public function deleteAddress($id)
     {
         $address = $this->entityManager->getRepository(AddressLivraison::class)->findOneById($id);
@@ -77,6 +87,16 @@ class AccountAddressController extends AbstractController
             $this->entityManager->flush();
         }
             return $this->redirectToRoute('app_account_address');
+    }
+
+    //
+    // All About The User Order
+    //
+
+    #[Route('/mon-compte/mes-commandes', name: 'app_account_orders')]
+    public function userOrder()
+    {
+        return $this->render('account/account_orders.html.twig');
     }
 
 }

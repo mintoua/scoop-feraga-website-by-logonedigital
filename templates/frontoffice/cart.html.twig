@@ -271,17 +271,18 @@ w.lazyLoadOptions = o;
 													</td>
 
 													<td>
-														<span class="__price"> {{ (product.product.product_price / 100)  }} FCFA</span>
+														<span class="__price"> {{ (product.product.product_price / 100) | number_format }} FCFA</span>
 													</td>
 
 													<td>
 														<div class="quantity-counter js-quantity-counter">
 															<a href="{{ path('app_decrease_quantity_cart',{'slug': product.product.slug}) }}" class="__btn __btn--minus"></a>
 															<input class="__q-input" type="text" value="{{ product.quantity }}"/>
-															<a href="{{ path('app_add_to_cart',{'slug': product.product.slug}) }}" class="__btn __btn--plus"></a>
+															<a href="{{ path('app_encrease_quantity_cart',{'slug': product.product.slug}) }}" class="__btn __btn--plus"></a>
 														</div>
 													</td>
-														<span class="__total">{{ ((product.product.product_price * product.quantity) / 100)  }} FCFA</span>
+														<td>
+														<span class="__total">{{ ((product.product.product_price * product.quantity) / 100) | number_format }} FCFA</span>
 													</td>
 
 													<td>
@@ -338,7 +339,7 @@ w.lazyLoadOptions = o;
 													<tbody>
 														<tr>
 															<td>Total:</td>
-															<td>{{ (total / 100)  }} FCFA</td>
+															<td>{{ (total / 100) | number_format }} FCFA</td>
 														</tr>
 
 														<tr>
@@ -349,7 +350,7 @@ w.lazyLoadOptions = o;
 
 														<tr>
 															<td>Total</td>
-															<td>{{ (total / 100)  }} FCFA</td>
+															<td>{{ (total / 100) | number_format }} FCFA</td>
 														</tr>
 													</tbody>
 												</table>
