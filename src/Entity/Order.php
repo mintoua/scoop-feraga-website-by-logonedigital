@@ -36,7 +36,10 @@ class Order
     private Collection $orderDetails;
 
     #[ORM\Column]
-    private ?bool $isPaid = null;
+    private ?int $state = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $reference = null;
 
     public function __construct()
     {
@@ -55,7 +58,7 @@ class Order
             $total = $total + ($item->getPrice() * $item->getQuantity());
 
         }
-     //   dd($total);
+
         return $total;
     }
     public function getUser(): ?User
@@ -148,14 +151,26 @@ class Order
         return $this;
     }
 
-    public function isIsPaid(): ?bool
+    public function getState(): ?int
     {
-        return $this->isPaid;
+        return $this->state;
     }
 
-    public function setIsPaid(bool $isPaid): self
+    public function setState(int $state): self
     {
-        $this->isPaid = $isPaid;
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(string $reference): self
+    {
+        $this->reference = $reference;
 
         return $this;
     }

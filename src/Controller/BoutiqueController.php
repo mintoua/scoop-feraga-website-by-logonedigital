@@ -183,12 +183,14 @@ class BoutiqueController extends AbstractController
 
             //add order
             $order = new Order();
+            $order->setReference($date->format('dmY').'-'.uniqid());
             $order->setUser($this->getUser());
             $order->setCreatedAt($date);
             $order->setCarrierName($carriers->getName());
             $order->setCarrierPrice($carriers->getPrice());
             $order->setDelivery($delivery_content);
-            $order->setIsPaid(0);
+            $order->setState(0); // state = 0 non validé encore
+
 
             $this->entityManager->persist($order);
 
@@ -203,7 +205,7 @@ class BoutiqueController extends AbstractController
                 $this->entityManager->persist($orderDetails);
             }
 
-          //  $this->entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->render('frontoffice/final_checkout.html.twig',[
                 'cart'=>$this->cart->getFullCart(),
