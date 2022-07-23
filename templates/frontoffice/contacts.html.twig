@@ -200,6 +200,18 @@ block content %}
                 </button>
                 {{ form_end(form) }}
               </div>
+              <script src="https://www.google.com/recaptcha/api.js?render=6Lc96AYfAAAAAAJsKTsNdyF4yBBWVnt5rWll8Dbe"></script>
+              <script>
+                grecaptcha.ready(function () {
+                  grecaptcha
+                    .execute("6Lc96AYfAAAAAAJsKTsNdyF4yBBWVnt5rWll8Dbe", {
+                      action: "homepage",
+                    })
+                    .then(function (token) {
+                      document.getElementById("contact_captcha").value = token;
+                    });
+                });
+              </script>
             </div>
           </div>
         </div>

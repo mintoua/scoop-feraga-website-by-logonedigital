@@ -21,7 +21,7 @@ class Order
     private ?User $user = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?\DateTime $createdAt = null;
 
     #[ORM\Column(length: 255)]
     private ?string $carrierName = null;
@@ -35,6 +35,9 @@ class Order
     #[ORM\OneToMany(mappedBy: 'myOrder', targetEntity: OrderDetails::class)]
     private Collection $orderDetails;
 
+    #[ORM\Column]
+    private ?bool $isPaid = null;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -45,6 +48,16 @@ class Order
         return $this->id;
     }
 
+    public function getTotal(): ?float{
+        $total = null;
+
+        foreach ($this->getOrderDetails()->getValues() as $item) {
+            $total = $total + ($item->getPrice() * $item->getQuantity());
+
+        }
+     //   dd($total);
+        return $total;
+    }
     public function getUser(): ?User
     {
         return $this->user;
@@ -57,12 +70,12 @@ class Order
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -131,6 +144,18 @@ class Order
                 $orderDetail->setMyOrder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsPaid(): ?bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setIsPaid(bool $isPaid): self
+    {
+        $this->isPaid = $isPaid;
 
         return $this;
     }
