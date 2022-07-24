@@ -1,46 +1,100 @@
 <div class="row">
-  <h2>Votre <span>Compte</span></h2>
+							<div class="col-12 col-md-6 col-lg-5 col-xl-4">
+								<h2>s'   <span>inscrire</span></h2>
 
-  <!-- start form -->
-  <div class="row">
-    <div class="col-12 col-sm-6 col-lg-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">
-            With supporting text below as a natural lead-in to additional
-            content.
-          </p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-6 col-lg-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">
-            With supporting text below as a natural lead-in to additional
-            content.
-          </p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-6 col-lg-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">
-            With supporting text below as a natural lead-in to additional
-            content.
-          </p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- end form -->
+								<!-- start form -->
+                                {% form_theme form 'bootstrap_4_layout.html.twig' %}
+                                {{form_start(form)}}
+                                <div class="auth-form">
+                                <div class="input-wrp">
+									{{
+                                        form_row(form.lastname, {
+                                        label: false,
+                                        attr: {
+                                            placeholder: "Nom",
+                                            class: "textfield form-control",
+                                            
+                                        }
+                                        })
+                                    }}
+                                </div>
+                                <div class="input-wrp">
+									{{
+                                        form_row(form.firstname, {
+                                        label: false,
+                                        attr: {
+                                            placeholder: "Prenom",
+                                            class: "textfield form-control",
+                                            
+                                        }
+                                        })
+                                    }}
+                                </div>
+                                <div class="input-wrp">
+									{{
+                                        form_row(form.email, {
+                                        label: false,
+                                        attr: {
+                                            placeholder: "Email",
+                                            class: "textfield form-control",
+                                            
+                                        }
+                                        })
+                                    }}
+                                </div>
+                                <div class="input-wrp">
+									{{
+                                        form_row(form.password, {
+                                        label: false,
+                                        attr: {
+                                            placeholder: "Mot de passe",
+                                            class: "textfield form-control",
+                                            
+                                        }
+                                    })
+                                    }}
+                                </div>
+                                <div class="input-wrp">
+									{{
+                                        form_row(form.passwordConfirm, {
+                                        label: false,
+                                        attr: {
+                                            placeholder: "Confirmez le mot de passe",
+                                            class: "textfield form-control",
+                                            
+                                        }
+                                        })
+                                    }}
+                                </div>
+								<div class="row align-items-center justify-content-between">
+									<div class="col-auto">
+											{{
+												form_row(form.rgpd, {
+												label: "J'accepte les conditions générales d'utilisation",
+												attr: {
+													class: "checkfield align-bottom",
+												}
+												})
+											}}
+									</div>
+								</div>
 
-  <div class="spacer py-6 d-md-none"></div>
-</div>
+                                <div class="d-table mt-8">
+										<div class="d-table-cell align-middle">
+											<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button" value="submit">S'inscire</button>
+										</div>
+
+										<div class="d-table-cell align-middle">
+											<a class="link-to" href="{{path('app_register')}}">Se connecter</a>
+										</div>
+								</div>
+                                </div>
+                                {{form_end(form)}}
+								<!-- end form -->
+
+								<div class="spacer py-6 d-md-none"></div>
+
+							</div>
+
+							
+						</div>

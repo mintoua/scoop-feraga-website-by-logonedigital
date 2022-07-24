@@ -4,17 +4,16 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\EmailValidator;
-use Symfony\Component\Validator\Constraints\EqualTo;
 use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class UserType extends AbstractType
 {
@@ -37,15 +36,14 @@ class UserType extends AbstractType
                     new NotNull(),
                 ]
             ])
-            ->add('password', PasswordType::class,[
-                "constraints" => [
-                    new NotNull(),
-                ]
-            ])
-            ->add('passwordConfirm', PasswordType::class, [
-                'mapped' => false,
-                "constraints" =>[
-                    new NotNull(),
+            ->add("password", RepeatedType::class, [
+                'type'=>PasswordType::class,
+                'invalid_message'=> 'le mot de passe et la confirmation doivent être identique.',
+                'first_options'=>[
+                    
+                    ],
+                'second_options'=>[
+                    
                 ]
             ])
             
