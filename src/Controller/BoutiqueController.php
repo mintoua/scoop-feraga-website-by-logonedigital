@@ -70,11 +70,6 @@ class BoutiqueController extends AbstractController
         $product =  $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
 
         if(!$product){
-            $product= $paginator->paginate(
-                $product,
-                $request->query->getInt('page',1),
-                4
-            );
             return $this->redirectToRoute('app_shop', [
                 'product' => $product,
             ]);
@@ -85,15 +80,10 @@ class BoutiqueController extends AbstractController
     }
 
 
-
-
-
-
-         /**
+    /**
      * @Route ("/searchclasse",name="searchclasse")
      * @param Request $request
      */
-
     public function searchclasse(Request $request)
     {
         
