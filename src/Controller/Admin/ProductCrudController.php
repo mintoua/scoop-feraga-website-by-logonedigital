@@ -29,8 +29,8 @@ class ProductCrudController extends AbstractCrudController
             MoneyField::new('product_price')->setCurrency('XAF'),
             IntegerField::new('product_quantity'),
             AssociationField::new('category'),
-            ImageField::new('product_image')->setBasePath(' uploads/')
-                ->setUploadDir('public/uploads/images')
+            ImageField::new('product_image')->setBasePath('uploads\images')
+                ->setUploadDir('public\uploads\images')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')->setRequired(false),
             TextEditorField::new('product_description'),
 
