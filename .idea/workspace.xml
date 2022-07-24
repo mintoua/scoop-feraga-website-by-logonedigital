@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="687bf48b-627b-40ab-b7fb-071161127bf9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/BlogController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BlogController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/frontoffice/blog_details.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/frontoffice/blog_details.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,6 +167,8 @@
       <workItem from="1658567900649" duration="1934000" />
       <workItem from="1658569950982" duration="17415000" />
       <workItem from="1658589967626" duration="2390000" />
+      <workItem from="1658657881146" duration="907000" />
+      <workItem from="1658695076962" duration="201000" />
     </task>
     <servers />
   </component>
