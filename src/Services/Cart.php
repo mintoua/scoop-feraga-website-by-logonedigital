@@ -54,7 +54,20 @@ class Cart
 
         $this->session->set('cart', $cart);
     }
+    public function getTotal() :float {
+        $total = 0;
 
+        $cartWithData = $this->getFullCart();
+        foreach($cartWithData as $item){
+
+            $price = $item['product']->getProductPrice();
+            $totalItem = $price * $item['quantity'];
+            $total += $totalItem;
+
+        }
+
+        return $total;
+    }
 
     public function get(){
         return $this->session->get('cart');
