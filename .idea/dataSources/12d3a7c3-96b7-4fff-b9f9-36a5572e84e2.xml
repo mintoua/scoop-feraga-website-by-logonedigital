@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="Scoop Feraga">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.40">
+    <root id="1">
+      <DefaultCasing>lower/lower</DefaultCasing>
+      <DefaultEngine>MyISAM</DefaultEngine>
+      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
+      <ServerVersion>5.7.36</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="hardware">
+      <CollationName>latin1_swedish_ci</CollationName>
+    </schema>
+    <schema id="3" parent="1" name="information_schema">
+      <CollationName>utf8_general_ci</CollationName>
+    </schema>
+    <schema id="4" parent="1" name="myname">
+      <CollationName>latin1_swedish_ci</CollationName>
+    </schema>
+    <schema id="5" parent="1" name="mysql">
+      <CollationName>latin1_swedish_ci</CollationName>
+    </schema>
+    <schema id="6" parent="1" name="performance_schema">
+      <CollationName>utf8_general_ci</CollationName>
+    </schema>
+    <schema id="7" parent="1" name="pi_sleam">
+      <CollationName>latin1_swedish_ci</CollationName>
+    </schema>
+    <schema id="8" parent="1" name="scoop_feraga_database">
+      <Current>1</Current>
+      <CollationName>latin1_swedish_ci</CollationName>
+    </schema>
+    <schema id="9" parent="1" name="sys">
+      <CollationName>utf8_general_ci</CollationName>
+    </schema>
+  </database-model>
+</dataSource>
