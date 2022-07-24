@@ -8,6 +8,7 @@ use App\Services\Search;
 use App\Entity\Product;
 use App\Form\SearchType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,7 +37,7 @@ class BoutiqueController extends AbstractController
      * @return Response
      */
     #[Route('/boutique/nos_produits', name: 'app_shop')]
-    public function index(Request $request)
+    public function index(Request $request, PaginatorInterface $paginator)
     {
         $search = new Search();
         $form = $this->createForm(SearchType::class,$search);
@@ -47,6 +48,11 @@ class BoutiqueController extends AbstractController
             $products = $this->entityManager->getRepository(Product::class)->findWithSearch($search);
         }else{
             $products =  $this->entityManager->getRepository(Product::class)->findAll();
+            $products= $paginator->paginate(
+                $products,
+                $request->query->getInt('page',1),
+                4
+            );
         }
 
         return $this->render('frontoffice/shop_catalog.html.twig', [
@@ -56,17 +62,113 @@ class BoutiqueController extends AbstractController
     }
 
     #[Route('/boutique/nos_produits/{slug}', name: 'app_single_product')]
-    public function singleProduct($slug)
+    public function singleProduct($slug, PaginatorInterface $paginator,Request $request)
     {
         $product =  $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
 
         if(!$product){
-            return $this->redirectToRoute('app_shop');
+            $product= $paginator->paginate(
+                $product,
+                $request->query->getInt('page',1),
+                4
+            );
+            return $this->redirectToRoute('app_shop', [
+                'products' => $product,
+            ]);
         }
-        return $this->render('frontoffice/single_product.html.twig', [
-            'product' => $product,
+        return $this->render('frontoffice/shop_catalog.html.twig', [
+            'products' => $product,
         ]);
     }
+
+
+
+
+
+
+         /**
+     * @Route ("/searchclasse",name="searchclasse")
+     * @param Request $request
+     */
+
+    public function searchclasse(Request $request)
+    {
+        
+        $em=$this->getDoctrine()->getManager();
+
+
+    $conn = mysqli_connect("localhost", "root", "", "scoop_feraga_database");
+
+        
+$sql = "SELECT * FROM product where category_id =".$request->request->get('name')."";
+        
+$result = mysqli_query($conn, $sql);
+
+if(mysqli_num_rows($result)>0){
+while ($row=mysqli_fetch_assoc($result)){
+    print_r(' 
+    
+
+       <div class="col-12 col-sm-6 col-lg-4 prod '.$row['id'].'" id="'.$row['id'].'">
+                          <div class="__item">
+                            <figure class="__image">
+                              <img
+                                class="lazy"
+                                width="188"
+                                src="{{ asset(\'uploads/images/\'~product.product_image) }}"
+                                data-src="{{ asset(\'uploads/images/\'~product.product_image) }} "
+                                alt="demo"
+                              />
+                            </figure>
+
+                            <div class="__content">
+                              <h4 class="h6 __title">
+                                <a href="{{ path(\'app_single_product\',{\'slug\':product.slug}) }}">{{ product.product_name }}</a>
+                              </h4>
+
+                              <div class="__category">
+                                <a href="#">'.$row['id'].'</a>
+                              </div>
+                              <div class="id_category">
+                                <a href="#">{{ product.id}} </a>
+                              </div>
+
+                              <div class="product-price">
+                                <span
+                                  class="product-price__item product-price__item--new"
+                                  > {{ (product.product_price / 100)  }} FCFA</span
+                                >
+                              </div>
+
+                              <a
+                                class="custom-btn custom-btn--medium custom-btn--style-1"
+                                href="{{ path(\'app_add_to_cart\',{\'slug\': product.slug}) }}"
+                                ><i class="fontello-shopping-bag"></i>Ajouter
+                                panier</a
+                              >
+                              <a
+                                style="display: block"
+                                href="{{ path(\'app_single_product\',{\'slug\':product.slug}) }}"
+                                >voir plus</a
+                              >
+                            </div>
+
+                            <span class="product-label product-label--sale"
+                              >Sale</span
+                            >
+                          </div>
+                        </div>
+    
+');
+
+}
+}
+else{
+    echo "<tr><td> 0 result found</td></tr>";
+}
+return new Response('success');
+    }
+
 
     /*
      * ############################

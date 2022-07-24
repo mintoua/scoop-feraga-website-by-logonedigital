@@ -215,6 +215,7 @@
         <!-- Common styles
 				================================================== -->
         <link rel="stylesheet" href="{{asset('frontoffice/')}}css/style.min.css" type="text/css" />
+         <link rel="stylesheet" href="{{asset('frontoffice/')}}css/style1.css" type="text/css" />
 
         <!-- Load lazyLoad scripts
 				================================================== -->
@@ -419,7 +420,7 @@
                       <div class="row">
                         <!-- start item -->
                           {% for product in products %}
-                        <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="col-12 col-sm-6 col-lg-4 prod {{ product.id}}" id="{{ product.id}}">
                           <div class="__item">
                             <figure class="__image">
                               <img
@@ -438,6 +439,9 @@
 
                               <div class="__category">
                                 <a href="#">{{ product.category }} </a>
+                              </div>
+                              <div class="id_category">
+                                <a href="#">{{ product.id}} </a>
                               </div>
 
                               <div class="product-price">
@@ -466,6 +470,7 @@
                           </div>
                         </div>
                           {% endfor %}
+                       
                         <!-- end item -->
                       </div>
                     </div>
@@ -476,25 +481,9 @@
 
                   <!-- start pagination -->
                   <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                      <li class="page-item">
-                        <a class="page-link" href="#">1</a>
-                      </li>
-                      <li class="page-item active">
-                        <a class="page-link" href="#">2</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">4</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#"
-                          ><i class="fontello-angle-right"></i
-                        ></a>
-                      </li>
-                    </ul>
+                  <div class="page-des">
+{{ knp_pagination_render(products)}}
+</div>
                   </nav>
                   <!-- end pagination -->
                 </div>
@@ -697,6 +686,7 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script type="text/javascript" src="{{asset('frontoffice/')}}js/app.js"></script>
     <script>
       window.jQuery ||
         document.write('<script src="js/jquery-2.2.4.min.js"><\/script>');
