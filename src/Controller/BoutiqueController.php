@@ -9,6 +9,8 @@ use App\Form\OrderType;
 use App\Services\Cart;
 use App\Services\Search;
 use App\Entity\Product;
+use App\Repository\ProductRepository;
+
 use App\Form\SearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,8 +41,12 @@ class BoutiqueController extends AbstractController
      * @return Response
      */
     #[Route('/boutique/nos_produits', name: 'app_shop')]
-    public function index(Request $request)
+    public function index(Request $request ,ProductRepository $pr)
     {
+        
+
+        $products =  $this->entityManager->getRepository(Product::class)->findAll();
+
         $search = new Search();
         $form = $this->createForm(SearchType::class,$search);
 
@@ -48,9 +54,10 @@ class BoutiqueController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
             $products = $this->entityManager->getRepository(Product::class)->findWithSearch($search);
-        }else{
-            $products =  $this->entityManager->getRepository(Product::class)->findAll();
         }
+
+        $requestString = $request->get('searchValue');
+        $products = $pr->productSearch($requestString) ; 
 
         return $this->render('frontoffice/shop_catalog.html.twig', [
             'products' => $products,
