@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GuideViewController">
+   <children>
+      <TableView fx:id="tableguide" layoutX="356.0" layoutY="58.0" prefHeight="525.0" prefWidth="809.0">
+        <columns>
+          <TableColumn fx:id="colname" prefWidth="130.0" text="Name" />
+          <TableColumn fx:id="colemail" prefWidth="156.0" text="Email" />
+            <TableColumn fx:id="colnbrexperience" prefWidth="126.0" text="Nbr d'experience" />
+            <TableColumn fx:id="coldescription" prefWidth="396.0" text="Description" />
+        </columns>
+      </TableView>
+      <Label layoutX="35.0" layoutY="149.0" prefHeight="20.0" prefWidth="53.0" text="Name" />
+      <TextField fx:id="tfname" layoutX="160.0" layoutY="149.0" />
+      <TextField fx:id="tfemail" layoutX="160.0" layoutY="201.0" />
+      <Label layoutX="35.0" layoutY="201.0" prefHeight="20.0" prefWidth="53.0" text="email" />
+      <TextField fx:id="tfnbrexperience" layoutX="160.0" layoutY="258.0" />
+      <Label layoutX="35.0" layoutY="258.0" prefHeight="20.0" prefWidth="86.0" text="nbr experience" />
+      <TextField fx:id="tfdescription" layoutX="160.0" layoutY="317.0" />
+      <Label layoutX="35.0" layoutY="317.0" prefHeight="20.0" prefWidth="78.0" text="description" />
+      <Button fx:id="create" layoutX="59.0" layoutY="424.0" mnemonicParsing="false" onAction="#create_guide" text="Add" />
+      <Button fx:id="update" layoutX="160.0" layoutY="424.0" mnemonicParsing="false" onAction="#update_guide" text="Update" />
+      <Button fx:id="delete" layoutX="262.0" layoutY="424.0" mnemonicParsing="false" onAction="#delete_guide" text="Delete" />
+      <Label layoutX="35.0" layoutY="100.0" prefHeight="20.0" prefWidth="53.0" text="ID" />
+      <TextField fx:id="tfid" editable="false" layoutX="160.0" layoutY="98.0" />
+   </children>
+</AnchorPane>

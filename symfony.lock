@@ -50,6 +50,12 @@
             "ref": "b131e6cbfe1b898a508987851963fff485986285"
         }
     },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.8.0"
+    },
+    "mercuryseries/flashy-bundle": {
+        "version": "v5.1.0"
+    },
     "nyholm/psr7": {
         "version": "1.5",
         "recipe": {
@@ -74,6 +80,18 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "stof/doctrine-extensions-bundle": {
+        "version": "1.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.2",
+            "ref": "e805aba9eff5372e2d149a9ff56566769e22819d"
+        },
+        "files": [
+            "./config/packages/stof_doctrine_extensions.yaml"
+        ]
+    },
     "symfony/console": {
         "version": "5.4",
         "recipe": {
@@ -84,6 +102,18 @@
         },
         "files": [
             "./bin/console"
+        ]
+    },
+    "symfony/debug-bundle": {
+        "version": "5.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.3",
+            "ref": "5aa8aa48234c8eb6dbdd7b3cd5d791485d2cec4b"
+        },
+        "files": [
+            "./config/packages/debug.yaml"
         ]
     },
     "symfony/flex": {
@@ -188,6 +218,28 @@
         "files": [
             "./config/packages/validator.yaml"
         ]
+    },
+    "symfony/web-profiler-bundle": {
+        "version": "5.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.3",
+            "ref": "24bbc3d84ef2f427f82104f766014e799eefcc3e"
+        },
+        "files": [
+            "./config/packages/web_profiler.yaml",
+            "./config/routes/web_profiler.yaml"
+        ]
+    },
+    "symfony/web-server-bundle": {
+        "version": "4.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "3.3",
+            "ref": "dae9b39fd6717970be7601101ce5aa960bf53d9a"
+        }
     },
     "twig/extra-bundle": {
         "version": "v3.4.0"

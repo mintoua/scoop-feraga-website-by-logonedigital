@@ -46,6 +46,11 @@ class Product
         return $this->product_name;
     }
 
+        public function getProduct_name(): ?string
+    {
+        return $this->product_name;
+    }
+
     public function setProductName(string $product_name): self
     {
         $this->product_name = $product_name;
@@ -70,6 +75,10 @@ class Product
         return $this->product_description;
     }
 
+    public function getProduct_description(): ?string
+    {
+        return $this->product_description;
+    }
     public function setProductDescription(string $product_description): self
     {
         $this->product_description = $product_description;
@@ -78,6 +87,10 @@ class Product
     }
 
     public function getProductImage(): ?string
+    {
+        return $this->product_image;
+    }
+        public function getProduct_image(): ?string
     {
         return $this->product_image;
     }
@@ -90,6 +103,11 @@ class Product
     }
 
     public function getProductPrice(): ?float
+    {
+        return $this->product_price;
+    }
+
+    public function getProduct_price(): ?float
     {
         return $this->product_price;
     }

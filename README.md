@@ -16,3 +16,7 @@ Make sure you have this:
 PHP version 8 or higher ( recommended PHP 8.0.2)
 PhpMyAdmin with MySQL ( version 5.* or higher)
 
+Things To Always Do
+
+*Before coding make sure to be in your branch: Make a #git pull, #composer update, then symfony console d:s:u --force
+*Always do commits and push before switching to another branch.
