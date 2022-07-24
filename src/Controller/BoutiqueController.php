@@ -55,7 +55,7 @@ class BoutiqueController extends AbstractController
         }
         $products = $paginator->paginate(
             $data,
-            $request->query->getInt('page', 1),8
+            $request->query->getInt('page', 1),2
         );
         return $this->render('frontoffice/shop_catalog.html.twig', [
             'products' => $products,
