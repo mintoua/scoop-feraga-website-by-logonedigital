@@ -46,18 +46,17 @@ class BoutiqueController extends AbstractController
         $form = $this->createForm(SearchType::class,$search);
 
         $form->handleRequest($request);
+        $data = null;
 
         if ($form->isSubmitted() && $form->isValid()){
-            $products = $this->entityManager->getRepository(Product::class)->findWithSearch($search);
+            $data = $this->entityManager->getRepository(Product::class)->findWithSearch($search);
         }else{
-            $products =  $this->entityManager->getRepository(Product::class)->findAll();
-            $products= $paginator->paginate(
-                $products,
-                $request->query->getInt('page',1),
-                4
-            );
+            $data =  $this->entityManager->getRepository(Product::class)->findAll();
         }
-
+        $products = $paginator->paginate(
+            $data,
+            $request->query->getInt('page', 1),2
+        );
         return $this->render('frontoffice/shop_catalog.html.twig', [
             'products' => $products,
             'form'=>$form->createView()
@@ -285,12 +284,14 @@ return new Response('success');
 
             //add order
             $order = new Order();
+            $order->setReference($date->format('dmY').'-'.uniqid());
             $order->setUser($this->getUser());
             $order->setCreatedAt($date);
             $order->setCarrierName($carriers->getName());
             $order->setCarrierPrice($carriers->getPrice());
             $order->setDelivery($delivery_content);
-            $order->setIsPaid(0);
+            $order->setState(0); // state = 0 non validé encore
+
 
             $this->entityManager->persist($order);
 
@@ -305,7 +306,7 @@ return new Response('success');
                 $this->entityManager->persist($orderDetails);
             }
 
-          //  $this->entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->render('frontoffice/final_checkout.html.twig',[
                 'cart'=>$this->cart->getFullCart(),

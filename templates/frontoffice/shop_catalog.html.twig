@@ -481,9 +481,7 @@
 
                   <!-- start pagination -->
                   <nav aria-label="Page navigation example">
-                  <div class="page-des">
-{{ knp_pagination_render(products)}}
-</div>
+                      {{ knp_pagination_render(products,'pagination.html.twig') }}
                   </nav>
                   <!-- end pagination -->
                 </div>
