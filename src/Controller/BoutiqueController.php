@@ -57,6 +57,7 @@ class BoutiqueController extends AbstractController
             $data,
             $request->query->getInt('page', 1),2
         );
+
         return $this->render('frontoffice/shop_catalog.html.twig', [
             'products' => $products,
             'form'=>$form->createView()
@@ -75,11 +76,11 @@ class BoutiqueController extends AbstractController
                 4
             );
             return $this->redirectToRoute('app_shop', [
-                'products' => $product,
+                'product' => $product,
             ]);
         }
-        return $this->render('frontoffice/shop_catalog.html.twig', [
-            'products' => $product,
+        return $this->render('frontoffice/single_product.html.twig', [
+            'product' => $product,
         ]);
     }
 

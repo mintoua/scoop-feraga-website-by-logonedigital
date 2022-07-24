@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="687bf48b-627b-40ab-b7fb-071161127bf9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/uploads/images/e24494bf56d62b2eb0de49bd3aed0f67d68ea9b6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/FarmPicturesCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/FarmPicturesCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/ProductCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/ProductCrudController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventSubcriber/EasyAdminSubcriber.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/frontoffice/shop_catalog.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/frontoffice/shop_catalog.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/BoutiqueController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BoutiqueController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
