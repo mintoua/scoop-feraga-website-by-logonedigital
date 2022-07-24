@@ -1,0 +1,67 @@
+
+
+
+
+
+        <br>
+        <!-- start posts -->
+        {% set queryParams1 = app.request.query.all |filter((v,k)=>k!="page" and k!="ajax")|url_encode %}
+
+                    <!-- start item -->
+        <div class="row" >
+                    {% for i in posts %}
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="__item __item--preview">
+                                <figure class="__image">
+                                    <img
+                                            src="{{ asset('uploads/images'~asset(i.postimage)) }}"
+                                            alt="demo"
+                                    />
+                                </figure>
+
+                                <div class="__content">
+                                    <p class="__category">
+                                        <a href="#">{{i.postcategory.name}}</a>
+                                    </p>
+
+                                    <h3 class="__title h5">
+                                        <a href="{{ path('blog_details',{'id':i.id}) }}">{{ i.title }}</a
+                                        >
+                                    </h3>
+
+                                    <p>
+                                        {{ i.description|striptags[:50] ~ '...' }}
+                                    </p>
+                                </div>
+
+                                <span class="__date-post"> <strong>{{ i.getCreatedAt().format('j') }}</strong>{{ i.getCreatedAt().format('M') }} </span>
+                            </div>
+                        </div>
+                        <!-- end item -->
+                    {% endfor %}
+        </div>
+
+            <div class="container">
+                <ul class="page-nav">
+
+                    <li class="page-nav__item">
+                        {% if ( ((total / limit)|round(0,'ceil')) <= page  ) %}
+                            {% if(page != 1 and ((total / limit)|round(0,'ceil')) !=1) %}
+                            <a href="?page={{ page -1 }}&{{ queryParams1 }}" class="page-nav__link page-nav__link--prev"
+                            ><i class="ico fontello-left-1"></i>Older post</a>
+                                {% endif %}
+                        {% endif %}
+                    </li>
+
+                    {% if ( ((total / limit)|round(0,'ceil')) > page ) %}
+                        <li class="page-nav__item">
+                            <a href="?page={{ page+1 }}&{{ queryParams1 }}" class="page-nav__link page-nav__link--next"
+                            >Newer post<i class="ico fontello-right-1"></i
+                                ></a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        <!-- end posts -->
+
+<!-- end section -->
