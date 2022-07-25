@@ -97,18 +97,7 @@
 												<li>
 													<a href="shop_catalog.html">Categ-1</a>
 												</li>
-												<li>
-													<a href="single_product.html">Categ-2</a>
-												</li>
-												<li>
-													<a href="cart.html">Categ-2</a>
-												</li>
-												<li>
-													<a href="checkout.html">Checkout</a>
-												</li>
-												<li>
-													<a href="sign_in.html">Sign In/Up</a>
-												</li>
+
 											</ul>
 											</li>
 
@@ -121,12 +110,11 @@
 													<i class="fontello-profile"></i>
 												</a>
 											</li>
-
 											<li class="li-cart">
-												<a href="#">
-													<i class="fontello-shopping-bag"></i>
-													<span class="total">0</span>
-												</a>
+												<a href="{{path('app_cart')}}"
+												><i class="fontello-shopping-bag"></i
+													><span class="total">{{ app.session.get('cart') | length }}</span></a
+												>
 											</li>
 
 											<li class="li-btn">
@@ -254,9 +242,9 @@
                                 <div class="lazy col-12 col-sm-6 col-lg-4 " >
                                     <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title">OPTION 1</h5>
+                                        <h5 class="card-title">VOS ADRESSES</h5>
                                         <p class="card-text">Vous retrouvez toutes les informations liées à votre compte</p>
-                                        <a href="#" class="btn btn-primary">VOIR</a>
+                                        <a href="{{ path('app_account_address') }}" class="btn btn-primary">VOIR</a>
                                     </div>
                                     </div>
                                 </div>
@@ -265,7 +253,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title">VOS COMMANDES</h5>
                                         <p class="card-text">Vous retrouvez toutes les informations liées à vos commande en cours</p>
-                                        <a href="#" class="btn btn-primary">VOIR</a>
+                                        <a href="{{ path('app_account_orders') }}" class="btn btn-primary">VOIR</a>
                                     </div>
                                     </div>
                                 </div>

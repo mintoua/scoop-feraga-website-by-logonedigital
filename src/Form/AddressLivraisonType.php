@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\AddressLivraison;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -15,55 +17,64 @@ class AddressLivraisonType extends AbstractType
     {
         $builder
             ->add('name', TextType::class,[
-                'label'=>'Quel nom souhaitez-vous donner à votre adresse?',
+                'label'=>false,
                 'attr'=>[
-                    'placeholder'=>'Nommez votre adresse'
+                    'placeholder'=>'Nommez l\'adresse'
                 ]
             ])
             ->add('firstname', TextType::class,[
-                'label'=>'Quel nom souhaitez-vous donner à votre adresse?',
+                'label'=>false,
                 'attr'=>[
-                    'placeholder'=>'Nommez votre adresse'
+                    'placeholder'=>'Entrez prénom'
                 ]
             ])
             ->add('lastname', TextType::class,[
-                'label'=>'Quel nom souhaitez-vous donner à votre adresse?',
+                'label'=>false,
                 'attr'=>[
-                    'placeholder'=>'Nommez votre adresse'
+                    'placeholder'=>'Entré votre nom'
                 ]
             ])
             ->add('company', TextType::class,[
-                'label'=>'Quel nom souhaitez-vous donner à votre adresse?',
+                'label'=>false,
                 'attr'=>[
-                    'placeholder'=>'Nommez votre adresse'
+                    'placeholder'=>'(facultatif) Entrez le nom de votre société'
                 ]
             ])
             ->add('address', TextType::class,[
-                'label'=>'Quel nom souhaitez-vous donner à votre adresse?',
+                'label'=>false,
                 'attr'=>[
-                    'placeholder'=>'Nommez votre adresse'
+                    'placeholder'=>'Entrez votre adress (Exemple: 8 rue des lylas..).'
                 ]
             ])
             ->add('postal', TextType::class,[
-                'label'=>'Quel nom souhaitez-vous donner à votre adresse?',
+                'label'=>false,
                 'attr'=>[
-                    'placeholder'=>'Nommez votre adresse'
+                    'placeholder'=>'Entrez votre code postal'
                 ]
             ])
             ->add('city', TextType::class,[
-                'label'=>'Quel nom souhaitez-vous donner à votre adresse?',
+                'label'=>false,
                 'attr'=>[
-                    'placeholder'=>'Nommez votre adresse'
+                    'placeholder'=>'Entrez votre ville'
                 ]
             ])
-            ->add('country', TextType::class,[
-                'label'=>'Quel nom souhaitez-vous donner à votre adresse?',
+            ->add('country', CountryType::class,[
+                'label'=>false,
                 'attr'=>[
-                    'placeholder'=>'Nommez votre adresse'
+                    'placeholder'=>'Votre pays'
+                ]
+            ])
+            ->add('phone', TelType::class,[
+                'label'=>false,
+                'attr'=>[
+                    'placeholder'=>'Numéro de téléphone'
                 ]
             ])
             ->add('submit', SubmitType::class,[
-                'label'=>'Ajouter mon adresse'
+                'label'=>'Valider',
+                'attr'=>[
+                    'class'=>'custom-btn custom-btn--medium custom-btn--style-1'
+                ]
             ])
         ;
     }

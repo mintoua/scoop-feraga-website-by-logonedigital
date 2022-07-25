@@ -49,6 +49,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: AddressLivraison::class)]
     private Collection $addressLivraisons;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Order::class)]
+    private Collection $orders;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $facebookId = null;
 
@@ -58,6 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->addressLivraisons = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -219,30 +223,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $addressLivraison->setUser(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getFacebookId(): ?string
-    {
-        return $this->facebookId;
-    }
-
-    public function setFacebookId(?string $facebookId): self
-    {
-        $this->facebookId = $facebookId;
-
-        return $this;
-    }
-
-    public function getGoogleId(): ?string
-    {
-        return $this->googleId;
-    }
-
-    public function setGoogleId(?string $googleId): self
-    {
-        $this->googleId = $googleId;
 
         return $this;
     }
