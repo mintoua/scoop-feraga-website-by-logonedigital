@@ -2,15 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`User`')]
+#[UniqueEntity('email')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -30,18 +34,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[Assert\EqualTo(propertyPath:"password",  message:"Your password must match")]
+    private ?string $passwordConfirm = null;
+
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
 
-    #[ORM\OneToMany(mappedBy: 'Userid', targetEntity: Commentaire::class)]
-    private Collection $commentaires;
+    #[ORM\Column]
+    private ?bool $rgpd = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: AddressLivraison::class)]
+    private Collection $addressLivraisons;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Order::class)]
+    private Collection $orders;
 
     public function __construct()
     {
-        $this->commentaires = new ArrayCollection();
+        $this->addressLivraisons = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -157,30 +171,80 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Commentaire>
-     */
-    public function getCommentaires(): Collection
+    public function isRgpd(): ?bool
     {
-        return $this->commentaires;
+        return $this->rgpd;
     }
 
-    public function addCommentaire(Commentaire $commentaire): self
+    public function setRgpd(bool $rgpd): self
     {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires[] = $commentaire;
-            $commentaire->setUserid($this);
+        $this->rgpd = $rgpd;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of passwordConfirm
+     */
+    public function getPasswordConfirm()
+    {
+        return $this->passwordConfirm;
+    }
+
+    /**
+     * @return Collection<int, AddressLivraison>
+     */
+    public function getAddressLivraisons(): Collection
+    {
+        return $this->addressLivraisons;
+    }
+
+    public function addAddressLivraison(AddressLivraison $addressLivraison): self
+    {
+        if (!$this->addressLivraisons->contains($addressLivraison)) {
+            $this->addressLivraisons[] = $addressLivraison;
+            $addressLivraison->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeCommentaire(Commentaire $commentaire): self
+    public function removeAddressLivraison(AddressLivraison $addressLivraison): self
     {
-        if ($this->commentaires->removeElement($commentaire)) {
+        if ($this->addressLivraisons->removeElement($addressLivraison)) {
             // set the owning side to null (unless already changed)
-            if ($commentaire->getUserid() === $this) {
-                $commentaire->setUserid(null);
+            if ($addressLivraison->getUser() === $this) {
+                $addressLivraison->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): self
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getUser() === $this) {
+                $order->setUser(null);
             }
         }
 

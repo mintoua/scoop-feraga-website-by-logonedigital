@@ -4,30 +4,34 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=8.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "acseo/typesense-bundle": "^0.6.7",
+        "ext-intl": "*",
+        "acseo/typesense-bundle": "dev-master",
+        "curl/curl": "^2.3",
         "doctrine/annotations": "^1.13",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "easycorp/easyadmin-bundle": "^4.3",
+        "mailjet/mailjet-apiv3-php": "^1.5",
+        "mercuryseries/flashy-bundle": "^5.1",
         "sensio/framework-extra-bundle": "^6.2",
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
         "symfony/dotenv": "5.4.*",
         "symfony/flex": "^1.17|^2",
+        "symfony/form": "5.4.*",
         "symfony/framework-bundle": "5.4.*",
         "symfony/mime": "5.4.*",
-        "symfony/runtime": "^6.1",
+        "symfony/proxy-manager-bridge": "5.4.*",
+        "symfony/runtime": "5.4.*",
         "symfony/security-bundle": "5.4.*",
         "symfony/twig-bundle": "5.4.*",
         "symfony/web-server-bundle": "^4.4",
         "symfony/yaml": "5.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0",
-            "ext-intl": "*"
-
-
+        "ext-curl": "*"
     },
     "config": {
         "allow-plugins": {
@@ -78,7 +82,10 @@
         }
     },
     "require-dev": {
-        "symfony/debug-bundle": "^6.1",
-        "symfony/maker-bundle": "^1.44"
+
+        "symfony/debug-bundle": "5.4.*",
+        "symfony/maker-bundle": "^1.44",
+        "symfony/stopwatch": "5.4.*",
+        "symfony/web-profiler-bundle": "5.4.*"
     }
 }
