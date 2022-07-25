@@ -6,9 +6,10 @@ use App\Classes\Mail;
 use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Services\CurlService;
+use App\Services\MailerHelper;
 use Doctrine\ORM\EntityManagerInterface;
-use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Request;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\NotNull;
@@ -23,7 +24,8 @@ class ContactController extends AbstractController
         Request $req, 
         EntityManagerInterface $em,
         CurlService $client,
-        FlashyNotifier $flashy
+        FlashyNotifier $flashy,
+        MailerHelper $mail
         ): Response
     {
         $contact = new Contact();
@@ -56,8 +58,15 @@ class ContactController extends AbstractController
                     $em->persist($contact);
                     $em->flush();
 
-                    $mail = new Mail();
-                    $mail->send($contact->getEmail(), $contact->getPrenom(), 'NOUVEAU CONTACT', $contact->getMsg());
+                    //$mail = new Mail();
+                    $mail->send (
+                        "NOUVEAU CONTACT", 
+                        $contact->getEmail(),
+                        $contact->getMsg(), 
+                        ["",""],
+                        "ngueemmanuel@gmail.com"
+                    );
+                    //$mail->send($contact->getEmail(), $contact->getPrenom(), 'NOUVEAU CONTACT', $contact->getMsg());
                     
                 }else{
                     $flashy->error("Confirm you are not robot!",'');
