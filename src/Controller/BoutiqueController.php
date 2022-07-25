@@ -41,23 +41,24 @@ class BoutiqueController extends AbstractController
      * @return Response
      */
     #[Route('/boutique/nos_produits', name: 'app_shop')]
-    public function index(Request $request ,ProductRepository $pr)
+    public function index(Request $request, PaginatorInterface $paginator)
     {
-        
-
-        $products =  $this->entityManager->getRepository(Product::class)->findAll();
-
         $search = new Search();
         $form = $this->createForm(SearchType::class,$search);
 
         $form->handleRequest($request);
+        $data = null;
 
         if ($form->isSubmitted() && $form->isValid()){
-            $products = $this->entityManager->getRepository(Product::class)->findWithSearch($search);
+            $data = $this->entityManager->getRepository(Product::class)->findWithSearch($search);
+        }else{
+            $data =  $this->entityManager->getRepository(Product::class)->findAll();
         }
 
-        $requestString = $request->get('searchValue');
-        $products = $pr->productSearch($requestString) ; 
+        $products = $paginator->paginate(
+            $data,
+            $request->query->getInt('page', 1),2
+        );
 
         return $this->render('frontoffice/shop_catalog.html.twig', [
             'products' => $products,
@@ -75,6 +76,16 @@ class BoutiqueController extends AbstractController
         }
         return $this->render('frontoffice/single_product.html.twig', [
             'product' => $product,
+        ]);
+    }
+
+    #[Route('/boutique/nos_produits/search', name: 'app_shop_search')]
+    public function searchedProduct(Request $request){
+
+        $products = $this->entityManager->getRepository(Product::class)->productSearch($request->get('searchValue'));
+
+        return $this->render('frontoffice/searched_product.html.twig',[
+            'products'=>$products
         ]);
     }
 
