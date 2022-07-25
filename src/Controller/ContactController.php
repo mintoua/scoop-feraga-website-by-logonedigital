@@ -49,7 +49,6 @@ class ContactController extends AbstractController
             $response = $client->curlManager($url);
 
             if(empty($response) || is_null($response)){
-                
                $flashy->warning("Something wrong!",'');
                 return $this->redirectToRoute('contact');
             }else{

@@ -55,7 +55,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Likes::class)]
     private Collection $likes;
 
-
+    #[ORM\OneToMany(mappedBy: 'Userid', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $facebookId = null;
@@ -197,7 +198,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Get the value of passwordConfirm
-     */ 
+     */
     public function getPasswordConfirm()
     {
         return $this->passwordConfirm;
@@ -262,4 +263,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setBlogId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getBlogId() === $this) {
+                $commentaire->setBlogId(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

@@ -11,9 +11,17 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
   <component name="GitSEFilterConfiguration">
     <file-type-list>
       <filtered-out-file-type name="LOCAL_BRANCH" />
@@ -21,6 +29,10 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+=======
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+>>>>>>> ba600827d5fd181a7c47c510984f78e359019f95
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -123,6 +135,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/debug-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/web-server-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/process" />
+<<<<<<< HEAD
       <path value="$PROJECT_DIR$/vendor/curl/curl" />
       <path value="$PROJECT_DIR$/vendor/mercuryseries/flashy-bundle" />
       <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
@@ -146,9 +159,21 @@
       <path value="$PROJECT_DIR$/vendor/league/oauth2-client" />
       <path value="$PROJECT_DIR$/vendor/league/oauth2-facebook" />
       <path value="$PROJECT_DIR$/vendor/league/oauth2-google" />
+=======
+      <path value="$PROJECT_DIR$/vendor/symfony/web-profiler-bundle" />
+      <path value="$PROJECT_DIR$/vendor/mercuryseries/flashy-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/proxy-manager-bridge" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/mailjet/mailjet-apiv3-php" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/curl/curl" />
+>>>>>>> ba600827d5fd181a7c47c510984f78e359019f95
     </include_path>
   </component>
   <component name="ProjectId" id="2CFgznCewi2C9OtG1L7AZE2lLRW" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -172,6 +197,7 @@
       <workItem from="1658404026472" duration="10728000" />
       <workItem from="1658418486485" duration="64000" />
       <workItem from="1658418569707" duration="73000" />
+<<<<<<< HEAD
       <workItem from="1658418646147" duration="5117000" />
       <workItem from="1658485189740" duration="15918000" />
       <workItem from="1658567900649" duration="1934000" />
@@ -179,10 +205,25 @@
       <workItem from="1658589967626" duration="2390000" />
       <workItem from="1658657881146" duration="907000" />
       <workItem from="1658695076962" duration="558000" />
+=======
+      <workItem from="1658418646147" duration="2036000" />
+      <workItem from="1658499319249" duration="20841000" />
+>>>>>>> ba600827d5fd181a7c47c510984f78e359019f95
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

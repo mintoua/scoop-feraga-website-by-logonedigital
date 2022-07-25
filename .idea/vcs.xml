@@ -2,5 +2,12 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+    <mapping directory="$PROJECT_DIR$/scoop-feraga-website-by-logonedigital" vcs="Git" />
+>>>>>>> 5ee7995a3f20c75c2d95c93bf8b984061457111b
+>>>>>>> ba600827d5fd181a7c47c510984f78e359019f95
   </component>
 </project>
