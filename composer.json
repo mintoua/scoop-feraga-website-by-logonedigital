@@ -12,6 +12,7 @@
         "doctrine/annotations": "^1.13",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "easycorp/easyadmin-bundle": "^4.3",
+        "knplabs/knp-paginator-bundle": "^5.8",
         "knpuniversity/oauth2-client-bundle": "^2.10",
         "league/oauth2-facebook": "^2.2",
         "league/oauth2-google": "^4.0",
