@@ -69,7 +69,7 @@ class BlogController extends AbstractController
                     $em->persist($like);
                     $em->flush();
                     return new JsonResponse([
-                        "content" =>  $this->renderView('frontoffice/like.html.twig',[
+                        "content" =>  $this->renderView('frontoffice/totalLike.html.twig',[
                             'totalLikes'=>$likesRepository->likesParPost($postId)
                         ])
 
@@ -79,7 +79,7 @@ class BlogController extends AbstractController
                     $em->remove($like);
                     $em->flush();
                     return new JsonResponse([
-                        "content" =>  $this->renderView('frontoffice/dislike.html.twig',[
+                        "content" =>  $this->renderView('frontoffice/totalLike.html.twig',[
                             'totalLikes'=>$likesRepository->likesParPost($postId)
                         ])
 
@@ -107,15 +107,15 @@ class BlogController extends AbstractController
 
                 ]);
             }
-            $liked = false;
+            $liked = 0;
             if(! $likesRepository->isLiked($id ,$this->getUser()->getId()) == []){
-                $liked =! $liked;
+                $liked = 1;
             }
             return $this->render('frontoffice/blog_details.html.twig',[
                     'post'=>$repository->findBy(['id'=>$id]) ,
                     'category'=>$categoryRepository->findAll(),
                     'totalLikes'=>$likesRepository->likesParPost($id),
-                    'isLiked'=>$liked,
+                    'isLiked'=> $liked,
                     'comments' => $comments,
                     'id' => $id,
                 ]

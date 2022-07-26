@@ -31,6 +31,7 @@
         <!-- Common styles
         ================================================== -->
         <link rel="stylesheet" href="{{ asset('frontoffice/') }}css/style.min.css" type="text/css"/>
+        <link rel="stylesheet" href="{{ asset('frontoffice/') }}css/likeStyle.css" type="text/css"/>
 
         <!-- Load lazyLoad scripts
         ================================================== -->
@@ -84,9 +85,8 @@
                         }
                     ).then(response => response.json()
                     ).then(data => {
-                            console.log(data);
                             //        // chercher la zonne de continue
-                            var content = document.getElementById("like");
+                            var content = document.getElementById("totalLike");
                             //        //remplace le continue
                             content.innerHTML = data.content;
                             //        history.pushState({},null,url.pathname + "?" + "catId="+v.toString());
@@ -94,9 +94,23 @@
                     ).catch(e => console.log(e));
 
             }
-            function redirectToLogin(){
-                location.href = "{{ path('app_sign_in') }}";
-            }
+            document.addEventListener('DOMContentLoaded', function() {
+                var likeButton = document.getElementById('like-button');
+                likeButton.addEventListener('click', function() {
+                    window.lb = likeButton;
+                    likeButton.classList.toggle('selected');
+                });
+            }, false);
+            window.onload = (event) => {
+                var test = {{ isLiked }}
+                if(test === 1) {
+                    var likeButton = document.getElementById('like-button');
+                    window.lb = likeButton;
+                    likeButton.classList.toggle('selected');
+                }
+                }
+
+
 
         </script>
 
@@ -114,12 +128,11 @@
                                     <img class="lazy" width="100%"
                                          src="{{ asset('uploads/images/'~asset(p.postimage)) }}"
                                          data-src="{{ asset('uploads/images/'~asset(p.postimage)) }}" alt="demo"/>
-
                                     <div class="__content">
 
                                         <div class="mb-6 mb-md-8">
-                                            <span id="like"
-                                                  {% if app.user %}
+                                            <!-- <span id="like"
+                                                  {#  if app.user %}
                                                   onclick="addLike()"
                                                   {% else %}
                                                     onclick="redirectToLogin()"
@@ -129,16 +142,16 @@
                                                 {% include("frontoffice/like.html.twig") %}
                                                 {% else %}
                                                 {% include("frontoffice/dislike.html.twig") %}
-                                                {% endif %}
-                                            </span>
+                                                {% endif #}
+                                            </span> -->
                                             <br>
-
                                         <div class="mb-6 mb-md-8">
+
                                             <time class="__date-post">{{ p.getCreatedAt().format('j, M, Y ') }}</time>
 
-                                            <p class="__category"><a href="#">{{ p.postcategory.name }}</a></p>
+                                            <p class="__category">Categorie : <a href="#">{{ p.postcategory.name }}</a></p>
 
-                                            <h3 class="__title h5">{{ p.title }}</h3>
+                                            <h3 class="__title h3">{{ p.title }}</h3>
                                         </div>
 
                                         <p>
@@ -168,9 +181,18 @@
                         </div>
 
                         <!-- start posts feedback -->
-                        <div class="posts-feedback">
-                            <h6>4 Comments</h6>
 
+                        <div class="posts-feedback">
+                            <button type="button" id="like-button" {% if app.user %}
+                                    onclick="addLike()"
+                                {% else %}
+                                    onclick="location.href = '{{ path('app_sign_in') }}';"
+                            {% endif %}">
+                            <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M91.6 13A28.7 28.7 0 0 0 51 13l-1 1-1-1A28.7 28.7 0 0 0 8.4 53.8l1 1L50 95.3l40.5-40.6 1-1a28.6 28.6 0 0 0 0-40.6z"/></svg>
+                            Like
+                            </button><br><br>
+                            <b>4 Comments , </b>
+                            <span id="totalLike" style="margin-left:7px ; margin-top: 10px"> {% include("frontoffice/totalLike.html.twig") %}</span>
                             <div id="commment_article">
                                 {% include "frontoffice/CommentList.html.twig" %}
 
@@ -330,7 +352,7 @@
                                 }
 
                             </script>
-                        </div>
+                        </div></div>
                         <!-- end posts feedback -->
                     </div>
 
