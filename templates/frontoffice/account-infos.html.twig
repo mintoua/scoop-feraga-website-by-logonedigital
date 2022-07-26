@@ -159,22 +159,6 @@
 			</header>
 			<!-- end header -->
 
-			<!-- start hero -->
-			<div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 40%" style="background-image: url({{asset('frontoffice/')}}img/intro_img/15.jpg);color: #333;">
-				<div class="container">
-					<div class="row">
-						<div class="col-12 col-md-7">
-							<h1 class="__title"><span>Scoops feraga</span> Créer un compte</h1>
-
-							<p>
-								The point of using is that it has a more-or-less normal distribution of letters, as opposed to using Content here content here making it look
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- end hero -->
-
 			<!-- start main -->
 			<main role="main">
 				<!-- Common styles
@@ -239,7 +223,7 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-12 col-md-6 col-lg-5 col-xl-4">
-								<h2>s'   <span>inscrire</span></h2>
+								<h2>Modifier  <span>Mot de passe</span></h2>
 
 								<!-- start form -->
                                 {% form_theme form 'bootstrap_4_layout.html.twig' %}
@@ -291,39 +275,14 @@
                                     })
                                     }}
                                 </div>
-                                {# <div class="input-wrp">
-									{{
-                                        form_row(form.passwordConfirm, {
-                                        label: false,
-                                        attr: {
-                                            placeholder: "Confirmez le mot de passe",
-                                            class: "textfield form-control",
-                                            
-                                        }
-                                        })
-                                    }}
-                                </div> #}
+                            
 								<div class="row align-items-center justify-content-between">
-									{# <div class="col-auto">
-											{{
-												form_row(form.rgpd, {
-												label: "J'accepte les conditions générales d'utilisation",
-												attr: {
-													class: "checkfield align-bottom",
-												}
-												})
-											}}
-									</div> #}
 								</div>
 
                                 <div class="d-table mt-8">
-										<div class="d-table-cell align-middle">
-											<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button" value="submit">S'inscire</button>
-										</div>
-
-										<div class="d-table-cell align-middle">
-											<a class="link-to" href="{{path('app_register')}}">Se connecter</a>
-										</div>
+									<div class="d-table-cell align-middle">
+										<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button" value="submit">Enregistrer</button>
+									</div>
 								</div>
                                 </div>
                                 {{form_end(form)}}

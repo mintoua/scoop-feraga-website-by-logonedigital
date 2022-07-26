@@ -20,7 +20,6 @@
 	<link rel="apple-touch-icon" sizes="72x72" href="{{asset('frontoffice/')}}img/apple-touch-icon-72x72.png">
 	<link
 			rel="apple-touch-icon" sizes="114x114" href="{{asset('frontoffice/')}}img/apple-touch-icon-114x114.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
 	<!-- Critical styles
             ================================================== -->
@@ -29,6 +28,12 @@
 
 	<!-- Load google font
             ================================================== -->
+	<script
+      defer
+      src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+      integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
+      crossorigin="anonymous"
+    ></script>
 	<script type="text/javascript">
 		WebFontConfig = {
 			google: {
@@ -62,7 +67,6 @@
 			<!-- start header -->
 			<header id="top-bar" class="top-bar top-bar--style-2">
 				<div class="top-bar__bg" style="background-color: #FFF;background-image: url({{asset('frontoffice/')}}img/top_bar_bg-2.png);background-repeat: no-repeat;background-position: center bottom;"></div>
-
 				<div class="container position-relative">
 					<div class="row justify-content-between no-gutters">
 
@@ -148,19 +152,7 @@
 			<!-- end header -->
 
 			<!-- start hero -->
-			<div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 40%" style="background-image: url({{asset('frontoffice/')}}img/intro_img/15.jpg);color: #333;">
-				<div class="container">
-					<div class="row">
-						<div class="col-12 col-md-7">
-							<h1 class="__title"><span>Agro Shop</span> se connecter</h1>
-
-							<p>
-								The point of using is that it has a more-or-less normal distribution of letters, as opposed to using Content here content here making it look
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 			<!-- end hero -->
 
 			<!-- start main -->
@@ -212,50 +204,71 @@
 
 				<!-- start section -->
 				<section class="section">
-					<div class="decor-el decor-el--1" data-jarallax-element="-70" data-speed="0.2">
-						<img class="lazy" width="286" height="280" src="{{asset('frontoffice/')}}img/blank.gif" data-src="img/decor-el_1.jpg" alt="demo"/>
-					</div>
+					<style>
+					 .profil-card{
+						border: 1px solid #ced4da; 
+						border-radius: .5rem;
+						padding:20px;
+						background:#f8f9fa36;
+					 }
+					 .card-btn{
+						border: 2px solid #fcdb5a;
+						color: #4f4a37;
+						display: inline-block;
+						text-align: center;
+						vertical-align: middle;
+						background-color: #fcdb5a;
+						padding: 10px 30px;
+						text-decoration: none;
+						font-weight: bold;
+						cursor: pointer;
+						border-radius: .5rem;
+						transition:  background-color .25s ease-in-out,border-color .25s ease-in-out,color .25s ease-in-out;
+					 }
+					 .card-btn:hover{
+						color: #4f4a37;
+						border: 2px solid #fcdb5a;
+						background-color: #f8f9fa36;
+						
+					 }	
 
-					<div class="decor-el decor-el--3" data-jarallax-element="-70" data-speed="0.2">
-						<img class="lazy" width="115" height="117" src="{{asset('frontoffice/')}}img/blank.gif" data-src="img/decor-el_3.jpg" alt="demo"/>
-					</div>
-
-					<div class="decor-el decor-el--4" data-jarallax-element="-70" data-speed="0.2">
-						<img class="lazy" width="84" height="76" src="{{asset('frontoffice/')}}img/blank.gif" data-src="img/decor-el_4.jpg" alt="demo"/>
-					</div>
-
+					 .profil-card h5 {
+						font-size: 30px;
+					 }
+					 
+					</style>
 					<div class="container">
-						<div class="row">
+						<div class="row main-part">
                             <h2>Votre <span>Compte</span></h2>
                             
                             <!-- start form -->
                             <div class="row" style="margin-bottom: 20px ;">
-                                <div class="lazy col-12 col-sm-6 col-lg-4 " >
-                                    <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">PROFIL</h5>
+                                <div class="lazy col-12 col-sm-6 col-lg-4 "  >
+                                    
+                                    <div class="profil-card" >
+                                        <h5 class="card-title">votre profil</h5>
                                         <p class="card-text">Vous retrouvez toutes les informations liées à votre compte</p>
-                                        <a href="{{path('app_user_password')}}" class="btn btn-primary">VOIR</a>
-                                    </div>
+                                        <a href="{{path('app_user_password')}}" class="card-btn">VOIR</a>
+                                    
                                     </div>
                                 </div>
                                 <div class="lazy col-12 col-sm-6 col-lg-4 " >
-                                    <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">VOS ADRESSES</h5>
+                                    
+                                    <div class="profil-card" >
+                                        <h5 class="card-title">vos adresses</h5>
                                         <p class="card-text">Vous retrouvez toutes les informations liées à votre compte</p>
-                                        <a href="{{ path('app_account_address') }}" class="btn btn-primary">VOIR</a>
+                                        <a href="{{ path('app_account_address') }}" class="card-btn">VOIR</a>
                                     </div>
-                                    </div>
+                                   
                                 </div>
                                 <div class="lazy col-12 col-sm-6 col-lg-4 ">
-                                    <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">VOS COMMANDES</h5>
+                                    
+                                    <div class="profil-card" >
+                                        <h5 class="card-title">vos commandes</h5>
                                         <p class="card-text">Vous retrouvez toutes les informations liées à vos commande en cours</p>
-                                        <a href="{{ path('app_account_orders') }}" class="btn btn-primary">VOIR</a>
+                                        <a href="{{ path('app_account_orders') }}" class="card-btn">VOIR</a>
                                     </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
 
@@ -266,61 +279,37 @@
                             <!-- start form -->
                             <div class="row">
                                 <div class="lazy col-12 col-sm-6 col-lg-4 " >
-                                    <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">OPTION 2</h5>
+                                    
+                                    <div class="profil-card">
+                                        <h5 class="card-title">option 1</h5>
                                         <p class="card-text">Vous retrouvez toutes les informations liées à votre compte</p>
-                                        <a href="#" class="btn btn-primary">VOIR</a>
+                                        <a href="#" class="card-btn">VOIR</a>
                                     </div>
-                                    </div>
+                                    
                                 </div>
                                 <div class="lazy col-12 col-sm-6 col-lg-4 ">
-                                    <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">OPTION 3</h5>
+                                    
+                                    <div class="profil-card">
+                                        <h5 class="card-title">option 2</h5>
                                         <p class="card-text">Vous retrouvez toutes les informations liées à vos commande en cours</p>
-                                        <a href="#" class="btn btn-primary">VOIR</a>
+                                        <a href="#" class="card-btn">VOIR</a>
                                     </div>
-                                    </div>
+                                   
                                 </div>
                                 <div class="lazy col-12 col-sm-6 col-lg-4 ">
-                                    <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">OPTION 4</h5>
+                                    
+                                    <div class="profil-card">
+                                        <h5 class="card-title">option 3</h5>
                                         <p class="card-text">Vous retrouvez toutes les informations liées à vos commande en cours</p>
-                                        <a href="#" class="btn btn-primary">VOIR</a>
+                                        <a href="#" class="card-btn">VOIR</a>
                                     </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
 
                             <div class="spacer py-6 d-md-none"></div>
                         </div>
 
-					</div>
-				</section>
-				<!-- end section -->
-
-				<!-- start section -->
-				<section class="section section--no-pt section--no-pb section--gutter">
-					<div class="container-fluid px-md-0">
-						<!-- start banner simple -->
-						<div class="simple-banner simple-banner--style-2" data-aos="fade" data-aos-offset="50">
-							<div class="d-none d-lg-block">
-								<img class="img-logo img-fluid  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo" />
-							</div>
-
-							<div class="row no-gutters">
-								<div class="col-12 col-lg-6">
-									<a href="#"><img class="img-fluid w-100  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/banner_bg_3.jpg" alt="demo" /></a>
-								</div>
-
-								<div class="col-12 col-lg-6">
-									<a href="#"><img class="img-fluid w-100  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/banner_bg_4.jpg" alt="demo" /></a>
-								</div>
-							</div>
-						</div>
-						<!-- end banner simple -->
 					</div>
 				</section>
 				<!-- end section -->

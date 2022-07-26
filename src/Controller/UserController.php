@@ -52,12 +52,12 @@ class UserController extends AbstractController
     }
 
 
-    // #[Route('/se-connecter', name:'app_sign_in')]
-    // public function seConnecter(){
+    #[Route('/se-connecter', name:'app_sign_in')]
+    public function seConnecter(){
 
-    //     return $this->render('frontoffice/sign_in.html.twig');
+        return $this->render('frontoffice/sign_in.html.twig');
         
-    // }
+    }
 
     #[Route(path:"/mon-compte", name:"app_user_account")]
     public function account(){
