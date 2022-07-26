@@ -2,20 +2,23 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Scheb\TwoFactorBundle\Model\TrustedDeviceInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Scheb\TwoFactorBundle\Model\Email\TwoFactorInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`User`')]
 #[UniqueEntity('email')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFactorInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -25,17 +28,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
+    #[ORM\Column(length: 30, nullable:true)]
+    private string $authCode;
+
+
     #[ORM\Column]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?string $password = null;
 
-    #[Assert\EqualTo(propertyPath:"password",  message:"Your password must match")]
-    private ?string $passwordConfirm = null;
 
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
@@ -126,8 +131,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @see PasswordAuthenticatedUserInterface
+     *
      */
-    public function getPassword(): string
+    public function getPassword(): string |null
     {
         return $this->password;
     }
@@ -183,6 +189,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getGoogleId(): ?string
+    {
+        return $this->googleId;
+    }
+
+    public function setGoogleId(string $googleId)
+    {
+        $this->googleId = $googleId;
+    }
+    public function getFacookeId(): ?string
+    {
+        return $this->facebookId;
+    }
+
+    public function setFacebookId(string $facebookId)
+    {
+        $this->facebookId = $facebookId;
+    }
+
     public function isRgpd(): ?bool
     {
         return $this->rgpd;
@@ -193,14 +218,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->rgpd = $rgpd;
 
         return $this;
-    }
-
-    /**
-     * Get the value of passwordConfirm
-     */ 
-    public function getPasswordConfirm()
-    {
-        return $this->passwordConfirm;
     }
 
     /**
@@ -262,4 +279,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function isEmailAuthEnabled(): bool
+    {
+        return true; // This can be a persisted field to switch email code authentication on/off
+    }
+
+    public function getEmailAuthRecipient(): string
+    {
+        return $this->email;
+    }
+
+    public function getEmailAuthCode(): string
+    {
+        if (null === $this->authCode) {
+            throw new \LogicException('The email authentication code was not set');
+        }
+
+        return $this->authCode;
+    }
+
+    public function setEmailAuthCode(string $authCode): void
+    {
+        $this->authCode = $authCode;
+    }
+
+    
 }

@@ -127,85 +127,78 @@
     </style>
 
     <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-12 col-lg-5">
-          <form action="" method="post" class="custom-form">
-            
-            <div class="row justify-content-center">
-              <a href="{{path('app_home')}}" style="text-align: center;">
+      <div class="row">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-5">
+            <form
+              action="{{ checkPathUrl ? checkPathUrl : path(checkPathRoute) }}"
+              method="post"
+              class="custom-form"
+            >
+              <div class="row justify-content-center">
                 <img
-                class="form-logo"
-                src="{{ asset('frontOffice/img/') }}site_logo.png"
-                alt=""
-              />
-              </a></div>
-            
-            <div class="row">
-              <h1>NOUVEAU MOT DE PASSE</h1>
-            </div>
-            <div class="mb-3">
-              <label class="form-label"
-                >E-mail
-              </label>
-              <input
-                type="email"
-                name="email"
-                value="{{ last_username }}"
-                class="form-control"
-                autofocus
-              />
-            </div>
-            <div class="mb-3">
-              <label for="" class="form-label"
-                >Mot de passe</label
-              >
-              <input
-                type="password"
-                name="password"
-                class="form-control"
-              />
-            </div>
-            <input
-              type="hidden"
-              name="_csrf_token"
-              value="{{ csrf_token('authenticate') }}"
-              />
-            <div class="mb-3">
-              <button
-                type="submit"
-                class="btn btn-primary"
-                style="width: 100%; text-transform: uppercase"
-              >
-                Se connecter
-              </button>
-            </div>
-            <div class="row">
-              <div class="col-12 col-lg-6">
-                <a href="{{path("app_forgot_password")}}" class="form-link forgot-password-link"
-                  >Mot de passe oublié</a
-                >
+                  class="form-logo"
+                  src="{{ asset('frontOffice/img/') }}site_logo.png"
+                  alt=""
+                />
               </div>
-              <div class="col-12 col-lg-6">
-                <a
-                  href="{{ path('app_inscire') }}"
-                  class="form-link forgot-password-link"
-                  >Créer un compte compte</a
-                >
-              </div>
-            </div>
-            <div class="seperator"><b>or</b></div>
-            <div class="row">
-              <h4>Se connecter avec</h4>
-              <div class="social-media">
-                <p>
-                  <a href="{{path('app_google_connect')}}"><i class="fab fa-google"></i></a>
+              <div class="row">
+                <h1>Scoops Feraga</h1>
+                <p style="justify-content: center">
+                  Veuillez renseigner le code d'authentification qui vous a été
+                  à votre email
                 </p>
+                {% if authenticationError %}
                 <p>
-                  <a href="{{path("app_facebook_connect")}}"><i class="fab fa-facebook-f"></i></a>
+                  {{ authenticationError|trans(authenticationErrorData, 'SchebTwoFactorBundle') }}
                 </p>
+                {% endif %}
               </div>
-            </div>
-          </form>
+              <div class="mb-3">
+                <label class="form-label">Code </label>
+                <input
+                  id="_auth_code"
+                  type="text"
+                  name="{{ authCodeParameterName }}"
+                  autocomplete="one-time-code"
+                  autofocus
+                  class="form-control"
+                  autofocus
+                />
+              </div>
+
+              <div class="mb-3"></div>
+              {% if displayTrustedOption %}
+              <p class="widget">
+                <label for="_trusted"
+                  ><input
+                    id="_trusted"
+                    type="checkbox"
+                    name="{{ trustedParameterName }}"
+                  />
+                  {{ "trusted"|trans({}, 'SchebTwoFactorBundle') }}</label
+                >
+              </p>
+              {% endif %} {% if isCsrfProtectionEnabled %}
+              <input
+                type="hidden"
+                name="{{ csrfParameterName }}"
+                value="{{ csrf_token(csrfTokenId) }}"
+              />
+              {% endif %}
+              <p class="submit">
+                <input class="btn btn-primary" type="submit" value="{{ "Se connecter"|trans({}, 'SchebTwoFactorBundle')
+
+                }}" />
+              </p>
+            </form>
+            <p class="cancel">
+              <a
+                href="{{ logoutPath }}"
+                >{{ "cancel"|trans({}, 'SchebTwoFactorBundle') }}</a
+              >
+            </p>
+          </div>
         </div>
       </div>
     </div>
