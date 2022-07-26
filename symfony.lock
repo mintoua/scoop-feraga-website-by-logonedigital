@@ -278,6 +278,9 @@
             "ref": "dae9b39fd6717970be7601101ce5aa960bf53d9a"
         }
     },
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.11.0"
+    },
     "twig/extra-bundle": {
         "version": "v3.4.0"
     }

@@ -24,7 +24,7 @@ class UserController extends AbstractController
     }
    
 
-    #[Route('/s-inscire', name: 'app_inscire')]
+    #[Route('/s-inscire-lgo', name: 'app_register')]
     public function registerUser(
         EntityManagerInterface $em, 
         Request $req, 
@@ -34,6 +34,7 @@ class UserController extends AbstractController
         $user = new User();
         $form =$this->createForm(UserType::class, $user);
         $form->handleRequest($req);
+
         
         if($form->isSubmitted() && $form->isValid()){
             $user->setRoles(["ROLE_USER"]);
@@ -51,12 +52,12 @@ class UserController extends AbstractController
     }
 
 
-    #[Route('/se-connecter', name:'app_sign_in')]
-    public function seConnecter(){
+    // #[Route('/se-connecter', name:'app_sign_in')]
+    // public function seConnecter(){
 
-        return $this->render('frontoffice/sign_in.html.twig');
+    //     return $this->render('frontoffice/sign_in.html.twig');
         
-    }
+    // }
 
     #[Route(path:"/mon-compte", name:"app_user_account")]
     public function account(){

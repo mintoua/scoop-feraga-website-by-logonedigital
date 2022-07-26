@@ -68,6 +68,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $googleId = null;
 
+    #[ORM\Column]
+    private ?bool $isVirified = false;
+
     public function __construct()
     {
         $this->addressLivraisons = new ArrayCollection();
@@ -302,6 +305,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     public function setEmailAuthCode(string $authCode): void
     {
         $this->authCode = $authCode;
+    }
+
+    public function isIsVirified(): ?bool
+    {
+        return $this->isVirified;
+    }
+
+    public function setIsVirified(bool $isVirified): self
+    {
+        $this->isVirified = $isVirified;
+
+        return $this;
     }
 
     
