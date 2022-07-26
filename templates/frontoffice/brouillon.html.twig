@@ -1,41 +1,48 @@
-<h1 class="h3 mb-3 font-weight-normal">Scoops Feraga</h1>
-            <p>
-                Un code d'authentification vous a été envoyé.
-            </p>
-            {% if authenticationError %}
-            <p>{{ authenticationError|trans(authenticationErrorData, 'SchebTwoFactorBundle') }}</p>
-            {% endif %}
-            {# Let the user select the authentication method #}
-            <p>{{ "choose_provider"|trans({}, 'SchebTwoFactorBundle') }}:
-                {% for provider in availableTwoFactorProviders %}
-                    <a href="{{ path("2fa_login", {"preferProvider": provider}) }}">{{ provider }}</a>
-                {% endfor %}
-            </p>
-            {# Display current two-factor provider #}
-            <p class="label"><label for="_auth_code">{{ "auth_code"|trans({}, 'SchebTwoFactorBundle') }} {{ twoFactorProvider }}:</label></p>
-            <form class="form" action="{{ checkPathUrl ? checkPathUrl: path(checkPathRoute) }}" method="post">
-                <p class="widget">
-                    <input
-                        id="_auth_code"
-                        type="text"
-                        name="{{ authCodeParameterName }}"
-                        autocomplete="one-time-code"
-                        autofocus
-                        {#
-                        https://www.twilio.com/blog/html-attributes-two-factor-authentication-autocomplete
-                        If your 2fa methods are using numeric codes only, add these attributes for better user experience:
-                        inputmode="numeric"
-                        pattern="[0-9]*"
-                        #}
-                    />
-                </p>
-                {% if displayTrustedOption %}
-                    <p class="widget"><label for="_trusted"><input id="_trusted" type="checkbox" name="{{ trustedParameterName }}" /> {{ "trusted"|trans({}, 'SchebTwoFactorBundle') }}</label></p>
-                {% endif %}
-                {% if isCsrfProtectionEnabled %}
-                    <input type="hidden" name="{{ csrfParameterName }}" value="{{ csrf_token(csrfTokenId) }}">
-                {% endif %}
-                <p class="submit"><input type="submit" value="{{ "login"|trans({}, 'SchebTwoFactorBundle') }}" /></p>
-            </form>
-            {# The logout link gives the user a way out if they can't complete two-factor authentication #}
-            <p class="cancel"><a href="{{ logoutPath }}">{{ "cancel"|trans({}, 'SchebTwoFactorBundle') }}</a></p>
+<div class="col-12 col-md-6 col-lg-5 col-xl-4">
+								<h2>Reinitialiser   <span>votre Mot de passe</span></h2>
+
+								<!-- start form -->
+                                {% form_theme form 'bootstrap_4_layout.html.twig' %}
+                                {{form_start(form)}}
+                                <div class="auth-form">
+                                <div class="input-wrp">
+									{{
+                                        form_row(form.new_password.first, {
+                                        label: false,
+                                        attr: {
+                                            placeholder: "Mot de passe",
+                                            class: "textfield form-control",
+                                            
+                                        }
+                                    })
+                                    }}
+                                </div>
+                                <div class="input-wrp">
+									{{
+                                        form_row(form.new_password.second, {
+                                        label: false,
+                                        attr: {
+                                            placeholder: "Confirmez le mot de passe",
+                                            class: "textfield form-control",
+                                            
+                                        }
+                                        })
+                                    }}
+                                </div>
+
+                                <div class="d-table mt-8">
+										<div class="d-table-cell align-middle">
+											<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button" value="submit">S'inscire</button>
+										</div>
+
+										<div class="d-table-cell align-middle">
+											<a class="link-to" href="{{path('app_register')}}">Se connecter</a>
+										</div>
+								</div>
+                                </div>
+                                {{form_end(form)}}
+								<!-- end form -->
+
+								<div class="spacer py-6 d-md-none"></div>
+
+							</div>
