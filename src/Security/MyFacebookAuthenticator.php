@@ -32,6 +32,7 @@ class MyFacebookAuthenticator extends OAuth2Authenticator
     public function supports(Request $request): ?bool
     {
         // continue ONLY if the current ROUTE matches the check ROUTE
+        
         return $request->attributes->get('_route') === 'connect_facebook_check';
     }
 
@@ -39,6 +40,7 @@ class MyFacebookAuthenticator extends OAuth2Authenticator
     {
         $client = $this->clientRegistry->getClient('facebook_main');
         $accessToken = $this->fetchAccessToken($client);
+        //dd("hellowr");
 
         return new SelfValidatingPassport(
             new UserBadge($accessToken->getToken(), function() use ($accessToken, $client) {
@@ -65,7 +67,7 @@ class MyFacebookAuthenticator extends OAuth2Authenticator
                     $user = new User();
                     $user->setFacebookId($facebookUser->getId());
                     $user->setFirstname($facebookUser->getFirstname());
-                    $user->setFirstname($facebookUser->getLastname());
+                    $user->setLastname($facebookUser->getLastname());
                     $this->entityManager->persist($user);
                     $this->entityManager->flush();
                 }   

@@ -35,12 +35,14 @@ class SecurityController extends AbstractController
 
     #[Route(path: '/connect/facebook', name: 'app_facebook_connect')]
     public function connect(ClientRegistry $clientRegistry){
+       
         return $clientRegistry
             ->getClient('facebook_main') // key used in config/packages/knpu_oauth2_client.yaml
             ->redirect([
                 'public_profile', 'email' // the scopes you want to access
             ]);
     }
+
     #[Route(path: '/connect/google', name: 'app_google_connect')]
     public function googleConnect(ClientRegistry $clientRegistry){
         //dd($clientRegistry);

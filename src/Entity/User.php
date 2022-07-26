@@ -38,11 +38,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?string $password = null;
 
-    #[Assert\EqualTo(propertyPath:"password",  message:"Your password must match")]
-    private ?string $passwordConfirm = null;
 
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
@@ -133,8 +131,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
 
     /**
      * @see PasswordAuthenticatedUserInterface
+     *
      */
-    public function getPassword(): string
+    public function getPassword(): string |null
     {
         return $this->password;
     }
@@ -190,6 +189,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
         return $this;
     }
 
+    public function getGoogleId(): ?string
+    {
+        return $this->googleId;
+    }
+
+    public function setGoogleId(string $googleId)
+    {
+        $this->googleId = $googleId;
+    }
+    public function getFacookeId(): ?string
+    {
+        return $this->facebookId;
+    }
+
+    public function setFacebookId(string $facebookId)
+    {
+        $this->facebookId = $facebookId;
+    }
+
     public function isRgpd(): ?bool
     {
         return $this->rgpd;
@@ -200,14 +218,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
         $this->rgpd = $rgpd;
 
         return $this;
-    }
-
-    /**
-     * Get the value of passwordConfirm
-     */ 
-    public function getPasswordConfirm()
-    {
-        return $this->passwordConfirm;
     }
 
     /**
