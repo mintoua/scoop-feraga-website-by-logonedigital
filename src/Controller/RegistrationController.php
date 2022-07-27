@@ -8,6 +8,7 @@ use App\Services\MailerHelper;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Security\AppCustomAuthAuthenticator;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,16 +19,26 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
-{
+{   
+    /**
+     * permet à un utilisateur de s'incrire dans la base de donnée
+     *
+     * @param Request $request
+     * @param UserPasswordHasherInterface $userPasswordHasher
+     * @param EntityManagerInterface $entityManager
+     * @param VerifyEmailHelperInterface $verifyEmailHelper
+     * @param MailerHelper $mail
+     * @return Response
+     */
+
     #[Route('/s-inscrire', name: 'app_inscire')]
     public function register(
         Request $request, 
         UserPasswordHasherInterface $userPasswordHasher, 
-        UserAuthenticatorInterface $userAuthenticator, 
-        AppCustomAuthAuthenticator $authenticator, 
         EntityManagerInterface $entityManager,
         VerifyEmailHelperInterface $verifyEmailHelper,
-        MailerHelper $mail
+        MailerHelper $mail,
+        FlashyNotifier $flashy
         ): Response
     {
         $user = new User();
@@ -48,23 +59,23 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            //permet de démarrer la procédure de vérifiction d'email
             $signatureComponents = $verifyEmailHelper->generateSignature(
                 'app_verify_email',
                 $user->getId(),
                 $user->getEmail(),
                 ['id' => $user->getId()]
             );
-            //dd($signatureComponents->getSignedUrl());
+
             $mail->send (
                         "MAIL DE VERIFICATION", 
                         $user->getEmail(),
                         "email/verificationmail.html.twig", 
                         ["verificationUrl" => $signatureComponents->getSignedUrl()],
                         "ngueemmanuel@gmail.com"
-                    );
-            // do anything else you need here, like send an email
-
-            return $this->redirectToRoute('app_home');
+            );
+            $this->addFlash('success', 'un email de confirmation vous a-été envoyé');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('frontoffice/s-inscire.html.twig', [

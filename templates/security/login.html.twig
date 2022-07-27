@@ -139,7 +139,11 @@
                 alt=""
               />
               </a></div>
-            
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+            {% endfor %}
             <div class="row">
               <h1>NOUVEAU MOT DE PASSE</h1>
             </div>
