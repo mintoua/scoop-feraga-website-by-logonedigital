@@ -9,6 +9,8 @@ use App\Form\OrderType;
 use App\Services\Cart;
 use App\Services\Search;
 use App\Entity\Product;
+use App\Repository\ProductRepository;
+
 use App\Form\SearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -58,6 +60,11 @@ class BoutiqueController extends AbstractController
             $request->query->getInt('page', 1),2
         );
 
+        $products = $paginator->paginate(
+            $data,
+            $request->query->getInt('page', 1),2
+        );
+
         return $this->render('frontoffice/shop_catalog.html.twig', [
             'products' => $products,
             'form'=>$form->createView()
@@ -81,6 +88,16 @@ class BoutiqueController extends AbstractController
         }
         return $this->render('frontoffice/single_product.html.twig', [
             'product' => $product,
+        ]);
+    }
+
+    #[Route('/boutique/nos_produits/search', name: 'app_shop_search')]
+    public function searchedProduct(Request $request){
+
+        $products = $this->entityManager->getRepository(Product::class)->productSearch($request->get('searchValue'));
+
+        return $this->render('frontoffice/searched_product.html.twig',[
+            'products'=>$products
         ]);
     }
 

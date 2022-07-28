@@ -338,53 +338,385 @@
             <!-- start goods catalog -->
             <div class="goods-catalog">
               <div class="row">
-                <div class="col-12 col-md-4 col-lg-3">
-                  <aside class="sidebar goods-filter">
+                  <div class="col-12 col-md-4 col-lg-3">
+                      <aside class="sidebar goods-filter">
                     <span class="goods-filter-btn-close js-toggle-filter"
-                      ><i class="fontello-cancel"></i
-                    ></span>
+                    ><i class="fontello-cancel"></i
+                        ></span>
 
-                    <div class="goods-filter__inner">
-                      <!-- start widget -->
-                      {{ form_start(form) }}
-                      <div class="widget widget--search">
-                          <div class="input-wrp">
-                            {{ form_widget(form.string) }}
+                          <div class="goods-filter__inner">
+                              <!-- start widget -->
+                              <div class="widget widget--search">
+                                  <form class="form--horizontal" action="#" method="get">
+                                      <div class="input-wrp">
+                                          <input
+                                                  class="textfield"
+                                                  name="s"
+                                                  type="text"
+                                                  id="search"
+                                                  placeholder="Search"
+                                          />
+                                      </div>
+
+                                      <button
+
+                                              type="hidden"
+                                              role="button"
+                                      >
+
+                                      </button>
+                                  </form>
+                              </div>
+                              <!-- end widget -->
+
+                              <!-- start widget -->
+                              <div class="widget widget--categories">
+                                  <h4 class="h6 widget-title">CAtegories</h4>
+
+                                  <ul class="list">
+                                      <li class="list__item">
+                                          <a class="list__item__link" href="#">Apples</a>
+                                          <span>(3)</span>
+                                      </li>
+
+                                      <li class="list__item">
+                                          <a class="list__item__link" href="#">Oranges</a>
+                                          <span>(5)</span>
+                                      </li>
+
+                                      <li class="list__item">
+                                          <a class="list__item__link" href="#">Strawbery</a>
+                                          <span>(2)</span>
+                                      </li>
+
+                                      <li class="list__item">
+                                          <a class="list__item__link" href="#">Banana</a>
+                                          <span>(8)</span>
+                                      </li>
+
+                                      <li class="list__item">
+                                          <a class="list__item__link" href="#">Pumpkin </a>
+                                          <span>(5)</span>
+                                      </li>
+                                  </ul>
+                              </div>
+                              <!-- end widget -->
+
+                              <!-- start widget -->
+                              <div class="widget widget--price">
+                                  <h4 class="h6 widget-title">Price</h4>
+
+                                  <div>
+                                      <input
+                                              type="text"
+                                              class="js-range-slider"
+                                              name="my_range"
+                                              value=""
+                                              data-type="double"
+                                              data-min="0"
+                                              data-max="500"
+                                              data-from="48"
+                                              data-to="365"
+                                              data-grid="false"
+                                              data-skin="round"
+                                              data-prefix="$"
+                                              data-hide-from-to="true"
+                                              data-hide-min-max="true"
+                                      />
+
+                                      <div class="row">
+                                          <div class="col-6">
+                                              <input
+                                                      class="range-slider-min-value"
+                                                      type="text"
+                                                      value="48"
+                                                      name="min-value"
+                                                      readonly="readonly"
+                                              />
+                                          </div>
+
+                                          <div class="col-6">
+                                              <input
+                                                      class="range-slider-max-value"
+                                                      type="text"
+                                                      value="365"
+                                                      name="max-value"
+                                                      readonly="readonly"
+                                              />
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- end widget -->
+
+                              <!-- start widget -->
+                              <div class="widget widget--additional">
+                                  <h4 class="h6 widget-title">Additional</h4>
+
+                                  <ul>
+                                      <li>
+                                          <label class="checkfield">
+                                              <input type="checkbox" checked />
+                                              <i></i>
+                                              Organic
+                                          </label>
+                                      </li>
+
+                                      <li>
+                                          <label class="checkfield">
+                                              <input type="checkbox" />
+                                              <i></i>
+                                              Fresh
+                                          </label>
+                                      </li>
+
+                                      <li>
+                                          <label class="checkfield">
+                                              <input type="checkbox" />
+                                              <i></i>
+                                              Sales
+                                          </label>
+                                      </li>
+
+                                      <li>
+                                          <label class="checkfield">
+                                              <input type="checkbox" />
+                                              <i></i>
+                                              Discount
+                                          </label>
+                                      </li>
+
+                                      <li>
+                                          <label class="checkfield">
+                                              <input type="checkbox" />
+                                              <i></i>
+                                              Expired
+                                          </label>
+                                      </li>
+                                  </ul>
+                              </div>
+                              <!-- end widget -->
+
+                              <!-- start widget -->
+                              <div class="widget widget--tags">
+                                  <h4 class="h6 widget-title">Popular Tags</h4>
+
+                                  <ul>
+                                      <li><a href="#">Art</a></li>
+                                      <li><a href="#">design</a></li>
+                                      <li><a href="#">concept</a></li>
+                                      <li><a href="#">Media</a></li>
+                                      <li><a href="#">Photography</a></li>
+                                      <li><a href="#">UI</a></li>
+                                  </ul>
+                              </div>
+                              <!-- end widget -->
+
+                              <!-- start widget -->
+                              <div class="widget">
+                                  <div class="row no-gutters align-items-center">
+                                      <div class="col">
+                                          <button
+                                                  class="custom-btn custom-btn--medium custom-btn--style-1"
+                                                  role="button"
+                                          >
+                                              Show Products
+                                          </button>
+                                      </div>
+
+                                      <div class="col-auto">
+                                          <a class="clear-filter" href="#">Clear all</a>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- end widget -->
+
+                              <!-- start widget -->
+                              <div class="widget widget--products">
+                                  <h4 class="h6 widget-title">Featured products</h4>
+
+                                  <ul>
+                                      <li>
+                                          <div class="row no-gutters">
+                                              <div class="col-auto __image-wrap">
+                                                  <figure class="__image">
+                                                      <a href="single_product.html">
+                                                          <img
+                                                                  class="lazy"
+                                                                  src="img/blank.gif"
+                                                                  data-src="img/goods_img/5.jpg"
+                                                                  alt="demo"
+                                                          />
+                                                      </a>
+                                                  </figure>
+                                              </div>
+
+                                              <div class="col">
+                                                  <h4 class="h6 __title">
+                                                      <a href="single_product.html">Big Banana</a>
+                                                  </h4>
+
+                                                  <div class="rating">
+                                  <span
+                                          class="rating__item rating__item--active"
+                                  ><i class="fontello-star"></i
+                                      ></span>
+                                                      <span
+                                                              class="rating__item rating__item--active"
+                                                      ><i class="fontello-star"></i
+                                                          ></span>
+                                                      <span
+                                                              class="rating__item rating__item--active"
+                                                      ><i class="fontello-star"></i
+                                                          ></span>
+                                                      <span
+                                                              class="rating__item rating__item--active"
+                                                      ><i class="fontello-star"></i
+                                                          ></span>
+                                                      <span class="rating__item"
+                                                      ><i class="fontello-star"></i
+                                                          ></span>
+                                                  </div>
+
+                                                  <div class="product-price">
+                                  <span
+                                          class="product-price__item product-price__item--new"
+                                  >2.99 $</span
+                                  >
+                                                      <span
+                                                              class="product-price__item product-price__item--old"
+                                                      >4.11 $</span
+                                                      >
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </li>
+
+                                      <li>
+                                          <div class="row no-gutters">
+                                              <div class="col-auto __image-wrap">
+                                                  <figure class="__image">
+                                                      <a href="single_product.html">
+                                                          <img
+                                                                  class="lazy"
+                                                                  src="img/blank.gif"
+                                                                  data-src="img/goods_img/8.jpg"
+                                                                  alt="demo"
+                                                          />
+                                                      </a>
+                                                  </figure>
+                                              </div>
+
+                                              <div class="col">
+                                                  <h4 class="h6 __title">
+                                                      <a href="single_product.html"
+                                                      >Awesome Peach
+                                                      </a>
+                                                  </h4>
+
+                                                  <div class="rating">
+                                  <span
+                                          class="rating__item rating__item--active"
+                                  ><i class="fontello-star"></i
+                                      ></span>
+                                                      <span
+                                                              class="rating__item rating__item--active"
+                                                      ><i class="fontello-star"></i
+                                                          ></span>
+                                                      <span
+                                                              class="rating__item rating__item--active"
+                                                      ><i class="fontello-star"></i
+                                                          ></span>
+                                                      <span
+                                                              class="rating__item rating__item--active"
+                                                      ><i class="fontello-star"></i
+                                                          ></span>
+                                                      <span class="rating__item"
+                                                      ><i class="fontello-star"></i
+                                                          ></span>
+                                                  </div>
+
+                                                  <div class="product-price">
+                                  <span
+                                          class="product-price__item product-price__item--new"
+                                  >10.99 $</span
+                                  >
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </li>
+
+                                      <li>
+                                          <div class="row no-gutters">
+                                              <div class="col-auto __image-wrap">
+                                                  <figure class="__image">
+                                                      <a href="single_product.html">
+                                                          <img
+                                                                  class="lazy"
+                                                                  src="img/blank.gif"
+                                                                  data-src="img/goods_img/2.jpg"
+                                                                  alt="demo"
+                                                          />
+                                                      </a>
+                                                  </figure>
+                                              </div>
+
+                                              <div class="col">
+                                                  <h4 class="h6 __title">
+                                                      <a href="single_product.html"
+                                                      >Awesome Brocoli</a
+                                                      >
+                                                  </h4>
+
+                                                  <div class="rating">
+                                  <span
+                                          class="rating__item rating__item--active"
+                                  ><i class="fontello-star"></i
+                                      ></span>
+                                                      <span
+                                                              class="rating__item rating__item--active"
+                                                      ><i class="fontello-star"></i
+                                                          ></span>
+                                                      <span
+                                                              class="rating__item rating__item--active"
+                                                      ><i class="fontello-star"></i
+                                                          ></span>
+                                                      <span
+                                                              class="rating__item rating__item--active"
+                                                      ><i class="fontello-star"></i
+                                                          ></span>
+                                                      <span class="rating__item"
+                                                      ><i class="fontello-star"></i
+                                                          ></span>
+                                                  </div>
+
+                                                  <div class="product-price">
+                                  <span
+                                          class="product-price__item product-price__item--new"
+                                  >5.99 $</span
+                                  >
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </li>
+                                  </ul>
+                              </div>
+                              <!-- end widget -->
+
+                              <!-- start widget -->
+                              <div class="widget widget--banner">
+                                  <a href="#"
+                                  ><img
+                                              class="img-fluid lazy"
+                                              src="img/blank.gif"
+                                              data-src="img/widget_banner_2.jpg"
+                                              alt="demo"
+                                      /></a>
+                              </div>
+                              <!-- end widget -->
                           </div>
-                          <!-- start widget -->
-                          <div class="widget widget--additional">
-                            <h4 class="h6 widget-title">Catégories</h4>
-                              {{ form_widget(form.categories) }}
-                          </div>
-                          <!-- end widget -->
-                        {{ form_end(form) }}
-                      </div>
-                      <!-- end widget -->
-
-
-
-                      <!-- start widget -->
-                      <div class="widget">
-                        <div class="row no-gutters align-items-center">
-                          <div class="col">
-                            <a
-                              class="custom-btn custom-btn--medium custom-btn--style-1"
-                            href="{{ path('app_shop') }}"
-                            >
-                              Show Products
-                            </a>
-                          </div>
-
-                          <div class="col-auto">
-                            <a class="clear-filter" href="#">Clear all</a>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- end widget -->
-
-                    </div>
-                  </aside>
-                </div>
+                      </aside>
+                  </div>
 
                 <div class="col-12 col-md-8 col-lg-9">
                   <div class="spacer py-6 d-md-none"></div>
@@ -415,7 +747,7 @@
                   <div class="spacer py-3"></div>
 
                   <!-- start goods -->
-                  <div class="goods goods--style-1">
+                  <div id="all" class="goods goods--style-1">
                     <div class="__inner">
                       <div class="row">
                         <!-- start item -->
@@ -432,10 +764,10 @@
                              />
                             </figure>
 
-                            <div class="__content">
-                              <h4 class="h6 __title">
-                                <a href="{{ path('app_single_product',{'slug':product.slug}) }}">{{ product.product_name }}</a>
-                              </h4>
+                                  <div class="__content">
+                                    <h4 class="h6 __title">
+                                      <a href="{{ path('app_single_product',{'slug':product.slug}) }}">{{ product.product_name }}</a>
+                                    </h4>
 
                               <div class="__category">
                                 <a href="#">{{ product.category }} </a>
@@ -444,31 +776,31 @@
                                 <a href="#">{{ product.id}} </a>
                               </div>
 
-                              <div class="product-price">
-                                <span
-                                  class="product-price__item product-price__item--new"
-                                  > {{ (product.product_price / 100)  }} FCFA</span
-                                >
+                                    <div class="product-price">
+                                      <span
+                                        class="product-price__item product-price__item--new"
+                                        > {{ (product.product_price / 100)  }} FCFA</span
+                                      >
+                                    </div>
+
+                                    <a
+                                      class="custom-btn custom-btn--medium custom-btn--style-1"
+                                      href="{{ path('app_add_to_cart',{'slug': product.slug}) }}"
+                                      ><i class="fontello-shopping-bag"></i>Ajouter
+                                      panier</a
+                                    >
+                                    <a
+                                      style="display: block"
+                                      href="{{ path('app_single_product',{'slug':product.slug}) }}"
+                                      >voir plus</a
+                                    >
+                                  </div>
+
+                                  <span class="product-label product-label--sale"
+                                    >Sale</span
+                                  >
+                                </div>
                               </div>
-
-                              <a
-                                class="custom-btn custom-btn--medium custom-btn--style-1"
-                                href="{{ path('app_add_to_cart',{'slug': product.slug}) }}"
-                                ><i class="fontello-shopping-bag"></i>Ajouter
-                                panier</a
-                              >
-                              <a
-                                style="display: block"
-                                href="{{ path('app_single_product',{'slug':product.slug}) }}"
-                                >voir plus</a
-                              >
-                            </div>
-
-                            <span class="product-label product-label--sale"
-                              >Sale</span
-                            >
-                          </div>
-                        </div>
                           {% endfor %}
                        
                         <!-- end item -->
@@ -476,6 +808,41 @@
                     </div>
                   </div>
                   <!-- end goods -->
+
+                   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+                      <script>
+                      
+                                  $( document ).ready(function() {
+                                      var currentRequest = null;
+                                      $("#search").keyup(function(e){
+                                          var value = $(this).val();
+                                          if(value =='')
+                                          {
+                                              currentRequest.abort()
+                                          }
+                                          else if(currentRequest != null) {
+                                              currentRequest.abort();
+                                          }
+                                          
+                                          currentRequest = $.ajax({
+                                              url : "{{ path('app_shop_search') }}",
+                                              type : 'GET',
+                                              data: {
+                                                  'searchValue' : value
+                                              },
+                                              success : function(retour)
+                                              {
+                                                
+                                                  $('#all').html(retour);
+                                              },
+                                          });
+                                          console.log(value)
+                                          return false;
+                                      });
+                                  });
+                                  console.log(5)
+                      </script>
 
                   <div class="spacer py-5"></div>
 
