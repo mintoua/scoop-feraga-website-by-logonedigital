@@ -69,14 +69,19 @@
                 <li class="page__btn {{ (page == 1 or page ==0 )?'disabled ':'active' }}"><span class="iconify {{ (page == 1 or page ==0 )?'disabled ':'' }}" style="font-size: 2.6rem" data-icon="mdi:chevron-double-left"></span>
                 </li>
                 </a>
+                {% if total == 0 %}
+                    <a class=" disabled " href="#">
+                        <li class="page__numbers disabled active" > 1</li></a>
+                {% else %}
                 {% for i in 1..(total / limit)|round(0,'ceil') %}
                 <a class="{{ (page == i or page ==0 )?'disabled ':'' }}" href="?page={{ i }}&{{ queryParams1 }}">
                     <li class="page__numbers {{ (page == i or page ==0 )?'disabled active':'' }} "> {{ i }}</li></a>
                 {% endfor %}
+                {% endif %}
 
-                <li class="page__dots">...</li>
-                <a class="{{ (page == (total / limit)|round(0,'ceil') or page ==0 )?'disabled ':'' }}" href="?page={{ page+1 }}&{{ queryParams1 }}">
-                    <li class="page__btn {{ (page == (total / limit)|round(0,'ceil') or page ==0 )?'disabled ':'active' }}"><span class="iconify {{ (page == (total / limit)|round(0,'ceil') or page ==0 )?'disabled ':'' }} " style="font-size: 2.6rem" data-icon="mdi:chevron-double-right"></span></li>
+               <!-- <li class="page__dots">...</li> -->
+                <a class="{{ (page == (total / limit)|round(0,'ceil') or total ==0 )?'disabled ':'' }}" href="?page={{ page+1 }}&{{ queryParams1 }}">
+                    <li class="page__btn {{ (page == (total / limit)|round(0,'ceil') or total ==0 )?'disabled ':'active' }}"><span class="iconify {{ (page == (total / limit)|round(0,'ceil') or total ==0 )?'disabled ':'' }} " style="font-size: 2.6rem" data-icon="mdi:chevron-double-right"></span></li>
                 </a>
             </ul>
 
