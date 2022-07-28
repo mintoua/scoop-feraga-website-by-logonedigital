@@ -347,7 +347,7 @@
                           <div class="goods-filter__inner">
                               <!-- start widget -->
                               <div class="widget widget--search">
-                                  <form class="form--horizontal" action="#" method="get">
+                                  <form class="form--horizontal">
                                       <div class="input-wrp">
                                           <input
                                                   class="textfield"
@@ -357,158 +357,29 @@
                                                   placeholder="Search"
                                           />
                                       </div>
-
-                                      <button
-
-                                              type="hidden"
-                                              role="button"
-                                      >
-
-                                      </button>
                                   </form>
                               </div>
                               <!-- end widget -->
 
-                              <!-- start widget -->
-                              <div class="widget widget--categories">
-                                  <h4 class="h6 widget-title">CAtegories</h4>
-
-                                  <ul class="list">
-                                      <li class="list__item">
-                                          <a class="list__item__link" href="#">Apples</a>
-                                          <span>(3)</span>
-                                      </li>
-
-                                      <li class="list__item">
-                                          <a class="list__item__link" href="#">Oranges</a>
-                                          <span>(5)</span>
-                                      </li>
-
-                                      <li class="list__item">
-                                          <a class="list__item__link" href="#">Strawbery</a>
-                                          <span>(2)</span>
-                                      </li>
-
-                                      <li class="list__item">
-                                          <a class="list__item__link" href="#">Banana</a>
-                                          <span>(8)</span>
-                                      </li>
-
-                                      <li class="list__item">
-                                          <a class="list__item__link" href="#">Pumpkin </a>
-                                          <span>(5)</span>
-                                      </li>
-                                  </ul>
-                              </div>
-                              <!-- end widget -->
-
-                              <!-- start widget -->
-                              <div class="widget widget--price">
-                                  <h4 class="h6 widget-title">Price</h4>
-
-                                  <div>
-                                      <input
-                                              type="text"
-                                              class="js-range-slider"
-                                              name="my_range"
-                                              value=""
-                                              data-type="double"
-                                              data-min="0"
-                                              data-max="500"
-                                              data-from="48"
-                                              data-to="365"
-                                              data-grid="false"
-                                              data-skin="round"
-                                              data-prefix="$"
-                                              data-hide-from-to="true"
-                                              data-hide-min-max="true"
-                                      />
-
-                                      <div class="row">
-                                          <div class="col-6">
-                                              <input
-                                                      class="range-slider-min-value"
-                                                      type="text"
-                                                      value="48"
-                                                      name="min-value"
-                                                      readonly="readonly"
-                                              />
-                                          </div>
-
-                                          <div class="col-6">
-                                              <input
-                                                      class="range-slider-max-value"
-                                                      type="text"
-                                                      value="365"
-                                                      name="max-value"
-                                                      readonly="readonly"
-                                              />
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <!-- end widget -->
 
                               <!-- start widget -->
                               <div class="widget widget--additional">
-                                  <h4 class="h6 widget-title">Additional</h4>
-
+                                  <h4 class="h6 widget-title">Catégories</h4>
+                                  <form id="filters">
                                   <ul>
+                                      {% for categorie in categories %}
                                       <li>
                                           <label class="checkfield">
-                                              <input type="checkbox" checked />
+                                              <input type="checkbox" name="categories[]"
+                                              id="cat{{ categorie.id }}"
+                                              value="{{ categorie.id }}"/>
                                               <i></i>
-                                              Organic
+                                              {{ categorie.name }}
                                           </label>
                                       </li>
-
-                                      <li>
-                                          <label class="checkfield">
-                                              <input type="checkbox" />
-                                              <i></i>
-                                              Fresh
-                                          </label>
-                                      </li>
-
-                                      <li>
-                                          <label class="checkfield">
-                                              <input type="checkbox" />
-                                              <i></i>
-                                              Sales
-                                          </label>
-                                      </li>
-
-                                      <li>
-                                          <label class="checkfield">
-                                              <input type="checkbox" />
-                                              <i></i>
-                                              Discount
-                                          </label>
-                                      </li>
-
-                                      <li>
-                                          <label class="checkfield">
-                                              <input type="checkbox" />
-                                              <i></i>
-                                              Expired
-                                          </label>
-                                      </li>
+                                      {% endfor %}
                                   </ul>
-                              </div>
-                              <!-- end widget -->
-
-                              <!-- start widget -->
-                              <div class="widget widget--tags">
-                                  <h4 class="h6 widget-title">Popular Tags</h4>
-
-                                  <ul>
-                                      <li><a href="#">Art</a></li>
-                                      <li><a href="#">design</a></li>
-                                      <li><a href="#">concept</a></li>
-                                      <li><a href="#">Media</a></li>
-                                      <li><a href="#">Photography</a></li>
-                                      <li><a href="#">UI</a></li>
-                                  </ul>
+                                  </form>
                               </div>
                               <!-- end widget -->
 
@@ -531,189 +402,8 @@
                               </div>
                               <!-- end widget -->
 
-                              <!-- start widget -->
-                              <div class="widget widget--products">
-                                  <h4 class="h6 widget-title">Featured products</h4>
 
-                                  <ul>
-                                      <li>
-                                          <div class="row no-gutters">
-                                              <div class="col-auto __image-wrap">
-                                                  <figure class="__image">
-                                                      <a href="single_product.html">
-                                                          <img
-                                                                  class="lazy"
-                                                                  src="img/blank.gif"
-                                                                  data-src="img/goods_img/5.jpg"
-                                                                  alt="demo"
-                                                          />
-                                                      </a>
-                                                  </figure>
-                                              </div>
 
-                                              <div class="col">
-                                                  <h4 class="h6 __title">
-                                                      <a href="single_product.html">Big Banana</a>
-                                                  </h4>
-
-                                                  <div class="rating">
-                                  <span
-                                          class="rating__item rating__item--active"
-                                  ><i class="fontello-star"></i
-                                      ></span>
-                                                      <span
-                                                              class="rating__item rating__item--active"
-                                                      ><i class="fontello-star"></i
-                                                          ></span>
-                                                      <span
-                                                              class="rating__item rating__item--active"
-                                                      ><i class="fontello-star"></i
-                                                          ></span>
-                                                      <span
-                                                              class="rating__item rating__item--active"
-                                                      ><i class="fontello-star"></i
-                                                          ></span>
-                                                      <span class="rating__item"
-                                                      ><i class="fontello-star"></i
-                                                          ></span>
-                                                  </div>
-
-                                                  <div class="product-price">
-                                  <span
-                                          class="product-price__item product-price__item--new"
-                                  >2.99 $</span
-                                  >
-                                                      <span
-                                                              class="product-price__item product-price__item--old"
-                                                      >4.11 $</span
-                                                      >
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </li>
-
-                                      <li>
-                                          <div class="row no-gutters">
-                                              <div class="col-auto __image-wrap">
-                                                  <figure class="__image">
-                                                      <a href="single_product.html">
-                                                          <img
-                                                                  class="lazy"
-                                                                  src="img/blank.gif"
-                                                                  data-src="img/goods_img/8.jpg"
-                                                                  alt="demo"
-                                                          />
-                                                      </a>
-                                                  </figure>
-                                              </div>
-
-                                              <div class="col">
-                                                  <h4 class="h6 __title">
-                                                      <a href="single_product.html"
-                                                      >Awesome Peach
-                                                      </a>
-                                                  </h4>
-
-                                                  <div class="rating">
-                                  <span
-                                          class="rating__item rating__item--active"
-                                  ><i class="fontello-star"></i
-                                      ></span>
-                                                      <span
-                                                              class="rating__item rating__item--active"
-                                                      ><i class="fontello-star"></i
-                                                          ></span>
-                                                      <span
-                                                              class="rating__item rating__item--active"
-                                                      ><i class="fontello-star"></i
-                                                          ></span>
-                                                      <span
-                                                              class="rating__item rating__item--active"
-                                                      ><i class="fontello-star"></i
-                                                          ></span>
-                                                      <span class="rating__item"
-                                                      ><i class="fontello-star"></i
-                                                          ></span>
-                                                  </div>
-
-                                                  <div class="product-price">
-                                  <span
-                                          class="product-price__item product-price__item--new"
-                                  >10.99 $</span
-                                  >
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </li>
-
-                                      <li>
-                                          <div class="row no-gutters">
-                                              <div class="col-auto __image-wrap">
-                                                  <figure class="__image">
-                                                      <a href="single_product.html">
-                                                          <img
-                                                                  class="lazy"
-                                                                  src="img/blank.gif"
-                                                                  data-src="img/goods_img/2.jpg"
-                                                                  alt="demo"
-                                                          />
-                                                      </a>
-                                                  </figure>
-                                              </div>
-
-                                              <div class="col">
-                                                  <h4 class="h6 __title">
-                                                      <a href="single_product.html"
-                                                      >Awesome Brocoli</a
-                                                      >
-                                                  </h4>
-
-                                                  <div class="rating">
-                                  <span
-                                          class="rating__item rating__item--active"
-                                  ><i class="fontello-star"></i
-                                      ></span>
-                                                      <span
-                                                              class="rating__item rating__item--active"
-                                                      ><i class="fontello-star"></i
-                                                          ></span>
-                                                      <span
-                                                              class="rating__item rating__item--active"
-                                                      ><i class="fontello-star"></i
-                                                          ></span>
-                                                      <span
-                                                              class="rating__item rating__item--active"
-                                                      ><i class="fontello-star"></i
-                                                          ></span>
-                                                      <span class="rating__item"
-                                                      ><i class="fontello-star"></i
-                                                          ></span>
-                                                  </div>
-
-                                                  <div class="product-price">
-                                  <span
-                                          class="product-price__item product-price__item--new"
-                                  >5.99 $</span
-                                  >
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </li>
-                                  </ul>
-                              </div>
-                              <!-- end widget -->
-
-                              <!-- start widget -->
-                              <div class="widget widget--banner">
-                                  <a href="#"
-                                  ><img
-                                              class="img-fluid lazy"
-                                              src="img/blank.gif"
-                                              data-src="img/widget_banner_2.jpg"
-                                              alt="demo"
-                                      /></a>
-                              </div>
-                              <!-- end widget -->
                           </div>
                       </aside>
                   </div>
@@ -808,9 +498,7 @@
                     </div>
                   </div>
                   <!-- end goods -->
-
                    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
                       <script>
                       
                                   $( document ).ready(function() {
@@ -843,7 +531,7 @@
                                   });
                                   console.log(5)
                       </script>
-
+                    <script type="text/javascript" src="{{asset('frontoffice/')}}js/searchCat.js"></script>
                   <div class="spacer py-5"></div>
 
                   <!-- start pagination -->
@@ -911,7 +599,7 @@
 		<div class="row">
 			<div class="col-12 col-sm-4 col-md-3 col-lg-2">
 				<div class="footer__item">
-					<a class="site-logo" href="index.html">
+					<a class="site-logo" href="{{ path('app_home') }}">
 						<img class="img-fluid lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo"/>
 					</a>
 				</div>
@@ -1051,13 +739,12 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <script type="text/javascript" src="{{asset('frontoffice/')}}js/app.js"></script>
     <script>
       window.jQuery ||
-        document.write('<script src="js/jquery-2.2.4.min.js"><\/script>');
+        document.write('<script src="{{asset('frontoffice/')}}js/jquery-2.2.4.min.js"><\/script>');
     </script>
 
-    <script type="text/javascript" src="js/main.min.js"></script>
+    <script type="text/javascript" src="{{asset('frontoffice/')}}js/main.min.js"></script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
       (function (b, o, i, l, e, r) {

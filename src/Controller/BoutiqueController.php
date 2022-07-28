@@ -9,6 +9,7 @@ use App\Form\OrderType;
 use App\Services\Cart;
 use App\Services\Search;
 use App\Entity\Product;
+use App\Entity\ProductCategory;
 use App\Repository\ProductRepository;
 
 use App\Form\SearchType;
@@ -44,27 +45,22 @@ class BoutiqueController extends AbstractController
     #[Route('/boutique/nos_produits', name: 'app_shop')]
     public function index(Request $request, PaginatorInterface $paginator)
     {
-        $search = new Search();
-        $form = $this->createForm(SearchType::class,$search);
 
-        $form->handleRequest($request);
-        $data = null;
+        $data =  $this->entityManager->getRepository(Product::class)->findAll();
 
-        if ($form->isSubmitted() && $form->isValid()){
-            $data = $this->entityManager->getRepository(Product::class)->findWithSearch($search);
-        }else{
-            $data =  $this->entityManager->getRepository(Product::class)->findAll();
-        }
         $products = $paginator->paginate(
             $data,
             $request->query->getInt('page', 1),2
         );
 
+        $categories = $this->entityManager->getRepository(ProductCategory::class)->findAll();
+
         return $this->render('frontoffice/shop_catalog.html.twig', [
             'products' => $products,
-            'form'=>$form->createView()
+            'categories'=>$categories,
         ]);
     }
+
 
     #[Route('/boutique/nos_produits/{slug}', name: 'app_single_product')]
     public function singleProduct($slug, PaginatorInterface $paginator,Request $request)
@@ -72,11 +68,6 @@ class BoutiqueController extends AbstractController
         $product =  $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
 
         if(!$product){
-            $product= $paginator->paginate(
-                $product,
-                $request->query->getInt('page',1),
-                4
-            );
             return $this->redirectToRoute('app_shop', [
                 'product' => $product,
             ]);
@@ -86,7 +77,7 @@ class BoutiqueController extends AbstractController
         ]);
     }
 
-    #[Route('/boutique/nos_produits/search', name: 'app_shop_search')]
+    #[Route('/boutique/produits/search', name: 'app_shop_search')]
     public function searchedProduct(Request $request){
 
         $products = $this->entityManager->getRepository(Product::class)->productSearch($request->get('searchValue'));
@@ -95,10 +86,6 @@ class BoutiqueController extends AbstractController
             'products'=>$products
         ]);
     }
-
-
-
-
 
 
          /**
