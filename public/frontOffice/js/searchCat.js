@@ -30,6 +30,8 @@ window.onload = ()=>{
 
                 //replace
                 content.innerHTML = data.content;
+
+                history.pushState({}, null, Url.pathname + "?" + Params.toString())
             }).catch(e=>alert(e));
         })
     })
