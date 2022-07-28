@@ -16,6 +16,7 @@ use App\Form\SearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -45,25 +46,36 @@ class BoutiqueController extends AbstractController
     #[Route('/boutique/nos_produits', name: 'app_shop')]
     public function index(Request $request, PaginatorInterface $paginator)
     {
-
-        $data =  $this->entityManager->getRepository(Product::class)->findAll();
-
-        $products = $paginator->paginate(
-            $data,
-            $request->query->getInt('page', 1),2
-        );
-
         $categories = $this->entityManager->getRepository(ProductCategory::class)->findAll();
+        $products =  $this->entityManager->getRepository(Product::class)->findAll();
+        $filters = $request->get("categories");
+
+
+        if($request->get('ajax')){
+            $products = $this->entityManager->getRepository(Product::class)->productsFiltered($filters);
+
+            return new JsonResponse([
+                'content'=> $this->renderView('frontoffice/searched_product.html.twig', [
+                    'products' => $paginator->paginate(
+                $products,
+                $request->query->getInt('page', 1),1
+            )
+                ])
+            ]);
+        }
 
         return $this->render('frontoffice/shop_catalog.html.twig', [
-            'products' => $products,
+            'products' => $paginator->paginate(
+                $products,
+                $request->query->getInt('page', 1),1
+            ),
             'categories'=>$categories,
         ]);
     }
 
 
     #[Route('/boutique/nos_produits/{slug}', name: 'app_single_product')]
-    public function singleProduct($slug, PaginatorInterface $paginator,Request $request)
+    public function singleProduct($slug)
     {
         $product =  $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
 
@@ -83,7 +95,7 @@ class BoutiqueController extends AbstractController
         $products = $this->entityManager->getRepository(Product::class)->productSearch($request->get('searchValue'));
 
         return $this->render('frontoffice/searched_product.html.twig',[
-            'products'=>$products
+            'products'
         ]);
     }
 

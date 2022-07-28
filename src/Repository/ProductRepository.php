@@ -44,23 +44,17 @@ class ProductRepository extends ServiceEntityRepository
      * @param Search $search
      * @return void
      */
-    public function findWithSearch(Search $search){
+    public function productsFiltered($filters){
         $query = $this
             ->createQueryBuilder('p')
             ->select('c','p')
             ->join('p.category', 'c');
 
-        if(!empty($search->categories)){
-            $query = $query
-                ->andWhere('c.id IN (:categories)')
-                ->setParameter('categories', $search->categories);
-        }
 
-        if(!empty($search->string)){
-            $query = $query
-                ->andWhere('p.product_name LIKE :string')
-                ->setParameter('string', "%$search->string%");
-        }
+        $query = $query
+            ->andWhere('c.id IN (:categories)')
+            ->setParameter('categories', array_values($filters));
+
 
         return $query->getQuery()->getResult();
     }

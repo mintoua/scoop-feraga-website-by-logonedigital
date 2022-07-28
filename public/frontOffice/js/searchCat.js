@@ -16,7 +16,21 @@ window.onload = ()=>{
 
             //get the active url
             const Url = new URL(window.location.href);
-            console.log(Url);
+
+            //start the request
+            fetch(Url.pathname + "?" + Params.toString() + "&ajax=1",{
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+            }).then(
+                response => response.json()
+            ).then(data => {
+                //get the content to replace
+                const content = document.querySelector("#all");
+
+                //replace
+                content.innerHTML = data.content;
+            }).catch(e=>alert(e));
         })
     })
 }
