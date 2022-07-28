@@ -338,53 +338,81 @@
             <!-- start goods catalog -->
             <div class="goods-catalog">
               <div class="row">
-                <div class="col-12 col-md-4 col-lg-3">
-                  <aside class="sidebar goods-filter">
+                  <div class="col-12 col-md-4 col-lg-3">
+                      <aside class="sidebar goods-filter">
                     <span class="goods-filter-btn-close js-toggle-filter"
-                      ><i class="fontello-cancel"></i
-                    ></span>
+                    ><i class="fontello-cancel"></i
+                        ></span>
 
-                    <div class="goods-filter__inner">
-                      <!-- start widget -->
-                      {{ form_start(form) }}
-                      <div class="widget widget--search">
-                          <div class="input-wrp">
-                            {{ form_widget(form.string) }}
+                          <div class="goods-filter__inner">
+                              <!-- start widget -->
+                              <div class="widget widget--search">
+                                  <form class="form--horizontal">
+                                      <div class="input-wrp">
+                                          <input
+                                                  class="textfield"
+                                                  name="s"
+                                                  type="text"
+                                                  id="search"
+                                                  placeholder="Search"
+                                          />
+                                      </div>
+                                  </form>
+                              </div>
+                              <!-- end widget -->
+
+
+                              <!-- start widget -->
+                              <div class="widget widget--additional">
+                                  <h4 class="h6 widget-title">Catégories</h4>
+                                  <form id="filters">
+                                  <ul>
+                                      {% set queryParams = app.request.query.all %}
+                                      {% set queryString = queryParams|filter((v,k) => k != "page")|url_encode %}
+                                      {% for categorie in categories %}
+                                      <li>
+                                          <label class="checkfield">
+                                              {% if queryParams is not empty and queryParams.categories is defined %}
+                                                  {% set checked = (categorie.id in queryParams.categories) ? "checked" : "" %}
+                                              {% else %}
+                                                    {% set checked = "" %}
+                                              {% endif %}
+                                              <input type="checkbox" name="categories[]"
+                                              id="cat{{ categorie.id }}"
+                                              value="{{ categorie.id }}"
+                                              {{ checked }}/>
+                                              <i></i>
+                                              {{ categorie.name }}
+                                          </label>
+                                      </li>
+                                      {% endfor %}
+                                  </ul>
+                                  </form>
+                              </div>
+                              <!-- end widget -->
+
+                              <!-- start widget -->
+                              <div class="widget">
+                                  <div class="row no-gutters align-items-center">
+                                      <div class="col">
+                                          <a
+                                                  class="custom-btn custom-btn--medium custom-btn--style-1"
+                                                  href="{{ path('app_shop') }}"
+                                          >
+                                              Show Products
+                                          </a>
+                                      </div>
+
+
+                                  </div>
+                              </div>
+                              <!-- end widget -->
+
+
+
                           </div>
-                          <!-- start widget -->
-                          <div class="widget widget--additional">
-                            <h4 class="h6 widget-title">Catégories</h4>
-                              {{ form_widget(form.categories) }}
-                          </div>
-                          <!-- end widget -->
-                        {{ form_end(form) }}
-                      </div>
-                      <!-- end widget -->
-
-
-
-                      <!-- start widget -->
-                      <div class="widget">
-                        <div class="row no-gutters align-items-center">
-                          <div class="col">
-                            <a
-                              class="custom-btn custom-btn--medium custom-btn--style-1"
-                            href="{{ path('app_shop') }}"
-                            >
-                              Show Products
-                            </a>
-                          </div>
-
-                          <div class="col-auto">
-                            <a class="clear-filter" href="#">Clear all</a>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- end widget -->
-
-                    </div>
-                  </aside>
-                </div>
+                      </aside>
+                  </div>
 
                 <div class="col-12 col-md-8 col-lg-9">
                   <div class="spacer py-6 d-md-none"></div>
@@ -396,26 +424,13 @@
                       >
                     </div>
 
-                    <div class="col-auto">
-                      <!-- start ordering -->
-                      <form class="ordering" action="#">
-                        <div class="input-wrp">
-                          <select class="textfield wide js-select">
-                            <option value="1">Default Sorting</option>
-                            <option value="2">Price. low to high</option>
-                            <option value="3">Price. high to low</option>
-                            <option value="3">Sort by latest</option>
-                          </select>
-                        </div>
-                      </form>
-                      <!-- end ordering -->
-                    </div>
+
                   </div>
 
                   <div class="spacer py-3"></div>
 
                   <!-- start goods -->
-                  <div class="goods goods--style-1">
+                  <div id="all" class="goods goods--style-1">
                     <div class="__inner">
                       <div class="row">
                         <!-- start item -->
@@ -432,10 +447,10 @@
                              />
                             </figure>
 
-                            <div class="__content">
-                              <h4 class="h6 __title">
-                                <a href="{{ path('app_single_product',{'slug':product.slug}) }}">{{ product.product_name }}</a>
-                              </h4>
+                                  <div class="__content">
+                                    <h4 class="h6 __title">
+                                      <a href="{{ path('app_single_product',{'slug':product.slug}) }}">{{ product.product_name }}</a>
+                                    </h4>
 
                               <div class="__category">
                                 <a href="#">{{ product.category }} </a>
@@ -444,31 +459,31 @@
                                 <a href="#">{{ product.id}} </a>
                               </div>
 
-                              <div class="product-price">
-                                <span
-                                  class="product-price__item product-price__item--new"
-                                  > {{ (product.product_price / 100)  }} FCFA</span
-                                >
+                                    <div class="product-price">
+                                      <span
+                                        class="product-price__item product-price__item--new"
+                                        > {{ (product.product_price / 100)  }} FCFA</span
+                                      >
+                                    </div>
+
+                                    <a
+                                      class="custom-btn custom-btn--medium custom-btn--style-1"
+                                      href="{{ path('app_add_to_cart',{'slug': product.slug}) }}"
+                                      ><i class="fontello-shopping-bag"></i>Ajouter
+                                      panier</a
+                                    >
+                                    <a
+                                      style="display: block"
+                                      href="{{ path('app_single_product',{'slug':product.slug}) }}"
+                                      >voir plus</a
+                                    >
+                                  </div>
+
+                                  <span class="product-label product-label--sale"
+                                    >For Sale</span
+                                  >
+                                </div>
                               </div>
-
-                              <a
-                                class="custom-btn custom-btn--medium custom-btn--style-1"
-                                href="{{ path('app_add_to_cart',{'slug': product.slug}) }}"
-                                ><i class="fontello-shopping-bag"></i>Ajouter
-                                panier</a
-                              >
-                              <a
-                                style="display: block"
-                                href="{{ path('app_single_product',{'slug':product.slug}) }}"
-                                >voir plus</a
-                              >
-                            </div>
-
-                            <span class="product-label product-label--sale"
-                              >Sale</span
-                            >
-                          </div>
-                        </div>
                           {% endfor %}
                        
                         <!-- end item -->
@@ -476,7 +491,40 @@
                     </div>
                   </div>
                   <!-- end goods -->
-
+                   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+                      <script>
+                      
+                                  $( document ).ready(function() {
+                                      var currentRequest = null;
+                                      $("#search").keyup(function(e){
+                                          var value = $(this).val();
+                                          if(value =='')
+                                          {
+                                              currentRequest.abort()
+                                          }
+                                          else if(currentRequest != null) {
+                                              currentRequest.abort();
+                                          }
+                                          
+                                          currentRequest = $.ajax({
+                                              url : "{{ path('app_shop_search') }}",
+                                              type : 'GET',
+                                              data: {
+                                                  'searchValue' : value
+                                              },
+                                              success : function(retour)
+                                              {
+                                                
+                                                  $('#all').html(retour);
+                                              },
+                                          });
+                                          console.log(value)
+                                          return false;
+                                      });
+                                  });
+                                  console.log(5)
+                      </script>
+                    <script type="text/javascript" src="{{asset('frontoffice/')}}js/searchCat.js"></script>
                   <div class="spacer py-5"></div>
 
                   <!-- start pagination -->
@@ -544,7 +592,7 @@
 		<div class="row">
 			<div class="col-12 col-sm-4 col-md-3 col-lg-2">
 				<div class="footer__item">
-					<a class="site-logo" href="index.html">
+					<a class="site-logo" href="{{ path('app_home') }}">
 						<img class="img-fluid lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo"/>
 					</a>
 				</div>
@@ -684,13 +732,12 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <script type="text/javascript" src="{{asset('frontoffice/')}}js/app.js"></script>
     <script>
       window.jQuery ||
-        document.write('<script src="js/jquery-2.2.4.min.js"><\/script>');
+        document.write('<script src="{{asset('frontoffice/')}}js/jquery-2.2.4.min.js"><\/script>');
     </script>
 
-    <script type="text/javascript" src="js/main.min.js"></script>
+    <script type="text/javascript" src="{{asset('frontoffice/')}}js/main.min.js"></script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
       (function (b, o, i, l, e, r) {
