@@ -125,6 +125,12 @@
       .custom-form .social-media p:hover {
         color: aqua;
       }
+      #user_password_first_help{
+        font-size: 10px!important;
+      }
+      .form-error-message{
+        font-size: 10px!important;
+      }
     </style>
 
     <div class="container">
@@ -149,8 +155,7 @@
                 form_row(form.lastname, {
                 label: "Nom",
                 attr: {
-                    class: "form-control",
-                                            
+                    class: "form-control",                       
                 }
                 })
             }}
@@ -171,8 +176,7 @@
                 form_row(form.email, {
                 label: "Email",
                 attr: {
-                    class: "form-control",
-                                            
+                    class: "form-control",                        
                 }
                 })
             }}
@@ -182,8 +186,7 @@
                 form_row(form.password.first, {
                 label: "Mot de passe",
                 attr: {
-                    class: "form-control",
-                                            
+                    class: "form-control",                        
                 }
                 })
             }}

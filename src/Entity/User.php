@@ -16,8 +16,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`User`')]
-#[UniqueEntity('email')]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message:'cette email existe déjà')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFactorInterface
 {
     #[ORM\Id]
@@ -38,6 +37,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     /**
      * @var string The hashed password
      */
+    #[Assert\Regex(
+        pattern: '/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/',
+        match: true,
+    )]
     #[ORM\Column(nullable:true)]
     private ?string $password = null;
 
@@ -67,6 +70,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $googleId = null;
+
+    #[ORM\Column]
+    private ?bool $isVirified = false;
 
     public function __construct()
     {
@@ -302,6 +308,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     public function setEmailAuthCode(string $authCode): void
     {
         $this->authCode = $authCode;
+    }
+
+    public function isIsVirified(): ?bool
+    {
+        return $this->isVirified;
+    }
+
+    public function setIsVirified(bool $isVirified): self
+    {
+        $this->isVirified = $isVirified;
+
+        return $this;
     }
 
     
