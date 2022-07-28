@@ -2,10 +2,15 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
+
 
 class SecurityController extends AbstractController
 {
@@ -25,8 +30,28 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/me-deconnecter', name: 'app_logout')]
-    public function logout(): void
+    public function logout(Request $request): void
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        $request->getSession()->invalidate();
     }
+
+    #[Route(path: '/connect/facebook', name: 'app_facebook_connect')]
+    public function connect(ClientRegistry $clientRegistry){
+       
+        return $clientRegistry
+            ->getClient('facebook_main') // key used in config/packages/knpu_oauth2_client.yaml
+            ->redirect([
+                'public_profile', 'email' // the scopes you want to access
+            ]);
+    }
+
+    #[Route(path: '/connect/google', name: 'app_google_connect')]
+    public function googleConnect(ClientRegistry $clientRegistry){
+        //dd($clientRegistry);
+        return $clientRegistry
+            ->getClient('google_main') // key used in config/packages/knpu_oauth2_client.yaml
+            ->redirect();
+    }
+    
+    
 }

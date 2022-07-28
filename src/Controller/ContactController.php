@@ -6,9 +6,10 @@ use App\Classes\Mail;
 use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Services\CurlService;
+use App\Services\MailerHelper;
 use Doctrine\ORM\EntityManagerInterface;
-use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Request;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\NotNull;
@@ -23,7 +24,8 @@ class ContactController extends AbstractController
         Request $req, 
         EntityManagerInterface $em,
         CurlService $client,
-        FlashyNotifier $flashy
+        FlashyNotifier $flashy,
+        MailerHelper $mail
         ): Response
     {
         $contact = new Contact();
@@ -39,25 +41,33 @@ class ContactController extends AbstractController
         $form->handleRequest($req);
 
         //hello world
-         
+        
         if($form->isSubmitted() and $form->isValid()){
-            
+            // 
             $url = "https://www.google.com/recaptcha/api/siteverify?secret=6Lc96AYfAAAAAEP84ADjdx5CBfEpgbTyYqgemO5n&response={$form->get('captcha')->getData()}";
 
             $response = $client->curlManager($url);
 
             if(empty($response) || is_null($response)){
-                
                $flashy->warning("Something wrong!",'');
-                return $this->redirectToRoute('contact');
+                return $this->redirectToRoute('app_contact');
             }else{
                 $data = json_decode($response);
                 if($data->success){
                     $em->persist($contact);
                     $em->flush();
 
-                    $mail = new Mail();
-                    $mail->send($contact->getEmail(), $contact->getPrenom(), 'NOUVEAU CONTACT', $contact->getMsg());
+                    //$mail = new Mail();
+                    $mail->send (
+                        "NOUVEAU CONTACT", 
+                        $contact->getEmail(),
+                        "email/contact.html.twig", 
+                        ["",""],
+                        "ngueemmanuel@gmail.com"
+                    );
+                    $flashy->success("Votre demande a bien été prise en compte!",'');
+                    return $this->redirectToRoute('app_contact');
+                    //$mail->send($contact->getEmail(), $contact->getPrenom(), 'NOUVEAU CONTACT', $contact->getMsg());
                     
                 }else{
                     $flashy->error("Confirm you are not robot!",'');

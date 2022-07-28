@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="687bf48b-627b-40ab-b7fb-071161127bf9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -19,9 +16,17 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
   <component name="GitSEFilterConfiguration">
     <file-type-list>
       <filtered-out-file-type name="LOCAL_BRANCH" />
@@ -29,6 +34,10 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+=======
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+>>>>>>> ba600827d5fd181a7c47c510984f78e359019f95
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -134,6 +143,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/debug-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/web-server-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/process" />
+<<<<<<< HEAD
       <path value="$PROJECT_DIR$/vendor/curl/curl" />
       <path value="$PROJECT_DIR$/vendor/mercuryseries/flashy-bundle" />
       <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
@@ -148,15 +158,6 @@
       <path value="$PROJECT_DIR$/vendor/curl/curl" />
       <path value="$PROJECT_DIR$/vendor/knplabs/knp-components" />
       <path value="$PROJECT_DIR$/vendor/knplabs/knp-paginator-bundle" />
-      <path value="$PROJECT_DIR$/vendor/scheb/2fa-bundle" />
-      <path value="$PROJECT_DIR$/vendor/scheb/2fa-email" />
-      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
-      <path value="$PROJECT_DIR$/vendor/symfony/mailer" />
-      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
-      <path value="$PROJECT_DIR$/vendor/knpuniversity/oauth2-client-bundle" />
-      <path value="$PROJECT_DIR$/vendor/league/oauth2-client" />
-      <path value="$PROJECT_DIR$/vendor/league/oauth2-facebook" />
-      <path value="$PROJECT_DIR$/vendor/league/oauth2-google" />
     </include_path>
   </component>
   <component name="ProjectId" id="2CFgznCewi2C9OtG1L7AZE2lLRW" />
@@ -167,20 +168,9 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Mta/LogoneP/scoop-feraga-website-by-logonedigital/public/frontOffice/js&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Mta\LogoneP\scoop-feraga-website-by-logonedigital\public\frontOffice\js" />
-    </key>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -192,12 +182,12 @@
       <workItem from="1658404026472" duration="10728000" />
       <workItem from="1658418486485" duration="64000" />
       <workItem from="1658418569707" duration="73000" />
+<<<<<<< HEAD
       <workItem from="1658418646147" duration="5117000" />
       <workItem from="1658485189740" duration="15918000" />
       <workItem from="1658567900649" duration="1934000" />
       <workItem from="1658569950982" duration="17415000" />
       <workItem from="1658589967626" duration="2390000" />
-      <workItem from="1659001466279" duration="3605000" />
     </task>
     <servers />
   </component>

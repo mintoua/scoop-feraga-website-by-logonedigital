@@ -16,7 +16,7 @@ class Posts
     #[ORM\Column()]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
 
@@ -40,6 +40,8 @@ class Posts
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Likes::class)]
     private Collection $likes;
 
+    #[ORM\OneToMany(mappedBy: 'BlogId', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
 
 
     public function __construct()
@@ -156,7 +158,35 @@ class Posts
 
         return $this;
     }
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
 
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setBlogId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getBlogId() === $this) {
+                $commentaire->setBlogId(null);
+            }
+        }
+
+        return $this;
+    }
 
 
 

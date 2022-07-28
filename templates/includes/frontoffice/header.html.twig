@@ -54,9 +54,15 @@
                       <a href="{{path('app_blog')}}">Nos Actualités</a>
                     </li>
 
+                    {% if not app.user %}
                     <li>
-                      <a href="{{path("app_login")}}"><i class="fontello-profile"></i> Se connecter</a>
+                      <a href="{{path("app_login")}}"><i class="fas fa-user"></i> Mon compte</a>
                     </li>
+                    {% else %}
+                    <li>
+                      <a href="{{path("app_logout")}}"><i class="fas fa-user-alt-slash"></i> Deconnexion</a>
+                    </li>
+                    {% endif %}
 
                     <li class="li-btn">
                       <a

@@ -24,7 +24,7 @@ class UserController extends AbstractController
     }
    
 
-    #[Route('/s-inscire', name: 'app_inscire')]
+    #[Route('/s-inscire-lgo', name: 'app_register')]
     public function registerUser(
         EntityManagerInterface $em, 
         Request $req, 
@@ -34,6 +34,7 @@ class UserController extends AbstractController
         $user = new User();
         $form =$this->createForm(UserType::class, $user);
         $form->handleRequest($req);
+
         
         if($form->isSubmitted() && $form->isValid()){
             $user->setRoles(["ROLE_USER"]);
