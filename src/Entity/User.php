@@ -63,7 +63,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Likes::class)]
     private Collection $likes;
 
-
+    #[ORM\OneToMany(mappedBy: 'Userid', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $facebookId = null;
@@ -321,6 +322,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
 
         return $this;
     }
-
-    
 }

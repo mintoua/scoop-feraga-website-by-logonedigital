@@ -31,6 +31,7 @@
         <!-- Common styles
         ================================================== -->
         <link rel="stylesheet" href="{{ asset('frontoffice/') }}css/style.min.css" type="text/css"/>
+        <link rel="stylesheet" href="{{ asset('frontoffice/') }}css/likeStyle.css" type="text/css"/>
 
         <!-- Load lazyLoad scripts
         ================================================== -->
@@ -84,9 +85,8 @@
                         }
                     ).then(response => response.json()
                     ).then(data => {
-                            console.log(data);
                             //        // chercher la zonne de continue
-                            var content = document.getElementById("like");
+                            var content = document.getElementById("totalLike");
                             //        //remplace le continue
                             content.innerHTML = data.content;
                             //        history.pushState({},null,url.pathname + "?" + "catId="+v.toString());
@@ -94,9 +94,23 @@
                     ).catch(e => console.log(e));
 
             }
-            function redirectToLogin(){
-                location.href = "{{ path('app_sign_in') }}";
-            }
+            document.addEventListener('DOMContentLoaded', function() {
+                var likeButton = document.getElementById('like-button');
+                likeButton.addEventListener('click', function() {
+                    window.lb = likeButton;
+                    likeButton.classList.toggle('selected');
+                });
+            }, false);
+            window.onload = (event) => {
+                var test = {{ isLiked }}
+                if(test === 1) {
+                    var likeButton = document.getElementById('like-button');
+                    window.lb = likeButton;
+                    likeButton.classList.toggle('selected');
+                }
+                }
+
+
 
         </script>
 
@@ -114,12 +128,11 @@
                                     <img class="lazy" width="100%"
                                          src="{{ asset('uploads/images/'~asset(p.postimage)) }}"
                                          data-src="{{ asset('uploads/images/'~asset(p.postimage)) }}" alt="demo"/>
-
                                     <div class="__content">
 
                                         <div class="mb-6 mb-md-8">
-                                            <span id="like"
-                                                  {% if app.user %}
+                                            <!-- <span id="like"
+                                                  {#  if app.user %}
                                                   onclick="addLike()"
                                                   {% else %}
                                                     onclick="redirectToLogin()"
@@ -129,15 +142,16 @@
                                                 {% include("frontoffice/like.html.twig") %}
                                                 {% else %}
                                                 {% include("frontoffice/dislike.html.twig") %}
-                                                {% endif %}
-                                            </span>
+                                                {% endif #}
+                                            </span> -->
                                             <br>
+                                        <div class="mb-6 mb-md-8">
 
                                             <time class="__date-post">{{ p.getCreatedAt().format('j, M, Y ') }}</time>
 
-                                            <p class="__category"><a href="#">{{ p.postcategory.name }}</a></p>
+                                            <p class="__category">Categorie : <a href="#">{{ p.postcategory.name }}</a></p>
 
-                                            <h3 class="__title h5">{{ p.title }}</h3>
+                                            <h3 class="__title h3">{{ p.title }}</h3>
                                         </div>
 
                                         <p>
@@ -167,301 +181,22 @@
                         </div>
 
                         <!-- start posts feedback -->
+
                         <div class="posts-feedback">
-                            <h6>4 Comments</h6>
+                            <button type="button" id="like-button" {% if app.user %}
+                                    onclick="addLike()"
+                                {% else %}
+                                    onclick="location.href = '{{ path('app_sign_in') }}';"
+                            {% endif %}">
+                            <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M91.6 13A28.7 28.7 0 0 0 51 13l-1 1-1-1A28.7 28.7 0 0 0 8.4 53.8l1 1L50 95.3l40.5-40.6 1-1a28.6 28.6 0 0 0 0-40.6z"/></svg>
+                            Like
+                            </button><br><br>
+                            <b>4 Comments , </b>
+                            <span id="totalLike" style="margin-left:7px ; margin-top: 10px"> {% include("frontoffice/totalLike.html.twig") %}</span>
+                            <div id="commment_article">
+                                {% include "frontoffice/CommentList.html.twig" %}
 
-                            <ul class="comments-list">
-                                <li class="comment">
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <div class="d-none d-lg-block">
-
-                                                    <div class="comment__author-img">
-                                                        <img class="img-fluid lazy" width="70"
-                                                             src="{{ asset('frontoffice/') }}img/blank.gif"
-                                                             data-src="{{ asset('frontoffice/') }}img/avatar.jpg"
-                                                             alt="demo"/>
-                                                    </div>
-
-                                                </div>
-                                            </td>
-
-                                            <td width="100%">
-                                                <time class="comment__date-post">April 12, 2017</time>
-
-                                                <div class="d-flex align-items-center mb-3 mb-lg-0">
-                                                    <div class="d-block d-lg-none">
-
-                                                        <div class="comment__author-img">
-                                                            <img class="img-fluid lazy" width="70"
-                                                                 src="{{ asset('frontoffice/') }}img/blank.gif"
-                                                                 data-src="{{ asset('frontoffice/') }}img/avatar.jpg"
-                                                                 alt="demo"/>
-                                                        </div>
-
-                                                    </div>
-
-                                                    <span class="comment__author-name">Terens Smith</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td></td>
-                                            <td>
-                                                <p>
-                                                    Our team has a passion for making things with real value. This has
-                                                    led us to assemble a multi-talented group that can do just about
-                                                    anything: from building sets to photographing food, crafting
-                                                    websites to developing apps, beautiful design to adventure
-                                                    cinematography. Designers, engineers, creatives, makers, developers,
-                                                    artists, unite.
-                                                </p>
-
-                                                <div class="text-right">
-                                                    <a class="comment__reply custom-btn custom-btn--tiny custom-btn--style-1"
-                                                       href="#">REPLY</a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-
-                                    <ul>
-                                        <li class="comment">
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-none d-lg-block">
-
-                                                            <div class="comment__author-img">
-                                                                <img class="img-fluid lazy" width="70"
-                                                                     src="{{ asset('frontoffice/') }}img/blank.gif"
-                                                                     data-src="{{ asset('frontoffice/') }}img/avatar.jpg"
-                                                                     alt="demo"/>
-                                                            </div>
-
-                                                        </div>
-                                                    </td>
-
-                                                    <td width="100%">
-                                                        <time class="comment__date-post">April 12, 2017</time>
-
-                                                        <div class="d-flex align-items-center mb-3 mb-lg-0">
-                                                            <div class="d-block d-lg-none">
-
-                                                                <div class="comment__author-img">
-                                                                    <img class="img-fluid lazy" width="70"
-                                                                         src="{{ asset('frontoffice/') }}img/blank.gif"
-                                                                         data-src="{{ asset('frontoffice/') }}img/avatar.jpg"
-                                                                         alt="demo"/>
-                                                                </div>
-
-                                                            </div>
-
-                                                            <span class="comment__author-name">Terens Smith</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td></td>
-                                                    <td>
-                                                        <p>
-                                                            Our team has a passion for making things with real value.
-                                                            This has led us to assemble a multi-talented group that can
-                                                            do just about anything: from building sets to photographing
-                                                            food, crafting websites to developing apps, beautiful design
-                                                            to adventure cinematography. Designers, engineers,
-                                                            creatives, makers, developers, artists, unite.
-                                                        </p>
-
-                                                        <div class="text-right">
-                                                            <a class="comment__reply custom-btn custom-btn--tiny custom-btn--style-1"
-                                                               href="#">REPLY</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-
-                                            <ul>
-                                                <li class="comment">
-                                                    <table>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="d-none d-lg-block">
-
-                                                                    <div class="comment__author-img">
-                                                                        <img class="img-fluid lazy" width="70"
-                                                                             src="{{ asset('frontoffice/') }}img/blank.gif"
-                                                                             data-src="{{ asset('frontoffice/') }}img/avatar.jpg"
-                                                                             alt="demo"/>
-                                                                    </div>
-
-                                                                </div>
-                                                            </td>
-
-                                                            <td width="100%">
-                                                                <time class="comment__date-post">April 12, 2017</time>
-
-                                                                <div class="d-flex align-items-center mb-3 mb-lg-0">
-                                                                    <div class="d-block d-lg-none">
-
-                                                                        <div class="comment__author-img">
-                                                                            <img class="img-fluid lazy" width="70"
-                                                                                 src="{{ asset('frontoffice/') }}img/blank.gif"
-                                                                                 data-src="{{ asset('frontoffice/') }}img/avatar.jpg"
-                                                                                 alt="demo"/>
-                                                                        </div>
-
-                                                                    </div>
-
-                                                                    <span class="comment__author-name">Terens Smith</span>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td></td>
-                                                            <td>
-                                                                <p>
-                                                                    Our team has a passion for making things with real
-                                                                    value. This has led us to assemble a multi-talented
-                                                                    group that can do just about anything: from building
-                                                                    sets to photographing food, crafting websites to
-                                                                    developing apps, beautiful design to adventure
-                                                                    cinematography. Designers, engineers, creatives,
-                                                                    makers, developers, artists, unite.
-                                                                </p>
-
-                                                                <div class="text-right">
-                                                                    <a class="comment__reply custom-btn custom-btn--tiny custom-btn--style-1"
-                                                                       href="#">REPLY</a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="comment">
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-none d-lg-block">
-
-                                                            <div class="comment__author-img">
-                                                                <img class="img-fluid lazy" width="70"
-                                                                     src="{{ asset('frontoffice/') }}img/blank.gif"
-                                                                     data-src="{{ asset('frontoffice/') }}img/avatar.jpg"
-                                                                     alt="demo"/>
-                                                            </div>
-
-                                                        </div>
-                                                    </td>
-
-                                                    <td width="100%">
-                                                        <time class="comment__date-post">April 12, 2017</time>
-
-                                                        <div class="d-flex align-items-center mb-3 mb-lg-0">
-                                                            <div class="d-block d-lg-none">
-
-                                                                <div class="comment__author-img">
-                                                                    <img class="img-fluid lazy" width="70"
-                                                                         src="{{ asset('frontoffice/') }}img/blank.gif"
-                                                                         data-src="{{ asset('frontoffice/') }}img/avatar.jpg"
-                                                                         alt="demo"/>
-                                                                </div>
-
-                                                            </div>
-
-                                                            <span class="comment__author-name">Terens Smith</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td></td>
-                                                    <td>
-                                                        <p>
-                                                            Our team has a passion for making things with real value.
-                                                            This has led us to assemble a multi-talented group that can
-                                                            do just about anything: from building sets to photographing
-                                                            food, crafting websites to developing apps, beautiful design
-                                                            to adventure cinematography. Designers, engineers,
-                                                            creatives, makers, developers, artists, unite.
-                                                        </p>
-
-                                                        <div class="text-right">
-                                                            <a class="comment__reply custom-btn custom-btn--tiny custom-btn--style-1"
-                                                               href="#">REPLY</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="comment">
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <div class="d-none d-lg-block">
-
-                                                    <div class="comment__author-img">
-                                                        <img class="img-fluid lazy" width="70"
-                                                             src="{{ asset('frontoffice/') }}img/blank.gif"
-                                                             data-src="{{ asset('frontoffice/') }}img/avatar.jpg"
-                                                             alt="demo"/>
-                                                    </div>
-
-                                                </div>
-                                            </td>
-
-                                            <td width="100%">
-                                                <time class="comment__date-post">April 12, 2017</time>
-
-                                                <div class="d-flex align-items-center mb-3 mb-lg-0">
-                                                    <div class="d-block d-lg-none">
-
-                                                        <div class="comment__author-img">
-                                                            <img class="img-fluid lazy" width="70"
-                                                                 src="{{ asset('frontoffice/') }}img/blank.gif"
-                                                                 data-src="{{ asset('frontoffice/') }}img/avatar.jpg"
-                                                                 alt="demo"/>
-                                                        </div>
-
-                                                    </div>
-
-                                                    <span class="comment__author-name">Terens Smith</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td></td>
-                                            <td>
-                                                <p>
-                                                    Our team has a passion for making things with real value. This has
-                                                    led us to assemble a multi-talented group that can do just about
-                                                    anything: from building sets to photographing food, crafting
-                                                    websites to developing apps, beautiful design to adventure
-                                                    cinematography. Designers, engineers, creatives, makers, developers,
-                                                    artists, unite.
-                                                </p>
-
-                                                <div class="text-right">
-                                                    <a class="comment__reply custom-btn custom-btn--tiny custom-btn--style-1"
-                                                       href="#">REPLY</a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </li>
-                            </ul>
-
+                            </div>
                             <div class="mt-6 mt-lg-10 mb-lg-4">
                                 <div class="row align-items-center justify-content-between">
                                     <div class="col-12 col-md-auto mb-6">
@@ -488,6 +223,15 @@
                                         <div class="share-btns">
                                             <ul>
                                                 <li><a class="fb" href="#"><i class="fontello-facebook"></i>facebook</a>
+
+                                                <li>
+                                                    <iframe name="iframe" id="iframe"
+                                                            src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2F127.0.0.1%3A8000%2Fblog_details%2F{{ id }}&layout=button_count&size=small&width=91&height=20&appId"
+                                                            width="91" height="20" style="border:none;overflow:hidden"
+                                                            scrolling="no" frameborder="0" allowfullscreen="true"
+                                                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+
+
                                                 </li>
                                                 <li><a class="tw" href="#"><i class="fontello-twitter"></i>twitter</a>
                                                 </li>
@@ -503,30 +247,112 @@
 
                             <h6>Leave a Reply</h6>
 
-                            <form action="#">
+                                {#   {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }} #}
                                 <div class="row">
                                     <div class="col-12 col-sm-6">
                                         <div class="input-wrp">
-                                            <input class="textfield" type="text" value="" placeholder="Name"/>
+                                            {#   {{ form_row(form.name,{'attr': {'class': 'textfield'}} ) }} #}
+                                            <input id="name" class="textfield" type="text" value=""
+                                                   placeholder="Name"/>
                                         </div>
                                     </div>
 
                                     <div class="col-12 col-sm-6">
                                         <div class="input-wrp">
-                                            <input class="textfield" type="text" value="" placeholder="E-mail"/>
+
+                                            {#            {{ form_row(form.email,{'attr': {'class': 'textfield'}} ) }} #}
+
+                                            <input id="email" class="textfield" type="text" value=""
+                                                   placeholder="E-mail"/>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="input-wrp">
-                                    <textarea class="textfield" placeholder="Comments"></textarea>
-                                </div>
 
-                                <button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit"
+                                    {#   {{ form_row(form.Message,{'attr': {'class': 'textfield'}} ) }} #}
+
+                                    <textarea id="message" class="textfield" placeholder="Comments"></textarea>
+                                </div>
+                                {#    {{ form_widget(form.Submit,{'attr':{'class':'custom-btn custom-btn--medium custom-btn--style-1'}}) }} #}
+
+                                <button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" onclick="addcommentjs()"
                                         role="button">post comment
                                 </button>
-                            </form>
-                        </div>
+
+                                {#   {{ form_end(form) }} #}
+                            <script src="https://www.google.com/recaptcha/api.js?render=6Lc96AYfAAAAAAJsKTsNdyF4yBBWVnt5rWll8Dbe"></script>
+                            <script>
+                                grecaptcha.ready(function () {
+                                    grecaptcha
+                                        .execute("6Lc96AYfAAAAAAJsKTsNdyF4yBBWVnt5rWll8Dbe", {
+                                            action: "homepage",
+                                        })
+                                        .then(function (token) {
+                                            document.getElementById("blog_details_captcha").value = token;
+                                        });
+                                });
+
+                                function addcommentjs() {
+                                    var name = document.getElementById("name").value;
+                                    var email = document.getElementById("email").value;
+                                    var message = document.getElementById("message").value;
+                                    //on recupere l URL active
+                                    const url = new URL(window.location.href);
+                                    //location.replace( "http://localhost:8000/blog_details/1?ajax=1"  );
+                                   // window.location.replace(url+"?ajax=2");
+                                    fetch(url.pathname + "?ajax=2 & name="+name+"& email="+email+"&message="+message, {
+                                            headers: {
+                                                "X-Requested-With": "XMLHttpRequest"
+                                            }
+                                        }
+                                    ).then(response => response.json()
+                                    ).then(data => {
+                                            console.log(data);
+                                            //        // chercher la zonne de continue
+                                            var content = document.getElementById("commment_article");
+                                            //        //remplace le continue
+                                            content.innerHTML = data.content;
+                                            //        history.pushState({},null,url.pathname + "?" + "catId="+v.toString());
+                                        }
+                                    ).catch(e => console.log(e));
+                                    // on lance la requette ajax
+                             //       fetch(url.pathname + "?" + "ajax=1",{
+                             //               headers: {
+                             //                   "X-Requested-With": "XMLHttpRequest",
+                             //                    'Content-Type': 'application/json'
+//
+                             //               }
+                             //           }
+//
+                             //       ).then(data => {
+                             //           console.log(data)
+                             //               // chercher la zonne de continue
+                             //     //       var content = document.getElementById("commment_article");
+                             //     //       //remplace le continue
+                             //     //       content.innerHTML = data.content;
+                             //           }
+                             //       ).catch(e=>console.log(e));
+                                }
+
+
+                                async function postdata() {
+                                    const data = new FormData();
+                                    data.append('page', 'pageName');
+                                    const url = new URL(window.location.href);
+
+                                    let response = await fetch('http://localhost:8000/slim/1' + '?ajax=1', {
+                                        method: 'POST',
+                                        headers: {
+                                            "Content-type": "application/json",
+                                        },
+                                        body: data
+                                    })
+                                    return response.json()
+                                }
+
+                            </script>
+                        </div></div>
                         <!-- end posts feedback -->
                     </div>
 
@@ -555,6 +381,7 @@
                                             <a class="list__item__link"
                                                href="{{ path('Blog_filter',{ 'id':c.id }) }}">{{ c.name }}</a>
                                             <!-- <span>(8)</span> --!>
+                                            <span>(8)</span>
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -637,6 +464,7 @@
                     </div>
                 </div>
             </div>
+            </div>
         </section>
         <!-- end section -->
 
@@ -708,4 +536,27 @@
 {% endblock content %}
       {% block footer %}
           {% include('includes/frontoffice/footer.html.twig') %}
+
       {% endblock footer %}
+
+{% block javascripts %}
+
+
+
+    <script src="{{ asset('front-office/js/fuse.js') }}"></script>
+
+    <script src="{{ asset('front-office/js/emoji_keyboard.js') }}"></script>
+
+    <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+            fjs.parentNode.insertBefore(js, fjs);
+            console.log(js);
+
+        }(document, 'script', 'facebook-jssdk'));
+
+
+{% endblock %}
