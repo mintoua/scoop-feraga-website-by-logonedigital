@@ -310,4 +310,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     {
         $this->authCode = $authCode;
     }
+
+    public function isIsVirified(): ?bool
+    {
+        return $this->isVirified;
+    }
+
+    public function setIsVirified(bool $isVirified): self
+    {
+        $this->isVirified = $isVirified;
+
+        return $this;
+    }
 }
