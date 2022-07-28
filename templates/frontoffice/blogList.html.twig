@@ -40,12 +40,12 @@
                         <!-- end item -->
                     {% endfor %}
         </div>
-
-            <div class="container">
+<!-- old pagination -->
+         <!--   <div class="container">
                 <ul class="page-nav">
 
                     <li class="page-nav__item">
-                        {% if ( ((total / limit)|round(0,'ceil')) <= page  ) %}
+                        {#  if ( ((total / limit)|round(0,'ceil')) <= page  ) %}
                             {% if(page != 1 and ((total / limit)|round(0,'ceil')) !=1) %}
                             <a href="?page={{ page -1 }}&{{ queryParams1 }}" class="page-nav__link page-nav__link--prev"
                             ><i class="ico fontello-left-1"></i>Older post</a>
@@ -59,9 +59,27 @@
                             >Newer post<i class="ico fontello-right-1"></i
                                 ></a>
                         </li>
-                    {% endif %}
+                    {% endif #}
                 </ul>
             </div>
+            -->
+        <!-- New pagination -->
+            <ul class="page1">
+                <a class="{{ (page == 1 or page ==0 )?'disabled ':'' }}" href="?page={{ page-1 }}&{{ queryParams1 }}">
+                <li class="page__btn {{ (page == 1 or page ==0 )?'disabled ':'active' }}"><span class="iconify {{ (page == 1 or page ==0 )?'disabled ':'' }}" style="font-size: 2.6rem" data-icon="mdi:chevron-double-left"></span>
+                </li>
+                </a>
+                {% for i in 1..(total / limit)|round(0,'ceil') %}
+                <a class="{{ (page == i or page ==0 )?'disabled ':'' }}" href="?page={{ i }}&{{ queryParams1 }}">
+                    <li class="page__numbers {{ (page == i or page ==0 )?'disabled active':'' }} "> {{ i }}</li></a>
+                {% endfor %}
+
+                <li class="page__dots">...</li>
+                <a class="{{ (page == (total / limit)|round(0,'ceil') or page ==0 )?'disabled ':'' }}" href="?page={{ page+1 }}&{{ queryParams1 }}">
+                    <li class="page__btn {{ (page == (total / limit)|round(0,'ceil') or page ==0 )?'disabled ':'active' }}"><span class="iconify {{ (page == (total / limit)|round(0,'ceil') or page ==0 )?'disabled ':'' }} " style="font-size: 2.6rem" data-icon="mdi:chevron-double-right"></span></li>
+                </a>
+            </ul>
+
         <!-- end posts -->
 
 <!-- end section -->
