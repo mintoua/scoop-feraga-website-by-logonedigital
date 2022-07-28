@@ -2,20 +2,22 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Scheb\TwoFactorBundle\Model\TrustedDeviceInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Scheb\TwoFactorBundle\Model\Email\TwoFactorInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`User`')]
-#[UniqueEntity('email')]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+#[UniqueEntity(fields: ['email'], message:'cette email existe déjà')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFactorInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -25,17 +27,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
+    #[ORM\Column(length: 30, nullable:true)]
+    private string $authCode;
+
+
     #[ORM\Column]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
+    #[Assert\Regex(
+        pattern: '/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/',
+        match: true,
+    )]
+    #[ORM\Column(nullable:true)]
     private ?string $password = null;
 
-    #[Assert\EqualTo(propertyPath:"password",  message:"Your password must match")]
-    private ?string $passwordConfirm = null;
 
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
@@ -63,6 +71,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $googleId = null;
+
+    #[ORM\Column]
+    private ?bool $isVirified = false;
 
     public function __construct()
     {
@@ -127,8 +138,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @see PasswordAuthenticatedUserInterface
+     *
      */
-    public function getPassword(): string
+    public function getPassword(): string |null
     {
         return $this->password;
     }
@@ -184,6 +196,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getGoogleId(): ?string
+    {
+        return $this->googleId;
+    }
+
+    public function setGoogleId(string $googleId)
+    {
+        $this->googleId = $googleId;
+    }
+    public function getFacookeId(): ?string
+    {
+        return $this->facebookId;
+    }
+
+    public function setFacebookId(string $facebookId)
+    {
+        $this->facebookId = $facebookId;
+    }
+
     public function isRgpd(): ?bool
     {
         return $this->rgpd;
@@ -194,14 +225,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->rgpd = $rgpd;
 
         return $this;
-    }
-
-    /**
-     * Get the value of passwordConfirm
-     */
-    public function getPasswordConfirm()
-    {
-        return $this->passwordConfirm;
     }
 
     /**
@@ -263,35 +286,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    /**
-     * @return Collection<int, Commentaire>
-     */
-    public function getCommentaires(): Collection
-    {
-        return $this->commentaires;
-    }
-
-    public function addCommentaire(Commentaire $commentaire): self
-    {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires[] = $commentaire;
-            $commentaire->setBlogId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommentaire(Commentaire $commentaire): self
-    {
-        if ($this->commentaires->removeElement($commentaire)) {
-            // set the owning side to null (unless already changed)
-            if ($commentaire->getBlogId() === $this) {
-                $commentaire->setBlogId(null);
-            }
-        }
-
-        return $this;
-    }
-
-
 }

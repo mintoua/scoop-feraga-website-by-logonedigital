@@ -41,16 +41,16 @@ class ContactController extends AbstractController
         $form->handleRequest($req);
 
         //hello world
-         
+        
         if($form->isSubmitted() and $form->isValid()){
-            
+            // 
             $url = "https://www.google.com/recaptcha/api/siteverify?secret=6Lc96AYfAAAAAEP84ADjdx5CBfEpgbTyYqgemO5n&response={$form->get('captcha')->getData()}";
 
             $response = $client->curlManager($url);
 
             if(empty($response) || is_null($response)){
                $flashy->warning("Something wrong!",'');
-                return $this->redirectToRoute('contact');
+                return $this->redirectToRoute('app_contact');
             }else{
                 $data = json_decode($response);
                 if($data->success){
@@ -61,10 +61,12 @@ class ContactController extends AbstractController
                     $mail->send (
                         "NOUVEAU CONTACT", 
                         $contact->getEmail(),
-                        $contact->getMsg(), 
+                        "email/contact.html.twig", 
                         ["",""],
                         "ngueemmanuel@gmail.com"
                     );
+                    $flashy->success("Votre demande a bien été prise en compte!",'');
+                    return $this->redirectToRoute('app_contact');
                     //$mail->send($contact->getEmail(), $contact->getPrenom(), 'NOUVEAU CONTACT', $contact->getMsg());
                     
                 }else{

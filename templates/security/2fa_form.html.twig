@@ -127,49 +127,78 @@
     </style>
 
     <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-12 col-lg-5">
-          <form action="" method="post" class="custom-form">
-            <div class="row">
-				<a href="{{path('app_login')}}"><i class="fas fa-arrow-alt-circle-left" style="font-size: 20px;"></i></a>
-			</div>
-            <div class="row justify-content-center">
-              <a href="{{path('app_home')}}" style="text-align: center;">
-				<img
-                class="form-logo"
-                src="{{ asset('frontOffice/img/') }}site_logo.png"
-                alt=""
-              />
-			  </a>
-            </div>
-            <div class="row">
-              <h1>Reinialiser mon mot de passe</h1>
-            <div class="mb-3">
-              <label class="form-label"
-                >E-mail
-              </label>
+      <div class="row">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-5">
+            <form
+              action="{{ checkPathUrl ? checkPathUrl : path(checkPathRoute) }}"
+              method="post"
+              class="custom-form"
+            >
+              <div class="row justify-content-center">
+                <img
+                  class="form-logo"
+                  src="{{ asset('frontOffice/img/') }}site_logo.png"
+                  alt=""
+                />
+              </div>
+              <div class="row">
+                <h1>Scoops Feraga</h1>
+                <p style="justify-content: center">
+                  Veuillez renseigner le code d'authentification qui vous a été
+                  à votre email
+                </p>
+                {% if authenticationError %}
+                <p>
+                  {{ authenticationError|trans(authenticationErrorData, 'SchebTwoFactorBundle') }}
+                </p>
+                {% endif %}
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Code </label>
+                <input
+                  id="_auth_code"
+                  type="text"
+                  name="{{ authCodeParameterName }}"
+                  autocomplete="one-time-code"
+                  autofocus
+                  class="form-control"
+                  autofocus
+                />
+              </div>
+
+              <div class="mb-3"></div>
+              {% if displayTrustedOption %}
+              <p class="widget">
+                <label for="_trusted"
+                  ><input
+                    id="_trusted"
+                    type="checkbox"
+                    name="{{ trustedParameterName }}"
+                  />
+                  {{ "trusted"|trans({}, 'SchebTwoFactorBundle') }}</label
+                >
+              </p>
+              {% endif %} {% if isCsrfProtectionEnabled %}
               <input
-                type="email"
-                name="email"
-                class="form-control"
-                autofocus
+                type="hidden"
+                name="{{ csrfParameterName }}"
+                value="{{ csrf_token(csrfTokenId) }}"
               />
-            </div>
-            <input
-              type="hidden"
-              name="_csrf_token"
-              value="{{ csrf_token('authenticate') }}"
-              />
-            <div class="mb-3">
-              <button
-                type="submit"
-                class="btn btn-primary"
-                style="width: 100%; text-transform: uppercase"
+              {% endif %}
+              <p class="submit">
+                <input class="btn btn-primary" type="submit" value="{{ "Se connecter"|trans({}, 'SchebTwoFactorBundle')
+
+                }}" />
+              </p>
+            </form>
+            <p class="cancel">
+              <a
+                href="{{ logoutPath }}"
+                >{{ "cancel"|trans({}, 'SchebTwoFactorBundle') }}</a
               >
-                Se connecter
-              </button>
-            </div>
-          </form>
+            </p>
+          </div>
         </div>
       </div>
     </div>

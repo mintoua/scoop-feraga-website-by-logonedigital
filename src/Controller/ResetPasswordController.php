@@ -6,11 +6,13 @@ use DateTime;
 use App\Entity\User;
 use App\Classes\Mail;
 use App\Entity\ResetPassword;
+use App\Services\MailerHelper;
 use App\Form\ResetPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
@@ -18,10 +20,13 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 class ResetPasswordController extends AbstractController
 {
     private $manager;
+    private $mailHelper;
 
-    public function __construct(EntityManagerInterface $manager)
+    public function __construct(EntityManagerInterface $manager, MailerHelper $mailerHelper)
     {
         $this->manager = $manager;
+        $this->mailHelper = $mailerHelper;
+
     }
 
     #[Route('/mot-de-passe-oublie', name: 'app_forgot_password')]
@@ -52,9 +57,21 @@ class ResetPasswordController extends AbstractController
                 $url = $this->generateUrl('app_reset_password', [
                     'token'=>$token
                 ]);
-                $content = "Bonjour ".$user->getFirstname()."<br> Vous avez demander à reinitialiser votre mot de passe sur le site scoops feraga <br> <br>";
-                $content .="Merci de bien vouloir cliquez sur le lien suivant pour <a href='".$url."'>mettre à jour votre mot de passe</a>.";
-                $mail->send($user->getEmail(), $user->getFirstname().''.$user->getLastname(), "Reinitialiser votre mot de passe", $content);
+
+                // $content = "Bonjour ".$user->getFirstname()."<br> Vous avez demander à reinitialiser votre mot de passe sur le site scoops feraga <br> <br>";
+                // $content .="Merci de bien vouloir cliquez sur le lien suivant pour <a href='".$url."'>mettre à jour votre mot de passe</a>.";
+                // $mail->send($user->getEmail(), $user->getFirstname().''.$user->getLastname(), "Reinitialiser votre mot de passe", $content);
+                
+                $url = $this->generateUrl("app_reset_password", [
+                "token"=>$token
+                ], UrlGeneratorInterface::ABSOLUTE_URL);
+                $this->mailHelper->send(
+                    "Reinitialisation du mot de passe", 
+                     $user->getEmail(), 
+                     "email/reset_password.html.twig", 
+                     ["token" => $token ],
+                     "no-reply@scoopsferaga.com"
+                    );
 
                 $this->addFlash('notice', 'Vous allez recevoir un email de reinitialisation de mot de passe.');
 

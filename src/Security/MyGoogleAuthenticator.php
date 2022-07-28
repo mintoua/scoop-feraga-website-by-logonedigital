@@ -4,16 +4,17 @@ namespace App\Security;
 
 use App\Entity\User; // your user entity
 use Doctrine\ORM\EntityManagerInterface;
-use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
-use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
 class MyGoogleAuthenticator extends OAuth2Authenticator
@@ -21,12 +22,19 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
     private $clientRegistry;
     private $entityManager;
     private $router;
+    private $encoder;
 
-    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $entityManager, RouterInterface $router)
+    public function __construct(
+    ClientRegistry $clientRegistry, 
+    EntityManagerInterface $entityManager, 
+    RouterInterface $router,
+    UserPasswordHasherInterface $encoder
+    )
     {
         $this->clientRegistry = $clientRegistry;
         $this->entityManager = $entityManager;
         $this->router = $router;
+        $this->encoder = $encoder;
     }
 
     public function supports(Request $request): ?bool
@@ -65,12 +73,17 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
                 // a User object
                 if(!$user){
                     $user = new User(); 
-                    dd($googleUser);
-                    $user->setGoogleId($googleUser->getId());
+                    //dd($googleUser);
+                    
                     $user->setEmail($googleUser->getEmail());
+                    $user->setGoogleId($googleUser->getId());
                     $user->setFirstname($googleUser->getFirstname());
-                    $user->setFirstname($googleUser->getLastname());
-                    $user->setPassword($googleUser->getPassword());
+                    $user->setLastname($googleUser->getLastname());
+                    $user->setRgpd(true);
+                    $user->setRoles(['ROLE_USER']);
+                    $hashedPassword =$this->encoder->hashPassword($user,md5(uniqid()));
+
+                    $user->setPassword($hashedPassword);
                     $this->entityManager->persist($user);
                     $this->entityManager->flush();
                 }   

@@ -8,4 +8,4 @@ connect_facebook_check:
 
 connect_google_check:
   path: /connect/google/check
-  controller: Symfony\Bundle\FramewordBundle\Controller\TemplateController
+  controller: Symfony\Bundle\FramewordBundle\Controller\TemplateControllerw

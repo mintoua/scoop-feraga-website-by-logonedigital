@@ -132,24 +132,20 @@
           <form action="" method="post" class="custom-form">
             
             <div class="row justify-content-center">
-              <img
+              <a href="{{path('app_home')}}" style="text-align: center;">
+                <img
                 class="form-logo"
                 src="{{ asset('frontOffice/img/') }}site_logo.png"
                 alt=""
               />
+              </a></div>
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
             </div>
+            {% endfor %}
             <div class="row">
-              <h1>Se Connecter</h1>
-              {% if error %}
-              <div class="alert alert-danger">
-                  {{ error.messageKey|trans(error.messageData, 'security') }}
-              </div>
-              {% endif %} {% if app.user %}
-              <div class="mb-3">
-                  Vous êtes connecté en tant que{{ app.user.userIdentifier }},
-                  <a href="{{ path('app_logout') }}">Deconnexion</a>
-              </div>
-              {% endif %}
+              <h1>NOUVEAU MOT DE PASSE</h1>
             </div>
             <div class="mb-3">
               <label class="form-label"
