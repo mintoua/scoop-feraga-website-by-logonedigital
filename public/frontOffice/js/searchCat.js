@@ -31,7 +31,7 @@ window.onload = ()=>{
                 //replace
                 content.innerHTML = data.content;
 
-                history.pushState({}, null, Url.pathname + "?" + Params.toString())
+                history.pushState({}, null, Url.pathname)
             }).catch(e=>alert(e));
         })
     })

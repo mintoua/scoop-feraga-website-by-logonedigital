@@ -367,12 +367,20 @@
                                   <h4 class="h6 widget-title">Catégories</h4>
                                   <form id="filters">
                                   <ul>
+                                      {% set queryParams = app.request.query.all %}
+                                      {% set queryString = queryParams|filter((v,k) => k != "page")|url_encode %}
                                       {% for categorie in categories %}
                                       <li>
                                           <label class="checkfield">
+                                              {% if queryParams is not empty and queryParams.categories is defined %}
+                                                  {% set checked = (categorie.id in queryParams.categories) ? "checked" : "" %}
+                                              {% else %}
+                                                    {% set checked = "" %}
+                                              {% endif %}
                                               <input type="checkbox" name="categories[]"
                                               id="cat{{ categorie.id }}"
-                                              value="{{ categorie.id }}"/>
+                                              value="{{ categorie.id }}"
+                                              {{ checked }}/>
                                               <i></i>
                                               {{ categorie.name }}
                                           </label>
@@ -387,17 +395,15 @@
                               <div class="widget">
                                   <div class="row no-gutters align-items-center">
                                       <div class="col">
-                                          <button
+                                          <a
                                                   class="custom-btn custom-btn--medium custom-btn--style-1"
-                                                  role="button"
+                                                  href="{{ path('app_shop') }}"
                                           >
                                               Show Products
-                                          </button>
+                                          </a>
                                       </div>
 
-                                      <div class="col-auto">
-                                          <a class="clear-filter" href="#">Clear all</a>
-                                      </div>
+
                                   </div>
                               </div>
                               <!-- end widget -->
@@ -418,20 +424,7 @@
                       >
                     </div>
 
-                    <div class="col-auto">
-                      <!-- start ordering -->
-                      <form class="ordering" action="#">
-                        <div class="input-wrp">
-                          <select class="textfield wide js-select">
-                            <option value="1">Default Sorting</option>
-                            <option value="2">Price. low to high</option>
-                            <option value="3">Price. high to low</option>
-                            <option value="3">Sort by latest</option>
-                          </select>
-                        </div>
-                      </form>
-                      <!-- end ordering -->
-                    </div>
+
                   </div>
 
                   <div class="spacer py-3"></div>
@@ -487,7 +480,7 @@
                                   </div>
 
                                   <span class="product-label product-label--sale"
-                                    >Sale</span
+                                    >For Sale</span
                                   >
                                 </div>
                               </div>
