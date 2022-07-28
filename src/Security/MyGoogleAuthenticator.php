@@ -9,12 +9,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
 class MyGoogleAuthenticator extends OAuth2Authenticator
@@ -23,18 +25,25 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
     private $entityManager;
     private $router;
     private $encoder;
+    private $authChecker;
+    private UrlGeneratorInterface $urlGenerator;
+    
 
     public function __construct(
     ClientRegistry $clientRegistry, 
     EntityManagerInterface $entityManager, 
     RouterInterface $router,
-    UserPasswordHasherInterface $encoder
+    UserPasswordHasherInterface $encoder,
+    AuthorizationCheckerInterface $authChecker,
+    UrlGeneratorInterface $urlGenerator
     )
     {
         $this->clientRegistry = $clientRegistry;
         $this->entityManager = $entityManager;
         $this->router = $router;
         $this->encoder = $encoder;
+        $this->authChecker = $authChecker;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function supports(Request $request): ?bool
@@ -95,13 +104,21 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        // change "app_homepage" to some route in your app
-        $targetUrl = $this->router->generate('app_home');
+        
+        if($this->authChecker->isGranted('ROLE_ADMIN') ){
+            return new RedirectResponse($this->urlGenerator->generate('admin'));
+          }else if($this->authChecker->isGranted('ROLE_USER')){
+           // dd($request);
+            if($request->headers->get('referer'))
+            {
+               return new RedirectResponse($request->headers->get('referer')); 
+            }
+            return new RedirectResponse($this->urlGenerator->generate('app_user_account'));
+          }
 
-        return new RedirectResponse($targetUrl);
-    
-        // or, on success, let the request continue to be handled by the controller
-        //return null;
+        // $targetUrl = $this->router->generate('app_home');
+
+        return new RedirectResponse($request->header->get('referer'));
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
