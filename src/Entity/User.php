@@ -16,8 +16,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`User`')]
-#[UniqueEntity('email')]
-#[UniqueEntity(fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message:'cette email existe déjà')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFactorInterface
 {
     #[ORM\Id]
@@ -41,7 +40,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     #[Assert\Regex(
         pattern: '/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/',
         match: true,
-        message: 'Min: 8 charactères, Min: 1 Maj, Min: 1 chiffre, Min: un charactère spécial',
     )]
     #[ORM\Column(nullable:true)]
     private ?string $password = null;
