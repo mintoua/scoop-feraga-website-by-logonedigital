@@ -5,6 +5,7 @@ namespace App\EventSubcriber;
 use App\Entity\Posts;
 use App\Entity\Product;
 use App\Entity\PostCategory;
+use App\Entity\ProductCategory;
 use DateTimeImmutable;
 use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityDeletedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityPersistedEvent;
@@ -17,10 +18,12 @@ use Symfony\Contracts\Cache\CacheInterface;
 class EasyAdminSubcriber implements EventSubscriberInterface
 {
     private $appKernel;
+    private $cache;
 
-    public function __construct(KernelInterface $appKernel)
+    public function __construct(CacheInterface $cache, KernelInterface $appKernel)
     {
         $this->appKernel = $appKernel;
+        $this->cache = $cache;
     }
 
     public static function getSubscribedEvents()
@@ -42,33 +45,43 @@ class EasyAdminSubcriber implements EventSubscriberInterface
             $entity->setCreatedAt($now);
         }
     }
-    public function clearCacheAfter( CacheInterface $cache,AfterEntityPersistedEvent $event){
+    public function clearCacheAfter(AfterEntityPersistedEvent $event){
 
         $entity = $event->getEntityInstance();
         if($entity instanceof Posts){
-            $cache->delete('post_list');
-            $cache->delete('total_post');
+            $this->cache->delete('post_list');
+            $this->cache->delete('total_post');
         }
         if($entity instanceof PostCategory){
-            $cache->delete('category_list');
+            $this->cache->delete('category_list');
+        }
+        if($entity instanceof ProductCategory){
+            $this->cache->delete('product_categories_list');
         }
     }
-    public function clearCacheAfterDeleted( CacheInterface $cache,AfterEntityDeletedEvent $event){
+    public function clearCacheAfterDeleted(AfterEntityDeletedEvent $event){
         $entity = $event->getEntityInstance();
         if($entity instanceof Posts){
-            $cache->delete('post_list');
-            $cache->delete('total_post');
+            $this->cache->delete('post_list');
+            $this->cache->delete('total_post');
         }
         if($entity instanceof PostCategory){
-            $cache->delete('category_list');
+            $this->cache->delete('category_list');
         }
-    }public function clearCacheAfterUpdated( CacheInterface $cache,AfterEntityUpdatedEvent $event){
+        if($entity instanceof ProductCategory){
+            $this->cache->delete('product_categories_list');
+        }
+    }
+    public function clearCacheAfterUpdated(AfterEntityUpdatedEvent $event){
         $entity = $event->getEntityInstance();
         if($entity instanceof Posts){
-            $cache->delete('post_list');
+            $this->cache->delete('post_list');
         }
         if($entity instanceof PostCategory){
-            $cache->delete('category_list');
+            $this->cache->delete('category_list');
+        }
+        if($entity instanceof ProductCategory){
+            $this->cache->delete('product_categories_list');
         }
     }
 }

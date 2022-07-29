@@ -50,7 +50,7 @@ class BoutiqueController extends AbstractController
     #[Route('/boutique/nos_produits', name: 'app_shop')]
     public function index(Request $request, PaginatorInterface $paginator)
     {
-        $categories = $this->cache->get('categories_all', function (ItemInterface $item){
+        $categories = $this->cache->get('product_categories_list', function (ItemInterface $item){
             $item->expiresAfter(3600);
             return $this->entityManager->getRepository(ProductCategory::class)->findAll();
         });
