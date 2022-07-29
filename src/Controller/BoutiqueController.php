@@ -54,7 +54,11 @@ class BoutiqueController extends AbstractController
             $item->expiresAfter(3600);
             return $this->entityManager->getRepository(ProductCategory::class)->findAll();
         });
-        $products =  $this->entityManager->getRepository(Product::class)->findAll();
+        $products =  $this->cache->get('product_list', function (ItemInterface $item){
+            $item->expiresAfter(3600);
+            return $this->entityManager->getRepository(Product::class)->findAll();
+        });
+
         $filters = $request->get("categories");
 
 
@@ -63,7 +67,7 @@ class BoutiqueController extends AbstractController
                 $products = $this->entityManager->getRepository(Product::class)->productsFiltered($filters);
 
                 return new JsonResponse([
-                    'content'=> $this->renderView('frontoffice/searched_product.html.twig', [
+                    'content'=> $this->renderView('frontoffice/product_list.html.twig', [
                         'products' => $paginator->paginate(
                             $products,
                             $request->query->getInt('page', 1),8
@@ -103,7 +107,7 @@ class BoutiqueController extends AbstractController
 
         $products = $this->entityManager->getRepository(Product::class)->productSearch($request->get('searchValue'));
 
-        return $this->render('frontoffice/searched_product.html.twig',[
+        return $this->render('frontoffice/product_list.html.twig',[
             'products'=>$products
         ]);
     }

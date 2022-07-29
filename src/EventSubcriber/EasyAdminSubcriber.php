@@ -45,6 +45,7 @@ class EasyAdminSubcriber implements EventSubscriberInterface
             $entity->setCreatedAt($now);
         }
     }
+
     public function clearCacheAfter(AfterEntityPersistedEvent $event){
 
         $entity = $event->getEntityInstance();
@@ -57,6 +58,9 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
         if($entity instanceof ProductCategory){
             $this->cache->delete('product_categories_list');
+        }
+        if($entity instanceof Product){
+            $this->cache->delete('product_list');
         }
     }
     public function clearCacheAfterDeleted(AfterEntityDeletedEvent $event){
@@ -71,6 +75,9 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         if($entity instanceof ProductCategory){
             $this->cache->delete('product_categories_list');
         }
+        if($entity instanceof Product){
+            $this->cache->delete('product_list');
+        }
     }
     public function clearCacheAfterUpdated(AfterEntityUpdatedEvent $event){
         $entity = $event->getEntityInstance();
@@ -82,6 +89,9 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
         if($entity instanceof ProductCategory){
             $this->cache->delete('product_categories_list');
+        }
+        if($entity instanceof Product){
+            $this->cache->delete('product_list');
         }
     }
 }
