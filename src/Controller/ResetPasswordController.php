@@ -31,13 +31,15 @@ class ResetPasswordController extends AbstractController
 
     #[Route('/mot-de-passe-oublie', name: 'app_forgot_password')]
     public function forgotPassword(Request $req, TokenGeneratorInterface $tokenGenarator): Response
-    {
+    {   
         if($this->getUser()){
             return $this->redirectToRoute('app_home');
         }
-
+        
         if($req->get('email')){
+            
             $user = $this->manager->getRepository(User::class)->findOneByEmail($req->get('email'));
+           
             if($user){
                 
                 //1 : enregistrer en base la demande de reset password avec user, tokem et createdAt
@@ -57,7 +59,7 @@ class ResetPasswordController extends AbstractController
                 $url = $this->generateUrl('app_reset_password', [
                     'token'=>$token
                 ]);
-
+                
                 // $content = "Bonjour ".$user->getFirstname()."<br> Vous avez demander à reinitialiser votre mot de passe sur le site scoops feraga <br> <br>";
                 // $content .="Merci de bien vouloir cliquez sur le lien suivant pour <a href='".$url."'>mettre à jour votre mot de passe</a>.";
                 // $mail->send($user->getEmail(), $user->getFirstname().''.$user->getLastname(), "Reinitialiser votre mot de passe", $content);

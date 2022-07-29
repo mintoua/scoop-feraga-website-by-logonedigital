@@ -24,7 +24,10 @@ class AppCustomAuthAuthenticator extends AbstractLoginFormAuthenticator
     public const LOGIN_ROUTE = 'app_login';
     private $authChecker;
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator, AuthorizationCheckerInterface $authChecker)
+    public function __construct(
+    private UrlGeneratorInterface $urlGenerator, 
+    AuthorizationCheckerInterface $authChecker
+    )
     {
         $this->authChecker = $authChecker;
     }
@@ -53,16 +56,10 @@ class AppCustomAuthAuthenticator extends AbstractLoginFormAuthenticator
           if($this->authChecker->isGranted('ROLE_ADMIN') ){
             return new RedirectResponse($this->urlGenerator->generate('admin'));
           }else if($this->authChecker->isGranted('ROLE_USER')){
-            return new RedirectResponse($this->urlGenerator->generate('app_user_account'));
+            return new RedirectResponse($request->headers->get('referer'));
           }
-
-        // if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-        //     return new RedirectResponse($targetPath);
-        // }
-
-        // For example:
+      
          return new RedirectResponse($this->urlGenerator->generate('app_home'));
-        //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl(Request $request): string

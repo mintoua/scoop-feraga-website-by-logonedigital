@@ -23,6 +23,9 @@ class OrderType extends AbstractType
                 'choices'=>$user->getAddressLivraisons(),
                 'multiple'=>false,
                 'expanded'=>true,
+                'attr'=>[
+                    'class'=>'d-flex flex-column'
+                ]
             ])
             ->add('carriers', EntityType::class,[
                 'label'=>'Choississez un transporteur',
@@ -30,6 +33,9 @@ class OrderType extends AbstractType
                 'class'=>Carrier::class,
                 'multiple'=>false,
                 'expanded'=>true,
+                'attr'=>[
+                    'class'=>'d-flex flex-column'
+                ]
             ])
             ->add('submit',SubmitType::class,[
                 'label'=>'Valider',

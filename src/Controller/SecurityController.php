@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+
+
 class SecurityController extends AbstractController
 {
     #[Route(path: '/se-connecter', name: 'app_login')]
@@ -28,9 +30,9 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/me-deconnecter', name: 'app_logout')]
-    public function logout(): void
+    public function logout(Request $request): void
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        $request->getSession()->invalidate();
     }
 
     #[Route(path: '/connect/facebook', name: 'app_facebook_connect')]
