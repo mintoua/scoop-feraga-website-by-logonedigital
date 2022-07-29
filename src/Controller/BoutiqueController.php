@@ -20,16 +20,20 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class BoutiqueController extends AbstractController
 {
     private $entityManager;
     private $cart;
+    private $cache;
 
-    public function __construct(EntityManagerInterface $entityManager, Cart $cart)
+    public function __construct(EntityManagerInterface $entityManager, CacheInterface $cache, Cart $cart)
     {
         $this->entityManager = $entityManager;
         $this->cart = $cart;
+        $this->cache= $cache;
     }
 
     /*
@@ -46,7 +50,10 @@ class BoutiqueController extends AbstractController
     #[Route('/boutique/nos_produits', name: 'app_shop')]
     public function index(Request $request, PaginatorInterface $paginator)
     {
-        $categories = $this->entityManager->getRepository(ProductCategory::class)->findAll();
+        $categories = $this->cache->get('categories_all', function (ItemInterface $item){
+            $item->expiresAfter(3600);
+            return $this->entityManager->getRepository(ProductCategory::class)->findAll();
+        });
         $products =  $this->entityManager->getRepository(Product::class)->findAll();
         $filters = $request->get("categories");
 
