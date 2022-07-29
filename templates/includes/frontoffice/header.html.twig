@@ -60,6 +60,9 @@
                     </li>
                     {% else %}
                     <li>
+                      <a href="{{path("app_user_account")}}"><i class="fas fa-user"></i> Mon compte</a>
+                    </li>
+                    <li>
                       <a href="{{path("app_logout")}}"><i class="fas fa-user-alt-slash"></i> Deconnexion</a>
                     </li>
                     {% endif %}

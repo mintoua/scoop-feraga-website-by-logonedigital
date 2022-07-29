@@ -24,7 +24,10 @@ class AppCustomAuthAuthenticator extends AbstractLoginFormAuthenticator
     public const LOGIN_ROUTE = 'app_login';
     private $authChecker;
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator, AuthorizationCheckerInterface $authChecker)
+    public function __construct(
+    private UrlGeneratorInterface $urlGenerator, 
+    AuthorizationCheckerInterface $authChecker
+    )
     {
         $this->authChecker = $authChecker;
     }

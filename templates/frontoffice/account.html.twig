@@ -109,20 +109,18 @@
 												<a href="{{path('app_blog')}}">Nos Actualités</a>
 											</li>
 
-											<li class="li-profile ">
-												<a href="{{path("app_sign_in")}}">
-													<i class="fontello-profile"></i>
-												</a>
+											{% if  app.user %}
+											<li>
+												<a href="{{path("app_logout")}}"><i class="fas fa-user-alt-slash"></i> Deconnexion</a>
 											</li>
+											{% else %}
+												
+											{% endif %}
 											<li class="li-cart">
 												<a href="{{path('app_cart')}}"
 												><i class="fontello-shopping-bag"></i
 													><span class="total">{{ app.session.get('cart') | length }}</span></a
 												>
-											</li>
-
-											<li class="li-btn">
-												<a class="custom-btn custom-btn--small custom-btn--style-2" href="#">Get in Touch</a>
 											</li>
 										</ul>
 									</nav>
