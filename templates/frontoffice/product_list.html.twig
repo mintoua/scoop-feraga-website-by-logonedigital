@@ -1,0 +1,55 @@
+<div id="all" class="goods goods--style-1">
+    <div class="__inner">
+        <div class="row">
+            <!-- start item -->
+            {% for product in products %}
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="__item">
+                        <figure class="__image">
+                            <img
+
+                                    width="188"
+                                    src="{{ asset('uploads/images/'~product.product_image) }}"
+                                    alt="demo"
+                            />
+                        </figure>
+
+                        <div class="__content">
+                            <h4 class="h6 __title">
+                                <a href="{{ path('app_single_product',{'slug':product.slug}) }}">{{ product.product_name }}</a>
+                            </h4>
+
+                            <div class="__category">
+                                <a href="#">{{ product.category }} </a>
+                            </div>
+
+                            <div class="product-price">
+                                      <span
+                                              class="product-price__item product-price__item--new"
+                                      > {{ (product.product_price / 100)  }} FCFA</span
+                                      >
+                            </div>
+
+                            <a
+                                    class="custom-btn custom-btn--medium custom-btn--style-1"
+                                    href="{{ path('app_add_to_cart',{'slug': product.slug}) }}"
+                            ><i class="fontello-shopping-bag"></i>Ajouter
+                                panier</a
+                            >
+                            <a
+                                    style="display: block"
+                                    href="{{ path('app_single_product',{'slug':product.slug}) }}"
+                            >voir plus</a
+                            >
+                        </div>
+
+                        <span class="product-label product-label--sale"
+                        >Sale</span
+                        >
+                    </div>
+                </div>
+            {% endfor %}
+            <!-- end item -->
+        </div>
+    </div>
+</div>
