@@ -24,8 +24,8 @@ class PostCategoryCrudController extends AbstractCrudController
 
            // IdField::new('id'),
             TextField::new('name'),
-            SlugField::new('slug')->setTargetFieldName('name'),
-            ImageField::new('post_category_image')->setBasePath('uploads\images')->setUploadDir('public\uploads\images'),
+            SlugField::new('slug')->setTargetFieldName('name')->hideWhenUpdating(),
+           // ImageField::new('post_category_image')->setBasePath('uploads\images')->setUploadDir('public\uploads\images'),
         ];
     }
 

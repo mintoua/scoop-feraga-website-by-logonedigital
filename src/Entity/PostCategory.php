@@ -15,7 +15,7 @@ class PostCategory
     #[ORM\Column()]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255 , unique: true)]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
@@ -24,8 +24,7 @@ class PostCategory
     #[ORM\OneToMany(mappedBy: 'postCategory', targetEntity: Posts::class, orphanRemoval: true)]
     private Collection $posts;
 
-    #[ORM\Column(length: 255)]
-    private ?string $post_category_image = null;
+
 
 
 
@@ -93,19 +92,9 @@ class PostCategory
         }
 
         return $this;
+
     }
 
-    public function getPostCategoryImage(): ?string
-    {
-        return $this->post_category_image;
-    }
-
-    public function setPostCategoryImage(string $post_category_image): self
-    {
-        $this->post_category_image = $post_category_image;
-
-        return $this;
-    }
     public function __toString() {
         return $this->name;
     }

@@ -9,6 +9,7 @@ use App\Repository\PostCategoryRepository;
 use App\Repository\PostsRepository;
 use App\Repository\LikesRepository;
 use App\Entity\Likes;
+use Sonata\SeoBundle\Seo\SeoPageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\DBAL\Types\TextType;
 use MercurySeries\FlashyBundle\FlashyNotifier;
@@ -49,15 +50,15 @@ class BlogController extends AbstractController
             "content" => "azeazazae"]);
     }
 
-    #[Route('/blog_details/{id}', name: 'blog_details')]
-    public function blog_details( CurlService $client,CommentaireRepository $commentairerepository,PostsRepository $postsRepository,LikesRepository $likesRepository ,Request $request,$id,PostsRepository $repository , PostCategoryRepository $categoryRepository): Response
+    #[Route('/blog_details/{slug}', name: 'blog_details')]
+    public function blog_details( SeoPageInterface $seoPage,CurlService $client,CommentaireRepository $commentairerepository,PostsRepository $postsRepository,LikesRepository $likesRepository ,Request $request,$slug,PostsRepository $repository , PostCategoryRepository $categoryRepository): Response
     {
+        $seoPage->setTitle($slug)
+            ->addMeta('property','og:title',$slug)
+            ->addMeta('property','og:type','blog');
         // to display comments related to blog
-
-        $comments = $commentairerepository->findByBlog($id);
+        $comments = $commentairerepository->findByBlog($repository->findBy(['slug'=>$slug])[0]->getId());
         // partie creation comment
-
-
         if($this->getUser()){
             $em = $this->getDoctrine()->getManager();
             $postId = $request->get("postId");
@@ -88,7 +89,7 @@ class BlogController extends AbstractController
                 }
             }
             if($request->get("ajax") == 2){
-                $article = $repository->findBy(['id' => $id]);
+                $article = $repository->findBy(['slug' => $slug]);
                 $comment1 = new Commentaire();
                 $user = $this->getUser();
                 $comment1->setUserid($user);
@@ -101,33 +102,34 @@ class BlogController extends AbstractController
                 $em->flush();
                 return new JsonResponse([
                     "content" =>  $this->renderView('frontoffice/CommentList.html.twig',[
-                        'comments' => $commentairerepository->findByBlog($id),
+                        'comments' => $commentairerepository->findByBlog($article[0]),
 
                     ])
 
                 ]);
             }
             $liked = 0;
-            if(! $likesRepository->isLiked($id ,$this->getUser()->getId()) == []){
+            if(! $likesRepository->isLiked($repository->findBy(['slug' => $slug])[0]->getId() ,$this->getUser()->getId()) == []){
                 $liked = 1;
             }
             return $this->render('frontoffice/blog_details.html.twig',[
-                    'post'=>$repository->findBy(['id'=>$id]) ,
+                    'post'=>$repository->findBy(['slug'=>$slug]) ,
                     'category'=>$categoryRepository->findAll(),
-                    'totalLikes'=>$likesRepository->likesParPost($id),
+                    'totalLikes'=>$likesRepository->likesParPost($repository->findBy(['slug' => $slug])[0]->getId()),
                     'isLiked'=> $liked,
                     'comments' => $comments,
-                    'id' => $id,
+                    'id' => $repository->findBy(['slug' => $slug])[0]->getId(),
                 ]
             );
         }
+
         return $this->render('frontoffice/blog_details.html.twig',[
-                'post'=>$repository->findBy(['id'=>$id]) ,
+                'post'=>$repository->findBy(['slug'=>$slug]) ,
                 'category'=>$categoryRepository->findAll(),
-                'totalLikes'=>$likesRepository->likesParPost($id),
+                'totalLikes'=>$likesRepository->likesParPost($repository->findBy(['slug' => $slug])[0]->getId()),
                 'isLiked'=>false,
                 'comments' => $comments,
-                'id' => $id,
+                'id' => $repository->findBy(['slug' => $slug])[0]->getId(),
             ]
         );
         }

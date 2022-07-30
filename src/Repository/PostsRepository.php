@@ -71,6 +71,13 @@ class PostsRepository extends ServiceEntityRepository
         ;
             return $query->getQuery()->getResult();
 
+    }public function getAllPostesOrdred()
+    {
+        $query = $this->createQueryBuilder('p')
+            ->orderBy("p.createdAt","desc")
+        ;
+            return $query->getQuery()->getResult();
+
     }
 
     public function getTotalPosts($cat=null)

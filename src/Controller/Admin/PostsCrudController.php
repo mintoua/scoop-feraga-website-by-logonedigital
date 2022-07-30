@@ -25,7 +25,7 @@ class PostsCrudController extends AbstractCrudController
         return [
             //IdField::new('id'),
             TextField::new('title'),
-            SlugField::new('slug')->setTargetFieldName('title'),
+            SlugField::new('slug')->setTargetFieldName('title')->hideWhenUpdating(),
             TextEditorField::new('description'),
             ImageField::new('post_image')->setBasePath('uploads\images')->setUploadDir('public\uploads\images'),
             AssociationField::new('postCategory'),

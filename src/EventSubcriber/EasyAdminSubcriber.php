@@ -11,6 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityDeletedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityPersistedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityUpdatedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -31,6 +32,7 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         // TODO: Implement getSubscribedEvents() method.
         return[
             BeforeEntityPersistedEvent::class => ['setCreatedAt'],
+            BeforeEntityUpdatedEvent::class => ['setSlug'],
             AfterEntityPersistedEvent::class => ['clearCacheAfter'],
             AfterEntityDeletedEvent::class => ['clearCacheAfterDeleted'],
             AfterEntityUpdatedEvent::class => ['clearCacheAfterUpdated']
@@ -45,13 +47,22 @@ class EasyAdminSubcriber implements EventSubscriberInterface
             $entity->setCreatedAt($now);
         }
     }
+    public function setSlug(BeforeEntityUpdatedEvent $event){
+
+        $entity = $event->getEntityInstance();
+        if($entity instanceof Posts){
+            $entity->setSlug($entity->getTitle());
+        }
+        if($entity instanceof PostCategory){
+            $entity->setSlug($entity->getName());
+        }
+    }
 
     public function clearCacheAfter(AfterEntityPersistedEvent $event){
 
         $entity = $event->getEntityInstance();
         if($entity instanceof Posts){
             $this->cache->delete('post_list');
-            $this->cache->delete('total_post');
         }
         if($entity instanceof PostCategory){
             $this->cache->delete('category_list');
@@ -67,7 +78,6 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         $entity = $event->getEntityInstance();
         if($entity instanceof Posts){
             $this->cache->delete('post_list');
-            $this->cache->delete('total_post');
         }
         if($entity instanceof PostCategory){
             $this->cache->delete('category_list');
