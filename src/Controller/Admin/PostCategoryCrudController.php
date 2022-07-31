@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -24,8 +25,9 @@ class PostCategoryCrudController extends AbstractCrudController
 
            // IdField::new('id'),
             TextField::new('name'),
-            SlugField::new('slug')->setTargetFieldName('name'),
-            ImageField::new('post_category_image')->setBasePath('uploads\images')->setUploadDir('public\uploads\images'),
+            SlugField::new('slug')->setTargetFieldName('name')->hideWhenUpdating(),
+            TextEditorField::new('category_description'),
+            // ImageField::new('post_category_image')->setBasePath('uploads\images')->setUploadDir('public\uploads\images'),
         ];
     }
 
