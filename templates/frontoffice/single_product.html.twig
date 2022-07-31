@@ -15,6 +15,7 @@
 
 	<!-- Favicons
             ================================================== -->
+	<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
 	<link rel="shortcut icon" href="{{asset('frontoffice/')}}img/favicon.ico">
 	<link rel="apple-touch-icon" href="{{asset('frontoffice/')}}img/apple-touch-icon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="{{asset('frontoffice/')}}img/apple-touch-icon-72x72.png">
@@ -28,6 +29,7 @@
 
 	<!-- Load google font
             ================================================== -->
+	<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
 	<script type="text/javascript">
 		WebFontConfig = {
 			google: {
@@ -88,8 +90,8 @@
 											<li>
 												<a href="{{path('app_activities')}}">Vie à la ferme</a>
 											</li>
-											<li class="active">
-												<a href="{{path('app_shop')}}">Boutique</a>
+											<li>
+												<a class="active" href="{{path('app_shop')}}">Boutique</a>
 											</li>
 
 											<ul class="submenu">
@@ -240,9 +242,7 @@
 									<div class="row">
 										<div class="col-12 col-lg-7">
 											<div class="__product-img">
-												<img width="330" src="{{ asset('uploads/images/'~product.product_image) }}" alt="{{ product.slug }}" />
-
-												<span class="product-label product-label--new">New</span>
+												<img width="400" src="{{ asset('uploads/images/'~product.product_image) }}" alt="{{ product.slug }}" />
 											</div>
 										</div>
 
@@ -268,19 +268,14 @@
 												</div>
 
 												<p>
-													{{ product.product_description | raw  }}
+
 												</p>
 
 												<p>
-													Susp endisse ultricies nisi vel quam suscipit. Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish
+													{{ product.product_description | striptags[:259] ~ '...'  }}
 												</p>
 
 												<form class="__add-to-cart" action="{{ path('app_add_to_cart',{'slug': product.slug})}}">
-												<!--		<div class="quantity-counter js-quantity-counter">
-														<span class="__btn __btn--minus"></span>
-														<input name="quantite" class="__q-input" type="text" value="1" />
-														<span class="__btn __btn--plus"></span>
-													</div> -->
 
 													<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button"><i class="fontello-shopping-bag"></i>Ajouter au panier</button>
 												</form>
@@ -525,162 +520,6 @@
 
 							<div class="col-12 my-6 d-md-none"></div>
 
-							<div class="col-12 col-md-4 col-lg-3">
-								<aside class="sidebar">
-									<!-- start widget -->
-									<div class="widget widget--search">
-										<form class="form--horizontal" action="#" method="get">
-											<div class="input-wrp">
-												<input class="textfield" name="s" type="text" placeholder="Search" />
-											</div>
-
-											<button class="custom-btn custom-btn--tiny custom-btn--style-1" type="submit" role="button">Find</button>
-										</form>
-									</div>
-									<!-- end widget -->
-
-									<!-- start widget -->
-									<div class="widget widget--categories">
-										<h4 class="h6 widget-title">CAtegories</h4>
-
-										<ul class="list">
-											<li class="list__item">
-												<a class="list__item__link" href="#">Apples</a>
-												<span>(3)</span>
-											</li>
-
-											<li class="list__item">
-												<a class="list__item__link" href="#">Oranges</a>
-												<span>(5)</span>
-											</li>
-
-											<li class="list__item">
-												<a class="list__item__link" href="#">Strawbery</a>
-												<span>(2)</span>
-											</li>
-
-											<li class="list__item">
-												<a class="list__item__link" href="#">Banana</a>
-												<span>(8)</span>
-											</li>
-
-											<li class="list__item">
-												<a class="list__item__link" href="#">Pumpkin </a>
-												<span>(8)</span>
-											</li>
-										</ul>
-									</div>
-									<!-- end widget -->
-
-									<!-- start widget -->
-									<div class="widget widget--price">
-										<h4 class="h6 widget-title">Price</h4>
-
-										<div>
-											<input type="text" class="js-range-slider" name="my_range" value=""
-												data-type="double"
-												data-min="0"
-												data-max="500"
-												data-from="48"
-												data-to="365"
-												data-grid="false"
-												data-skin="round"
-												data-prefix="$"
-												data-hide-from-to="true"
-												data-hide-min-max="true"
-											/>
-
-											<div class="row">
-												<div class="col-6">
-													<input class="range-slider-min-value" type="text" value="48" name="min-value" readonly="readonly">
-												</div>
-
-												<div class="col-6">
-													<input class="range-slider-max-value" type="text" value="365" name="max-value" readonly="readonly">
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- end widget -->
-
-									<!-- start widget -->
-									<div class="widget widget--additional">
-										<h4 class="h6 widget-title">Additional</h4>
-
-										<ul>
-											<li>
-												<label class="checkfield">
-													<input type="checkbox" checked/>
-													<i></i>
-													Organic
-												</label>
-											</li>
-
-											<li>
-												<label class="checkfield">
-													<input type="checkbox" />
-													<i></i>
-													Fresh
-												</label>
-											</li>
-
-											<li>
-												<label class="checkfield">
-													<input type="checkbox" />
-													<i></i>
-													Sales
-												</label>
-											</li>
-
-											<li>
-												<label class="checkfield">
-													<input type="checkbox" />
-													<i></i>
-													Discount
-												</label>
-											</li>
-
-											<li>
-												<label class="checkfield">
-													<input type="checkbox" />
-													<i></i>
-													Expired
-												</label>
-											</li>
-										</ul>
-									</div>
-									<!-- end widget -->
-
-									<!-- start widget -->
-									<div class="widget widget--tags">
-										<h4 class="h6 widget-title">Popular Tags</h4>
-
-										<ul>
-											<li><a href="#">Art</a></li>
-											<li><a href="#">design</a></li>
-											<li><a href="#">concept</a></li>
-											<li><a href="#">Media</a></li>
-											<li><a href="#">Photography</a></li>
-											<li><a href="#">UI</a></li>
-										</ul>
-									</div>
-									<!-- end widget -->
-
-									<!-- start widget -->
-									<div class="widget">
-										<div class="row no-gutters align-items-center">
-											<div class="col">
-												<button class="custom-btn custom-btn--medium custom-btn--style-1" role="button">Show Products</button>
-											</div>
-
-											<div class="col-auto">
-												<a class="clear-filter" href="#">Clear all</a>
-											</div>
-										</div>
-									</div>
-									<!-- end widget -->
-								</aside>
-							</div>
 						</div>
 					</div>
 				</section>
@@ -867,5 +706,6 @@
 			r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
 			ga('create','UA-XXXXX-X','auto');ga('send','pageview');
 		</script>
+		{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 	</body>
 </html>

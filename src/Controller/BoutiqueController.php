@@ -15,6 +15,7 @@ use App\Repository\ProductRepository;
 use App\Form\SearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,12 +29,14 @@ class BoutiqueController extends AbstractController
     private $entityManager;
     private $cart;
     private $cache;
+    private $flashy;
 
-    public function __construct(EntityManagerInterface $entityManager, CacheInterface $cache, Cart $cart)
+    public function __construct(EntityManagerInterface $entityManager, CacheInterface $cache, Cart $cart, FlashyNotifier $flashy)
     {
         $this->entityManager = $entityManager;
         $this->cart = $cart;
         $this->cache= $cache;
+        $this->flashy = $flashy;
     }
 
     /*
@@ -135,7 +138,7 @@ class BoutiqueController extends AbstractController
     {
 
         $this->cart->add($slug);
-
+        $this->flashy->success('Ajouter au panier avec succes','');
         return $this->redirectToRoute('app_shop');
     }
 

@@ -15,6 +15,7 @@
 
 		<!-- Favicons
 				================================================== -->
+		<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
 		<link rel="shortcut icon" href="{{asset('frontoffice/')}}img/favicon.ico">
 		<link rel="apple-touch-icon" href="{{asset('frontoffice/')}}img/apple-touch-icon.png">
 		<link rel="apple-touch-icon" sizes="72x72" href="{{asset('frontoffice/')}}img/apple-touch-icon-72x72.png">
@@ -28,6 +29,7 @@
 
 		<!-- Load google font
 				================================================== -->
+		<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
 		<script type="text/javascript">
 			WebFontConfig = {
 google: {
@@ -524,6 +526,7 @@ w.lazyLoadOptions = o;
 		</footer>
 		<!-- end footer -->
 		</div>
+		{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 	</body>
 </html></div><div id="btn-to-top-wrap">
 <a id="btn-to-top" class="circled" href="javascript:void(0);" data-visible-offset="800"></a></div><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script><script>
