@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PostCategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PostCategoryRepository::class)]
@@ -23,6 +24,9 @@ class PostCategory
 
     #[ORM\OneToMany(mappedBy: 'postCategory', targetEntity: Posts::class, orphanRemoval: true)]
     private Collection $posts;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $category_description = null;
 
 
 
@@ -97,6 +101,18 @@ class PostCategory
 
     public function __toString() {
         return $this->name;
+    }
+
+    public function getCategoryDescription(): ?string
+    {
+        return $this->category_description;
+    }
+
+    public function setCategoryDescription(?string $category_description): self
+    {
+        $this->category_description = $category_description;
+
+        return $this;
     }
 
 }

@@ -53,11 +53,15 @@ class BlogController extends AbstractController
     #[Route('/blog_details/{slug}', name: 'blog_details')]
     public function blog_details( SeoPageInterface $seoPage,CurlService $client,CommentaireRepository $commentairerepository,PostsRepository $postsRepository,LikesRepository $likesRepository ,Request $request,$slug,PostsRepository $repository , PostCategoryRepository $categoryRepository): Response
     {
+        $post = $repository->findBy(['slug'=>$slug])[0];
         $seoPage->setTitle($slug)
             ->addMeta('property','og:title',$slug)
-            ->addMeta('property','og:type','blog');
+            ->addMeta('property','og:type','blog')
+            ->addMeta('name', 'description', $post->getDescription())
+            ->addMeta('property', 'og:description', $post->getDescription());
+
         // to display comments related to blog
-        $comments = $commentairerepository->findByBlog($repository->findBy(['slug'=>$slug])[0]->getId());
+        $comments = $commentairerepository->findByBlog($post->getId());
         // partie creation comment
         if($this->getUser()){
             $em = $this->getDoctrine()->getManager();
@@ -89,11 +93,10 @@ class BlogController extends AbstractController
                 }
             }
             if($request->get("ajax") == 2){
-                $article = $repository->findBy(['slug' => $slug]);
                 $comment1 = new Commentaire();
                 $user = $this->getUser();
                 $comment1->setUserid($user);
-                $comment1->setBlogId($article[0]);
+                $comment1->setBlogId($post);
                 $comment1->setName($request->get("name"));
                 $comment1->setEmail($request->get("email"));
                 $comment1->setMessage($request->get("message"));
@@ -102,23 +105,23 @@ class BlogController extends AbstractController
                 $em->flush();
                 return new JsonResponse([
                     "content" =>  $this->renderView('frontoffice/CommentList.html.twig',[
-                        'comments' => $commentairerepository->findByBlog($article[0]),
+                        'comments' => $commentairerepository->findByBlog($post),
 
                     ])
 
                 ]);
             }
             $liked = 0;
-            if(! $likesRepository->isLiked($repository->findBy(['slug' => $slug])[0]->getId() ,$this->getUser()->getId()) == []){
+            if(! $likesRepository->isLiked($post->getId() ,$this->getUser()->getId()) == []){
                 $liked = 1;
             }
             return $this->render('frontoffice/blog_details.html.twig',[
-                    'post'=>$repository->findBy(['slug'=>$slug]) ,
+                    'post'=>[$post] ,
                     'category'=>$categoryRepository->findAll(),
-                    'totalLikes'=>$likesRepository->likesParPost($repository->findBy(['slug' => $slug])[0]->getId()),
+                    'totalLikes'=>$likesRepository->likesParPost($post->getId()),
                     'isLiked'=> $liked,
                     'comments' => $comments,
-                    'id' => $repository->findBy(['slug' => $slug])[0]->getId(),
+                    'id' => $post->getId(),
                 ]
             );
         }

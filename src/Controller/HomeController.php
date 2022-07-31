@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\PostCategory;
 use App\Repository\PostCategoryRepository;
 use App\Repository\PostsRepository;
+use DateInterval;
 use Sonata\SeoBundle\Seo\SeoPageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -71,7 +72,7 @@ class HomeController extends AbstractController
 
         //NEW
         $postsP = $postsP = $cache->get('post_list', function (ItemInterface $item) use ($repository) {
-            //$item->expiresAfter(30);
+            $item->expiresAfter(DateInterval::createFromDateString('48 hour'));
             return $repository->getAllPostesOrdred();
         });
         $result=[];
@@ -83,8 +84,9 @@ class HomeController extends AbstractController
         if($cat != 'Tous'){
             $result=[];
             $res=[];
+            $categorySelectedId = $categoryRepository->findBySlug($cat)[0]->getId();
             foreach ( $postsP as $key=>$value){
-                if ($value->getPostCategory()->getId() == $categoryRepository->findBySlug($cat)[0]->getId()){
+                if ($value->getPostCategory()->getId() == $categorySelectedId){
                     array_push($res,$value);
                 }
             }

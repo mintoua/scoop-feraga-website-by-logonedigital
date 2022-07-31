@@ -131,7 +131,7 @@
               <div class="sec-center">
                   <input class="dropdown" type="checkbox" id="dropdown" name="dropdown" onchange=""/>
                   {% if queryParams is not empty and queryParams.catSlug is not empty  %}
-                      {% if queryParams.catSlug == 0  %}
+                      {% if queryParams.catSlug == "Tous"  %}
                           <label class="for-dropdown" id="labelChoosen" for="dropdown">Tous <i class="uil iconify" data-icon="mdi:chevron-down"></i></label>
                           {% else %}
                           {% for cat in category %}
