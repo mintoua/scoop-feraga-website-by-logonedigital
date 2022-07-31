@@ -105,10 +105,8 @@ class BlogController extends AbstractController
                 $em->flush();
                 return new JsonResponse([
                     "content" =>  $this->renderView('frontoffice/CommentList.html.twig',[
-                        'comments' => $commentairerepository->findByBlog($post),
-
+                        'comments' => $commentairerepository->findByBlog($id),
                     ])
-
                 ]);
             }
             $liked = 0;
