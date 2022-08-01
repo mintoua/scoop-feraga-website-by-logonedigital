@@ -56,7 +56,7 @@ class BlogController extends AbstractController
 
         $comments = $commentairerepository->findByBlog($id);
         // partie creation comment
-
+        $form = $this->createForm(CommentaireType::class, Commentaire::class);
 
         if($this->getUser()){
             $em = $this->getDoctrine()->getManager();
@@ -222,7 +222,7 @@ class BlogController extends AbstractController
                 'post' => $repository->findBy(['id' => $id]),
                 'category' => $categoryRepository->findAll(),
                 'comments' => $comments,
-                // 'form' => $form->createView(),
+                 'form' => $form->createView(),
                 'id' => $article[0]->getId(),
 
             ]

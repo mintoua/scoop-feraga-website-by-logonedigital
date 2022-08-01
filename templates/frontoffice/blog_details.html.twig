@@ -187,10 +187,10 @@
                                     onclick="addLike()"
                                 {% else %}
                                     onclick="location.href = '{{ path('app_sign_in') }}';"
-                            {% endif %}"
+                            {% endif %}">
                             <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M91.6 13A28.7 28.7 0 0 0 51 13l-1 1-1-1A28.7 28.7 0 0 0 8.4 53.8l1 1L50 95.3l40.5-40.6 1-1a28.6 28.6 0 0 0 0-40.6z"/></svg>
                             Like
-                            </button><br><br>
+                            </button>
                             <b>4 Comments , </b>
                             <span id="totalLike" style="margin-left:7px ; margin-top: 10px"> {% include("frontoffice/totalLike.html.twig") %}</span>
                             <div id="commment_article">
@@ -245,113 +245,19 @@
                                 </div>
                             </div>
 
-                            <h6>Leave a Reply</h6>
+                            <h6>Laissez un commentaire</h6>
+                            <form action="#">
+										
 
-                                {#   {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }} #}
-                                <div class="row">
-                                    <div class="col-12 col-sm-6">
-                                        <div class="input-wrp">
-                                            {#   {{ form_row(form.name,{'attr': {'class': 'textfield'}} ) }} #}
-                                            <input id="name" class="textfield" type="text" value=""
-                                                   placeholder="Name"/>
-                                        </div>
-                                    </div>
+										<div class="input-wrp">
+											<textarea class="textfield" placeholder="Comments"></textarea>
+										</div>
 
-                                    <div class="col-12 col-sm-6">
-                                        <div class="input-wrp">
-
-                                            {#            {{ form_row(form.email,{'attr': {'class': 'textfield'}} ) }} #}
-
-                                            <input id="email" class="textfield" type="text" value=""
-                                                   placeholder="E-mail"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="input-wrp">
-
-                                    {#   {{ form_row(form.Message,{'attr': {'class': 'textfield'}} ) }} #}
-
-                                    <textarea id="message" class="textfield" placeholder="Comments"></textarea>
-                                </div>
-                                {#    {{ form_widget(form.Submit,{'attr':{'class':'custom-btn custom-btn--medium custom-btn--style-1'}}) }} #}
-
-                                <button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" onclick="addcommentjs()"
-                                        role="button">post comment
-                                </button>
-
-                                {#   {{ form_end(form) }} #}
+										<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">post comment</button>
+									</form>
+                                
                             <script src="https://www.google.com/recaptcha/api.js?render=6Lc96AYfAAAAAAJsKTsNdyF4yBBWVnt5rWll8Dbe"></script>
-                            <script>
-                                grecaptcha.ready(function () {
-                                    grecaptcha
-                                        .execute("6Lc96AYfAAAAAAJsKTsNdyF4yBBWVnt5rWll8Dbe", {
-                                            action: "homepage",
-                                        })
-                                        .then(function (token) {
-                                            document.getElementById("blog_details_captcha").value = token;
-                                        });
-                                });
-
-                                function addcommentjs() {
-                                    var name = document.getElementById("name").value;
-                                    var email = document.getElementById("email").value;
-                                    var message = document.getElementById("message").value;
-                                    //on recupere l URL active
-                                    const url = new URL(window.location.href);
-                                    //location.replace( "http://localhost:8000/blog_details/1?ajax=1"  );
-                                   // window.location.replace(url+"?ajax=2");
-                                    fetch(url.pathname + "?ajax=2 & name="+name+"& email="+email+"&message="+message, {
-                                            headers: {
-                                                "X-Requested-With": "XMLHttpRequest"
-                                            }
-                                        }
-                                    ).then(response => response.json()
-                                    ).then(data => {
-                                            console.log(data);
-                                            //        // chercher la zonne de continue
-                                            var content = document.getElementById("commment_article");
-                                            //        //remplace le continue
-                                            content.innerHTML = data.content;
-                                            //        history.pushState({},null,url.pathname + "?" + "catId="+v.toString());
-                                        }
-                                    ).catch(e => console.log(e));
-                                    // on lance la requette ajax
-                             //       fetch(url.pathname + "?" + "ajax=1",{
-                             //               headers: {
-                             //                   "X-Requested-With": "XMLHttpRequest",
-                             //                    'Content-Type': 'application/json'
-//
-                             //               }
-                             //           }
-//
-                             //       ).then(data => {
-                             //           console.log(data)
-                             //               // chercher la zonne de continue
-                             //     //       var content = document.getElementById("commment_article");
-                             //     //       //remplace le continue
-                             //     //       content.innerHTML = data.content;
-                             //           }
-                             //       ).catch(e=>console.log(e));
-                                }
-
-
-                                async function postdata() {
-                                    const data = new FormData();
-                                    data.append('page', 'pageName');
-                                    const url = new URL(window.location.href);
-
-                                    let response = await fetch('http://localhost:8000/slim/1' + '?ajax=1', {
-                                        method: 'POST',
-                                        headers: {
-                                            "Content-type": "application/json",
-                                        },
-                                        body: data
-                                    })
-                                    return response.json()
-                                }
-
-                            </script>
+                            
                         </div></div>
                         <!-- end posts feedback -->
                     </div>
@@ -380,7 +286,7 @@
                                         <li class="list__item">
                                             <a class="list__item__link"
                                                href="{{ path('Blog_filter',{ 'id':c.id }) }}">{{ c.name }}</a>
-                                            <!-- <span>(8)</span> --!>
+                                            <!-- <span>(8)</span> !>
                                             <span>(8)</span>
                                         </li>
                                     {% endfor %}
@@ -516,22 +422,6 @@
 
     <script type="text/javascript" src="{{ asset('frontoffice/') }}js/main.min.js"></script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-        (function (b, o, i, l, e, r) {
-            b.GoogleAnalyticsObject = l;
-            b[l] || (b[l] =
-                function () {
-                    (b[l].q = b[l].q || []).push(arguments)
-                });
-            b[l].l = +new Date;
-            e = o.createElement(i);
-            r = o.getElementsByTagName(i)[0];
-            e.src = 'https://www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e, r)
-        }(window, document, 'script', 'ga'));
-        ga('create', 'UA-XXXXX-X', 'auto');
-        ga('send', 'pageview');
-    </script>
     {% endfor %}
 {% endblock content %}
       {% block footer %}
