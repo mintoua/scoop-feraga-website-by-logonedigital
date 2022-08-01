@@ -3,23 +3,25 @@
 namespace App\Controller;
 
 use App\Classes\Mail;
+use App\Entity\Comments;
 use App\Entity\Order;
 use App\Entity\OrderDetails;
 use App\Form\OrderType;
+use App\Services\BoutiqueService;
 use App\Services\Cart;
-use App\Services\Search;
+
 use App\Entity\Product;
 use App\Entity\ProductCategory;
-use App\Repository\ProductRepository;
 
-use App\Form\SearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
@@ -28,12 +30,14 @@ class BoutiqueController extends AbstractController
     private $entityManager;
     private $cart;
     private $cache;
+    private $flashy;
 
-    public function __construct(EntityManagerInterface $entityManager, CacheInterface $cache, Cart $cart)
+    public function __construct(EntityManagerInterface $entityManager, CacheInterface $cache, Cart $cart, FlashyNotifier $flashy)
     {
         $this->entityManager = $entityManager;
         $this->cart = $cart;
         $this->cache= $cache;
+        $this->flashy = $flashy;
     }
 
     /*
@@ -75,8 +79,17 @@ class BoutiqueController extends AbstractController
                     ])
                 ]);
             }
+            else{
+                return new JsonResponse([
+                    'content'=> $this->renderView('frontoffice/product_list.html.twig', [
+                        'products' => $paginator->paginate(
+                            $products,
+                            $request->query->getInt('page', 1),8
+                        )
+                    ])
+                ]);
+            }
         }
-
         return $this->render('frontoffice/shop_catalog.html.twig', [
             'products' => $paginator->paginate(
                 $products,
@@ -88,17 +101,29 @@ class BoutiqueController extends AbstractController
 
 
     #[Route('/boutique/nos_produits/{slug}', name: 'app_single_product')]
-    public function singleProduct($slug)
+    public function singleProduct(Request $request, $slug, BoutiqueService $boutiqueService)
     {
         $product =  $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
+        $comments = $this->entityManager->getRepository(Comments::class)->findComments($product);
+
+        $data = $request->request->all();
 
         if(!$product){
-            return $this->redirectToRoute('app_shop', [
+            return $this->redirectToRoute('app_shop');
+        }
+
+        if($data){
+            $boutiqueService->persistComment($data["message"],$data["rating"],$this->getUser(),$product);
+            $comments = $this->entityManager->getRepository(Comments::class)->findComments($product);
+            return $this->render('frontoffice/comments_list.html.twig', [
                 'product' => $product,
+                'comments'=> $comments
             ]);
         }
+
         return $this->render('frontoffice/single_product.html.twig', [
             'product' => $product,
+            'comments' => $comments
         ]);
     }
 
@@ -135,7 +160,7 @@ class BoutiqueController extends AbstractController
     {
 
         $this->cart->add($slug);
-
+        $this->flashy->success('Ajouter au panier avec succes','');
         return $this->redirectToRoute('app_shop');
     }
 
