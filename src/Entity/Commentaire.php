@@ -15,19 +15,14 @@ class Commentaire
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Message = null;
+    private ?string $message = null;
 
     #[ORM\ManyToOne(inversedBy: 'commentaires')]
-    private ?User $Userid = null;
+    private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'commentaires')]
-    private ?Posts $BlogId = null;
+    private ?Posts $blog = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Name = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
 
 
     public function getId(): ?int
@@ -37,65 +32,36 @@ class Commentaire
 
     public function getMessage(): ?string
     {
-        return $this->Message;
+        return $this->message;
     }
 
     public function setMessage(string $Message): self
     {
-        $this->Message = $Message;
+        $this->message = $Message;
 
         return $this;
     }
 
-    public function getUserid(): ?User
+    public function getUser(): ?User
     {
-        return $this->Userid;
+        return $this->user;
     }
 
-    public function setUserid(?User $Userid): self
+    public function setUser(?User $user): self
     {
-        $this->Userid = $Userid;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getBlogId(): ?Posts
+    public function getBlog(): ?Posts
     {
-        return $this->BlogId;
+        return $this->blog;
     }
 
-    public function setBlogId(?Posts $BlogId): self
+    public function setBlog(?Posts $blog): self
     {
-        $this->BlogId = $BlogId;
-
+        $this->blog = $blog;
         return $this;
     }
-
-    public function getName(): ?string
-    {
-        return $this->Name;
-    }
-
-    public function setName(string $Name): self
-    {
-        $this->Name = $Name;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-
-
-
 }

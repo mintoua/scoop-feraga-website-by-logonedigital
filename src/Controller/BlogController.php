@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
+use App\Entity\Posts;
 use App\Form\CommentaireType;
 use App\Repository\CommentaireRepository;
 use App\Repository\PostCategoryRepository;
 use App\Repository\PostsRepository;
 use App\Repository\LikesRepository;
 use App\Entity\Likes;
+use Sonata\SeoBundle\Seo\SeoPageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\DBAL\Types\TextType;
 use MercurySeries\FlashyBundle\FlashyNotifier;
@@ -42,22 +44,19 @@ class BlogController extends AbstractController
         );
     }
 
-    #[Route('/slim/{id}/aa', name: 'slim')]
-    public function blog_details2(FlashyNotifier $flashy, CurlService $client, Request $request, $id, PostsRepository $repository, PostCategoryRepository $categoryRepository, CommentaireRepository $commentairerepository): Response
+    #[Route('/blog_details/{slug}', name: 'blog_details')]
+    public function blog_details( SeoPageInterface $seoPage,CurlService $client,CommentaireRepository $commentairerepository,PostsRepository $postsRepository,LikesRepository $likesRepository ,Request $request,$slug,PostsRepository $repository , PostCategoryRepository $categoryRepository): Response
     {
-        return new JsonResponse([
-            "content" => "azeazazae"]);
-    }
+        $post = $repository->findBy(['slug'=>$slug])[0];
+        $seoPage->setTitle($slug)
+            ->addMeta('property','og:title',$slug)
+            ->addMeta('property','og:type','blog')
+            ->addMeta('name', 'description', $post->getDescription())
+            ->addMeta('property', 'og:description', $post->getDescription());
 
-    #[Route('/blog_details/{id}', name: 'blog_details')]
-    public function blog_details( CurlService $client,CommentaireRepository $commentairerepository,PostsRepository $postsRepository,LikesRepository $likesRepository ,Request $request,$id,PostsRepository $repository , PostCategoryRepository $categoryRepository): Response
-    {
         // to display comments related to blog
-
-        $comments = $commentairerepository->findByBlog($id);
+        $comments = $commentairerepository->findByBlog($post->getId());
         // partie creation comment
-        $form = $this->createForm(CommentaireType::class, Commentaire::class);
-
         if($this->getUser()){
             $em = $this->getDoctrine()->getManager();
             $postId = $request->get("postId");
@@ -102,109 +101,53 @@ class BlogController extends AbstractController
                 return new JsonResponse([
                     "content" =>  $this->renderView('frontoffice/CommentList.html.twig',[
                         'comments' => $commentairerepository->findByBlog($id),
+
                     ])
+
                 ]);
             }
             $liked = 0;
-            if(! $likesRepository->isLiked($id ,$this->getUser()->getId()) == []){
+            if(! $likesRepository->isLiked($post->getId() ,$this->getUser()->getId()) == []){
                 $liked = 1;
             }
             return $this->render('frontoffice/blog_details.html.twig',[
-                    'post'=>$repository->findBy(['id'=>$id]) ,
+                    'post'=>[$post] ,
                     'category'=>$categoryRepository->findAll(),
-                    'totalLikes'=>$likesRepository->likesParPost($id),
+                    'totalLikes'=>$likesRepository->likesParPost($post->getId()),
                     'isLiked'=> $liked,
                     'comments' => $comments,
-                    'id' => $id,
+                    'id' => $post->getId(),
                 ]
             );
         }
+
         return $this->render('frontoffice/blog_details.html.twig',[
-                'post'=>$repository->findBy(['id'=>$id]) ,
+                'post'=>$repository->findBy(['slug'=>$slug]) ,
                 'category'=>$categoryRepository->findAll(),
-                'totalLikes'=>$likesRepository->likesParPost($id),
+                'totalLikes'=>$likesRepository->likesParPost($repository->findBy(['slug' => $slug])[0]->getId()),
                 'isLiked'=>false,
                 'comments' => $comments,
-                'id' => $id,
+                'id' => $repository->findBy(['slug' => $slug])[0]->getId(),
             ]
         );
         }
-    #[Route('/comments/{id}', name: 'comments')]
-    public function Comments(FlashyNotifier $flashy, CurlService $client, Request $request, $id, PostsRepository $repository, PostCategoryRepository $categoryRepository, CommentaireRepository $commentairerepository): Response
+    #[Route('/blog_details/addComment/{slug}', name: 'addComment')]
+    public function addComment( CommentaireRepository $commentaireRepository,Request $request,Posts $post, PostsRepository $repository, PostCategoryRepository $categoryRepository): Response
     {
-
-        //print_r($comment1->getBlogId());
-
-
-        /*  $form = $this->createFormBuilder()
-              ->add('Message', TextareaType::class, [
-                  'attr' => ['placeholder' => 'your comments'],
-                  'label' => false,
-              ])
-              ->add('name')
-              ->add('email')->getForm()
-              //   ->add('Submit', SubmitType::class)
-              //   ->add("captcha", HiddenType::class, [
-              //       "constraints" => [
-              //           new NotNull(),
-              //           new NotBlank()
-              //       ]
-              //   ])
-
-
-          ;
-
-          $form->handleRequest($request);*/
-        //     $url = "https://www.google.com/recaptcha/api/siteverify?secret=6Lc96AYfAAAAAEP84ADjdx5CBfEpgbTyYqgemO5n&response={$form->get('captcha')->getData()}";
-
-        //$response = $client->curlManager($url);
-
-        /*   if ($form->isSubmitted() && $form->isValid()) {
-               dd(($request->request->get("ajax")));
-
-               //  if (empty($response) || is_null($response)) {
-
-               //      $flashy->warning("Something wrong!", '');
-               //      return $this->redirectToRoute('contact');
-               //  } else {
-               //       $data = json_decode($response);
-               //       if ($data->success) {
-               $contenu = $form["Message"]->getData();
-               $name = $form["name"]->getData();
-               $email = $form["email"]->getData();
-               $comment1->setMessage($contenu);
-               $comment1->setName($name);
-               $comment1->setEmail($email);
-               $entityManager = $this->getDoctrine()->getManager();
-               $entityManager->persist($comment1);
-               $entityManager->flush();
-               //   } else {
-               //       $flashy->error("Confirm you are not robot!", '');
-               //       return $this->redirectToRoute('app_contact');
-               //   }
-               //  }
-               //       dd("hello");
-
-
-
-           }*/
-        // to display comments related to blog
-        $comments = $commentairerepository->findByBlog($id);
-        // partie creation comment
-        $comment1 = new Commentaire();
-        $article = $repository->findBy(['id' => $id]);
-        $user = $this->getUser();
-        $comment1->setUserid($user);
-        $comment1->setBlogId($article[0]);
-
-        if ($request->query->get('ajax')) {
-            //     dd("hh");
-            $comments = $commentairerepository->findByBlog($id);
+        if ($request->get("message") != null){
+            $commentaire = new Commentaire();
+            $user = $this->getUser();
+            $commentaire->setUser($user);
+            $commentaire->setBlog($post);
+            $commentaire->setMessage($request->get("message"));
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($commentaire);
+            $em->flush();
+            //return la nouveau list des commentaires en format HTML
             return new JsonResponse([
-                "content" => $this->renderView('frontoffice/CommentList.html.twig', [
-                    'comments' => $comments,
+                "content" =>  $this->renderView('frontoffice/CommentList.html.twig',[
+                    'comments' => $commentaireRepository->findByBlog($post),
                 ])
-
             ]);
         }
         //   if ($request->isMethod('post')) {
@@ -222,7 +165,7 @@ class BlogController extends AbstractController
                 'post' => $repository->findBy(['id' => $id]),
                 'category' => $categoryRepository->findAll(),
                 'comments' => $comments,
-                 'form' => $form->createView(),
+                // 'form' => $form->createView(),
                 'id' => $article[0]->getId(),
 
             ]

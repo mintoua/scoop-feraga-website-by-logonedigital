@@ -1,44 +1,47 @@
 {% for c in comments %}
 
-    <ul class="comments-list">
-        <li class="comment">
-            <table>
+    <li class="comment">
+        <table>
+            <tr>
+                <td>
+                    <div class="d-none d-lg-block">
 
-                <tr>
+                        <div class="comment__author-img">
+                            <img width="70" src="{{ asset('frontoffice/') }}img/avatar1.png"
+                                 data-src="{{ asset('frontoffice/') }}img/avatar1.png" alt="demo"/>
+                        </div>
 
-                    <td>
-                        <div class="d-none d-lg-block">
+                    </div>
+                </td>
+
+                <td width="100%">
+                    <div class="d-flex align-items-center mb-3 mb-lg-0">
+                        <div class="d-block d-lg-none">
 
                             <div class="comment__author-img">
-                                <img class="img-fluid lazy" width="70"
-                                     src="{{ asset('frontoffice/') }}img/blank.gif"
-                                     data-src="{{ asset('frontoffice/') }}img/avatar.jpg"
-                                     alt="demo"/>
+                                <img  width="70" src="{{ asset('frontoffice/') }}img/avatar1.png"
+                                     data-src="{{ asset('frontoffice/') }}img/avatar1.png" alt="demo"/>
                             </div>
 
                         </div>
-                    </td>
-                    <td width="100%">
-                        <time class="comment__date-post">April 12, 2017</time>
 
-                        <div class="d-flex align-items-center mb-3 mb-lg-0">
-                            <div class="d-block d-lg-none">
+                        <span class="comment__author-name">{{ c.user.firstname }} {{ c.user.lastname }}</span>
 
-                                <div class="comment__author-img">
-                                    <img class="img-fluid lazy" width="70"
-                                         src="{{ asset('frontoffice/') }}img/blank.gif"
-                                         data-src="{{ asset('frontoffice/') }}img/avatar.jpg"
-                                         alt="demo"/>
-                                </div>
+                    </div>
 
-                            </div>
 
-                            <span class="comment__author-name">{{ c.message }}</span>
-                        </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </table>
-        </li>
-    </ul>
+            <tr>
+                <td></td>
+                <td>
+                    <p>
+                        {{ c.message }}
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </li>
 {% endfor %}
+

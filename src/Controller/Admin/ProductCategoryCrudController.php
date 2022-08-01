@@ -7,6 +7,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Contracts\Cache\CacheInterface;
 use function Clue\StreamFilter\fun;
@@ -34,6 +36,7 @@ class ProductCategoryCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name'),
+            SlugField::new('slug')->setTargetFieldName('name')->hideWhenUpdating(),
         ];
     }
 

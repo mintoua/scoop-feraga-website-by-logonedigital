@@ -14,6 +14,7 @@ window.onload = ()=>{
                 Params.append(key, value);
             })
 
+            console.log(Params.toString());
             //get the active url
             const Url = new URL(window.location.href);
 
@@ -31,7 +32,7 @@ window.onload = ()=>{
                 //replace
                 content.innerHTML = data.content;
 
-                history.pushState({}, null, Url.pathname)
+                history.pushState({}, null, Url.pathname + "?" + Params.toString())
             }).catch(e=>alert(e));
         })
     })
