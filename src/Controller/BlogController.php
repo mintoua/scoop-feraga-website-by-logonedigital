@@ -114,7 +114,7 @@ class BlogController extends AbstractController
     #[Route('/blog_details/addComment/{slug}', name: 'addComment')]
     public function addComment( CommentaireRepository $commentaireRepository,Request $request,Posts $post, PostsRepository $repository, PostCategoryRepository $categoryRepository): Response
     {
-        if ($request->get("message") != null){
+        if ($request->get("message") != null && $this->isCsrfTokenValid('comment', $request->get("_token"))){
             $commentaire = new Commentaire();
             $user = $this->getUser();
             $commentaire->setUser($user);
