@@ -339,7 +339,7 @@
 														<!-- start add review -->
 														<div class="__add-review">
 															<h5>Laissez un avis</h5>
-
+															{% if app.user %}
 															<form id="product_review" name="product_review" method="post">
 
 																<div class="input-wrp">
@@ -371,12 +371,19 @@
 																	</div>
 
 																	<div class="col-12 col-sm-auto">
-																		<input type="hidden" name="token" value="{{ csrf_token(product.slug) }}"/>
+																		<input type="hidden" name="token" value="{{ csrf_token('add-comment') }}"/>
+
 																		<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Soumettre</button>
+																		{% else %}
+																			<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit"
+																					onclick="location.href = '{{ path('app_sign_in') }}';"
+																					role="button"> Connectez-vous pour laisser un avis
+																			</button>
+
 																	</div>
 																</div>
 															</form>
-
+															{% endif %}
 															<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
 															<script >
