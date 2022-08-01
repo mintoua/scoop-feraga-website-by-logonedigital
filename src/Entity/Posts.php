@@ -28,7 +28,7 @@ class Posts
     #[ORM\JoinColumn(nullable: false)]
     private ?PostCategory $postCategory = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255 , unique: true)]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
@@ -40,7 +40,7 @@ class Posts
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Likes::class)]
     private Collection $likes;
 
-    #[ORM\OneToMany(mappedBy: 'BlogId', targetEntity: Commentaire::class)]
+    #[ORM\OneToMany(mappedBy: 'blog', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
 
