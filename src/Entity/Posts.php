@@ -40,7 +40,7 @@ class Posts
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Likes::class)]
     private Collection $likes;
 
-    #[ORM\OneToMany(mappedBy: 'BlogId', targetEntity: Commentaire::class)]
+    #[ORM\OneToMany(mappedBy: 'blog', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
 

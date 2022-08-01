@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
+use App\Entity\Posts;
 use App\Form\CommentaireType;
 use App\Repository\CommentaireRepository;
 use App\Repository\PostCategoryRepository;
@@ -41,13 +42,6 @@ class BlogController extends AbstractController
                 'category' => $categoryRepository->findAll()
             ]
         );
-    }
-
-    #[Route('/slim/{id}/aa', name: 'slim')]
-    public function blog_details2(FlashyNotifier $flashy, CurlService $client, Request $request, $id, PostsRepository $repository, PostCategoryRepository $categoryRepository, CommentaireRepository $commentairerepository): Response
-    {
-        return new JsonResponse([
-            "content" => "azeazazae"]);
     }
 
     #[Route('/blog_details/{slug}', name: 'blog_details')]
@@ -93,10 +87,11 @@ class BlogController extends AbstractController
                 }
             }
             if($request->get("ajax") == 2){
+                $article = $repository->findBy(['id' => $id]);
                 $comment1 = new Commentaire();
                 $user = $this->getUser();
                 $comment1->setUserid($user);
-                $comment1->setBlogId($post);
+                $comment1->setBlogId($article[0]);
                 $comment1->setName($request->get("name"));
                 $comment1->setEmail($request->get("email"));
                 $comment1->setMessage($request->get("message"));
@@ -106,7 +101,9 @@ class BlogController extends AbstractController
                 return new JsonResponse([
                     "content" =>  $this->renderView('frontoffice/CommentList.html.twig',[
                         'comments' => $commentairerepository->findByBlog($id),
+
                     ])
+
                 ]);
             }
             $liked = 0;
@@ -134,82 +131,23 @@ class BlogController extends AbstractController
             ]
         );
         }
-    #[Route('/comments/{id}', name: 'comments')]
-    public function Comments(FlashyNotifier $flashy, CurlService $client, Request $request, $id, PostsRepository $repository, PostCategoryRepository $categoryRepository, CommentaireRepository $commentairerepository): Response
+    #[Route('/blog_details/addComment/{slug}', name: 'addComment')]
+    public function addComment( CommentaireRepository $commentaireRepository,Request $request,Posts $post, PostsRepository $repository, PostCategoryRepository $categoryRepository): Response
     {
-
-        //print_r($comment1->getBlogId());
-
-
-        /*  $form = $this->createFormBuilder()
-              ->add('Message', TextareaType::class, [
-                  'attr' => ['placeholder' => 'your comments'],
-                  'label' => false,
-              ])
-              ->add('name')
-              ->add('email')->getForm()
-              //   ->add('Submit', SubmitType::class)
-              //   ->add("captcha", HiddenType::class, [
-              //       "constraints" => [
-              //           new NotNull(),
-              //           new NotBlank()
-              //       ]
-              //   ])
-
-
-          ;
-
-          $form->handleRequest($request);*/
-        //     $url = "https://www.google.com/recaptcha/api/siteverify?secret=6Lc96AYfAAAAAEP84ADjdx5CBfEpgbTyYqgemO5n&response={$form->get('captcha')->getData()}";
-
-        //$response = $client->curlManager($url);
-
-        /*   if ($form->isSubmitted() && $form->isValid()) {
-               dd(($request->request->get("ajax")));
-
-               //  if (empty($response) || is_null($response)) {
-
-               //      $flashy->warning("Something wrong!", '');
-               //      return $this->redirectToRoute('contact');
-               //  } else {
-               //       $data = json_decode($response);
-               //       if ($data->success) {
-               $contenu = $form["Message"]->getData();
-               $name = $form["name"]->getData();
-               $email = $form["email"]->getData();
-               $comment1->setMessage($contenu);
-               $comment1->setName($name);
-               $comment1->setEmail($email);
-               $entityManager = $this->getDoctrine()->getManager();
-               $entityManager->persist($comment1);
-               $entityManager->flush();
-               //   } else {
-               //       $flashy->error("Confirm you are not robot!", '');
-               //       return $this->redirectToRoute('app_contact');
-               //   }
-               //  }
-               //       dd("hello");
-
-
-
-           }*/
-        // to display comments related to blog
-        $comments = $commentairerepository->findByBlog($id);
-        // partie creation comment
-        $comment1 = new Commentaire();
-        $article = $repository->findBy(['id' => $id]);
-        $user = $this->getUser();
-        $comment1->setUserid($user);
-        $comment1->setBlogId($article[0]);
-
-        if ($request->query->get('ajax')) {
-            //     dd("hh");
-            $comments = $commentairerepository->findByBlog($id);
+        if ($request->get("message") != null){
+            $commentaire = new Commentaire();
+            $user = $this->getUser();
+            $commentaire->setUser($user);
+            $commentaire->setBlog($post);
+            $commentaire->setMessage($request->get("message"));
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($commentaire);
+            $em->flush();
+            //return la nouveau list des commentaires en format HTML
             return new JsonResponse([
-                "content" => $this->renderView('frontoffice/CommentList.html.twig', [
-                    'comments' => $comments,
+                "content" =>  $this->renderView('frontoffice/CommentList.html.twig',[
+                    'comments' => $commentaireRepository->findByBlog($post),
                 ])
-
             ]);
         }
         //   if ($request->isMethod('post')) {
