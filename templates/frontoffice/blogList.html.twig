@@ -1,90 +1,69 @@
+<br>
+<!-- start posts -->
+{% set queryParams1 = app.request.query.all |filter((v,k)=>k!="page" and k!="ajax")|url_encode %}
 
+<!-- start item -->
+<div class="row">
+    {% for i in posts %}
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="__item __item--preview">
+                <figure class="__image">
+                    <img
+                            src="{{ asset('uploads/images'~asset(i.postimage)) }}"
+                            alt="demo"
+                    />
+                </figure>
 
+                <div class="__content">
+                    <p class="__category">
+                        <a href="#">{{ i.postcategory.name }}</a>
+                    </p>
 
+                    <h3 class="__title h5">
+                        <a href="{{ path('blog_details',{'slug':i.slug}) }}">{{ i.title }}</a
+                        >
+                    </h3>
 
+                    <p>
+                        {{ i.description|striptags[:50] ~ '...' }}
+                    </p>
+                </div>
 
-        <br>
-        <!-- start posts -->
-        {% set queryParams1 = app.request.query.all |filter((v,k)=>k!="page" and k!="ajax")|url_encode %}
-
-                    <!-- start item -->
-        <div class="row" >
-                    {% for i in posts %}
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="__item __item--preview">
-                                <figure class="__image">
-                                    <img
-                                            src="{{ asset('uploads/images'~asset(i.postimage)) }}"
-                                            alt="demo"
-                                    />
-                                </figure>
-
-                                <div class="__content">
-                                    <p class="__category">
-                                        <a href="#">{{i.postcategory.name}}</a>
-                                    </p>
-
-                                    <h3 class="__title h5">
-                                        <a href="{{ path('blog_details',{'slug':i.slug}) }}">{{ i.title }}</a
-                                        >
-                                    </h3>
-
-                                    <p>
-                                        {{ i.description|striptags[:50] ~ '...' }}
-                                    </p>
-                                </div>
-
-                                <span class="__date-post"> <strong>{{ i.getCreatedAt().format('j') }}</strong>{{ i.getCreatedAt().format('M') }} </span>
-                            </div>
-                        </div>
-                        <!-- end item -->
-                    {% endfor %}
-        </div>
-<!-- old pagination -->
-         <!--   <div class="container">
-                <ul class="page-nav">
-
-                    <li class="page-nav__item">
-                        {#  if ( ((total / limit)|round(0,'ceil')) <= page  ) %}
-                            {% if(page != 1 and ((total / limit)|round(0,'ceil')) !=1) %}
-                            <a href="?page={{ page -1 }}&{{ queryParams1 }}" class="page-nav__link page-nav__link--prev"
-                            ><i class="ico fontello-left-1"></i>Older post</a>
-                                {% endif %}
-                        {% endif %}
-                    </li>
-
-                    {% if ( ((total / limit)|round(0,'ceil')) > page ) %}
-                        <li class="page-nav__item">
-                            <a href="?page={{ page+1 }}&{{ queryParams1 }}" class="page-nav__link page-nav__link--next"
-                            >Newer post<i class="ico fontello-right-1"></i
-                                ></a>
-                        </li>
-                    {% endif #}
-                </ul>
+                <span class="__date-post"> <strong>{{ i.getCreatedAt().format('j') }}</strong>{{ i.getCreatedAt().format('M') }} </span>
             </div>
-            -->
-        <!-- New pagination -->
-            <ul class="page1">
-                <a class="{{ (page == 1 or page ==0 )?'disabled ':'' }}" href="?page={{ page-1 }}&{{ queryParams1 }}">
-                <li class="page__btn {{ (page == 1 or page ==0 )?'disabled ':'active' }}"><span class="iconify {{ (page == 1 or page ==0 )?'disabled ':'' }}" style="font-size: 2.6rem" data-icon="mdi:chevron-double-left"></span>
-                </li>
-                </a>
-                {% if total == 0 %}
-                    <a class=" disabled " href="#">
-                        <li class="page__numbers disabled active" > 1</li></a>
-                {% else %}
-                {% for i in 1..(total / limit)|round(0,'ceil') %}
-                <a class="{{ (page == i or page ==0 )?'disabled ':'' }}" href="?page={{ i }}&{{ queryParams1 }}">
-                    <li class="page__numbers {{ (page == i or page ==0 )?'disabled active':'' }} "> {{ i }}</li></a>
-                {% endfor %}
-                {% endif %}
+        </div>
+        <!-- end item -->
+    {% endfor %}
+</div>
+<!-- New pagination -->
+<ul class="page1">
+    <a class="{{ (page == 1 or page ==0 )?'disabled ':'' }}" href="?page={{ page-1 }}&{{ queryParams1 }}">
+        <li class="page__btn {{ (page == 1 or page ==0 )?'disabled ':'active' }}"><span
+                    class="iconify {{ (page == 1 or page ==0 )?'disabled ':'' }}" style="font-size: 2.6rem"
+                    data-icon="mdi:chevron-double-left"></span>
+        </li>
+    </a>
+    {% if total == 0 %}
+        <a class=" disabled " href="#">
+            <li class="page__numbers disabled active"> 1</li>
+        </a>
+    {% else %}
+        {% for i in 1..(total / limit)|round(0,'ceil') %}
+            <a class="{{ (page == i or page ==0 )?'disabled ':'' }}" href="?page={{ i }}&{{ queryParams1 }}">
+                <li class="page__numbers {{ (page == i or page ==0 )?'disabled active':'' }} "> {{ i }}</li>
+            </a>
+        {% endfor %}
+    {% endif %}
 
-               <!-- <li class="page__dots">...</li> -->
-                <a class="{{ (page == (total / limit)|round(0,'ceil') or total ==0 )?'disabled ':'' }}" href="?page={{ page+1 }}&{{ queryParams1 }}">
-                    <li class="page__btn {{ (page == (total / limit)|round(0,'ceil') or total ==0 )?'disabled ':'active' }}"><span class="iconify {{ (page == (total / limit)|round(0,'ceil') or total ==0 )?'disabled ':'' }} " style="font-size: 2.6rem" data-icon="mdi:chevron-double-right"></span></li>
-                </a>
-            </ul>
+    <!-- <li class="page__dots">...</li> -->
+    <a class="{{ (page == (total / limit)|round(0,'ceil') or total ==0 )?'disabled ':'' }}"
+       href="?page={{ page+1 }}&{{ queryParams1 }}">
+        <li class="page__btn {{ (page == (total / limit)|round(0,'ceil') or total ==0 )?'disabled ':'active' }}"><span
+                    class="iconify {{ (page == (total / limit)|round(0,'ceil') or total ==0 )?'disabled ':'' }} "
+                    style="font-size: 2.6rem" data-icon="mdi:chevron-double-right"></span></li>
+    </a>
+</ul>
 
-        <!-- end posts -->
+<!-- end posts -->
 
 <!-- end section -->

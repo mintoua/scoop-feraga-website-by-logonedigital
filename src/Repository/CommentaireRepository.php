@@ -38,15 +38,15 @@ class CommentaireRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    public function findByBlog($uid)
+   /* public function findByBlog($uid)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.BlogId = :val')
+            ->andWhere('p.blog = :val')
             ->setParameter('val', $uid)
             ->getQuery()
             ->getResult()
             ;
-    }
+    }*/
 //    /**
 //     * @return Commentaire[] Returns an array of Commentaire objects
 //     */

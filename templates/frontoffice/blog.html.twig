@@ -115,19 +115,6 @@
         <section class="section">
 
           <div class="container">
-            <!--<select id="choiceId" name="choiceId" class="my-custom-select"
-                    onchange="chooseCategory()">
-              <option value="" disabled selected>Filter selon Categorie</option>
-              <option value="0">Tous</option>
-              {#for c in category %}
-                {% if queryParams is not empty and queryParams.catId is not empty %}
-                  {% set selected = (c.id == queryParams.catId) ? "selected" : ""%}
-                {% else %}
-                  {% set selected = ""%}
-                {% endif %}
-                <option value={{ c.id }} {{ selected }}>{{ c.name }}</option>
-              {% endfor #}
-            </select> -->
               <div class="sec-center">
                   <input class="dropdown" type="checkbox" id="dropdown" name="dropdown" onchange=""/>
                   {% if queryParams is not empty and queryParams.catSlug is not empty  %}
