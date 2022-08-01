@@ -25,19 +25,28 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
+/**
+ * ####### HERE YOU WILL FIND ############
+ * ####### ALL THE LOGIC RELATED TO THE SHOP PART  ####
+ * ####### ie Products, Orders etc. #######
+ *
+ */
+
 class BoutiqueController extends AbstractController
 {
     private $entityManager;
     private $cart;
     private $cache;
     private $flashy;
+    private $BoutiqueService;
 
-    public function __construct(EntityManagerInterface $entityManager, CacheInterface $cache, Cart $cart, FlashyNotifier $flashy)
+    public function __construct(EntityManagerInterface $entityManager, CacheInterface $cache, Cart $cart, FlashyNotifier $flashy, BoutiqueService $service)
     {
         $this->entityManager = $entityManager;
         $this->cart = $cart;
         $this->cache= $cache;
         $this->flashy = $flashy;
+        $this->BoutiqueService = $service;
     }
 
     /*
@@ -52,7 +61,7 @@ class BoutiqueController extends AbstractController
      * @return Response
      */
     #[Route('/boutique/nos_produits', name: 'app_shop')]
-    public function index(Request $request, PaginatorInterface $paginator)
+    public function index(Request $request)
     {
         $categories = $this->cache->get('product_categories_list', function (ItemInterface $item){
             $item->expiresAfter(3600);
@@ -64,7 +73,7 @@ class BoutiqueController extends AbstractController
         });
 
         $filters = $request->get("categories");
-
+        $limit = 1;
 
         if($request->get('ajax')){
             if($filters != null){
@@ -72,54 +81,46 @@ class BoutiqueController extends AbstractController
 
                 return new JsonResponse([
                     'content'=> $this->renderView('frontoffice/product_list.html.twig', [
-                        'products' => $paginator->paginate(
-                            $products,
-                            $request->query->getInt('page', 1),8
-                        )
+                        'products' => $this->BoutiqueService->toPaginate($products,$request,$limit)
                     ])
                 ]);
             }
             else{
                 return new JsonResponse([
                     'content'=> $this->renderView('frontoffice/product_list.html.twig', [
-                        'products' => $paginator->paginate(
-                            $products,
-                            $request->query->getInt('page', 1),8
-                        )
+                        'products' => $this->BoutiqueService->toPaginate($products,$request,$limit)
                     ])
                 ]);
             }
         }
         return $this->render('frontoffice/shop_catalog.html.twig', [
-            'products' => $paginator->paginate(
-                $products,
-                $request->query->getInt('page', 1),8
-            ),
+            'products' => $this->BoutiqueService->toPaginate($products,$request,$limit),
             'categories'=>$categories,
         ]);
     }
 
 
     #[Route('/boutique/nos_produits/{slug}', name: 'app_single_product')]
-    public function singleProduct(Request $request, $slug, BoutiqueService $boutiqueService)
+    public function singleProduct(Request $request, $slug)
     {
         $product =  $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
         $comments = $this->entityManager->getRepository(Comments::class)->findComments($product);
 
         $data = $request->request->all();
+        $token = $request->request->get('token');
 
         if(!$product){
             return $this->redirectToRoute('app_shop');
         }
-
-        if($data){
-            $boutiqueService->persistComment($data["message"],$data["rating"],$this->getUser(),$product);
-            $comments = $this->entityManager->getRepository(Comments::class)->findComments($product);
-            return $this->render('frontoffice/comments_list.html.twig', [
-                'product' => $product,
-                'comments'=> $comments
-            ]);
+        if($this->isCsrfTokenValid('add-comment', $token) && $data){
+                $this->BoutiqueService->persistComment($data["message"],$data["rating"],$this->getUser(),$product);
+                $comments = $this->entityManager->getRepository(Comments::class)->findComments($product);
+                return $this->render('frontoffice/comments_list.html.twig', [
+                    'product' => $product,
+                    'comments'=> $comments
+                ]);
         }
+
 
         return $this->render('frontoffice/single_product.html.twig', [
             'product' => $product,
@@ -199,6 +200,7 @@ class BoutiqueController extends AbstractController
         return $this->redirectToRoute('app_cart');
     }
 
+
     /*
  * ############################
  * LOGIC FOR THE SHOPPING CART SYSTEM
@@ -272,7 +274,7 @@ class BoutiqueController extends AbstractController
                 $this->entityManager->persist($orderDetails);
             }
 
-            $this->entityManager->flush();
+       //     $this->entityManager->flush();
 
             return $this->render('frontoffice/final_checkout.html.twig',[
                 'cart'=>$this->cart->getFullCart(),

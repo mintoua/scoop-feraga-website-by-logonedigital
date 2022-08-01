@@ -1,72 +1,39 @@
 {% if pageCount > 1 %}
-    <ul class="pagination justify-content-center">
-
-        {% if previous is defined %}
-            <li class="page-item">
-                <a class="page-link" rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&laquo;&nbsp;{{ 'label_previous'|trans([], 'KnpPaginatorBundle') }}</a>
-            </li>
-        {% else %}
-            <li class="disabled page-item">
-                <a class="page-link">&laquo;&nbsp;{{ 'label_previous'|trans([], 'KnpPaginatorBundle') }}</a>
-            </li>
-        {% endif %}
-
-        {% if startPage > 1 %}
-            <li class="page-item">
-                <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): 1})) }}">1</a>
-            </li>
-            {% if startPage == 3 %}
-                <li class="page-item">
-                    <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): 2})) }}">2</a>
-                </li>
-            {% elseif startPage != 2 %}
-                <li class="disabled page-item">
-                    <a class="page-link">&hellip;</a>
-                </li>
-            {% endif %}
-        {% endif %}
-
-        {% for page in pagesInRange %}
-            {% if page != current %}
-                <li class="page-item">
-                    <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
-                </li>
-            {% else %}
-                <li class="active">
-                    <a class="page-link">{{ page }}</a>
-                </li>
+    <div class="inline-block">
+        <div class="flex items-baseline flex-row border border-gray-400 rounded-sm w-auto">
+            {% if first is defined and current != first %}
+                <span class="bg-white text-blue-600 px-3 py-2 text-lg border-r border-gray-400 font-bold">
+                <a href="{{ path(route, query|merge({(pageParameterName): first})) }}">&lt;</a>
+            </span>
             {% endif %}
 
-        {% endfor %}
+            {% if previous is defined %}
+                <span class="bg-white text-blue-600 px-3 text-lg py-2 border-r border-gray-400">
+                <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&lt;</a>
+            </span>
+            {% endif %}
 
-        {% if pageCount > endPage %}
-            {% if pageCount > (endPage + 1) %}
-                {% if pageCount > (endPage + 2) %}
-                    <li class="disabled page-item">
-                        <a class="page-link">&hellip;</a>
-                    </li>
+            {% for page in pagesInRange %}
+                {% if page != current %}
+                    <span class="bg-white text-blue-600 px-3 py-2 text-lg border-r  border-gray-400">
+                    <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                </span>
                 {% else %}
-                    <li class="page-item">
-                        <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): (pageCount - 1)})) }}">{{ pageCount -1 }}</a>
-                    </li>
+                    <span class="bg-blue-600 text-white px-3 py-2 text-lg font-bold">{{ page }}</span>
                 {% endif %}
-            {% endif %}
-            <li class="page-item">
-                <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">{{ pageCount }}</a>
-            </li>
-        {% endif %}
+            {% endfor %}
 
-        {% if next is defined %}
-            <li class="page-item">
-                <a class="page-link" rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">
-                    {{ 'label_next'|trans([], 'KnpPaginatorBundle') }}
-                    <i class="fontello-angle-right"></i>
-                </a>
-            </li>
-        {% else %}
-            <li class="disabled page-item">
-                <a class="page-link">{{ 'label_next'|trans([], 'KnpPaginatorBundle') }}&nbsp;&raquo;</a>
-            </li>
-        {% endif %}
-    </ul>
+            {% if next is defined %}
+                <span class="bg-white text-blue-600 px-3 py-2 text-lg border-r border-gray-400">
+                <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">&gt;</a>
+            </span>
+            {% endif %}
+
+            {% if last is defined and current != last %}
+                <span class="bg-white text-blue-600 px-3 py-2 text-lg border-gray-400 font-bold">
+                <a href="{{ path(route, query|merge({(pageParameterName): last})) }}">&gt;</a>
+            </span>
+            {% endif %}
+        </div>
+    </div>
 {% endif %}
