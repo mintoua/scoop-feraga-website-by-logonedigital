@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 
+use App\Entity\Comments;
 use App\Entity\PostCategory;
 use App\Entity\Posts;
 use App\Entity\Product;
@@ -40,7 +41,16 @@ class DashboardController extends AbstractDashboardController
         // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
-        return $this->render('admin/index.html.twig');
+        $response = $this->render('admin/index.html.twig');
+        $response->setCache([
+            'must_revalidate'  => true,
+            'no_cache'         => true,
+            'no_store'         => true,
+            'public'           => false,
+            'private'          => true,
+            'max_age'          => 0,
+        ]);
+        return $response;
     }
 
     public function configureDashboard(): Dashboard
@@ -54,6 +64,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Espace d\'administration ', 'fa fa-home');
 
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
+        yield MenuItem::linkToCrud('Commentaires', 'fas fa-comment', Comments::class);
         yield MenuItem::section('Blog');
         yield MenuItem::linkToCrud('Actualités', 'fas fa-newspaper', Posts::class);
         yield MenuItem::linkToCrud('Categorie des Actualités', 'fas fa-list-alt', PostCategory::class);

@@ -16,6 +16,7 @@
 
     <!-- Favicons
 		================================================== -->
+      <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
     <link rel="shortcut icon" href="{{asset('frontoffice/')}}img/favicon.ico" />
     <link rel="apple-touch-icon" href="{{asset('frontoffice/')}}img/apple-touch-icon.png" />
     <link
@@ -35,6 +36,7 @@
 
     <!-- Load google font
 		================================================== -->
+      <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
     <script type="text/javascript">
       WebFontConfig = {
         google: {
@@ -88,7 +90,7 @@
         <div class="container position-relative">
           <div class="row justify-content-between no-gutters">
             <a class="top-bar__logo site-logo" href="index.html">
-              <img class="img-fluid" src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo" />
+              <img class="img-fluid" src="{{asset('frontoffice/')}}img/logo_scoops_feraga.png" alt="logo scoops feraga" />
             </a>
 
             <a
@@ -111,9 +113,6 @@
                     <ul>
                       <li >
                         <a href="{{path('app_home')}}">Accueil</a>
-                      </li>
-                                            <li>
-                        <a href="{{path('app_about')}}">A propos</a>
                       </li>
 					  
                       <li>
@@ -184,7 +183,7 @@
       <!-- end header -->
 
       <!-- start hero -->
-      <div
+      {# <div
         id="hero"
         class="jarallax"
         data-speed="0.7"
@@ -207,7 +206,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> #}
       <!-- end hero -->
 
       <!-- start main -->
@@ -455,7 +454,6 @@
                                               },
                                               success : function(retour)
                                               {
-                                                
                                                   $('#all').html(retour);
                                               },
                                           });
@@ -492,7 +490,7 @@
                 <img
                   class="img-logo img-fluid lazy"
                   src="{{ asset('frontOffice/') }}img/blank.gif"
-                  data-src="{{ asset('frontOffice/') }}img/site_logo.png"
+                  data-src="{{ asset('frontOffice/') }}img/logo_scoops_feraga.png"
                   alt="demo"
                 />
               </div>
@@ -532,7 +530,7 @@
 			<div class="col-12 col-sm-4 col-md-3 col-lg-2">
 				<div class="footer__item">
 					<a class="site-logo" href="{{ path('app_home') }}">
-						<img class="img-fluid lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo"/>
+						<img class="img-fluid lazy" src="{{asset('frontoffice/')}}img/logo_scoops_feraga" data-src="{{asset('frontoffice/')}}img/logo_scoops_feraga.png" alt="logo scoops feraga"/>
 					</a>
 				</div>
 			</div>
@@ -694,5 +692,7 @@
       ga("create", "UA-XXXXX-X", "auto");
       ga("send", "pageview");
     </script>
+
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
   </body>
 </html>

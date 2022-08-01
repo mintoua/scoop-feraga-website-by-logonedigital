@@ -138,11 +138,11 @@
                         //convert le response au json
                     ).then(response => response.json()
                     ).then(data => {
-                        // chercher la zonne de continue
+                            // chercher la zonne de continue
                             var content = document.getElementById("commment_zone");
-                        //remplace le continue par le nouveau list des commentaires
+                            //remplace le continue par le nouveau list des commentaires
                             content.innerHTML = data.content;
-                        // vider l'input & rendre le borderColor black
+                            // vider l'input & rendre le borderColor black
                             document.getElementById("message").style.borderColor = "black";
                             document.getElementById("message").value = "";
                         }
@@ -215,9 +215,9 @@
                                   style="margin-left:7px ; margin-top: 10px"> {% include("frontoffice/totalLike.html.twig") %}</span>
                             <!-- Post list-->
                             <ul class="comments-list">
-                            <div id="commment_zone">
-                                {% include "frontoffice/CommentList.html.twig" %}
-                            </div>
+                                <div id="commment_zone">
+                                    {% include "frontoffice/CommentList.html.twig" %}
+                                </div>
                             </ul>
                             <!-- end post list -->
                             <!-- Start share -->
