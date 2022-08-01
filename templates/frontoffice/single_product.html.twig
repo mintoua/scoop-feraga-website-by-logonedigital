@@ -289,8 +289,8 @@
 											<!-- start tab -->
 											<div class="tab-container">
 												<nav class="tab-nav">
-													<a href="#">Description</a>
-													<a href="#">Reviews</a>
+													<a href="#">Description complète</a>
+													<a href="#">Les avis</a>
 												</nav>
 
 												<div class="tab-content">
@@ -333,144 +333,17 @@
 
 													<div class="tab-content__item">
 														<!-- start comments list -->
-														<ul class="comments-list">
-															<li class="comment">
-																<table>
-																	<tr>
-																		<td>
-																			<div class="d-none d-lg-block">
-
-																				<div class="comment__author-img">
-																					<img class="img-fluid lazy" width="70" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/avatar.jpg" alt="demo" />
-																				</div>
-
-																			</div>
-																		</td>
-
-																		<td width="100%">
-																			<time class="comment__date-post">April 12, 2017</time>
-
-																			<div class="d-flex align-items-center mb-3 mb-lg-0">
-																				<div class="d-block d-lg-none">
-
-																					<div class="comment__author-img">
-																						<img class="img-fluid lazy" width="70" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/avatar.jpg" alt="demo" />
-																					</div>
-
-																				</div>
-
-																				<span class="comment__author-name">Jason Smith</span>
-
-																				<div class="rating  d-none d-sm-block">
-																					<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-																					<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-																					<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-																					<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-																					<span class="rating__item"><i class="fontello-star"></i></span>
-																				</div>
-																			</div>
-
-																			<div class="rating  mb-2 d-sm-none">
-																				<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-																				<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-																				<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-																				<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-																				<span class="rating__item"><i class="fontello-star"></i></span>
-																			</div>
-																		</td>
-																	</tr>
-
-																	<tr>
-																		<td></td>
-																		<td>
-																			<p>
-																				The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc. Susp endisse ultricies nisi vel quam suscipit 
-																			</p>
-																		</td>
-																	</tr>
-																</table>
-															</li>
-
-															<li class="comment">
-																<table>
-																	<tr>
-																		<td>
-																			<div class="d-none d-lg-block">
-
-																				<div class="comment__author-img">
-																					<img class="img-fluid lazy" width="70" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/avatar.jpg" alt="demo" />
-																				</div>
-
-																			</div>
-																		</td>
-
-																		<td width="100%">
-																			<time class="comment__date-post">April 12, 2017</time>
-
-																			<div class="d-flex align-items-center mb-3 mb-lg-0">
-																				<div class="d-block d-lg-none">
-
-																					<div class="comment__author-img">
-																						<img class="img-fluid lazy" width="70" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/avatar.jpg" alt="demo" />
-																					</div>
-
-																				</div>
-
-																				<span class="comment__author-name">Sam Peters</span>
-
-																				<div class="rating  d-none d-sm-block">
-																					<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-																					<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-																					<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-																					<span class="rating__item"><i class="fontello-star"></i></span>
-																					<span class="rating__item"><i class="fontello-star"></i></span>
-																				</div>
-																			</div>
-
-																			<div class="rating  mb-2 d-sm-none">
-																				<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-																				<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-																				<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-																				<span class="rating__item"><i class="fontello-star"></i></span>
-																				<span class="rating__item"><i class="fontello-star"></i></span>
-																			</div>
-																		</td>
-																	</tr>
-
-																	<tr>
-																		<td></td>
-																		<td>
-																			<p>
-																				The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc. Susp endisse ultricies nisi vel quam suscipit. Molly Miller nurseryfish Rasbora, pearleye. Lefteye flounder, whale shark angler telescopefish remora mora pelican gulper lake whitefish whale shark
-																			</p>
-																		</td>
-																	</tr>
-																</table>
-															</li>
-														</ul>
+														{% include "frontoffice/comments_list.html.twig" %}
 														<!-- end comments list -->
 
 														<!-- start add review -->
 														<div class="__add-review">
-															<h5>Leave a Reply</h5>
+															<h5>Laissez un avis</h5>
 
-															<form action="#">
-																<div class="row">
-																	<div class="col-12 col-md-6">
-																		<div class="input-wrp">
-																			<input class="textfield" type="text" value="" placeholder="Name *" />
-																		</div>
-																	</div>
-
-																	<div class="col-12 col-md-6">
-																		<div class="input-wrp">
-																			<input class="textfield" type="text" value="" placeholder="Email *" inputmode="email" x-inputmode="email" />
-																		</div>
-																	</div>
-																</div>
+															<form id="product_review" name="product_review" method="post">
 
 																<div class="input-wrp">
-																	<textarea class="textfield" placeholder="Your review *"></textarea>
+																	<textarea  name="message" id="message" class="textfield" placeholder="Votre commentaire ..."></textarea>
 																</div>
 
 																<div class="spacer py-md-5"></div>
@@ -478,30 +351,53 @@
 																<div class="row align-items-sm-center justify-content-sm-between">
 																	<div class="col-12 col-sm-auto">
 																		<fieldset class="rating">
-																			<span class="__note">Please rate:</span>
+																			<span class="__note">Veuillez noter le produit s'il vous plaît:</span>
 
-																			<input type="radio" id="star5" name="rating" value="5" />
+																			<input class="form-control" type="radio" id="star5" name="rating" value="5" />
 																			<label class="rating__item" for="star5" title="Awesome - 5 stars"><i class="fontello-star"></i></label>
 
-																			<input type="radio" id="star4" name="rating" value="4" />
+																			<input class="form-control" type="radio" id="star4" name="rating" value="4" />
 																			<label class="rating__item" for="star4" title="Pretty good - 4 stars"><i class="fontello-star"></i></label>
 
-																			<input type="radio" id="star3" name="rating" value="3" />
+																			<input class="form-control" type="radio" id="star3" name="rating" value="3" />
 																			<label class="rating__item" for="star3" title="Meh - 3 stars"><i class="fontello-star"></i></label>
 
-																			<input type="radio" id="star2" name="rating" value="2" />
+																			<input class="form-control" type="radio" id="star2" name="rating" value="2" />
 																			<label class="rating__item" for="star2" title="Kinda bad - 2 stars"><i class="fontello-star"></i></label>
 
-																			<input type="radio" id="star1" name="rating" value="1" />
+																			<input class="form-control" type="radio" id="star1" name="rating" value="1" />
 																			<label class="rating__item" for="star1" title="Sucks big time - 1 star"><i class="fontello-star"></i></label>
 																		</fieldset>
 																	</div>
 
 																	<div class="col-12 col-sm-auto">
-																		<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">post comment</button>
+																		<input type="hidden" name="token" value="{{ csrf_token(product.slug) }}"/>
+																		<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Soumettre</button>
 																	</div>
 																</div>
 															</form>
+
+															<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+															<script >
+																$(document).ready(function (){
+																	$("#product_review").submit(function (e){
+																		var FormData = $('#product_review').serialize();
+																		console.log(FormData);
+																		e.preventDefault();
+																		$.ajax({
+																			url: "{{ path('app_single_product',{'slug':product.slug}) }}",
+																			type: "POST",
+																			data: $('#product_review').serialize(),
+																			success: function (ReviewContent)
+																			{
+																				$('#comments_list').html(ReviewContent);
+																				alert('ok');
+																			}
+																		});
+																	});
+																})
+															</script>
 														</div>
 														<!-- end add review -->
 													</div>
@@ -525,29 +421,6 @@
 				</section>
 				<!-- end section -->
 
-				<!-- start section -->
-				<section class="section section--no-pt section--no-pb section--gutter">
-					<div class="container-fluid px-md-0">
-						<!-- start banner simple -->
-						<div class="simple-banner simple-banner--style-2" data-aos="fade" data-aos-offset="50">
-							<div class="d-none d-lg-block">
-								<img class="img-logo img-fluid  lazy" src="img/blank.gif" data-src="img/site_logo.png" alt="demo" />
-							</div>
-
-							<div class="row no-gutters">
-								<div class="col-12 col-lg-6">
-									<a href="#"><img class="img-fluid w-100  lazy" src="img/blank.gif" data-src="img/banner_bg_3.jpg" alt="demo" /></a>
-								</div>
-
-								<div class="col-12 col-lg-6">
-									<a href="#"><img class="img-fluid w-100  lazy" src="img/blank.gif" data-src="img/banner_bg_4.jpg" alt="demo" /></a>
-								</div>
-							</div>
-						</div>
-						<!-- end banner simple -->
-					</div>
-				</section>
-				<!-- end section -->
 			</main>
 			<!-- end main -->
 
@@ -693,7 +566,8 @@
 			<a id="btn-to-top" class="circled" href="javascript:void(0);" data-visible-offset="800"></a>
 		</div>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+
 		<script>window.jQuery || document.write('<script src="{{asset('frontoffice/')}}js/jquery-2.2.4.min.js"><\/script>')</script>
 
 		<script type="text/javascript" src="{{asset('frontoffice/')}}js/main.min.js"></script>
