@@ -15,6 +15,7 @@
 
 		<!-- Favicons
 				================================================== -->
+		<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
 		<link rel="shortcut icon" href="{{asset('frontoffice/')}}img/favicon.ico">
 		<link rel="apple-touch-icon" href="{{asset('frontoffice/')}}img/apple-touch-icon.png">
 		<link rel="apple-touch-icon" sizes="72x72" href="{{asset('frontoffice/')}}img/apple-touch-icon-72x72.png">
@@ -28,6 +29,7 @@
 
 		<!-- Load google font
 				================================================== -->
+		<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
 		<script type="text/javascript">
 			WebFontConfig = {
 google: {
@@ -67,7 +69,7 @@ _html.classList.add(isTouch ? "touch" : "no-touch");
 					<div class="row justify-content-between no-gutters">
 
 						<a class="top-bar__logo site-logo" href="index_4.html">
-							<img class="img-fluid" src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo"/>
+							<img class="img-fluid" src="{{asset('frontoffice/')}}img/logo_scoops_feraga.png" alt="demo"/>
 						</a>
 
 						<a id="top-bar__navigation-toggler" class="top-bar__navigation-toggler top-bar__navigation-toggler--dark" href="javascript:void(0);">
@@ -82,9 +84,7 @@ _html.classList.add(isTouch ? "touch" : "no-touch");
 											<li>
 												<a href="{{path('app_home')}}">Accueil</a>
 											</li>
-											<li>
-												<a href="{{path('app_about')}}">A propos</a>
-											</li>
+											
 
 											<li>
 												<a href="{{path('app_activities')}}">Vie à la ferme</a>
@@ -147,24 +147,6 @@ _html.classList.add(isTouch ? "touch" : "no-touch");
 		</header>
 		<!-- end header -->
 
-		<!-- start hero -->
-		<div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 80%" style="background-image: url({{asset('frontoffice/')}}img/intro_img/12.jpg);color: #333;">
-			<div class="container">
-				<div class="row">
-					<div class="col-12 col-md-7">
-						<h1 class="__title">
-							<span>SCOOPS FERAGA</span>
-							Panier</h1>
-
-						<p>
-							The point of using is that it has a more-or-less normal distribution of letters, as opposed to using Content here content here making it look
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end hero -->
-
 		<!-- start main -->
 		<main
 			role="main">
@@ -210,7 +192,10 @@ w.lazyLoadOptions = o;
 			</script>
 
 			<!-- start section -->
-			<section class="section">
+			<section class="section" style="margin-top: 50px; text-align:center;">
+				<div class="section-heading">
+              <h2 class="__title">Votre <span>panier</span></h2>
+            </div>
 				<div class="decor-el decor-el--1" data-jarallax-element="-70" data-speed="0.2">
 					<img class="lazy" width="286" height="280" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_1.jpg" alt="demo"/>
 				</div>
@@ -245,9 +230,9 @@ w.lazyLoadOptions = o;
 											<thead>
 												<tr>
 													<td width="10%">&nbsp;</td>
-													<td width="35%">added products</td>
-													<td width="15%">Price</td>
-													<td width="20%">Quantity</td>
+													<td width="35%">Produits</td>
+													<td width="15%">Prix</td>
+													<td width="20%">Quantité</td>
 													<td width="15%">Total</td>
 													<td width="5%">&nbsp;</td>
 												</tr>
@@ -305,10 +290,10 @@ w.lazyLoadOptions = o;
 
 											<div class="cart__coupon form--horizontal">
 												<div class="input-wrp">
-													<input class="textfield" type="text" placeholder="Coupon code"/>
+													<input class="textfield" type="text" placeholder="Code"/>
 												</div>
 
-												<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Apply Coupon</button>
+												<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Coupon de Réduction</button>
 											</div>
 
 										</div>
@@ -367,7 +352,7 @@ w.lazyLoadOptions = o;
 					<!-- start banner simple -->
 					<div class="simple-banner simple-banner--style-2" data-aos="fade" data-aos-offset="50">
 						<div class="d-none d-lg-block">
-							<img class="img-logo img-fluid  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo"/>
+							<img class="img-logo img-fluid  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/logo_scoops_feraga.png" alt="demo"/>
 						</div>
 
 						<div class="row no-gutters">
@@ -394,7 +379,7 @@ w.lazyLoadOptions = o;
 					<div class="col-12 col-sm-4 col-md-3 col-lg-2">
 						<div class="footer__item">
 							<a class="site-logo" href="index.html">
-								<img class="img-fluid  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo"/>
+								<img class="img-fluid  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/logo_scoops_feraga.png" alt="demo"/>
 							</a>
 						</div>
 					</div>
@@ -524,6 +509,7 @@ w.lazyLoadOptions = o;
 		</footer>
 		<!-- end footer -->
 		</div>
+		{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 	</body>
 </html></div><div id="btn-to-top-wrap">
 <a id="btn-to-top" class="circled" href="javascript:void(0);" data-visible-offset="800"></a></div><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script><script>

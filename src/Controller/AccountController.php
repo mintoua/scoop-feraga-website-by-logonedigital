@@ -32,7 +32,7 @@ class AccountController extends AbstractController
     #[Route('/mon-compte/address', name: 'app_account_address')]
     public function index(): Response
     {
-        return $this->render('account/index.html.twig');
+        return $this->render('account/addresses.html.twig');
     }
 
     #[Route('/mon-compte/ajouter-une-adresse', name: 'app_account_address_add')]

@@ -19,8 +19,6 @@ class CommentaireType extends AbstractType
                 'attr'=>['placeholder'=>'your comments'],
                 'label' => false,
             ])
-            ->add('name')
-            ->add('email')
             ->add('Submit',SubmitType::class)
         ;
     }

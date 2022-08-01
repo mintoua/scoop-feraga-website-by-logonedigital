@@ -86,6 +86,26 @@ class BlogController extends AbstractController
 
                 }
             }
+            if($request->get("ajax") == 2){
+                $article = $repository->findBy(['id' => $id]);
+                $comment1 = new Commentaire();
+                $user = $this->getUser();
+                $comment1->setUserid($user);
+                $comment1->setBlogId($article[0]);
+                $comment1->setName($request->get("name"));
+                $comment1->setEmail($request->get("email"));
+                $comment1->setMessage($request->get("message"));
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($comment1);
+                $em->flush();
+                return new JsonResponse([
+                    "content" =>  $this->renderView('frontoffice/CommentList.html.twig',[
+                        'comments' => $commentairerepository->findByBlog($id),
+
+                    ])
+
+                ]);
+            }
             $liked = 0;
             if(! $likesRepository->isLiked($post->getId() ,$this->getUser()->getId()) == []){
                 $liked = 1;
@@ -130,5 +150,26 @@ class BlogController extends AbstractController
                 ])
             ]);
         }
+        //   if ($request->isMethod('post')) {
+        //       $contenu = $request->request->get("message");
+        //       $name = $request->request->get("name");
+        //       $email = $request->request->get("email");
+        //       $comment1->setMessage($contenu);
+        //       $comment1->setName($name);
+        //       $comment1->setEmail($email);
+        //       $entityManager = $this->getDoctrine()->getManager();
+        //       $entityManager->persist($comment1);
+        //       $entityManager->flush();
+        //   }
+        return $this->render('frontoffice/blog_details.html.twig', [
+                'post' => $repository->findBy(['id' => $id]),
+                'category' => $categoryRepository->findAll(),
+                'comments' => $comments,
+                // 'form' => $form->createView(),
+                'id' => $article[0]->getId(),
+
+            ]
+        );
+
     }
 }

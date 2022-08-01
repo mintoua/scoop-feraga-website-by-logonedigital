@@ -29,7 +29,8 @@ class PostsCrudController extends AbstractCrudController
             TextEditorField::new('description'),
             ImageField::new('post_image')->setBasePath('uploads\images')->setUploadDir('public\uploads\images'),
             AssociationField::new('postCategory'),
-            DateTimeField::new('createdAt'),
+            TextEditorField::new('description'),
+            DateTimeField::new('createdAt')->hideOnForm(),
         ];
     }
 

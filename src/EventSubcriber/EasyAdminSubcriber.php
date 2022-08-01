@@ -47,6 +47,11 @@ class EasyAdminSubcriber implements EventSubscriberInterface
             $entity->setCreatedAt($now);
         }
     }
+
+    public function setBoutiqueSlug(BeforeEntityPersistedEvent $event)
+    {
+
+    }
     public function setSlug(BeforeEntityUpdatedEvent $event){
 
         $entity = $event->getEntityInstance();
@@ -55,6 +60,15 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
         if($entity instanceof PostCategory){
             $entity->setSlug($entity->getName());
+        }
+
+        if($entity instanceof ProductCategory)
+        {
+            $entity->setSlug($entity->getName());
+        }
+
+        if ($entity instanceof Product){
+            $entity->setSlug($entity->getProduct_name());
         }
     }
 
