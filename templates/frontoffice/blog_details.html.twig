@@ -124,13 +124,14 @@
             function addcommentjs(slug) {
                 //recuperer le valeur de message
                 var message = document.getElementById("message").value;
+                var token = document.getElementById("token").value;
                 //condition sur l'input
                 if(message.trim().length <10 ){
                     //rendre le borderColor red (error)
                     document.getElementById("message").style.borderColor = "red";
                 }else {
                     // fetch lur d'ajout avec l'envoi deu message au parametre
-                    fetch("/blog_details/addComment/" + slug.toString() + "?message=" + message, {
+                    fetch("/blog_details/addComment/" + slug.toString() + "?message=" + message +"&_token="+token, {
                             headers: {
                                 "X-Requested-With": "XMLHttpRequest"
                             }
@@ -249,6 +250,7 @@
                                 <div class="input-wrp">
                                     <textarea style="width: 700px;height: 200px;border-radius: 10px;" id="message"
                                               class="textfield" placeholder="Message.."></textarea>
+                                    <input type="hidden" id="token" name="token" value="{{ csrf_token('comment') }}"/>
                                 </div>
                                 <button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit"
                                         onclick="addcommentjs('{{ post[0].slug }}')"
