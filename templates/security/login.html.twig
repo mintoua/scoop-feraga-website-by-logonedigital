@@ -174,9 +174,6 @@
               name="_csrf_token"
               value="{{ csrf_token('authenticate') }}"
               />
-              <pre>
-                {{ dump(app.request.headers.get('referer')) }}
-              </pre>
               
               <input type="hidden" name="referer" value="{{app.request.headers.get('referer')}}">
             <div class="mb-3">

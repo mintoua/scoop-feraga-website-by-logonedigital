@@ -63,6 +63,9 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Espace d\'administration ', 'fa fa-home');
 
+        // if($this->isGranted('ROLE_SUPER_ADMIN')){
+        //     yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
+        // }
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Commentaires', 'fas fa-comment', Comments::class);
         yield MenuItem::section('Blog');
@@ -79,4 +82,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Images', 'fas fa-image', FarmPictures::class);
         yield MenuItem::linkToCrud('Contacts', 'fas fa-address-book', Contact::class);
     }
+
+    
 }
