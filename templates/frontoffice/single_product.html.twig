@@ -389,8 +389,6 @@
 															<script >
 																$(document).ready(function (){
 																	$("#product_review").submit(function (e){
-																		var FormData = $('#product_review').serialize();
-																		console.log(FormData);
 																		e.preventDefault();
 																		$.ajax({
 																			url: "{{ path('app_single_product',{'slug':product.slug}) }}",
@@ -399,7 +397,6 @@
 																			success: function (ReviewContent)
 																			{
 																				$('#comments_list').html(ReviewContent);
-																				alert('ok');
 																			}
 																		});
 																	});

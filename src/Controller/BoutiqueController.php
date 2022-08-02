@@ -73,7 +73,7 @@ class BoutiqueController extends AbstractController
         });
 
         $filters = $request->get("categories");
-        $limit = 1;
+        $limit = 8;
 
         if($request->get('ajax')){
             if($filters != null){
