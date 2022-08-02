@@ -7,7 +7,6 @@ use App\Form\UserType;
 use App\Services\MailerHelper;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Security\AppCustomAuthAuthenticator;
 use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
