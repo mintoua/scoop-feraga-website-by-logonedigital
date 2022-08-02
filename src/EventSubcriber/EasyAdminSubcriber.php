@@ -36,7 +36,8 @@ class EasyAdminSubcriber implements EventSubscriberInterface
             BeforeEntityUpdatedEvent::class => ['setSlug'],
             AfterEntityPersistedEvent::class => ['clearCacheAfter'],
             AfterEntityDeletedEvent::class => ['clearCacheAfterDeleted'],
-            AfterEntityUpdatedEvent::class => ['clearCacheAfterUpdated']
+            AfterEntityUpdatedEvent::class => ['clearCacheAfterUpdated'],
+
         ];
     }
 
