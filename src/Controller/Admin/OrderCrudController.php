@@ -39,14 +39,35 @@ class OrderCrudController extends AbstractCrudController
     {
         $updatePreparation = Action::new('updatePreparation','Préparation en cours','fas fa-box-open')
             ->linkToCrudAction('updatePreparation');
+
         $updateDelivering = Action::new('updateDelivering','Livraison en cours','fas fa-truck')
             ->linkToCrudAction('updateDelivering');
+
+        $delivered = Action::new('delivered','Commande Livrée')
+            ->linkToCrudAction('delivered');
 
        return $actions
            ->add('index','detail')
            ->add('detail', $updatePreparation)
            ->add('detail', $updateDelivering)
+           ->add('detail',$delivered)
            ->disable(Action::NEW);
+    }
+
+    public function delivered(AdminContext $context){
+        $order = $context->getEntity()->getInstance();
+
+        $order->setState(4);
+        $this->entityManager->flush();
+
+        $this->addFlash('notice',"<span style='color: green'  > <strong> La commande ".$order->getReference()." a bien été mise à jour  </strong> </span>");
+        $url = $this->adminUrlGenerator
+            ->setDashboard(DashboardController::class)
+            ->setController(OrderCrudController::class)
+            ->setAction(Action::INDEX)
+            ->generateUrl();
+
+        return $this->redirect($url);
     }
 
     public function updatePreparation(AdminContext $context){
@@ -100,7 +121,8 @@ class OrderCrudController extends AbstractCrudController
                 'Non payée'=>0,
                 'Payée'=>1,
                 'Préparation en cours'=>2,
-                'Livraison en cours'=>3
+                'Livraison en cours'=>3,
+                'Déja Livrée'=>4
             ]),
             ArrayField::new('orderDetails','Produits acheté')->hideOnIndex()
         ];
