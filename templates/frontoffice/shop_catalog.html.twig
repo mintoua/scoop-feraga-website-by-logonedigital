@@ -3,7 +3,8 @@
   <head>
     <title>AGRO</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
+      {{ sonata_seo_title() }}
+      {{ sonata_seo_metadatas() }}
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta
       name="viewport"
@@ -372,13 +373,13 @@
                                       <li>
                                           <label class="checkfield">
                                               {% if queryParams is not empty and queryParams.categories is defined %}
-                                                  {% set checked = (categorie.id in queryParams.categories) ? "checked" : "" %}
+                                                  {% set checked = (categorie.slug in queryParams.categories) ? "checked" : "" %}
                                               {% else %}
                                                     {% set checked = "" %}
                                               {% endif %}
                                               <input type="checkbox" name="categories[]"
-                                              id="cat{{ categorie.id }}"
-                                              value="{{ categorie.id }}"
+                                              id="cat{{ categorie.slug }}"
+                                              value="{{ categorie.slug }}"
                                               {{ checked }}/>
                                               <i></i>
                                               {{ categorie.name }}

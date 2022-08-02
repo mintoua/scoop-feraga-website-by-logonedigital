@@ -260,6 +260,8 @@
                                             <span class="__name">Préparation en cours</span>
                                             {% elseif order.state == 3%}
                                                 <span class="__name">Livrasion en cours</span>
+                                                {% elseif order.state == 4 %}
+                                                    <span class="__name">Livrée</span>
                                                 {% endif %}
                                 </td>
                                 <td>

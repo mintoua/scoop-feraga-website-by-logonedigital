@@ -16,6 +16,7 @@ use App\Entity\ProductCategory;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use MercurySeries\FlashyBundle\FlashyNotifier;
+use Sonata\SeoBundle\Seo\SeoPageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,14 +40,16 @@ class BoutiqueController extends AbstractController
     private $cache;
     private $flashy;
     private $BoutiqueService;
+    private $seoPage;
 
-    public function __construct(EntityManagerInterface $entityManager, CacheInterface $cache, Cart $cart, FlashyNotifier $flashy, BoutiqueService $service)
+    public function __construct(SeoPageInterface $seoPage, EntityManagerInterface $entityManager, CacheInterface $cache, Cart $cart, FlashyNotifier $flashy, BoutiqueService $service)
     {
         $this->entityManager = $entityManager;
         $this->cart = $cart;
         $this->cache= $cache;
         $this->flashy = $flashy;
         $this->BoutiqueService = $service;
+        $this->seoPage = $seoPage;
     }
 
     /*
@@ -72,8 +75,12 @@ class BoutiqueController extends AbstractController
             return $this->entityManager->getRepository(Product::class)->findAll();
         });
 
+        $this->seoPage->setTitle("Produits")
+            ->addMeta('property','og:title','produits')
+            ->addMeta('property','og:type','produits');
+
         $filters = $request->get("categories");
-        $limit = 1;
+        $limit = 8;
 
         if($request->get('ajax')){
             if($filters != null){
@@ -93,6 +100,7 @@ class BoutiqueController extends AbstractController
                 ]);
             }
         }
+
         return $this->render('frontoffice/shop_catalog.html.twig', [
             'products' => $this->BoutiqueService->toPaginate($products,$request,$limit),
             'categories'=>$categories,
@@ -103,30 +111,27 @@ class BoutiqueController extends AbstractController
     #[Route('/boutique/nos_produits/{slug}', name: 'app_single_product')]
     public function singleProduct(Request $request, $slug)
     {
+
         $product =  $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
-        $comments = $this->entityManager->getRepository(Comments::class)->findComments($product);
 
-        $data = $request->request->all();
-        $token = $request->request->get('token');
+        $this->seoPage->setTitle($slug)
+            ->addMeta('property','og:title',$slug)
+            ->addMeta('property','og:type','product')
+            ->addMeta('name', 'description', $product->getProductDescription())
+            ->addMeta('name', 'keywords', $slug)
+            ->addMeta('property', 'og:description', $product->getProductDescription());
 
-        if(!$product){
-            return $this->redirectToRoute('app_shop');
-        }
-        if($this->isCsrfTokenValid('add-comment', $token) && $data){
-                $this->BoutiqueService->persistComment($data["message"],$data["rating"],$this->getUser(),$product);
-                $comments = $this->entityManager->getRepository(Comments::class)->findComments($product);
-                return $this->render('frontoffice/comments_list.html.twig', [
-                    'product' => $product,
-                    'comments'=> $comments
-                ]);
-        }
-
+        $comments = $this->cache->get('product_reviews_list', function (ItemInterface $item) use ($product){
+            $item->expiresAfter(3600);
+            return $this->entityManager->getRepository(Comments::class)->findComments($product);
+        });
 
         return $this->render('frontoffice/single_product.html.twig', [
             'product' => $product,
-            'comments' => $comments
+            'comments' => $this->BoutiqueService->toPaginate($comments,$request,10)
         ]);
     }
+
 
     #[Route('/boutique/produits/', name: 'app_shop_search')]
     public function searchedProduct(Request $request){
@@ -274,7 +279,7 @@ class BoutiqueController extends AbstractController
                 $this->entityManager->persist($orderDetails);
             }
 
-       //     $this->entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->render('frontoffice/final_checkout.html.twig',[
                 'cart'=>$this->cart->getFullCart(),

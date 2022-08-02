@@ -2,6 +2,7 @@
 
 namespace App\EventSubcriber;
 
+use App\Entity\Comments;
 use App\Entity\Posts;
 use App\Entity\Product;
 use App\Entity\PostCategory;
@@ -87,6 +88,10 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         if($entity instanceof Product){
             $this->cache->delete('product_list');
         }
+
+        if ($entity instanceof Comments){
+            $this->cache->delete('product_reviews_list');
+        }
     }
     public function clearCacheAfterDeleted(AfterEntityDeletedEvent $event){
         $entity = $event->getEntityInstance();
@@ -102,6 +107,9 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         if($entity instanceof Product){
             $this->cache->delete('product_list');
         }
+        if ($entity instanceof Comments){
+            $this->cache->delete('product_reviews_list');
+        }
     }
     public function clearCacheAfterUpdated(AfterEntityUpdatedEvent $event){
         $entity = $event->getEntityInstance();
@@ -116,6 +124,9 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
         if($entity instanceof Product){
             $this->cache->delete('product_list');
+        }
+        if ($entity instanceof Comments){
+            $this->cache->delete('product_reviews_list');
         }
     }
 }
