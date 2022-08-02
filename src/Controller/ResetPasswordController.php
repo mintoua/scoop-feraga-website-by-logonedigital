@@ -84,7 +84,7 @@ class ResetPasswordController extends AbstractController
         return $this->render('frontoffice/forgot_password.html.twig');
     }
 
-    #[Route('/modifier-mot-de-passe/{token}', name:'app_reset_password')]
+    #[Route('/mot-de-passe-oublie/modifier-mot-de-passe/{token}', name:'app_reset_password')]
     public function resetPassword(
         ResetPassword $resetPassword, 
         Request $req,

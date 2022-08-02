@@ -7,18 +7,26 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-
-
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SecurityController extends AbstractController
 {
+    protected $requestStack;
+
+    public function __construct(RequestStack $requestStack)
+    {
+         $this->requestStack = $requestStack;
+    }
+
     #[Route(path: '/se-connecter', name: 'app_login')]
    
-    public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
+    public function login(AuthenticationUtils $authenticationUtils, Request $request, SessionInterface $session): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('app_user_account');
@@ -26,17 +34,11 @@ class SecurityController extends AbstractController
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
+        // last username entered by =the user
         $lastUsername = $authenticationUtils->getLastUsername();
-        //$bag = new HeaderBag(array('cache-control' => 'no-cahe, no-store, private, max-age=0, must-relalidate'));
-        
-        //dd($request->headers('Cache-Control', 'no-cache, no-store, max-age=, must-revalidate'));
+        //$container = $this->getContainer();
         $response = $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
-        // $response->setPublic(false);
-        // $response->setMaxAge(0);
-        // $response->headers->addCacheControlDirective('must-revalidate', true);
-        // $response->headers->addCacheControlDirective('no-cache', true);
-        // $response->headers->addCacheControlDirective('no-store', true);
+        //cache directive
         $response->setCache([
             'must_revalidate'  => true,
             'no_cache'         => true,
@@ -45,6 +47,14 @@ class SecurityController extends AbstractController
             'private'          => true,
             'max_age'          => 0,
         ]);
+        $url = $request->headers->get('referer');
+        
+        
+        if($session->get('redirect_url')){
+            $session->remove('redirect_url');
+        }
+        $session->set('redirect_url', $url);
+        
         return $response;
     }
 
