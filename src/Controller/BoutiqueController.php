@@ -100,6 +100,7 @@ class BoutiqueController extends AbstractController
                 ]);
             }
         }
+
         return $this->render('frontoffice/shop_catalog.html.twig', [
             'products' => $this->BoutiqueService->toPaginate($products,$request,$limit),
             'categories'=>$categories,
@@ -278,7 +279,7 @@ class BoutiqueController extends AbstractController
                 $this->entityManager->persist($orderDetails);
             }
 
-       //     $this->entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->render('frontoffice/final_checkout.html.twig',[
                 'cart'=>$this->cart->getFullCart(),
