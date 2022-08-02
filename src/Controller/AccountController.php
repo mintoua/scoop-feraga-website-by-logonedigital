@@ -3,11 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\AddressLivraison;
+use App\Entity\Comments;
 use App\Entity\Order;
+use App\Entity\Product;
 use App\Form\AddressLivraisonType;
+use App\Services\BoutiqueService;
 use App\Services\Cart;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -115,6 +119,24 @@ class AccountController extends AbstractController
         return $this->render('account/orders_show.html.twig',[
             'order'=>$order
         ]);
+    }
+
+    #[Route('/mon-compte/commandes/avis/{slug}', name: 'app_account_add_review')]
+    public function addReviewProduct($slug, Request $request, BoutiqueService $service){
+        $message = $request->get("message");
+        $rating = $request->get("rating");
+        if( $message != null){
+            $product = $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
+            $service->persistComment($message,$rating,$this->getUser(),$product);
+            $comments = $this->entityManager->getRepository(Comments::class)->findComments($product);
+
+            return new JsonResponse([
+                "content" =>  $this->renderView('frontoffice/comments_list.html.twig',[
+                    'product' => $product,
+                    'comments' => $service->toPaginate($comments,$request,10),
+                ])
+            ]);
+        }
     }
 
 }

@@ -207,6 +207,7 @@
                 // m.insertBefore(s, m.firstChild);
                 w.lazyLoadOptions = o;
             }(window, document));
+
         </script>
 
         <!-- start section -->
@@ -253,6 +254,8 @@
                                     <td width="15%">Prix</td>
                                     <td width="20%">Quantity</td>
                                     <td width="15%">Total</td>
+                                    <td width="35%">Ajoutez un avis</td>
+                                    <td width="5%">Rating</td>
                                     <td width="5%">&nbsp;</td>
                                 </tr>
                                 </thead>
@@ -275,6 +278,38 @@
 
                                     <td>
                                         <span class="__total">{{ (product.total /100) | number_format }} FCFA</span>
+                                    </td>
+                                    <td>
+                                        <div class="input-wrp">
+                                    <textarea style="width: 200px;height: 50px;border-radius: 10px;" id="message"
+                                              class="textfield" placeholder="Message.."></textarea>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-12 col-sm-auto">
+                                            <fieldset class="rating">
+                                                <input class="form-control" type="radio" id="star5" name="rating" value="5" />
+                                                <label class="rating__item" for="star5" title="Awesome - 5 stars"><i class="fontello-star"></i></label>
+
+                                                <input class="form-control" type="radio" id="star4" name="rating" value="4" />
+                                                <label class="rating__item" for="star4" title="Pretty good - 4 stars"><i class="fontello-star"></i></label>
+
+                                                <input class="form-control" type="radio" id="star3" name="rating" value="3" />
+                                                <label class="rating__item" for="star3" title="Meh - 3 stars"><i class="fontello-star"></i></label>
+
+                                                <input class="form-control" type="radio" id="star2" name="rating" value="2" />
+                                                <label class="rating__item" for="star2" title="Kinda bad - 2 stars"><i class="fontello-star"></i></label>
+
+                                                <input class="form-control" type="radio" id="star1" name="rating" value="1" />
+                                                <label class="rating__item" for="star1" title="Sucks big time - 1 star"><i class="fontello-star"></i></label>
+                                            </fieldset>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button class="custom-btn custom-btn--small custom-btn--style-1" type="submit"
+                                                onclick="addcommentjs('{{ product.product }}')"
+                                                role="button">Ajouter
+                                        </button>
                                     </td>
                                 </tr>
                                  {% endfor %}
@@ -435,6 +470,35 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+    function addcommentjs(slug) {
+
+        var message = document.getElementById("message").value;
+        var rating = $("input[name='rating']:checked").val();
+
+        if(message.trim().length < 5 ){
+
+            document.getElementById("message").style.borderColor = "red";
+        }else {
+
+            fetch("/mon-compte/commandes/avis/" + slug.toString() + "?message=" + message + "&rating=" + rating, {
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                }
+
+            ).then(response => response.json()
+            ).then(data => {
+
+                $('#comments_list').html(data);
+                    document.getElementById("message").style.borderColor = "black";
+                    document.getElementById("message").value = "";
+                    location.reload();
+                }
+            ).catch(e => console.log(e));
+        }
+    }
+</script>
 <script>window.jQuery || document.write('<script src="{{asset('frontoffice/')}}js/jquery-2.2.4.min.js"><\/script>')</script>
 
 <script type="text/javascript" src="{{asset('frontoffice/')}}js/main.min.js"></script>

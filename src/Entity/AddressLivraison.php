@@ -45,6 +45,28 @@ class AddressLivraison
     #[ORM\Column(length: 255)]
     private ?string $phone = null;
 
+    private $captcha;
+
+    /**
+     * Get the value of captcha
+     */
+    public function getCaptcha()
+    {
+        return $this->captcha;
+    }
+
+    /**
+     * Set the value of captcha
+     *
+     * @return  self
+     */
+    public function setCaptcha($captcha)
+    {
+        $this->captcha = $captcha;
+
+        return $this;
+    }
+
     public function __toString(): string
     {
         // TODO: Implement __toString() method.
