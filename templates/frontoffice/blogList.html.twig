@@ -5,8 +5,16 @@
 <!-- start item -->
 <div class="row">
     {% for i in posts %}
+        <!-- start posts -->
+
+        <!-- start item -->
         <div class="col-12 col-sm-6 col-lg-4">
-            <div class="__item __item--preview">
+            <div
+                    class="__item __item--preview"
+                    data-aos="flip-up"
+                    data-aos-delay="100"
+                    data-aos-offset="0"
+            >
                 <figure class="__image">
                     <img
                             src="{{ asset('uploads/images'~asset(i.postimage)) }}"
@@ -27,12 +35,19 @@
                     <p>
                         {{ i.description|striptags[:50] ~ '...' }}
                     </p>
+
+                    <a
+                            class="custom-btn custom-btn--medium custom-btn--style-1"
+                            href="{{ path('blog_details',{'slug':i.slug}) }}"
+                    >Voir plus</a
+                    >
                 </div>
 
                 <span class="__date-post"> <strong>{{ i.getCreatedAt().format('j') }}</strong>{{ i.getCreatedAt().format('M') }} </span>
             </div>
         </div>
         <!-- end item -->
+        <!-- end posts -->
     {% endfor %}
 </div>
 <!-- New pagination -->
@@ -64,6 +79,3 @@
     </a>
 </ul>
 
-<!-- end posts -->
-
-<!-- end section -->

@@ -322,4 +322,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
 
         return $this;
     }
+    public function __toString() {
+        return $this->email;
+    }
 }

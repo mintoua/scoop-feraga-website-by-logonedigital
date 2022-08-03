@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 
+use App\Entity\Commentaire;
 use App\Entity\PostCategory;
 use App\Entity\Posts;
 use App\Entity\Product;
@@ -57,6 +58,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Blog');
         yield MenuItem::linkToCrud('Actualités', 'fas fa-newspaper', Posts::class);
         yield MenuItem::linkToCrud('Categorie des Actualités', 'fas fa-list-alt', PostCategory::class);
+        yield MenuItem::linkToCrud('Commentaires ', 'fas fa-comments', Commentaire::class);
 
         yield MenuItem::section('Boutique');
         yield MenuItem::linkToCrud('Categorie des Produits', 'fas fa-list', ProductCategory::class);
