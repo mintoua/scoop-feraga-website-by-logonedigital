@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
@@ -27,16 +28,18 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('firstname')->setLabel('Nom'),
-            TextField::new('lastname')->setLabel('Prenom'),
-            EmailField::new('email'),
+            TextField::new('firstname')->setLabel('NOM'),
+            TextField::new('lastname')->setLabel('PRENOM'),
+            EmailField::new('email')->setLabel('EMAIL'),
             ChoiceField::new('roles')->setChoices([
                 'User' => 'ROLE_USER',
                 'Employes' => 'ROLE_ADMIN',
                 'Administrateur' => 'ROLE_SUPER_ADMIN'
-            ])->allowMultipleChoices(),
-            BooleanField::new('rgpd'),
-            BooleanField::new('isVirified')->setLabel('activer le compte'),
+            ])->allowMultipleChoices()->setLabel('ROLE(S)'),
+            BooleanField::new('rgpd')->setLabel('RGPD'),
+            BooleanField::new('isVirified')->setLabel('COMPTE ACTIVE'),
+            DateTimeField::new('createdAt')->setLabel('DATE DE CREATION')->hideOnForm()->hideOnIndex(),
+            DateTimeField::new('updatedAt')->setLabel('DERNIERE MISE A JOUR')->hideOnForm()->hideOnForm()
         ];
     }
     
@@ -62,7 +65,6 @@ class UserCrudController extends AbstractCrudController
     {
         return $crud
             ->setSearchFields(['lastname', 'firstname', 'email'])
-            
             ->setAutofocusSearch();
     }
     

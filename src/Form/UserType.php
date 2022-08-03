@@ -29,7 +29,7 @@ class UserType extends AbstractType
                     new NotNull(),
                     new NotBlank(),
                     new Email([
-                        'message'=>'Invalid email'
+                        'message'=>'cette email n\'est pas vilide'
                     ])
                 ]
             ])
@@ -69,6 +69,15 @@ class UserType extends AbstractType
                 'type'=>PasswordType::class,
                 'invalid_message'=> 'le mot de passe et la confirmation doivent être identique.',
                 'first_options'=>[
+                    'constraints'=>[
+                        new Regex(
+                    [
+                        "pattern"=>"/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/",
+                        "match"=>true,
+                        "message"=>"mot de passe invalid"
+                    ]
+                    ),
+                    ],
                     'help'=> 'Le mot de passe doit contenir au moins 8 caractères, dontau moins: une Majuscule, un chiffre, un caractère spéciale.',
                     ],
                 'second_options'=>[

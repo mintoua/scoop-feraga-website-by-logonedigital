@@ -7,6 +7,7 @@ use App\Entity\Posts;
 use App\Entity\Product;
 use App\Entity\PostCategory;
 use App\Entity\ProductCategory;
+use App\Entity\User;
 use DateTimeImmutable;
 use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityDeletedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityPersistedEvent;
@@ -36,7 +37,9 @@ class EasyAdminSubcriber implements EventSubscriberInterface
             BeforeEntityUpdatedEvent::class => ['setSlug'],
             AfterEntityPersistedEvent::class => ['clearCacheAfter'],
             AfterEntityDeletedEvent::class => ['clearCacheAfterDeleted'],
-            AfterEntityUpdatedEvent::class => ['clearCacheAfterUpdated']
+            AfterEntityUpdatedEvent::class => ['clearCacheAfterUpdated'],
+            BeforeEntityPersistedEvent::class=>['persistanceUserProcess'],
+            BeforeEntityUpdatedEvent::class=>['updatedUserProcess']
         ];
     }
 
@@ -70,6 +73,29 @@ class EasyAdminSubcriber implements EventSubscriberInterface
 
         if ($entity instanceof Product){
             $entity->setSlug($entity->getProduct_name());
+        }
+    }
+
+    //permet de faire des actions sur l'utisateur lorsqu'il est ajouter depuis le dashboard
+    public function persistanceUserProcess(BeforeEntityPersistedEvent $event){
+        $entity = $event->getEntityInstance();
+        if($entity instanceof User){
+            $entity->setPassword(md5(uniqid()));
+            $entity->setCreatedAt(new \DateTime('now'));
+        }
+    }
+
+    /**
+     * permet de faire des actions après la modification d'un utilisateur
+     *
+     * @param BeforeEntityUpdatedEvent $event
+     * @return void
+     */
+    public function updatedUserProcess(BeforeEntityUpdatedEvent $event){
+        //  dd('hello world');
+        $entity = $event->getEntityInstance();
+        if($entity instanceof User){
+            $entity->setUpdatedAt(new \DateTime('now'));
         }
     }
 
