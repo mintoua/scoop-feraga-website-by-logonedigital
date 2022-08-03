@@ -15,8 +15,6 @@ class CategoryPictureCrudController extends AbstractCrudController
     {
         return CategoryPicture::class;
     }
-
-    
     public function configureFields(string $pageName): iterable
     {
         return [

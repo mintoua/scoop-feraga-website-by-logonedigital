@@ -6,11 +6,14 @@ use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class UserCrudController extends AbstractCrudController
@@ -25,21 +28,30 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('firstname')->setLabel('Nom'),
-            TextField::new('lastname')->setLabel('Prenom'),
-            EmailField::new('email'),
-            ArrayField::new('roles'),
-            // ChoiceField::new('roles')->setChoices([
-            //     'User' => 'ROLE_USER',
-            //     'Employes' => 'ROLE_ADMIN',
-            //     'Administrateur' => 'ROLE_SUPER_ADMIN'
-            // ])->autocomplete()
-            // ->hideOnIndex(),
-            BooleanField::new('rgpd'),
-            BooleanField::new('isVirified')->setLabel('compte active'),
+            TextField::new('firstname')->setLabel('NOM'),
+            TextField::new('lastname')->setLabel('PRENOM'),
+            EmailField::new('email')->setLabel('EMAIL'),
+            ChoiceField::new('roles')->setChoices([
+                'User' => 'ROLE_USER',
+                'Employes' => 'ROLE_ADMIN',
+                'Administrateur' => 'ROLE_SUPER_ADMIN'
+            ])->allowMultipleChoices()->setLabel('ROLE(S)'),
+            BooleanField::new('rgpd')->setLabel('RGPD'),
+            BooleanField::new('isVirified')->setLabel('COMPTE ACTIVE'),
+            DateTimeField::new('createdAt')->setLabel('DATE DE CREATION')->hideOnForm()->hideOnIndex(),
+            DateTimeField::new('updatedAt')->setLabel('DERNIERE MISE A JOUR')->hideOnForm()->hideOnForm()
         ];
     }
     
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('firstname')
+            ->add('lastname')
+            ->add('email')
+            ->add(BooleanFilter::new('isVirified'))
+        ;
+    }
 
     public function configureActions(Actions $actions): Actions
     {
@@ -47,6 +59,13 @@ class UserCrudController extends AbstractCrudController
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->add(Crud::PAGE_EDIT, Action::SAVE_AND_ADD_ANOTHER)
         ;
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setSearchFields(['lastname', 'firstname', 'email'])
+            ->setAutofocusSearch();
     }
     
 }
