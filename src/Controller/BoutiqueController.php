@@ -220,7 +220,7 @@ class BoutiqueController extends AbstractController
     #[Route( '/boutique/panier/supprimer/{slug}' , name : 'app_remove_to_cart' )]
     public function removeToCart ( $slug )
     {
-
+        dd ("remove");
         $this -> cart -> remove ( $slug );
         if ( count ( $this -> cart -> getFullCart () ) > 0 ) {
             return $this -> redirectToRoute ( 'app_cart' );
@@ -237,7 +237,7 @@ class BoutiqueController extends AbstractController
     #[Route( '/boutique/panier/diminuer_quantite/{slug}' , name : 'app_decrease_quantity_cart' )]
     public function decrease ( $slug )
     {
-
+     //   dd ("decrease");
         $this -> cart -> decrease ( $slug );
 
         return $this -> redirectToRoute ( "app_cart" );
@@ -251,9 +251,9 @@ class BoutiqueController extends AbstractController
      * #Comment This function encrease quantity of product in the cart
      */
     #[Route( '/boutique/panier/augmenter_quantite/{slug}' , name : 'app_encrease_quantity_cart' )]
-    public function encrease ( Request $request , $slug ) : Response
+    public function encrease ( Request $request , $slug )
     {
-
+     //   dd ("encrease");
         $this -> cart -> add ( $slug );
 
         return $this -> redirectToRoute ( 'app_cart' );

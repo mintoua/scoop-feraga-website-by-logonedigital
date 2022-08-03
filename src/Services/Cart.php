@@ -22,7 +22,10 @@ class Cart
         $cart = $this->session->get('cart',[]);
 
         if(!empty($cart[$slug])){
-            $cart[$slug]++;
+            $stockQty = $this->entityManager->getRepository (Product::class)->findOneBySlug($slug)->getProductQuantity();
+            if($cart[$slug] < $stockQty){
+                $cart[$slug]++;
+            } //else with a flashy message 
         }else{
             $cart[$slug]=1;
         }
