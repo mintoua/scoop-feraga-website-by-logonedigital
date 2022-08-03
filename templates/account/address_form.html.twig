@@ -100,7 +100,7 @@ block content %}
                     <div class="input-wrp">
                       <input
                         class="textfield"
-                        placeholder="Email address *"
+                        placeholder="Email address (facultatif)"
                         type="text"
                       />
                     </div>
@@ -168,9 +168,28 @@ block content %}
                       }}
                     </div>
                   </div>
+                  <button
+                          class="custom-btn custom-btn--medium custom-btn--style-1 wide"
+                          type="submit"
+                          value="submit"
+                          role="button"
+                  >
+                    Valider
+                  </button>
                 </div>
                 {{ form_end(form) }}
-
+                <script src="https://www.google.com/recaptcha/api.js?render=6Lc96AYfAAAAAAJsKTsNdyF4yBBWVnt5rWll8Dbe"></script>
+                <script>
+                  grecaptcha.ready(function () {
+                    grecaptcha
+                            .execute("6Lc96AYfAAAAAAJsKTsNdyF4yBBWVnt5rWll8Dbe", {
+                              action: "submit",
+                            })
+                            .then(function (token) {
+                              document.getElementById("address_livraison_captcha").value = token;
+                            });
+                  });
+                </script>
                 <div class="spacer py-6 d-md-none"></div>
               </div>
             </div>

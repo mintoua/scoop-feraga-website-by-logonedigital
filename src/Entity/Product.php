@@ -138,6 +138,11 @@ class Product
         return $this->product_quantity;
     }
 
+    public function getProduct_Quantity(): ?int
+    {
+        return $this->product_quantity;
+    }
+
     public function setProductQuantity(int $product_quantity): self
     {
         $this->product_quantity = $product_quantity;

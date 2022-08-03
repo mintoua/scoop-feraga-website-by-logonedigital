@@ -35,50 +35,65 @@ class OrderCrudController extends AbstractCrudController
         return Order::class;
     }
 
+    public function deleteEntity ( EntityManagerInterface $entityManager , $entityInstance ) : void
+    {
+        foreach ($entityInstance->getOrderDetails() as $product ){
+            $entityManager->remove ($product);
+        }
+        $entityManager->remove ($entityInstance);
+        $entityManager->flush ();
+    }
+
     public function configureActions(Actions $actions): Actions
     {
         $updatePreparation = Action::new('updatePreparation','Préparation en cours','fas fa-box-open')
             ->linkToCrudAction('updatePreparation');
+
         $updateDelivering = Action::new('updateDelivering','Livraison en cours','fas fa-truck')
             ->linkToCrudAction('updateDelivering');
+
+        $delivered = Action::new('delivered','Commande Livrée')
+            ->linkToCrudAction('delivered');
 
        return $actions
            ->add('index','detail')
            ->add('detail', $updatePreparation)
            ->add('detail', $updateDelivering)
+           ->add('detail',$delivered)
            ->disable(Action::NEW);
+    }
+
+    public function urlDispatcher(){
+        $url = $this->adminUrlGenerator
+            ->setDashboard(DashboardController::class)
+            ->setController(OrderCrudController::class)
+            ->setAction(Action::INDEX)
+            ->generateUrl();
+
+        return $url;
+    }
+    public function delivered(AdminContext $context){
+        $order = $context->getEntity()->getInstance();
+        $order->setState(4);
+        $this->entityManager->flush();
+        $this->addFlash('notice',"<span style='color: green'  > <strong> La commande ".$order->getReference()." a bien été mise à jour  </strong> </span>");
+        return $this->redirect($this->urlDispatcher ());
     }
 
     public function updatePreparation(AdminContext $context){
         $order = $context->getEntity()->getInstance();
-
         $order->setState(2);
         $this->entityManager->flush();
-
         $this->addFlash('notice',"<span style='color: green'  > <strong> La commande ".$order->getReference()." a bien été mise à jour  </strong> </span>");
-        $url = $this->adminUrlGenerator
-            ->setDashboard(DashboardController::class)
-            ->setController(OrderCrudController::class)
-            ->setAction(Action::INDEX)
-            ->generateUrl();
-
-        return $this->redirect($url);
+        return $this->redirect($this->urlDispatcher ());
     }
 
     public function updateDelivering(AdminContext $context){
         $order = $context->getEntity()->getInstance();
-
         $order->setState(3);
         $this->entityManager->flush();
-
         $this->addFlash('notice',"<span style='color: orange'  > <strong> La commande ".$order->getReference()." a bien été mise à jour  </strong> </span>");
-        $url = $this->adminUrlGenerator
-            ->setDashboard(DashboardController::class)
-            ->setController(OrderCrudController::class)
-            ->setAction(Action::INDEX)
-            ->generateUrl();
-
-        return $this->redirect($url);
+        return $this->redirect($this->urlDispatcher ());
     }
 
     public function configureCrud(Crud $crud): Crud
@@ -100,7 +115,8 @@ class OrderCrudController extends AbstractCrudController
                 'Non payée'=>0,
                 'Payée'=>1,
                 'Préparation en cours'=>2,
-                'Livraison en cours'=>3
+                'Livraison en cours'=>3,
+                'Commande Livrée'=>4
             ]),
             ArrayField::new('orderDetails','Produits acheté')->hideOnIndex()
         ];

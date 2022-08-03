@@ -52,7 +52,7 @@ class ProductRepository extends ServiceEntityRepository
 
 
         $query = $query
-            ->andWhere('c.id IN (:categories)')
+            ->andWhere('c.slug IN (:categories)')
             ->setParameter('categories', array_values($filters));
 
 
