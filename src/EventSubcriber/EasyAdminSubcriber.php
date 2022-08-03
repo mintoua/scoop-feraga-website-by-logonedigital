@@ -82,6 +82,7 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         if($entity instanceof User){
             $entity->setPassword(md5(uniqid()));
             $entity->setCreatedAt(new \DateTime('now'));
+            //$entity->setBlocked(false);
         }
     }
 

@@ -78,6 +78,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $blocked = null;
+
     public function __construct()
     {
         $this->addressLivraisons = new ArrayCollection();
@@ -346,6 +349,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function isBlocked(): ?bool
+    {
+        return $this->blocked;
+    }
+
+    public function setBlocked(?bool $blocked): self
+    {
+        $this->blocked = $blocked;
 
         return $this;
     }

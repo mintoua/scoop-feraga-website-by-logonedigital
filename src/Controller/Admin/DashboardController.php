@@ -41,44 +41,44 @@ class DashboardController extends AbstractDashboardController
         // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
-        $response = $this->render('admin/index.html.twig');
-        $response->setCache([
-            'must_revalidate'  => true,
-            'no_cache'         => true,
-            'no_store'         => true,
-            'public'           => false,
-            'private'          => true,
-            'max_age'          => 0,
-        ]);
-        return $response;
+        $user = $this->getUser();
+        // if(!$user->isBlocked){
+        //     return $this->render('admin/index.html.twig');
+        // }
+        
+        return $this->render('admin/index.html.twig');;
     }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('SCOOPS FERAGA');
+            ->setTitle('SCOOPS FERAGA')
+            ->setFaviconPath('/public/frontOffice/img/favicon_scoops_feraga.png');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Espace d\'administration ', 'fa fa-home');
+        yield MenuItem::linkToDashboard('Dashboard', 'fas fa-tachometer-alt-average');
+        yield MenuItem::linkToDashboard('Stastistiques', 'fas fa-chart-bar');
 
         
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class)->setPermission('ROLE_SUPER_ADMIN');
         yield MenuItem::linkToCrud('Commentaires', 'fas fa-comment', Comments::class);
-        yield MenuItem::section('Blog');
-        yield MenuItem::linkToCrud('Actualités', 'fas fa-newspaper', Posts::class);
-        yield MenuItem::linkToCrud('Categorie des Actualités', 'fas fa-list-alt', PostCategory::class);
 
         yield MenuItem::section('Boutique');
         yield MenuItem::linkToCrud('Categorie des Produits', 'fas fa-list', ProductCategory::class);
         yield MenuItem::linkToCrud('Produits', 'fas fa-store', Product::class);
         yield MenuItem::linkToCrud('Transporteurs', 'fas fa-truck', Carrier::class);
         yield MenuItem::linkToCrud('Commandes', 'fas fa-shopping-cart', Order::class);
+        yield MenuItem::section('Blog');
+        yield MenuItem::linkToCrud('Actualités', 'fas fa-newspaper', Posts::class);
+        yield MenuItem::linkToCrud('Categorie des Actualités', 'fas fa-list-alt', PostCategory::class);
+        yield MenuItem::section('Demande de contacts');
+        yield MenuItem::linkToCrud('Courriel', 'fas fa-envelope', Contact::class);
         yield MenuItem::section('Farm pictures');
-        yield MenuItem::linkToCrud('Type d\'image', 'fas fa-images', CategoryPicture::class);
-        yield MenuItem::linkToCrud('Images', 'fas fa-image', FarmPictures::class);
-        yield MenuItem::linkToCrud('Contacts', 'fas fa-address-book', Contact::class)->setPermission('ROLE_SUPER_ADMIN');
+        yield MenuItem::linkToCrud('Album photo', 'fas fa-images', CategoryPicture::class);
+        yield MenuItem::linkToCrud('photo', 'fas fa-image', FarmPictures::class);
+        
     }
 
     
