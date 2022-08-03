@@ -118,7 +118,7 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
 
         // $targetUrl = $this->router->generate('app_home');
 
-        return new RedirectResponse($request->header->get('referer'));
+        return new RedirectResponse($request->headers->get('referer'));
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
