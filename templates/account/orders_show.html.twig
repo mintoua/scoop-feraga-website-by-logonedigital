@@ -213,15 +213,15 @@
         <!-- start section -->
         <section class="section">
             <div class="decor-el decor-el--1" data-jarallax-element="-70" data-speed="0.2">
-                <img class="lazy" width="286" height="280" src="{{asset('frontoffice/')}}img/blank.gif" data-src="img/decor-el_1.jpg" alt="demo"/>
+                <img class="lazy" width="286" height="280" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_1.jpg" alt="demo"/>
             </div>
 
             <div class="decor-el decor-el--3" data-jarallax-element="-70" data-speed="0.2">
-                <img class="lazy" width="115" height="117" src="{{asset('frontoffice/')}}img/blank.gif" data-src="img/decor-el_3.jpg" alt="demo"/>
+                <img class="lazy" width="115" height="117" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_3.jpg" alt="demo"/>
             </div>
 
             <div class="decor-el decor-el--4" data-jarallax-element="-70" data-speed="0.2">
-                <img class="lazy" width="84" height="76" src="{{asset('frontoffice/')}}img/blank.gif" data-src="img/decor-el_4.jpg" alt="demo"/>
+                <img class="lazy" width="84" height="76" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_4.jpg" alt="demo"/>
             </div>
 
 
@@ -256,9 +256,29 @@
                                     <td width="15%">Prix</td>
                                     <td width="20%">Quantity</td>
                                     <td width="15%">Total</td>
-                                    <td width="35%">Ajoutez un avis</td>
-                                    <td width="5%">Rating</td>
-                                    <td width="5%">&nbsp;</td>
+                                    <td width="35%">Ajoutez un avis et une note</td>
+                                    <td width="5%"></td>
+                                    <td width="5%">
+                                        <div class="col-12 col-sm-auto">
+
+                                            <fieldset class="rating">
+                                                <input class="form-control" type="radio" id="star5" name="rating" value="5" />
+                                                <label class="rating__item" for="star5" title="Awesome - 5 stars"><i class="fontello-star"></i></label>
+
+                                                <input class="form-control" type="radio" id="star4" name="rating" value="4" />
+                                                <label class="rating__item" for="star4" title="Pretty good - 4 stars"><i class="fontello-star"></i></label>
+
+                                                <input class="form-control" type="radio" id="star3" name="rating" value="3" />
+                                                <label class="rating__item" for="star3" title="Meh - 3 stars"><i class="fontello-star"></i></label>
+
+                                                <input class="form-control" type="radio" id="star2" name="rating" value="2" />
+                                                <label class="rating__item" for="star2" title="Kinda bad - 2 stars"><i class="fontello-star"></i></label>
+
+                                                <input class="form-control" type="radio" id="star1" name="rating" value="1" />
+                                                <label class="rating__item" for="star1" title="Sucks big time - 1 star"><i class="fontello-star"></i></label>
+                                            </fieldset>
+                                        </div>
+                                    </td>
                                 </tr>
                                 </thead>
 
@@ -283,29 +303,12 @@
                                     </td>
                                     <td>
                                         <div class="input-wrp">
-                                    <textarea style="width: 300px;height: 100px;border-radius: 10px; border: 2px solid #fcdb5a;" id="message"
+                                    <textarea style="width: 300px;height: 100px;border-radius: 10px; border: 2px solid #fcdb5a;" id="message{{ product.product }}"
                                               class="textfield" placeholder="Message.."></textarea>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="col-12 col-sm-auto">
-                                            <fieldset class="rating">
-                                                <input class="form-control" type="radio" id="star5" name="rating" value="5" />
-                                                <label class="rating__item" for="star5" title="Awesome - 5 stars"><i class="fontello-star"></i></label>
 
-                                                <input class="form-control" type="radio" id="star4" name="rating" value="4" />
-                                                <label class="rating__item" for="star4" title="Pretty good - 4 stars"><i class="fontello-star"></i></label>
-
-                                                <input class="form-control" type="radio" id="star3" name="rating" value="3" />
-                                                <label class="rating__item" for="star3" title="Meh - 3 stars"><i class="fontello-star"></i></label>
-
-                                                <input class="form-control" type="radio" id="star2" name="rating" value="2" />
-                                                <label class="rating__item" for="star2" title="Kinda bad - 2 stars"><i class="fontello-star"></i></label>
-
-                                                <input class="form-control" type="radio" id="star1" name="rating" value="1" />
-                                                <label class="rating__item" for="star1" title="Sucks big time - 1 star"><i class="fontello-star"></i></label>
-                                            </fieldset>
-                                        </div>
                                     </td>
                                     <td>
                                         <button class="custom-btn custom-btn--small custom-btn--style-1" type="submit"
@@ -475,12 +478,20 @@
 <script>
     function addcommentjs(slug) {
 
-        var message = document.getElementById("message").value;
-        var rating = $("input[name='rating']:checked").val();
-
+        var message = document.getElementById("message"+slug).value;
+      /*  var checkedValue = null;
+        var inputElements = document.getElementsByClassName('form-control'+slug);
+        for(var i=0; inputElements[i]; ++i){
+            if(inputElements[i].checked){
+                checkedValue = inputElements[i].value;
+                break;
+            }
+        }*/
+        var rating = $('input[name="rating"]:checked').val();
+        console.log(rating);
         if(message.trim().length < 5 ){
 
-            document.getElementById("message").style.borderColor = "red";
+            document.getElementById("message"+slug).style.borderColor = "red";
         }else {
 
             fetch("/mon-compte/commandes/avis/" + slug.toString() + "?message=" + message + "&rating=" + rating, {
@@ -493,8 +504,8 @@
             ).then(data => {
 
                 $('#comments_list').html(data);
-                    document.getElementById("message").style.borderColor = "black";
-                    document.getElementById("message").value = "";
+                    document.getElementById("message"+slug).style.borderColor = "black";
+                    document.getElementById("message"+slug).value = "";
                     location.reload();
                 }
             ).catch(e => console.log(e));

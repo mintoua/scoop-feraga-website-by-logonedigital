@@ -46,30 +46,6 @@ class HomeController extends AbstractController
         $limit = 2;
         // o n recupere le num de la page
         $page = (int)$request->query->get("page",1);
-        // OLD
-        // --- start ---
-        /*if (($page == 1 and $cat == null) or ($page == 1 and $cat == 0)) {
-            $postsP = $cache->get('post_list', function (ItemInterface $item) use ($repository, $page, $limit, $cat) {
-                //$item->expiresAfter(30);
-                return $repository->getPaginatedPosts($page, $limit, null);
-            });
-        }else{
-            $postsP=$repository->getPaginatedPosts($page, $limit, $cat);
-        }*/
-        //$cache->getItem('post_list')->get()
-
-            //$repository->getPaginatedPosts($page , $limit , $cat);
-        //on recupere le nombre totale du postsif
-        /*if (($page == 1 and $cat == null) or ($page == 1 and $cat == 0)) {
-            $total = $cache->get('total_post', function (ItemInterface $item) use ($repository, $cat) {
-               // $item->expiresAfter(30);
-                return $repository->getTotalPosts($cat);
-            });
-        }else{
-            $total  = $repository->getTotalPosts($cat);
-        }*/
-        // --- end --
-
         //NEW
         $postsP = $postsP = $cache->get('post_list', function (ItemInterface $item) use ($repository) {
             $item->expiresAfter(DateInterval::createFromDateString('48 hour'));

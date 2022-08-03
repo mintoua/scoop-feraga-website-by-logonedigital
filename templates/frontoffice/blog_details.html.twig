@@ -33,9 +33,10 @@
         <link rel="stylesheet" href="{{ asset('frontoffice/') }}css/style.min.css" type="text/css"/>
         <link rel="stylesheet" href="{{ asset('frontoffice/') }}css/likeStyle.css" type="text/css"/>
 
-        <!-- Load lazyLoad scripts
+        <!-- Load  scripts
         ================================================== -->
         <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.24/sweetalert2.all.min.js"></script>
         <script>
             (function (w, d) {
                 var m = d.getElementsByTagName('main')[0],
@@ -74,10 +75,10 @@
             }(window, document));
 
 
-            function addLike() {
+            function addLike(postId) {
                 //on recupere l URL active
                 const url = new URL(window.location.href);
-                // on lance la requette ajax
+                // on lance la requette ajax (ajax =1 )
                 fetch(url.pathname + "?" + "postId=" + {{ post[0].id }}+"&ajax=1", {
                         headers: {
                             "X-Requested-With": "XMLHttpRequest"
@@ -85,52 +86,48 @@
                     }
                 ).then(response => response.json()
                 ).then(data => {
-                        //        // chercher la zonne de continue
+                        // chercher la zonne de continue
                         var content = document.getElementById("totalLike");
-                        //        //remplace le continue
+                        //remplace le continue
                         content.innerHTML = data.content;
-                        //        history.pushState({},null,url.pathname + "?" + "catId="+v.toString());
                     }
                 ).catch(e => console.log(e));
 
             }
 
+            // add un listener pour le bouton like pour ajouter une classe css
             document.addEventListener('DOMContentLoaded', function () {
                 var likeButton = document.getElementById('like-button');
                 likeButton.addEventListener('click', function () {
                     window.lb = likeButton;
+                    // ajout d'un classe css
                     likeButton.classList.toggle('selected');
                 });
             }, false);
+            //lors du chargement du page on verifi si l'utilisateur liker cette post pour ajouter des styles au bouton
             window.onload = (event) => {
                 var test = {{ isLiked }}
                 if (test === 1) {
                     var likeButton = document.getElementById('like-button');
                     window.lb = likeButton;
+                    //ajout du classe css
                     likeButton.classList.toggle('selected');
                 }
             }
 
-            grecaptcha.ready(function () {
-                grecaptcha
-                    .execute("6Lc96AYfAAAAAAJsKTsNdyF4yBBWVnt5rWll8Dbe", {
-                        action: "homepage",
-                    })
-                    .then(function (token) {
-                        document.getElementById("blog_details_captcha").value = token;
-                    });
-            });
 
             function addcommentjs(slug) {
                 //recuperer le valeur de message
                 var message = document.getElementById("message").value;
+                var token = document.getElementById("token").value;
+                var gtoken = document.getElementById("grecaptcha_token").value;
                 //condition sur l'input
-                if(message.trim().length <10 ){
+                if (message.trim().length < 10) {
                     //rendre le borderColor red (error)
                     document.getElementById("message").style.borderColor = "red";
-                }else {
+                } else {
                     // fetch lur d'ajout avec l'envoi deu message au parametre
-                    fetch("/blog_details/addComment/" + slug.toString() + "?message=" + message, {
+                    fetch("/blog_details/addComment/" + slug.toString() + "?message=" + message + "&_token=" + token + "&gtoken=" + gtoken, {
                             headers: {
                                 "X-Requested-With": "XMLHttpRequest"
                             }
@@ -145,14 +142,137 @@
                             // vider l'input & rendre le borderColor black
                             document.getElementById("message").style.borderColor = "black";
                             document.getElementById("message").value = "";
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Votre commentaire a été Ajouté.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
                         }
                     ).catch(e => console.log(e));
                 }
             }
 
+            function update(id, message) {
+                messageCh = message.toString()
+                document.getElementById("comment-description" + id).innerHTML = '<textarea id="message' + id + '" style="width:600px; border-radius: 10px ;" >' + message.toString() + '</textarea> <br><button style="height: 30px;margin-top: 5px" class="custom-btn custom-btn--style-1" role="button" onclick="modifierCommentaire(' + id + ')"> Modifier </button><button style="height: 30px;margin-top: 5px ; background-color:red ; " class="custom-btn custom-btn--style-7" role="button" onclick="cancelUpdate(' + id + ')"> Annuler </button><input type="hidden" id="C_token" name="C_token" value="{{ csrf_token("updateCommentaire") }}"/>';
+            }
+
+            function cancelUpdate(id) {
+                oldMessage = document.getElementById('oldMessage' + id).value;
+                document.getElementById("comment-description" + id).innerHTML = '<p>' + oldMessage.toString() + ' </p>'
+            }
+
+            function modifierCommentaire(id) {
+                token = document.getElementById('C_token').value;
+                textarea = document.getElementById('message' + id);
+                var gtoken = document.getElementById("grecaptcha_token").value;
+                newMessage = textarea.value;
+                //condition sur l'input
+                if (newMessage.trim().length < 10) {
+                    //rendre le borderColor red (error)
+                    textarea.style.borderColor = "red";
+                } else {
+                    // fetch lur de modification avec l'envoi du message au parametre
+                    fetch("/blog_details/updateComment/" + id + "?message=" + newMessage + "&_token=" + token + "&gtoken=" + gtoken, {
+                            headers: {
+                                "X-Requested-With": "XMLHttpRequest"
+                            }
+                        }
+                        //convert le response au json
+                    ).then(response => response.json()
+                    ).then(data => {
+                            // chercher la zonne de continue
+                            var content = document.getElementById("commment_zone");
+                            //remplace le continue par le nouveau list des commentaires
+                            content.innerHTML = data.content;
+                            // vider l'input & rendre le borderColor black
+                            // document.getElementById("message").style.borderColor = "black";
+                            //  document.getElementById("message").value = "";
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Votre commentaire a été modifié.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }
+                    ).catch(e => console.log(e));
+                }
+            }
+
+            function deleteCommentaire(id) {
+                Swal.fire({
+                    title: 'étes-vous sur!',
+                    text: "Vous ne pourrez pas revenir en arriére!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui, Supprime-le!'
+                }).then((result) => {
+                    //is on confirme la suppression
+                    if (result.isConfirmed) {
+                        let timerInterval
+                        //alert avec timer
+                        Swal.fire({
+                            title: 'Suppression..',
+                            html: 'Le commentaire sera supprimé dans <b></b> milliseconds.',
+                            timer: 2000,
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                Swal.showLoading()
+                                const b = Swal.getHtmlContainer().querySelector('b')
+                                timerInterval = setInterval(() => {
+                                    b.textContent = Swal.getTimerLeft()
+                                }, 100)
+                            },
+                            willClose: () => {
+                                clearInterval(timerInterval)
+                            }
+                        }).then((result) => {
+                            /* si le timer fini on appel la route de suppression*/
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                                token = document.getElementById('CD_token').value;
+                                //condition sur l'input
+                                // fetch lur de modification avec l'envoi du message au parametre
+                                fetch("/blog_details/deleteComment/" + id + "?" + "_token=" + token, {
+                                        headers: {
+                                            "X-Requested-With": "XMLHttpRequest"
+                                        }
+                                    }
+                                    //convert le response au json
+                                ).then(response => response.json()
+                                ).then(data => {
+                                        // chercher la zonne de continue
+                                        var content = document.getElementById("commment_zone");
+                                        //remplace le continue par le nouveau list des commentaires
+                                        content.innerHTML = data.content;
+                                        // vider l'input & rendre le borderColor black
+                                        // document.getElementById("message").style.borderColor = "black";
+                                        //  document.getElementById("message").value = "";
+                                    }
+                                ).catch(e => console.log(e));
+                                //alert de succes
+                                Swal.fire(
+                                    'Succés!',
+                                    'Votre commentaire a été supprimé.',
+                                    'success'
+                                )
+                            }
+                        });
+
+                    }
+                })
+
+
+            }
 
         </script>
+        <!-- Start Alert de confirmation -->
 
+        <!-- End Alert -->
         <!-- start section -->
         {% for p in post %}
         <section class="section">
@@ -201,7 +321,7 @@
 
                         <div class="posts-feedback">
                             <button type="button" id="like-button" {% if app.user %}
-                                    onclick="addLike()"
+                                    onclick="addLike({{ post[0].id }})"
                                 {% else %}
                                     onclick="location.href = '{{ path('app_sign_in') }}';"
                             {% endif %}">
@@ -249,6 +369,8 @@
                                 <div class="input-wrp">
                                     <textarea style="width: 700px;height: 200px;border-radius: 10px;" id="message"
                                               class="textfield" placeholder="Message.."></textarea>
+                                    <input type="hidden" id="token" name="token" value="{{ csrf_token('comment') }}"/>
+                                    <input type="hidden" id="grecaptcha_token" name="gtoken"/>
                                 </div>
                                 <button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit"
                                         onclick="addcommentjs('{{ post[0].slug }}')"
@@ -260,8 +382,18 @@
                                         role="button"> Login
                                 </button>
                             {% endif %}
-
                             <script src="https://www.google.com/recaptcha/api.js?render=6Lc96AYfAAAAAAJsKTsNdyF4yBBWVnt5rWll8Dbe"></script>
+                            <script>
+                                grecaptcha.ready(function () {
+                                    grecaptcha
+                                        .execute("6Lc96AYfAAAAAAJsKTsNdyF4yBBWVnt5rWll8Dbe", {
+                                            action: "homepage",
+                                        })
+                                        .then(function (token) {
+                                            document.getElementById("grecaptcha_token").value = token;
+                                        });
+                                });
+                            </script>
                         </div>
 
                         <!-- end posts feedback -->

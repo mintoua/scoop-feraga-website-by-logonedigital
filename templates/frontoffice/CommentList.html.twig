@@ -19,27 +19,34 @@
                         <div class="d-block d-lg-none">
 
                             <div class="comment__author-img">
-                                <img  width="70" src="{{ asset('frontoffice/') }}img/avatar1.png"
+                                <img width="70" src="{{ asset('frontoffice/') }}img/avatar1.png"
                                      data-src="{{ asset('frontoffice/') }}img/avatar1.png" alt="demo"/>
                             </div>
 
                         </div>
-
-                        <span class="comment__author-name">{{ c.user.firstname }} {{ c.user.lastname }}</span>
-
+                        <div class="col-md-9">
+                            <span class="comment__author-name">{{ c.user.firstname }} {{ c.user.lastname }}</span>
+                        </div>
+                        {% if is_granted('EDIT',c) and is_granted('DELETE',c) %}
+                            <div onclick="deleteCommentaire({{ c.id }})" style="margin-right: 5px">
+                                <i style="color: red" class="far fa-trash-alt"></i>
+                                <input type="hidden" id="CD_token" name="CD_token" value="{{ csrf_token("delete") }}"/>
+                            </div>
+                            <div onclick="update({{ c.id }} , '{{ c.message }}')"><i style="color: orange"
+                                                                                     class="fas fa-pen"></i></div>
+                        {% endif %}
                     </div>
-
-
                 </td>
             </tr>
 
             <tr>
                 <td></td>
-                <td>
+                <td id="comment-description{{ c.id }}">
                     <p>
                         {{ c.message }}
                     </p>
                 </td>
+                <input id="oldMessage{{ c.id }}" type="hidden" value="{{ c.message }}"/>
             </tr>
         </table>
     </li>

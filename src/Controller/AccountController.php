@@ -155,6 +155,7 @@ class AccountController extends AbstractController
     public function addReviewProduct($slug, Request $request, BoutiqueService $service){
         $message = $request->get("message");
         $rating = $request->get("rating");
+
         if( $message != null){
             $product = $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
             $service->persistComment($message,$rating,$this->getUser(),$product);
