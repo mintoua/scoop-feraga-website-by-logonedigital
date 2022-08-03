@@ -12,10 +12,12 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class MyFacebookAuthenticator extends OAuth2Authenticator
 {
@@ -27,7 +29,8 @@ class MyFacebookAuthenticator extends OAuth2Authenticator
     public function __construct(ClientRegistry $clientRegistry, 
     EntityManagerInterface $entityManager, 
     RouterInterface $router,
-    AuthorizationCheckerInterface $authChecker 
+    AuthorizationCheckerInterface $authChecker,
+    private SessionInterface $session 
     )
     {
         $this->clientRegistry = $clientRegistry;
@@ -89,10 +92,29 @@ class MyFacebookAuthenticator extends OAuth2Authenticator
         if($this->authChecker->isGranted('ROLE_ADMIN') ){
             return new RedirectResponse($this->urlGenerator->generate('admin'));
           }else if($this->authChecker->isGranted('ROLE_USER')){
-            return new RedirectResponse($request->headers->get('referer'));
+            $redirectUrl = $this->session->get('redirect_url');
+            $cartUrl = $this->urlGenerator->generate('app_cart');
+            $blogDetailUrl=null;
+
+            //extraction du $slug dans la route
+           try {
+            $parts = parse_url($redirectUrl);
+            $path_parts= explode('/', $parts['path']);
+            $slug = $path_parts[2];
+            $blogDetailUrl = $this->router->generate('blog_details', ['slug'=>$slug], urlGeneratorInterface::ABSOLUTE_URL);
+           } catch (\Throwable $th) {
+           
+           }
+        
+            $path = parse_url($redirectUrl, PHP_URL_PATH);
+            if(parse_url($redirectUrl, PHP_URL_PATH) === $cartUrl){
+                return new RedirectResponse($redirectUrl);
+            }else if($redirectUrl === $blogDetailUrl){
+                return new RedirectResponse($redirectUrl);
+            }
+           
+            return new RedirectResponse($this->urlGenerator->generate('app_user_account'));
           }
-      
-         return new RedirectResponse($this->urlGenerator->generate('app_home'));
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response

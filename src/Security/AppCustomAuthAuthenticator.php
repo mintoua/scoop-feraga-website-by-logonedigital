@@ -2,7 +2,6 @@
 
 namespace App\Security;
 
-use App\Services\UrlMatch;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,21 +29,18 @@ class AppCustomAuthAuthenticator extends AbstractLoginFormAuthenticator
     private $authChecker;
     private $container;
     private $session;
-    private $urlCompare;
 
     public function __construct(
     private UrlGeneratorInterface $urlGenerator, 
     private RouterInterface $router,
     AuthorizationCheckerInterface $authChecker,
     ParameterBagInterface $container,
-    SessionInterface $session,
-    UrlMatch $urlCompare
+    SessionInterface $session
     )
     {
         $this->authChecker = $authChecker;
         $this->container = $container;
         $this->session = $session;
-        $this->urlCompare = $urlCompare;
     }
 
     public function authenticate(Request $request): Passport
@@ -91,8 +87,6 @@ class AppCustomAuthAuthenticator extends AbstractLoginFormAuthenticator
            
             return new RedirectResponse($this->urlGenerator->generate('app_user_account'));
           }
-      
-         return new RedirectResponse($this->urlGenerator->generate('app_home'));
     }
 
     protected function getLoginUrl(Request $request): string
