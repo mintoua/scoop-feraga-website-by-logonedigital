@@ -35,7 +35,8 @@
     opacity: 0;
     visibility: hidden;
     max-height: 0;
-    transition: opacity 0.1s, z-index 0.1s
+    transition: opacity 0.1s, z-index 0.1s;
+    width: 110px;
 }
 
 .dropdown-container1:focus {
