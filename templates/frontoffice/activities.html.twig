@@ -7,7 +7,9 @@ block content %}
   class="jarallax"
   data-speed="0.7"
   data-img-position="50% 80%"
-  style="background-image: url({{ asset('frontoffice/') }}img/intro_img/2.jpg)"
+  style="background-image: url({{
+    asset('frontoffice/')
+  }}img/poule-couvrant-oeufs.jpg)"
 >
   <div class="container">
     <div class="row">
@@ -148,14 +150,8 @@ block content %}
           </div>
         </div>
       </div>
-
       <div class="text-center">
-        <a
-          id="gallery-more-btn"
-          class="custom-btn custom-btn--medium custom-btn--style-1"
-          href="javascript:void(0);"
-          >More images</a
-        >
+        {{ knp_pagination_render(farmPictures) }}
       </div>
     </div>
   </section>

@@ -24,7 +24,11 @@
 
                 <div class="__content">
                     <p class="__category">
-                        <a href="#">{{ i.postcategory.name }}</a>
+                        {% for c in category %}
+                            {% if c.id == i.postcategory.id%}
+                        <a href="#">{{ c.name }}</a>
+                            {% endif %}
+                        {% endfor %}
                     </p>
 
                     <h3 class="__title h5">

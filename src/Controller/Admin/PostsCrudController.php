@@ -25,11 +25,12 @@ class PostsCrudController extends AbstractCrudController
         return [
             //IdField::new('id'),
             TextField::new('title'),
-            SlugField::new('slug')->setTargetFieldName('title')->hideWhenUpdating(),
+            SlugField::new('slug')->setTargetFieldName('title')->hideWhenUpdating()->hideWhenCreating(),
             TextEditorField::new('description'),
             ImageField::new('post_image')->setBasePath('uploads\images')->setUploadDir('public\uploads\images'),
             AssociationField::new('postCategory'),
-            DateTimeField::new('createdAt'),
+            TextEditorField::new('description'),
+            DateTimeField::new('createdAt')->hideOnForm(),
         ];
     }
 

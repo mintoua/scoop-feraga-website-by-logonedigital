@@ -183,5 +183,26 @@ class BlogController extends AbstractController
         }else{
             die();
         }
+        //   if ($request->isMethod('post')) {
+        //       $contenu = $request->request->get("message");
+        //       $name = $request->request->get("name");
+        //       $email = $request->request->get("email");
+        //       $comment1->setMessage($contenu);
+        //       $comment1->setName($name);
+        //       $comment1->setEmail($email);
+        //       $entityManager = $this->getDoctrine()->getManager();
+        //       $entityManager->persist($comment1);
+        //       $entityManager->flush();
+        //   }
+        return $this->render('frontoffice/blog_details.html.twig', [
+                'post' => $repository->findBy(['id' => $id]),
+                'category' => $categoryRepository->findAll(),
+                'comments' => $comments,
+                // 'form' => $form->createView(),
+                'id' => $article[0]->getId(),
+
+            ]
+        );
+
     }
 }

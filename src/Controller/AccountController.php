@@ -3,14 +3,23 @@
 namespace App\Controller;
 
 use App\Entity\AddressLivraison;
+use App\Entity\Comments;
 use App\Entity\Order;
+use App\Entity\Product;
 use App\Form\AddressLivraisonType;
+use App\Services\BoutiqueService;
 use App\Services\Cart;
+use App\Services\CurlService;
 use Doctrine\ORM\EntityManagerInterface;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 
 class AccountController extends AbstractController
@@ -32,23 +41,48 @@ class AccountController extends AbstractController
     #[Route('/mon-compte/address', name: 'app_account_address')]
     public function index(): Response
     {
-        return $this->render('account/index.html.twig');
+        return $this->render('account/addresses.html.twig');
     }
 
     #[Route('/mon-compte/ajouter-une-adresse', name: 'app_account_address_add')]
-    public function addAddress(Request $request, Cart $cart)
+    public function addAddress(Request $request, CurlService $client, Cart $cart)
     {
         $address = new AddressLivraison();
 
         $form = $this->createForm(AddressLivraisonType::class,$address);
+
+        $form->add("captcha", HiddenType::class, [
+            "constraints"=>[
+                new NotNull(),
+                new NotBlank()
+            ]
+        ]);
+
         $form->handleRequest($request);
+
+
         if($form->isSubmitted() && $form->isValid()){
-            $address->setUser($this->getUser());
-            $this->entityManager->persist($address);
-            $this->entityManager->flush();
-            if($cart->get()){
-                return $this->redirectToRoute('app_checkout');
+            $url = "https://www.google.com/recaptcha/api/siteverify?secret=6Lc96AYfAAAAAEP84ADjdx5CBfEpgbTyYqgemO5n&response={$form->get('captcha')->getData()}";
+
+            $response = $client->curlManager($url);
+
+            if(empty($response) || is_null($response)){
+                return $this->redirectToRoute('app_account_address_add');
+            }else{
+                $data = json_decode($response);
+                if($data->success){
+                    $address->setUser($this->getUser());
+                    $this->entityManager->persist($address);
+                    $this->entityManager->flush();
+                    if($cart->get()){
+                        return $this->redirectToRoute('app_checkout');
+                    }
+                }else{
+                    dd("error");
+                    return $this->redirectToRoute('app_account_address_add');
+                }
             }
+
             return $this->redirectToRoute('app_account_address');
         }
         return $this->render('account/address_form.html.twig',[
@@ -115,6 +149,25 @@ class AccountController extends AbstractController
         return $this->render('account/orders_show.html.twig',[
             'order'=>$order
         ]);
+    }
+
+    #[Route('/mon-compte/commandes/avis/{slug}', name: 'app_account_add_review')]
+    public function addReviewProduct($slug, Request $request, BoutiqueService $service){
+        $message = $request->get("message");
+        $rating = $request->get("rating");
+
+        if( $message != null){
+            $product = $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
+            $service->persistComment($message,$rating,$this->getUser(),$product);
+            $comments = $this->entityManager->getRepository(Comments::class)->findComments($product);
+
+            return new JsonResponse([
+                "content" =>  $this->renderView('frontoffice/comments_list.html.twig',[
+                    'product' => $product,
+                    'comments' => $service->toPaginate($comments,$request,10),
+                ])
+            ]);
+        }
     }
 
 }

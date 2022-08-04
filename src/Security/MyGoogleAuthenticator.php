@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -35,7 +36,8 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
     RouterInterface $router,
     UserPasswordHasherInterface $encoder,
     AuthorizationCheckerInterface $authChecker,
-    UrlGeneratorInterface $urlGenerator
+    UrlGeneratorInterface $urlGenerator,
+    private SessionInterface $session
     )
     {
         $this->clientRegistry = $clientRegistry;
@@ -108,17 +110,34 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
         if($this->authChecker->isGranted('ROLE_ADMIN') ){
             return new RedirectResponse($this->urlGenerator->generate('admin'));
           }else if($this->authChecker->isGranted('ROLE_USER')){
-           // dd($request);
-            if($request->headers->get('referer'))
-            {
-               return new RedirectResponse($request->headers->get('referer')); 
+      
+            $redirectUrl = $this->session->get('redirect_url');
+            // dd($redirectUrl);
+            $cartUrl = $this->urlGenerator->generate('app_cart');
+            $blogDetailUrl=null;
+
+            //extraction du $slug dans la route
+           try {
+            $parts = parse_url($redirectUrl);
+            $path_parts= explode('/', $parts['path']);
+            $slug = $path_parts[2];
+            $blogDetailUrl = $this->router->generate('blog_details', ['slug'=>$slug], urlGeneratorInterface::ABSOLUTE_URL);
+           } catch (\Throwable $th) {
+           
+           }
+        
+            $path = parse_url($redirectUrl, PHP_URL_PATH);
+            if(parse_url($redirectUrl, PHP_URL_PATH) === $cartUrl){
+                return new RedirectResponse($redirectUrl);
+            }else if($redirectUrl === $blogDetailUrl){
+                return new RedirectResponse($redirectUrl);
             }
             return new RedirectResponse($this->urlGenerator->generate('app_user_account'));
           }
 
         // $targetUrl = $this->router->generate('app_home');
 
-        return new RedirectResponse($request->header->get('referer'));
+        return new RedirectResponse($request->headers->get('referer'));
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response

@@ -74,6 +74,7 @@ class PostsRepository extends ServiceEntityRepository
     }public function getAllPostesOrdred()
     {
         $query = $this->createQueryBuilder('p')
+            ->join('p.postCategory','cat')
             ->orderBy("p.createdAt","desc")
         ;
             return $query->getQuery()->getResult();

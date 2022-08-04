@@ -7,7 +7,6 @@ use App\Form\UserType;
 use App\Services\MailerHelper;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Security\AppCustomAuthAuthenticator;
 use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,6 +54,7 @@ class RegistrationController extends AbstractController
             );
             //dd("hello world");
             $user->setRoles(["ROLE_USER"]);
+            $user->setBlocked(true);
 
             $entityManager->persist($user);
             $entityManager->flush();
