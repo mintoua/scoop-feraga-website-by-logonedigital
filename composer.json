@@ -11,6 +11,7 @@
     "curl/curl": "^2.3",
     "doctrine/annotations": "^1.13",
     "doctrine/doctrine-migrations-bundle": "^3.2",
+    "dompdf/dompdf": "^2.0",
     "easycorp/easyadmin-bundle": "^4.3",
     "friendsofsymfony/http-cache-bundle": "^2.12",
     "guzzlehttp/promises": "^1.5",
