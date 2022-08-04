@@ -17,7 +17,7 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $product_name = null;
+    private ?string $productName = null;
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
@@ -47,7 +47,7 @@ class Product
     }
 
     public function __toString(){
-        return $this->product_name;
+        return $this->productName;
     }
 
     public function getId(): ?int
@@ -57,17 +57,17 @@ class Product
 
     public function getProductName(): ?string
     {
-        return $this->product_name;
+        return $this->productName;
     }
 
         public function getProduct_name(): ?string
     {
-        return $this->product_name;
+        return $this->productName;
     }
 
     public function setProductName(string $product_name): self
     {
-        $this->product_name = $product_name;
+        $this->productName = $product_name;
 
         return $this;
     }

@@ -14,6 +14,8 @@ use App\Entity\Product;
 use App\Entity\ProductCategory;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Knp\Component\Pager\PaginatorInterface;
 use MercurySeries\FlashyBundle\FlashyNotifier;
 use Sonata\SeoBundle\Seo\SeoPageInterface;
@@ -381,4 +383,39 @@ class BoutiqueController extends AbstractController
         return $this -> redirectToRoute ( 'app_shop' );
     }
 
+
+    #[Route('/admin/commandes/generate-pdf/{id}', name: 'generate_pdf')]
+    public function generateOrderDetailPdf($id){
+
+        $order = $this->entityManager->getRepository (Order::class)->find ((int)$id);
+
+        $pdfOptions = new Options();
+
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled (true);
+
+        $dompdf = new Dompdf();
+        $context=stream_context_create ([
+            'ssl'=>[
+                'verify_peer'=>FALSE,
+                'verify_peer_name'=> FALSE,
+                'allow_self_signed'=>TRUE
+            ]
+        ]);
+        $dompdf->setHttpContext ($context);
+
+        $html = $this->renderView ('order_pdf.html.twig',['order'=>$order]);
+
+        $dompdf->loadHtml ($html);
+        $dompdf->setPaper ('A4', 'portrait');
+        $dompdf->render ();
+
+        $fichier = 'details-commande-'.$order->getReference().'.pdf';
+
+        $dompdf->stream ($fichier,[
+            'Attachement'=> true
+        ]);
+
+        return new Response();
+    }
 }

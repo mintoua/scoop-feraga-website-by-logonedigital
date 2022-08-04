@@ -14,7 +14,6 @@ window.onload = ()=>{
                 Params.append(key, value);
             })
 
-            console.log(Params.toString());
             //get the active url
             const Url = new URL(window.location.href);
 

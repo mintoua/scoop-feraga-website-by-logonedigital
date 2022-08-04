@@ -3,6 +3,7 @@
         <div class="row">
             <!-- start item -->
             {% for product in products %}
+                {% if product.product_quantity > 0 %}
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="__item">
                         <figure class="__image">
@@ -44,6 +45,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             {% endfor %}
             <!-- end item -->
         </div>
