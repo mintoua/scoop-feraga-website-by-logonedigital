@@ -2,25 +2,26 @@
 
 namespace App\Controller;
 
-use App\Entity\AddressLivraison;
-use App\Entity\Comments;
 use App\Entity\Order;
-use App\Entity\Product;
-use App\Form\AddressLivraisonType;
-use App\Services\BoutiqueService;
 use App\Services\Cart;
+use App\Entity\Product;
+use App\Entity\Comments;
 use App\Services\CurlService;
+use App\Entity\AddressLivraison;
+use App\Services\BoutiqueService;
+use App\Form\AddressLivraisonType;
+use Flasher\Prime\FlasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use MercurySeries\FlashyBundle\FlashyNotifier;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Flasher\Prime\Notification\Notification;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 
 class AccountController extends AbstractController
@@ -38,13 +39,19 @@ class AccountController extends AbstractController
     }
     
     #[Route(path:"/mon-compte", name:"app_user_account")]
-    public function account(){
+    public function account(FlasherInterface $flasher){
         if($this->authChecker->isGranted('ROLE_ADMIN')){
             return $this->redirectToRoute('admin');
         }
 
         $user = $this->getUser();
-        if()
+        if($user->isBlocked()){
+            $flasher->error('Votre compte a été bloqué par les administrateurs');
+            return $this->redirectToRoute('app_home');
+        }else if(!$user->isIsVirified()){
+            // To Do
+            return $this->redirectToRoute('app_home');
+        }
         return $this->render("frontoffice/account.html.twig");
     }
 
