@@ -39,6 +39,18 @@
     <title>{% block title %} {% endblock %}</title>
   </head>
   <body>
-    {% block body %}{% endblock %}
+    {% block body %}
+    {{ flasher_render() }}
+    {{
+      flasher_render({
+        limit: 4,
+        priority: { min: 1, max: 6 },
+        order_by: {
+          "Flasher\\prime\\Stamp\\PriorityStamp": "DESC"
+        }
+      })
+    }}
+
+    {% endblock %}
   </body>
 </html>

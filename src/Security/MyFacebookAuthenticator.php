@@ -4,6 +4,7 @@ namespace App\Security;
 
 use App\Entity\User; // your user entity
 use Doctrine\ORM\EntityManagerInterface;
+use Flasher\Prime\FlasherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
@@ -31,7 +32,8 @@ class MyFacebookAuthenticator extends OAuth2Authenticator
     RouterInterface $router,
     AuthorizationCheckerInterface $authChecker,
     private SessionInterface $session,
-    private UrlGeneratorInterface  $urlGenerator
+    private UrlGeneratorInterface  $urlGenerator,
+    private FlasherInterface $flasher
     )
     {
         $this->clientRegistry = $clientRegistry;
@@ -109,13 +111,16 @@ class MyFacebookAuthenticator extends OAuth2Authenticator
         
             $path = parse_url($redirectUrl, PHP_URL_PATH);
             if(parse_url($redirectUrl, PHP_URL_PATH) === $cartUrl){
+                $this->flasher->addFlash('Succès !');
                 return new RedirectResponse($redirectUrl);
             }else if($redirectUrl === $blogDetailUrl){
+                $this->flasher->addFlash('Succès !');
                 return new RedirectResponse($redirectUrl);
             }
-           
+            $this->flasher->addFlash('Succès !');
             return new RedirectResponse($this->urlGenerator->generate('app_user_account'));
           }
+            $this->flasher->addFlash('Succès !');
           return new RedirectResponse($this->urlGenerator->generate('app_user_account'));
     }
 

@@ -6,9 +6,10 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Services\MailerHelper;
 use App\Repository\UserRepository;
+use Flasher\Prime\FlasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Request;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
@@ -19,6 +20,12 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {   
+
+
+    public function __construct(private FlasherInterface $flasher)
+    {
+        
+    }
     /**
      * permet à un utilisateur de s'incrire dans la base de donnée
      *
@@ -54,7 +61,7 @@ class RegistrationController extends AbstractController
             );
             //dd("hello world");
             $user->setRoles(["ROLE_USER"]);
-            $user->setBlocked(true);
+            $user->setBlocked(false);
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -74,7 +81,7 @@ class RegistrationController extends AbstractController
                         ["verificationUrl" => $signatureComponents->getSignedUrl()],
                         "ngueemmanuel@gmail.com"
             );
-            $this->addFlash('success', 'un email de confirmation vous a-été envoyé');
+            $this->flasher->addInfo('Un email de confirmation vous a-été envoyé! </br> Veuillez vérifier votre boîte mail.');
             return $this->redirectToRoute('app_login');
         }
 
@@ -112,7 +119,7 @@ class RegistrationController extends AbstractController
         $user->setIsVirified(true);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Votre email a bien été confirmez.');
+        $this->flasher->addSuccess('Votre email a bien été confirmez! <br> Vous pouvez maintenant accéder à votre compte.');
 
         return $this->redirectToRoute('app_login');
     }

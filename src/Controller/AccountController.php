@@ -12,7 +12,6 @@ use App\Services\BoutiqueService;
 use App\Form\AddressLivraisonType;
 use Flasher\Prime\FlasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Flasher\Prime\Notification\Notification;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -46,10 +45,10 @@ class AccountController extends AbstractController
 
         $user = $this->getUser();
         if($user->isBlocked()){
-            $flasher->error('Votre compte a été bloqué par les administrateurs');
+            $flasher->addError('Votre compte a été bloqué par les administrateurs');
             return $this->redirectToRoute('app_home');
         }else if(!$user->isIsVirified()){
-            // To Do
+            $flasher->addWarning("Vous n'avez pas encore vérifier votre compte");
             return $this->redirectToRoute('app_home');
         }
         return $this->render("frontoffice/account.html.twig");

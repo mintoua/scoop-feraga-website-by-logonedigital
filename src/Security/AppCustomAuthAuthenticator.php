@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use Flasher\Prime\FlasherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,7 +36,8 @@ class AppCustomAuthAuthenticator extends AbstractLoginFormAuthenticator
     private RouterInterface $router,
     AuthorizationCheckerInterface $authChecker,
     ParameterBagInterface $container,
-    SessionInterface $session
+    SessionInterface $session,
+    private FlasherInterface $flasher
     )
     {
         $this->authChecker = $authChecker;
@@ -80,13 +82,16 @@ class AppCustomAuthAuthenticator extends AbstractLoginFormAuthenticator
         
             $path = parse_url($redirectUrl, PHP_URL_PATH);
             if(parse_url($redirectUrl, PHP_URL_PATH) === $cartUrl){
+                $this->flasher->addSuccess('Succès !');
                 return new RedirectResponse($redirectUrl);
             }else if($redirectUrl === $blogDetailUrl){
+                $this->flasher->addSuccess('Succès !');
                 return new RedirectResponse($redirectUrl);
             }
-           
+            $this->flasher->addSuccess('Succès !');
             return new RedirectResponse($this->urlGenerator->generate('app_user_account'));
           }
+          $this->flasher->addSuccess('Succès !');
           return new RedirectResponse($this->urlGenerator->generate('app_home'));
     }
 
