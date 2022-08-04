@@ -59,11 +59,7 @@ class UserController extends AbstractController
         
     }
 
-    #[Route(path:"/mon-compte", name:"app_user_account")]
-    public function account(){
-        return $this->render("frontoffice/account.html.twig");
-    }
-
+    
     #[Route(path:"/mon-compte/mofier-mon-mot-de-passe", name:'app_user_password')]
     public function accountChangePassword(
         Request $req, 

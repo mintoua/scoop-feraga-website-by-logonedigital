@@ -30,7 +30,8 @@ class MyFacebookAuthenticator extends OAuth2Authenticator
     EntityManagerInterface $entityManager, 
     RouterInterface $router,
     AuthorizationCheckerInterface $authChecker,
-    private SessionInterface $session 
+    private SessionInterface $session,
+    private UrlGeneratorInterface  $urlGenerator
     )
     {
         $this->clientRegistry = $clientRegistry;
@@ -115,6 +116,7 @@ class MyFacebookAuthenticator extends OAuth2Authenticator
            
             return new RedirectResponse($this->urlGenerator->generate('app_user_account'));
           }
+          return new RedirectResponse($this->urlGenerator->generate('app_user_account'));
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response

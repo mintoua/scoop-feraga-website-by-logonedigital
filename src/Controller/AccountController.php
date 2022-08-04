@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 
@@ -29,15 +30,25 @@ class AccountController extends AbstractController
     /**
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager){
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        private AuthorizationCheckerInterface $authChecker
+        ){
         $this->entityManager = $entityManager;
     }
+    
+    #[Route(path:"/mon-compte", name:"app_user_account")]
+    public function account(){
+        if($this->authChecker->isGranted('ROLE_ADMIN')){
+            return $this->redirectToRoute('admin');
+        }
 
+        $user = $this->getUser();
+        if()
+        return $this->render("frontoffice/account.html.twig");
+    }
 
-    //
-    //ALL ABOUT THE USER ADDRESSES
-    //
-
+    
     #[Route('/mon-compte/address', name: 'app_account_address')]
     public function index(): Response
     {
@@ -78,7 +89,7 @@ class AccountController extends AbstractController
                         return $this->redirectToRoute('app_checkout');
                     }
                 }else{
-                    dd("error");
+                   
                     return $this->redirectToRoute('app_account_address_add');
                 }
             }
