@@ -61,7 +61,8 @@ class AddressLivraison
      * @return  self
      */
     public function setCaptcha($captcha)
-    {
+    { 
+        
         $this->captcha = $captcha;
 
         return $this;
