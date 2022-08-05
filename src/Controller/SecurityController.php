@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Flasher\Prime\FlasherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\HeaderBag;
@@ -19,7 +20,7 @@ class SecurityController extends AbstractController
 {
     protected $requestStack;
 
-    public function __construct(RequestStack $requestStack)
+    public function __construct(RequestStack $requestStack, private FlasherInterface $flasher)
     {
          $this->requestStack = $requestStack;
     }
@@ -34,28 +35,22 @@ class SecurityController extends AbstractController
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
+        if($error){
+            $this->flasher->addError("Votre mot de passe et\ou votre adresse email est incorrecte.");
+            return $this->redirectToRoute('app_login');
+        }
         // last username entered by =the user
         $lastUsername = $authenticationUtils->getLastUsername();
         //$container = $this->getContainer();
-        $response = $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
-        //cache directive
-        $response->setCache([
-            'must_revalidate'  => true,
-            'no_cache'         => true,
-            'no_store'         => true,
-            'public'           => false,
-            'private'          => true,
-            'max_age'          => 0,
-        ]);
-        $url = $request->headers->get('referer');
         
+        $url = $request->headers->get('referer');
         
         if($session->get('redirect_url')){
             $session->remove('redirect_url');
         }
         $session->set('redirect_url', $url);
         
-        return $response;
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     #[Route(path: '/me-deconnecter', name: 'app_logout')]

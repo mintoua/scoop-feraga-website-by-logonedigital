@@ -1,11 +1,9 @@
-<!-- this footer is for the shop pages and login/signin pages-->
-<!-- start footer -->
 <footer id="footer" class="footer footer--style-4">
   <div class="container">
     <div class="row">
       <div class="col-12 col-sm-4 col-md-3 col-lg-2">
         <div class="footer__item">
-          <a class="site-logo" href="index.html">
+          <a class="site-logo" href="{{ path('app_home') }}">
             <img
               class="img-fluid lazy"
               src="{{ asset('frontoffice/') }}img/blank.gif"
@@ -25,7 +23,7 @@
 
                 <ul>
                   <li class="active">
-                    <a href="index.html">Home</a>
+                    <a href="{{ path('app_home') }}">Home</a>
                   </li>
                   <li>
                     <a href="#">About</a>
@@ -154,4 +152,3 @@
     </div>
   </div>
 </footer>
-<!-- end footer -->

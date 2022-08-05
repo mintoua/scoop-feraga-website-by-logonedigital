@@ -1,7 +1,7 @@
 sonata_seo:
   encoding: UTF-8
   page:
-    title: "Project name"
+    title: "scoops feraga"
     #title_prefix:  'Prefix |'
     title_suffix: "| scoops feraga"
     default: sonata.seo.page.default

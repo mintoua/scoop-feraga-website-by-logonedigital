@@ -1,47 +1,31 @@
 <head>
-  {{
-    sonata_seo_title()
-  }}
-  {{
-    sonata_seo_metadatas()
-  }}
+  <title>Scoops Feraga</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
   <meta
     name="viewport"
     content="user-scalable=no, width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui"
   />
-
   <meta name="theme-color" content="#FCDB5A" />
   <meta name="msapplication-navbutton-color" content="#FCDB5A" />
   <meta name="apple-mobile-web-app-status-bar-style" content="#FCDB5A" />
-
-  <!-- Favicons
-		================================================== -->
-  <link
-    rel="shortcut icon"
-    href="{{ asset('frontoffice/img/favicon_scoops_feraga.png') }} "
-  />
+  <!-- Favicons ================================================== -->
+  <link rel="shortcut icon" href="{{ asset('frontoffice/') }}img/favicon.ico" />
 
   <!-- Critical styles
-		================================================== -->
+            ================================================== -->
   <link
     rel="stylesheet"
-    href="{{ asset('frontoffice/css/critical.css') }}"
+    href="{{ asset('frontoffice/') }}css/critical.min.css"
     type="text/css"
   />
-    {% block stylesheet %}
-      
-    {% endblock %}
+  <!-- Load google font ================================================== -->
   <script
     defer
     src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
     integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc"
     crossorigin="anonymous"
   ></script>
-  <!-- Load google font
-		================================================== -->
   <script type="text/javascript">
     WebFontConfig = {
       google: {
@@ -62,9 +46,7 @@
       s.parentNode.insertBefore(wf, s);
     })();
   </script>
-
-  <!-- Load other scripts
-		================================================== -->
+  <!-- Load other scripts ================================================== -->
   <script type="text/javascript">
     var _html = document.documentElement,
       isTouch =
@@ -77,6 +59,6 @@
   </script>
   <script
     type="text/javascript"
-    src=" {{ asset('frontoffice/js/device.min.js') }} "
+    src="{{ asset('frontoffice/') }}js/device.min.js"
   ></script>
 </head>

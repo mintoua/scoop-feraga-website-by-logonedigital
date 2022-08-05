@@ -22,6 +22,15 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/friendsofsymfony/http-cache-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/friendsofsymfony/http-cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dompdf/dompdf" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/masterminds/html5" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sabberworm/php-css-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phenx/php-font-lib" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phenx/php-svg-lib" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-flasher/flasher" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-flasher/flasher-notyf-symfony" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-flasher/flasher-notyf" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-flasher/flasher-symfony" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

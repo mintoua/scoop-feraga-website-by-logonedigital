@@ -8,6 +8,7 @@ use App\Classes\Mail;
 use App\Entity\ResetPassword;
 use App\Services\MailerHelper;
 use App\Form\ResetPasswordType;
+use Flasher\Prime\FlasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +31,11 @@ class ResetPasswordController extends AbstractController
     }
 
     #[Route('/mot-de-passe-oublie', name: 'app_forgot_password')]
-    public function forgotPassword(Request $req, TokenGeneratorInterface $tokenGenarator): Response
+    public function forgotPassword(
+        Request $req, 
+        TokenGeneratorInterface $tokenGenarator,
+        FlasherInterface $flasher
+        ): Response
     {   
         if($this->getUser()){
             return $this->redirectToRoute('app_home');
@@ -75,10 +80,11 @@ class ResetPasswordController extends AbstractController
                      "no-reply@scoopsferaga.com"
                     );
 
-                $this->addFlash('notice', 'Vous allez recevoir un email de reinitialisation de mot de passe.');
-
+                $flasher->addInfo('Un email de reinitialisation vous a été envoyé.');
+                return $this->redirectToRoute('app_login');
             }else{
-                $this->addFlash('notice', 'cette addresse mail est inconnue.');
+                $flasher->addWarning('Cette email n\'existe pas.');
+                return $this->redirectToRoute('app_forgot_password');
             }
         }
         return $this->render('frontoffice/forgot_password.html.twig');
@@ -88,7 +94,8 @@ class ResetPasswordController extends AbstractController
     public function resetPassword(
         ResetPassword $resetPassword, 
         Request $req,
-        UserPasswordHasherInterface $userPasswordHasher
+        UserPasswordHasherInterface $userPasswordHasher,
+        FlasherInterface $flasher
         ){
         if(!$resetPassword){
            // $this->addFlash('notice');
@@ -97,10 +104,8 @@ class ResetPasswordController extends AbstractController
 
         $now  = new \DateTime();
         if($now > $resetPassword->getCreatedAt()->modify("+ 3 hour")){
-            $this->addFlash('notice', 'votre demande de réinitialisation de mot de passe a expirée veuillez la renouvellez.');
+            $flasher->addWarning('votre demande de réinitialisation de mot de passe a expirée veuillez la renouvellez.');
             return $this->redirectToRoute('app_forgot_password');
-        }else{
-            $this->addFlash('notice', 'Cette addresse mail est inconnue.');
         }
 
         $form = $this->createForm(ResetPasswordType::class);
@@ -113,7 +118,7 @@ class ResetPasswordController extends AbstractController
             $userPasswordHasher->hashPassword($resetPassword->getUser(),$newPassword);
             $resetPassword->getUser()->setPassword($userPasswordHasher->hashPassword($resetPassword->getUser(),$newPassword));
             $this->manager->flush();
-            $this->addFlash('notice', 'Votre mot de passe a bien été modifié');
+            $flasher->addSuccess('Votre mot de passe a bien été modifié. </br> vous pouvez maintenant vous connectez.');
 
             return $this->redirectToRoute('app_login');
         }
