@@ -88,6 +88,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
         $this->likes = new ArrayCollection();
     }
 
+    public function __toString():string
+    {
+        return $this->getFirstname();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
