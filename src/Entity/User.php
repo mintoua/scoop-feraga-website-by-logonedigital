@@ -333,10 +333,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
 
         return $this;
     }
-    public function __toString()
+    /*public function __toString()
     {
         return $this->email;
-    }
+    }*/
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
