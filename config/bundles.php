@@ -25,4 +25,5 @@ return [
     Sonata\BlockBundle\SonataBlockBundle::class => ['all' => true],
     Sonata\SeoBundle\SonataSeoBundle::class => ['all' => true],
     FOS\HttpCacheBundle\FOSHttpCacheBundle::class => ['all' => true],
+    FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true],
 ];

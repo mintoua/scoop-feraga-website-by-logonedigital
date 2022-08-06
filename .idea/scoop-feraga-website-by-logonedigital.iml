@@ -22,6 +22,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/friendsofsymfony/http-cache-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/friendsofsymfony/http-cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/expression-language" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/friendsofsymfony/ckeditor-bundle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
