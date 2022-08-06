@@ -7,9 +7,7 @@ block content %}
   class="jarallax"
   data-speed="0.7"
   data-img-position="50% 80%"
-  style="background-image: url({{
-    asset('frontoffice/')
-  }}img/poule-couvrant-oeufs.jpg)"
+  style="background-image: url({{ asset('frontoffice/') }}img/vache-marron.jpg)"
 >
   <div class="container">
     <div class="row">
@@ -149,9 +147,6 @@ block content %}
             {% endfor %}
           </div>
         </div>
-      </div>
-      <div class="text-center">
-        {{ knp_pagination_render(farmPictures) }}
       </div>
     </div>
   </section>

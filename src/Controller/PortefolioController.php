@@ -28,7 +28,6 @@ class PortefolioController extends AbstractController
     FarmPicturesRepository $farmPictureRepo,
     PaginatorInterface $paginator,
     Request $request,
-    CacheInterface $cache
     ): Response
     {   
         $categoriesPictures = $this->cache->get("categeroriesPictureFarm", function(ItemInterface $item) use ($categoryPictureRepo){
@@ -37,7 +36,7 @@ class PortefolioController extends AbstractController
         });
         $farmPictures = $this->cache->get("farm-picture", function(ItemInterface $item) use ($paginator, $farmPictureRepo, $request){
                 $item->expiresAfter(DateInterval::createFromDateString('3 hour')); 
-                return $paginator->paginate($farmPictureRepo->findAll(),$request->query->getInt('page', 1),6);
+                return $paginator->paginate($farmPictureRepo->findAll(),$request->query->getInt('page', 1),12);
         });
 
         return $this->render('frontoffice/activities.html.twig', [

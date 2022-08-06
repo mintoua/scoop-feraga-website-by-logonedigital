@@ -7,6 +7,7 @@ use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Services\CurlService;
 use App\Services\MailerHelper;
+use Flasher\Prime\FlasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use MercurySeries\FlashyBundle\FlashyNotifier;
@@ -19,6 +20,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ContactController extends AbstractController
 {
+
+    public function __construct(private FlasherInterface $flasher)
+    {
+        
+    }
+
     #[Route('/contacts', name: 'app_contact')]
     public function contact(
         Request $req, 
@@ -41,15 +48,15 @@ class ContactController extends AbstractController
         $form->handleRequest($req);
 
         //hello world
-        
+        // dd($form->getData());
         if($form->isSubmitted() and $form->isValid()){
-            // 
+            
             $url = "https://www.google.com/recaptcha/api/siteverify?secret=6Lc96AYfAAAAAEP84ADjdx5CBfEpgbTyYqgemO5n&response={$form->get('captcha')->getData()}";
 
             $response = $client->curlManager($url);
 
             if(empty($response) || is_null($response)){
-               $flashy->warning("Something wrong!",'');
+               $this->flasher->addWarning("Votre demande m'a pas pue être envoyé.");
                 return $this->redirectToRoute('app_contact');
             }else{
                 $data = json_decode($response);
@@ -65,12 +72,12 @@ class ContactController extends AbstractController
                         ["",""],
                         "ngueemmanuel@gmail.com"
                     );
-                    $flashy->success("Votre demande a bien été prise en compte!",'');
+                    $this->flasher->addSuccess("Votre demande a bien été prise en compte.");
                     return $this->redirectToRoute('app_contact');
                     //$mail->send($contact->getEmail(), $contact->getPrenom(), 'NOUVEAU CONTACT', $contact->getMsg());
                     
                 }else{
-                    $flashy->error("Confirm you are not robot!",'');
+                    $this->flasher->addError("Une activité anormale a été détectée.");
                     return $this->redirectToRoute('app_contact');
                 }
             }
