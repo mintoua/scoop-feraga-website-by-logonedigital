@@ -1190,16 +1190,16 @@
         },
         {
             "name": "doctrine/migrations",
-            "version": "3.5.1",
+            "version": "3.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations.git",
-                "reference": "c0a01ddead0ccaf0282f3f4fcaa026d11918a481"
+                "reference": "61c6ef3a10b7df43c3b6388a184754f26e58700a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/c0a01ddead0ccaf0282f3f4fcaa026d11918a481",
-                "reference": "c0a01ddead0ccaf0282f3f4fcaa026d11918a481",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/61c6ef3a10b7df43c3b6388a184754f26e58700a",
+                "reference": "61c6ef3a10b7df43c3b6388a184754f26e58700a",
                 "shasum": ""
             },
             "require": {
@@ -1279,7 +1279,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/migrations/issues",
-                "source": "https://github.com/doctrine/migrations/tree/3.5.1"
+                "source": "https://github.com/doctrine/migrations/tree/3.5.2"
             },
             "funding": [
                 {
@@ -1295,7 +1295,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-09T20:24:38+00:00"
+            "time": "2022-08-04T14:29:49+00:00"
         },
         {
             "name": "doctrine/orm",
@@ -1398,20 +1398,19 @@
         },
         {
             "name": "doctrine/persistence",
-            "version": "3.0.2",
+            "version": "3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/persistence.git",
-                "reference": "25ec98a8cbd1f850e60fdb62c0ef77c162da8704"
+                "reference": "ac6fce61f037d7e54dbb2435f5b5648d86548e23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/persistence/zipball/25ec98a8cbd1f850e60fdb62c0ef77c162da8704",
-                "reference": "25ec98a8cbd1f850e60fdb62c0ef77c162da8704",
+                "url": "https://api.github.com/repos/doctrine/persistence/zipball/ac6fce61f037d7e54dbb2435f5b5648d86548e23",
+                "reference": "ac6fce61f037d7e54dbb2435f5b5648d86548e23",
                 "shasum": ""
             },
             "require": {
-                "doctrine/collections": "^1.0",
                 "doctrine/event-manager": "^1.0",
                 "php": "^7.2 || ^8.0",
                 "psr/cache": "^1.0 || ^2.0 || ^3.0"
@@ -1479,7 +1478,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/persistence/issues",
-                "source": "https://github.com/doctrine/persistence/tree/3.0.2"
+                "source": "https://github.com/doctrine/persistence/tree/3.0.3"
             },
             "funding": [
                 {
@@ -1495,7 +1494,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-06T06:10:05+00:00"
+            "time": "2022-08-04T21:14:21+00:00"
         },
         {
             "name": "doctrine/sql-formatter",
@@ -4620,16 +4619,16 @@
         },
         {
             "name": "sonata-project/block-bundle",
-            "version": "4.16.0",
+            "version": "4.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataBlockBundle.git",
-                "reference": "29b56c8df0b487949c3ea6c8d2c32ecb61ff016c"
+                "reference": "60c9a9f2c74e20c964014645a6247c1a6145f81b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/29b56c8df0b487949c3ea6c8d2c32ecb61ff016c",
-                "reference": "29b56c8df0b487949c3ea6c8d2c32ecb61ff016c",
+                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/60c9a9f2c74e20c964014645a6247c1a6145f81b",
+                "reference": "60c9a9f2c74e20c964014645a6247c1a6145f81b",
                 "shasum": ""
             },
             "require": {
@@ -4719,7 +4718,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sonata-project/SonataBlockBundle/issues",
-                "source": "https://github.com/sonata-project/SonataBlockBundle/tree/4.16.0"
+                "source": "https://github.com/sonata-project/SonataBlockBundle/tree/4.16.1"
             },
             "funding": [
                 {
@@ -4739,7 +4738,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-07-20T16:05:01+00:00"
+            "time": "2022-08-05T10:39:39+00:00"
         },
         {
             "name": "sonata-project/cache",
@@ -5265,16 +5264,16 @@
         },
         {
             "name": "stella-maris/clock",
-            "version": "0.1.4",
+            "version": "0.1.5",
             "source": {
                 "type": "git",
-                "url": "https://gitlab.com/stella-maris/clock.git",
-                "reference": "8a0a967896df4c63417385dc69328a0aec84d9cf"
+                "url": "git@gitlab.com:stella-maris/clock.git",
+                "reference": "447879c53ca0b2a762cdbfba5e76ccf4deca9158"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/stella-maris%2Fclock/repository/archive.zip?sha=8a0a967896df4c63417385dc69328a0aec84d9cf",
-                "reference": "8a0a967896df4c63417385dc69328a0aec84d9cf",
+                "url": "https://gitlab.com/api/v4/projects/stella-maris%2Fclock/repository/archive.zip?sha=447879c53ca0b2a762cdbfba5e76ccf4deca9158",
+                "reference": "447879c53ca0b2a762cdbfba5e76ccf4deca9158",
                 "shasum": ""
             },
             "require": {
@@ -5304,11 +5303,7 @@
                 "point in time",
                 "psr20"
             ],
-            "support": {
-                "issues": "https://gitlab.com/stella-maris/clock/-/issues",
-                "source": "https://gitlab.com/stella-maris/clock/-/tree/0.1.4"
-            },
-            "time": "2022-04-17T14:12:26+00:00"
+            "time": "2022-08-05T07:21:25+00:00"
         },
         {
             "name": "symfony/asset",
@@ -5829,25 +5824,25 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.1.1",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "07f1b9cc2ffee6aaafcf4b710fbc38ff736bd918"
+                "reference": "26954b3d62a6c5fd0ea8a2a00c0353a14978d05c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/07f1b9cc2ffee6aaafcf4b710fbc38ff736bd918",
-                "reference": "07f1b9cc2ffee6aaafcf4b710fbc38ff736bd918",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/26954b3d62a6c5fd0ea8a2a00c0353a14978d05c",
+                "reference": "26954b3d62a6c5fd0ea8a2a00c0353a14978d05c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.1"
+                "php": ">=8.0.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "3.1-dev"
+                    "dev-main": "3.0-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -5876,7 +5871,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.1.1"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.0.2"
             },
             "funding": [
                 {
@@ -5892,7 +5887,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-02-25T11:15:52+00:00"
+            "time": "2022-01-02T09:55:41+00:00"
         },
         {
             "name": "symfony/doctrine-bridge",
@@ -6240,20 +6235,20 @@
         },
         {
             "name": "symfony/event-dispatcher-contracts",
-            "version": "v3.1.1",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher-contracts.git",
-                "reference": "02ff5eea2f453731cfbc6bc215e456b781480448"
+                "reference": "7bc61cc2db649b4637d331240c5346dcc7708051"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/02ff5eea2f453731cfbc6bc215e456b781480448",
-                "reference": "02ff5eea2f453731cfbc6bc215e456b781480448",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher-contracts/zipball/7bc61cc2db649b4637d331240c5346dcc7708051",
+                "reference": "7bc61cc2db649b4637d331240c5346dcc7708051",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.1",
+                "php": ">=8.0.2",
                 "psr/event-dispatcher": "^1"
             },
             "suggest": {
@@ -6262,7 +6257,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "3.1-dev"
+                    "dev-main": "3.0-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -6299,7 +6294,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v3.1.1"
+                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v3.0.2"
             },
             "funding": [
                 {
@@ -6315,7 +6310,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-02-25T11:15:52+00:00"
+            "time": "2022-01-02T09:55:41+00:00"
         },
         {
             "name": "symfony/expression-language",
@@ -6509,28 +6504,28 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.19.2",
+            "version": "v2.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "d1a692369be53445af6e391170b509d7f5d026cf"
+                "reference": "78510b1be591433513c8087deec24e9fd90d110d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/d1a692369be53445af6e391170b509d7f5d026cf",
-                "reference": "d1a692369be53445af6e391170b509d7f5d026cf",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/78510b1be591433513c8087deec24e9fd90d110d",
+                "reference": "78510b1be591433513c8087deec24e9fd90d110d",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0|^2.0",
-                "php": ">=7.1"
+                "composer-plugin-api": "^2.1",
+                "php": ">=8.0"
             },
             "require-dev": {
-                "composer/composer": "^1.0.2|^2.0",
-                "symfony/dotenv": "^4.4|^5.0|^6.0",
-                "symfony/filesystem": "^4.4|^5.0|^6.0",
-                "symfony/phpunit-bridge": "^4.4.12|^5.0|^6.0",
-                "symfony/process": "^4.4|^5.0|^6.0"
+                "composer/composer": "^2.1",
+                "symfony/dotenv": "^5.4|^6.0",
+                "symfony/filesystem": "^5.4|^6.0",
+                "symfony/phpunit-bridge": "^5.4|^6.0",
+                "symfony/process": "^5.4|^6.0"
             },
             "type": "composer-plugin",
             "extra": {
@@ -6554,7 +6549,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v1.19.2"
+                "source": "https://github.com/symfony/flex/tree/v2.2.2"
             },
             "funding": [
                 {
@@ -6570,7 +6565,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-14T21:13:39+00:00"
+            "time": "2022-06-15T06:51:57+00:00"
         },
         {
             "name": "symfony/form",
@@ -11158,5 +11153,5 @@
         "ext-iconv": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.2.0"
 }
