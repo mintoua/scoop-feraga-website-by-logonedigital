@@ -85,7 +85,7 @@ class BoutiqueController extends AbstractController
             -> addMeta ( 'property' , 'og:type' , 'produits' );
 
         $filters = $request -> get ( "categories" );
-        $limit = 8;
+        $limit = 9;
 
         if ( $request -> get ( 'ajax' ) ) {
             if ( $filters != null ) {
