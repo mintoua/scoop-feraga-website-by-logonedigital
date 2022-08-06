@@ -38,7 +38,7 @@ class Product
     #[ORM\JoinColumn(nullable: false)]
     private ?ProductCategory $category = null;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Comments::class)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Comments::class, cascade: ["remove"])]
     private Collection $comments;
 
     public function __construct()
