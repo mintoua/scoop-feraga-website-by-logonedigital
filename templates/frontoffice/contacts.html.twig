@@ -86,30 +86,60 @@ include('includes/frontoffice/header.html.twig')%} {% block stylesheet %}
   <div class="form-container">
     <p class="form_use_icon"><i class="fas fa-user"></i></p>
     <h1 class="title-contact-form">Demande de contact</h1>
-    <form>
-      <input type="text" placeholder="Nom complet" />
-      <input type="text" placeholder="Adresse Email" />
-      <textarea
-        id="subject"
-        name="subject"
-        placeholder="Laissez nous un message."
-        style="height: 200px"
-      ></textarea>
-      <button class="btn-send" type="submit">
-        <i class="fa fa-paper-plane" style="font-size: 20px"></i>
-        Envoyer ma demande
-      </button>
-      <p class=" contact-form-lk">
-        Ou contactez-nous :
-        <a class="contact-form-link" href="tel:+237 6 52 10 93 85"
-          >+237 52 10 98 85</a
-        >
-        /
-        <a class="contact-form-link" href="mailto:contact@scoopsferaga.com"
-          >contact@scoopsferaga.com</a
-        >
-      </p>
-    </form>
+    {{ form_start(form) }}
+    {{
+      form_row(form.nom, {
+        label: false,
+        attr: {
+          class: "form-input",
+          placeholder: "Nom compte"
+        }
+      })
+    }}
+    {{
+      form_row(form.email, {
+        label: false,
+        attr: {
+          class: "form-input",
+          placeholder: "Email"
+        }
+      })
+    }}
+    {{
+      form_row(form.msg, {
+        label: false,
+        attr: {
+          placeholder: "Laissez nous un message..."
+        }
+      })
+    }}
+    <button class="btn-send" type="submit">
+      <i class="fa fa-paper-plane" style="font-size: 20px"></i>
+      Envoyer ma demande
+    </button>
+    <p class="contact-form-lk">
+      Ou contactez-nous :
+      <a class="contact-form-link" href="tel:+237 6 52 10 93 85"
+        >+237 52 10 98 85</a
+      >
+      /
+      <a class="contact-form-link" href="mailto:contact@scoopsferaga.com"
+        >contact@scoopsferaga.com</a
+      >
+    </p>
+    {{ form_end(form) }}
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lc96AYfAAAAAAJsKTsNdyF4yBBWVnt5rWll8Dbe"></script>
+    <script>
+      grecaptcha.ready(function () {
+        grecaptcha
+          .execute("6Lc96AYfAAAAAAJsKTsNdyF4yBBWVnt5rWll8Dbe", {
+            action: "homepage",
+          })
+          .then(function (token) {
+            document.getElementById("contact_captcha").value = token;
+          });
+      });
+    </script>
   </div>
   <!-- end section -->
 </main>

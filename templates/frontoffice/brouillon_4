@@ -1,0 +1,22 @@
+<input type="text" placeholder="Nom complet" />
+<input type="text" placeholder="Adresse Email" />
+<textarea
+  id="subject"
+  name="subject"
+  placeholder="Laissez nous un message."
+  style="height: 200px"
+></textarea>
+<button class="btn-send" type="submit">
+  <i class="fa fa-paper-plane" style="font-size: 20px"></i>
+  Envoyer ma demande
+</button>
+<p class="contact-form-lk">
+  Ou contactez-nous :
+  <a class="contact-form-link" href="tel:+237 6 52 10 93 85"
+    >+237 52 10 98 85</a
+  >
+  /
+  <a class="contact-form-link" href="mailto:contact@scoopsferaga.com"
+    >contact@scoopsferaga.com</a
+  >
+</p>

@@ -52,7 +52,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('SCOOPS FERAGA')
+            ->setTitle('<img src="https://logonedigital.com/assetF/img/logo.png" />')
             ->setFaviconPath('/public/frontOffice/img/favicon_scoops_feraga.png');
     }
 
@@ -71,8 +71,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Transporteurs', 'fas fa-truck', Carrier::class);
         yield MenuItem::linkToCrud('Commandes', 'fas fa-shopping-cart', Order::class);
         yield MenuItem::section('Blog');
-        yield MenuItem::linkToCrud('Actualités', 'fas fa-newspaper', Posts::class);
-        yield MenuItem::linkToCrud('Categorie des Actualités', 'fas fa-list-alt', PostCategory::class);
+        yield MenuItem::linkToCrud('Thématique', 'fas fa-list-alt', PostCategory::class);
+        yield MenuItem::linkToCrud('Post', 'fas fa-newspaper', Posts::class);
         yield MenuItem::section('Demande de contacts');
         yield MenuItem::linkToCrud('Courriel', 'fas fa-envelope', Contact::class);
         yield MenuItem::section('Farm pictures');

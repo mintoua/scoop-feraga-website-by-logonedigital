@@ -1,164 +1,184 @@
-{% extends 'base_frontoffice.html.twig'%}
-      {% block header %}
-          {% include('includes/frontoffice/header.html.twig')%}
-      {% endblock header %}
-{% block content %}
-    {% set queryParams = app.request.query.all |filter((v,k)=>k!="page") %}
+{% extends 'base_frontoffice.html.twig'%} {% block header %} {%
+include('includes/frontoffice/header.html.twig')%} {% endblock header %} {%
+block content %} {% set queryParams = app.request.query.all
+|filter((v,k)=>k!="page") %}
 
-    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script><!-- start hero -->
-    <div
-            id="hero"
-            class="jarallax"
-            data-speed="0.7"
-            data-img-position="50% 80%"
-            style="background-image: url({{asset('frontoffice/')}}img/intro_img/4.jpg)"
-    >
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-lg-7">
-                    <h1 class="__title"><span>Our</span> Blog</h1>
+<script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+  integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+  integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+  crossorigin="anonymous"
+></script>
+<!-- start hero -->
+<div
+  id="hero"
+  class="jarallax"
+  data-speed="0.7"
+  style="background-image: url({{ asset('frontoffice/') }}img/poussin.jpg)"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-7">
+        <h1 class="__title"><span>Our</span> Blog</h1>
 
-                    <p>
-                        The point of using Lorem Ipsum is that it has a more-or-less
-                        normal distribution of letters, as opposed to using 'Content
-                        here, content here', making it look like readable English
-                    </p>
-                </div>
-            </div>
-        </div>
+        <p>
+          Retrouver toutes les actualités autour de notre ferme scoops feraga
+        </p>
+      </div>
     </div>
-    <!-- end hero -->
+  </div>
+</div>
+<!-- end hero -->
 
-    <!-- start main -->
-    <main role="main">
-        <!-- Common styles
+<!-- start main -->
+<main role="main">
+  <!-- Common styles
 				================================================== -->
-        <link rel="stylesheet" href="{{asset('frontoffice/')}}css/style.min.css" type="text/css" />
-        <link rel="stylesheet" href="{{asset('frontoffice/')}}css/paginationStyle.css" type="text/css" />
-        <link rel="stylesheet" href="{{asset('frontoffice/')}}css/customDropdownStyle.css" type="text/css" />
+  <link
+    rel="stylesheet"
+    href="{{ asset('frontoffice/') }}css/style.min.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ asset('frontoffice/') }}css/paginationStyle.css"
+    type="text/css"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ asset('frontoffice/') }}css/customDropdownStyle.css"
+    type="text/css"
+  />
 
-        <!-- Load lazyLoad scripts
+  <!-- Load lazyLoad scripts
 				================================================== -->
-        <script>
-            (function (w, d) {
-                var m = d.getElementsByTagName("main")[0],
-                    s = d.createElement("script"),
-                    v = !("IntersectionObserver" in w) ? "8.17.0" : "10.19.0",
-                    o = {
-                        elements_selector: ".lazy",
-                        data_src: "src",
-                        data_srcset: "srcset",
-                        threshold: 500,
-                        callback_enter: function (element) {},
-                        callback_load: function (element) {
-                            element.removeAttribute("data-src");
+  <script>
+    (function (w, d) {
+      var m = d.getElementsByTagName("main")[0],
+        s = d.createElement("script"),
+        v = !("IntersectionObserver" in w) ? "8.17.0" : "10.19.0",
+        o = {
+          elements_selector: ".lazy",
+          data_src: "src",
+          data_srcset: "srcset",
+          threshold: 500,
+          callback_enter: function (element) {},
+          callback_load: function (element) {
+            element.removeAttribute("data-src");
 
-                            oTimeout = setTimeout(function () {
-                                clearTimeout(oTimeout);
+            oTimeout = setTimeout(function () {
+              clearTimeout(oTimeout);
 
-                                AOS.refresh();
-                            }, 1000);
-                        },
-                        callback_set: function (element) {},
-                        callback_error: function (element) {
-                            element.src =
-                                "https://placeholdit.imgix.net/~text?txtsize=21&txt=Image%20not%20load&w=200&h=200";
-                        },
-                    };
-                s.type = "text/javascript";
-                s.async = true; // This includes the script as async. See the "recipes" section for more information about async loading of LazyLoad.
-                s.src =
-                    "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" +
-                    v +
-                    "/dist/lazyload.min.js";
-                m.appendChild(s);
-                // m.insertBefore(s, m.firstChild);
-                w.lazyLoadOptions = o;
-            })(window, document);
+              AOS.refresh();
+            }, 1000);
+          },
+          callback_set: function (element) {},
+          callback_error: function (element) {
+            element.src =
+              "https://placeholdit.imgix.net/~text?txtsize=21&txt=Image%20not%20load&w=200&h=200";
+          },
+        };
+      s.type = "text/javascript";
+      s.async = true; // This includes the script as async. See the "recipes" section for more information about async loading of LazyLoad.
+      s.src =
+        "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" +
+        v +
+        "/dist/lazyload.min.js";
+      m.appendChild(s);
+      // m.insertBefore(s, m.firstChild);
+      w.lazyLoadOptions = o;
+    })(window, document);
 
+    // filter JS
 
-            // filter JS
+    function chooseCategory(cat, slug) {
+      // var v = document.getElementById("choiceId").value;
+      //on recupere l URL active
+      const url = new URL(window.location.href);
+      // on lance la requette ajax
+      //fetch(url.pathname + "?" + "catId="+v.toString() + "&ajax=1",{
+      fetch(url.pathname + "?" + "catSlug=" + slug.toString() + "&ajax=1", {
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // chercher la zonne de continue
+          var content = document.getElementById("blog_content");
+          var newLabel = document.getElementById("labelChoosen");
+          newLabel.innerHTML =
+            slug + '<i class="uil iconify" data-icon="mdi:chevron-down"></i>';
+          //remplace le continue
+          content.innerHTML = data.content;
+          history.pushState(
+            {},
+            null,
+            url.pathname + "?" + "catSlug=" + slug.toString()
+          );
+        })
+        .catch((e) => console.log(e));
+    }
+  </script>
 
-            function chooseCategory(cat , slug) {
-                // var v = document.getElementById("choiceId").value;
-                //on recupere l URL active
-                const url = new URL(window.location.href);
-                // on lance la requette ajax
-                //fetch(url.pathname + "?" + "catId="+v.toString() + "&ajax=1",{
-                fetch(url.pathname + "?" + "catSlug="+slug.toString() + "&ajax=1",{
-                        headers: {
-                            "X-Requested-With": "XMLHttpRequest"
-                        }
-                    }
-                ).then(response=>response.json()
-                ).then(data => {
-                        // chercher la zonne de continue
-                        var content = document.getElementById("blog_content");
-                        var newLabel = document.getElementById("labelChoosen");
-                        newLabel.innerHTML = slug+'<i class="uil iconify" data-icon="mdi:chevron-down"></i>';
-                        //remplace le continue
-                        content.innerHTML = data.content;
-                        history.pushState({},null,url.pathname + "?" + "catSlug="+slug.toString());
-                    }
-                ).catch(e=>console.log(e));
-            }
+  <!-- start blog list -->
 
+  <section class="section">
+    <div class="container">
+      <div class="sec-center">
+        <input
+          class="dropdown"
+          type="checkbox"
+          id="dropdown"
+          name="dropdown"
+          onchange=""
+        />
+        {% if queryParams is not empty and queryParams.catSlug is not empty %}
+        {% if queryParams.catSlug == "Tous" %}
+        <label class="for-dropdown" id="labelChoosen" for="dropdown"
+          >Tous <i class="uil iconify" data-icon="mdi:chevron-down"></i
+        ></label>
+        {% else %} {% for cat in category %} {% if cat.slug ==
+        queryParams.catSlug %}
+        <label class="for-dropdown" id="labelChoosen" for="dropdown"
+          >{{ cat.name }}
+          <i class="uil iconify" data-icon="mdi:chevron-down"></i
+        ></label>
+        {% endif %} {% endfor %} {% endif %} {% else%}
+        <label class="for-dropdown" id="labelChoosen" for="dropdown"
+          >Filtre selon categorie
+          <i class="uil iconify" data-icon="mdi:chevron-down"></i
+        ></label>
+        {% endif %}
+        <div class="section-dropdown" id="section-dropdown">
+          <a class="a1" href="javascript:chooseCategory(0,'Tous');"
+            >Tous <i class="uil uil-arrow-right"></i
+          ></a>
+          {% for c in category %}
+          <a
+            class="a1"
+            href="javascript:chooseCategory({{ c.id }} , '{{ c.slug }}');"
+            >{{ c.name }} <i class="uil uil-arrow-right"></i
+          ></a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="posts posts--style-1">
+        <div class="__inner" id="blog_content">
+          {% include "frontoffice/blogList.html.twig" %}
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- end section -->
+</main>
+<!-- end main -->
 
-        </script>
-
-        <!-- start blog list -->
-
-
-        <section class="section">
-
-            <div class="container">
-                <div class="sec-center">
-                    <input class="dropdown" type="checkbox" id="dropdown" name="dropdown" onchange=""/>
-                    {% if queryParams is not empty and queryParams.catSlug is not empty  %}
-                        {% if queryParams.catSlug == "Tous"  %}
-                            <label class="for-dropdown" id="labelChoosen" for="dropdown">Tous <i class="uil iconify" data-icon="mdi:chevron-down"></i></label>
-                        {% else %}
-                            {% for cat in category %}
-                                {% if cat.slug == queryParams.catSlug %}
-                                    <label class="for-dropdown" id="labelChoosen" for="dropdown">{{ cat.name }} <i class="uil iconify" data-icon="mdi:chevron-down"></i></label>
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                    {% else%}
-                        <label class="for-dropdown" id="labelChoosen" for="dropdown">Filtre selon categorie <i class="uil iconify" data-icon="mdi:chevron-down"></i></label>
-                    {% endif %}
-                    <div class="section-dropdown" id="section-dropdown">
-                        <a  class="a1" href="javascript:chooseCategory(0,'Tous');">Tous <i class="uil uil-arrow-right"></i></a>
-                        {% for c in category %}
-                            <a  class="a1" href="javascript:chooseCategory({{ c.id }} , '{{ c.slug }}');">{{ c.name }} <i class="uil uil-arrow-right"></i></a>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="posts posts--style-1">
-                    <div class="__inner" id="blog_content" >
-
-
-                        {% include "frontoffice/blogList.html.twig" %}
-
-
-                    </div>
-                </div>
-
-
-            </div>
-
-        </section>
-
-
-
-        <!-- end section -->
-    </main>
-    <!-- end main -->
-
-{% endblock content %}
-      {% block footer %}
-          {% include('includes/frontoffice/footer.html.twig')%}
-      {% endblock footer %}
+{% endblock content %} {% block footer %} {%
+include('includes/frontoffice/footer.html.twig')%} {% endblock footer %}
