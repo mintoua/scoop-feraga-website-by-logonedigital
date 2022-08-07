@@ -29,17 +29,18 @@
                         </div>
                         <div style="position: absolute;right: 0;">
                             {% if is_granted('EDIT',c) and is_granted('DELETE',c) %}
-                                <div class="dropdown-container1" tabindex="-1">
-                                    <div class="three-dots1"></div>
-                                    <div class="dropdown1">
-                                        <a class="a3" href="javascript:update({{ c.id }} , '{{ c.message }}')">
+
+                                <div class="dropdown">
+                                    <button class="dropbtn" onclick="show()"><i style="color: #0d9488" class="fas fa-ellipsis-v"></i></button>
+                                        <div id="myDropdown" class="dropdown-content">
+                                        <a href="javascript:update({{ c.id }} , '{{ c.message }}')">
                                             <div>
                                                 <i style="color: orange"
                                                    class="fas fa-pen"></i>
                                                 Modifier
                                             </div>
                                         </a>
-                                        <a class="a3" href="javascript:deleteCommentaire({{ c.id }})">
+                                        <a href="javascript:deleteCommentaire({{ c.id }})">
                                             <div>
                                                 <input type="hidden" id="CD_token" name="CD_token"
                                                        value="{{ csrf_token("delete") }}"/>
@@ -47,7 +48,7 @@
                                                 Supprimer
                                             </div>
                                         </a>
-                                    </div>
+                                        </div>
                                 </div>
                             {% endif %}
                         </div>

@@ -72,12 +72,26 @@ class PostsRepository extends ServiceEntityRepository
             return $query->getQuery()->getResult();
 
     }public function getAllPostesOrdred()
+{
+    $query = $this->createQueryBuilder('p')
+        ->join('p.postCategory','cat')
+        ->orderBy("p.createdAt","desc")
+    ;
+    return $query->getQuery()->getResult();
+
+}
+    public function getRelatedPosts($catId,$postId)
     {
         $query = $this->createQueryBuilder('p')
             ->join('p.postCategory','cat')
+            ->andWhere('cat.id = :val')
+            ->andWhere('p.id != :val2')
+            ->setParameter('val',$catId)
+            ->setParameter('val2',$postId)
             ->orderBy("p.createdAt","desc")
+            ->setMaxResults(3);
         ;
-            return $query->getQuery()->getResult();
+        return $query->getQuery()->getResult();
 
     }
 

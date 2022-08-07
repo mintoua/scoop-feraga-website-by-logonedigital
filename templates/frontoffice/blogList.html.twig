@@ -5,57 +5,56 @@ k!="ajax")|url_encode %}
 
 <!-- start item -->
 <div class="row">
-  {% for i in posts %}
-  <!-- start posts -->
+    {% for post in posts %}
+        <!-- start posts -->
 
-  <!-- start item -->
-  <div class="col-12 col-sm-6 col-lg-4">
-    <div
-      class="__item __item--preview"
-      data-aos="flip-up"
-      data-aos-delay="100"
-      data-aos-offset="0"
-    >
-      <figure class="__image">
-        <img
-          src="{{ asset('uploads/images'~asset(i.postimage)) }}"
-          alt="demo"
-        />
-      </figure>
+        <!-- start item -->
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div
+                    class="__item __item--preview"
+                    data-aos="flip-up"
+                    data-aos-delay="100"
+                    data-aos-offset="0"
+            >
+                <figure class="__image">
+                    <img
+                            src="{{ asset('uploads/images'~asset(post.postimage)) }}"
+                            alt="demo"
+                    />
+                </figure>
 
-      <div class="__content">
-        <p class="__category">
-          {% for c in category %} {% if c.id == i.postcategory.id%}
-          <a href="#">{{ c.name }}</a>
-          {% endif %} {% endfor %}
-        </p>
+                <div class="__content">
+                    <p class="__category">
+                        {% for c in category %}
+                            {% if c.id == post.postcategory.id%}
+                        <a href="#">{{ c.name }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </p>
 
         <h3 class="__title h5">
-          <a href="{{ path('blog_details', { slug: i.slug }) }}">{{
-            i.title
+          <a href="{{ path('blog_details', { slug: post.slug }) }}">{{
+              post.title
           }}</a>
         </h3>
 
-        <p>
-          {{ i.description|striptags[:50] ~ '...' }}
-        </p>
+                    <p>
+                        {{ post.description|striptags[:50] ~ '...' }}
+                    </p>
 
-        <a
-          class="custom-btn custom-btn--medium custom-btn--style-1"
-          href="{{ path('blog_details', { slug: i.slug }) }}"
-          >Voir plus</a
-        >
-      </div>
+                    <a
+                            class="custom-btn custom-btn--medium custom-btn--style-1"
+                            href="{{ path('blog_details',{'slug':post.slug}) }}"
+                    >Voir plus</a
+                    >
+                </div>
 
-      <span class="__date-post">
-        <strong>{{ i.getCreatedAt().format("j") }}</strong
-        >{{ i.getCreatedAt().format("M") }}
-      </span>
-    </div>
-  </div>
-  <!-- end item -->
-  <!-- end posts -->
-  {% endfor %}
+                <span class="__date-post"> <strong>{{ post.getCreatedAt().format('j') }}</strong>{{ post.getCreatedAt().format('M') }} </span>
+            </div>
+        </div>
+        <!-- end item -->
+        <!-- end posts -->
+    {% endfor %}
 </div>
 <!-- New pagination -->
 <ul class="page1">
