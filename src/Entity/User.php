@@ -51,10 +51,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     #[ORM\Column]
     private ?bool $rgpd = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: AddressLivraison::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: AddressLivraison::class, cascade: ["remove"])]
     private Collection $addressLivraisons;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Order::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Order::class, cascade: ["remove"])]
     private Collection $orders;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Likes::class)]

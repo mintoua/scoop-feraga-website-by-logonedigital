@@ -4,8 +4,7 @@
 <head>
 	<title>AGRO</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	{{ sonata_seo_title() }}
-	{{ sonata_seo_metadatas() }}
+
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
 	<meta name="viewport" content="user-scalable=no, width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui"/>
 
@@ -59,414 +58,479 @@
 	<script type="text/javascript" src="{{asset('frontoffice/')}}js/device.min.js"></script>
 </head>
 
-	<body class="woocommerce-page product-page">
-		<div id="app">
-			<!-- start header -->
-			<header id="top-bar" class="top-bar top-bar--style-2">
-				<div class="top-bar__bg" style="background-color: #FFF;background-image: url({{asset('frontoffice/')}}img/top_bar_bg-2.png);background-repeat: no-repeat;background-position: center bottom;"></div>
+<body class="woocommerce-page product-page">
+<div id="app">
+	<!-- start header -->
+	<header id="top-bar" class="top-bar top-bar--style-2">
+		<div class="top-bar__bg" style="background-color: #FFF;background-image: url({{asset('frontoffice/')}}img/top_bar_bg-2.png);background-repeat: no-repeat;background-position: center bottom;"></div>
 
-				<div class="container position-relative">
-					<div class="row justify-content-between no-gutters">
+		<div class="container position-relative">
+			<div class="row justify-content-between no-gutters">
 
-						<a class="top-bar__logo site-logo" href="index_4.html">
-							<img class="img-fluid" src="{{asset('frontoffice/')}}img/logo_scoops_feraga.png" alt="demo"/>
-						</a>
+				<a class="top-bar__logo site-logo" href="index_4.html">
+					<img class="img-fluid" src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo"/>
+				</a>
 
-						<a id="top-bar__navigation-toggler" class="top-bar__navigation-toggler top-bar__navigation-toggler--dark" href="javascript:void(0);">
-							<span></span>
-						</a>
+				<a id="top-bar__navigation-toggler" class="top-bar__navigation-toggler top-bar__navigation-toggler--dark" href="javascript:void(0);">
+					<span></span>
+				</a>
 
-						<div id="top-bar__inner" class="top-bar__inner  text-lg-right">
-							<div>
-								<div class="d-lg-flex flex-lg-column-reverse align-items-lg-end">
-									<nav id="top-bar__navigation" class="top-bar__navigation navigation" role="navigation">
-										<ul>
-											<li>
-												<a href="{{path('app_home')}}">Accueil</a>
-											</li>
-											<li>
-												<a href="{{path('app_about')}}">A propos</a>
-											</li>
+				<div id="top-bar__inner" class="top-bar__inner  text-lg-right">
+					<div>
+						<div class="d-lg-flex flex-lg-column-reverse align-items-lg-end">
+							<nav id="top-bar__navigation" class="top-bar__navigation navigation" role="navigation">
+								<ul>
+									<li>
+										<a href="{{path('app_home')}}">Accueil</a>
+									</li>
+									<li>
+										<a href="{{path('app_about')}}">A propos</a>
+									</li>
 
-											<li>
-												<a href="{{path('app_activities')}}">Vie à la ferme</a>
-											</li>
-											<li>
-												<a class="active" href="{{path('app_shop')}}">Boutique</a>
-											</li>
+									<li>
+										<a href="{{path('app_activities')}}">Vie à la ferme</a>
+									</li>
+									<li>
+										<a class="active" href="{{path('app_shop')}}">Boutique</a>
+									</li>
 
-											<ul class="submenu">
-												<li>
-													<a href="shop_catalog.html">Categ-1</a>
-												</li>
-											</ul>
-											</li>
+									<ul class="submenu">
+										<li>
+											<a href="shop_catalog.html">Categ-1</a>
+										</li>
+									</ul>
+									</li>
 
-											<li>
-												<a href="{{path('app_blog')}}">Nos Actualités</a>
-											</li>
+									<li>
+										<a href="{{path('app_blog')}}">Nos Actualités</a>
+									</li>
 
-											<li class="li-profile">
-												<a href="{{ path('app_login') }}"
-												><i class="fontello-profile"></i
-													></a>
-											</li>
+									<li class="li-profile">
+										<a href="{{ path('app_login') }}"
+										><i class="fontello-profile"></i
+											></a>
+									</li>
 
-											<li class="li-cart">
-												<a href="{{path('app_cart')}}"
-												><i class="fontello-shopping-bag"></i
-													><span class="total">{{ app.session.get('cart') | length }}</span></a
-												>
-											</li>
+									<li class="li-cart">
+										<a href="{{path('app_cart')}}"
+										><i class="fontello-shopping-bag"></i
+											><span class="total">{{ app.session.get('cart') | length }}</span></a
+										>
+									</li>
 
-											<li class="li-btn">
-												<a class="custom-btn custom-btn--small custom-btn--style-2" href="#">Get in Touch</a>
-											</li>
-										</ul>
-									</nav>
+									<li class="li-btn">
+										<a class="custom-btn custom-btn--small custom-btn--style-2" href="#">Get in Touch</a>
+									</li>
+								</ul>
+							</nav>
 
-									<div class="top-bar__contacts">
-										<span>523 Sylvan Ave, 5th Floor Mountain View, CA 940 USA</span>
-										<span>
+							<div class="top-bar__contacts">
+								<span>523 Sylvan Ave, 5th Floor Mountain View, CA 940 USA</span>
+								<span>
 										<a href="#">+1 (234) 56789</a>,&nbsp;&nbsp;<a href="#">+1 987 654 3210</a>
 									</span>
-										<span>
+								<span>
 										<a href="mailto:support@agrocompany.com">support@agrocompany.com</a>
 									</span>
 
-										<div class="social-btns">
-											<a class="fontello-twitter" href="#"></a>
-											<a class="fontello-facebook" href="#"></a>
-											<a class="fontello-linkedin-squared" href="#"></a>
-										</div>
-									</div>
+								<div class="social-btns">
+									<a class="fontello-twitter" href="#"></a>
+									<a class="fontello-facebook" href="#"></a>
+									<a class="fontello-linkedin-squared" href="#"></a>
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
-			</header>
-			<!-- end header -->
 
-			<!-- start hero -->
-			<div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 100%" style="background-image: url({{asset('frontoffice/')}}img/intro_img/13.jpg);color: #333;">
-				<div class="container">
-					<div class="row">
-						<div class="col-12 col-md-7">
-							<h1 class="__title"><span>Agro Shop</span> Product Single</h1>
+			</div>
+		</div>
+	</header>
+	<!-- end header -->
+
+	<!-- start hero -->
+	<div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 100%" style="background-image: url({{asset('frontoffice/')}}img/intro_img/13.jpg);color: #333;">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-md-7">
+					<h1 class="__title"><span>Agro Shop</span> Product Single</h1>
+
+					<p>
+						The point of using is that it has a more-or-less normal distribution of letters, as opposed to using Content here content here making it look
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end hero -->
+
+	<!-- start main -->
+	<main role="main">
+		<!-- Common styles
+        ================================================== -->
+		<link rel="stylesheet" href="{{asset('frontoffice/')}}css/style.min.css" type="text/css">
+
+		<!-- Load lazyLoad scripts
+        ================================================== -->
+		<script>
+			(function(w, d){
+				var m = d.getElementsByTagName('main')[0],
+						s = d.createElement("script"),
+						v = !("IntersectionObserver" in w) ? "8.17.0" : "10.19.0",
+						o = {
+							elements_selector: ".lazy",
+							data_src: 'src',
+							data_srcset: 'srcset',
+							threshold: 500,
+							callback_enter: function (element) {
+
+							},
+							callback_load: function (element) {
+								element.removeAttribute('data-src')
+
+								oTimeout = setTimeout(function ()
+								{
+									clearTimeout(oTimeout);
+
+									AOS.refresh();
+								}, 1000);
+							},
+							callback_set: function (element) {
+
+							},
+							callback_error: function(element) {
+								element.src = "https://placeholdit.imgix.net/~text?txtsize=21&txt=Image%20not%20load&w=200&h=200";
+							}
+						};
+				s.type = 'text/javascript';
+				s.async = true; // This includes the script as async. See the "recipes" section for more information about async loading of LazyLoad.
+				s.src = "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" + v + "/dist/lazyload.min.js";
+				m.appendChild(s);
+				// m.insertBefore(s, m.firstChild);
+				w.lazyLoadOptions = o;
+			}(window, document));
+		</script>
+
+		<!-- start section -->
+		<section class="section">
+			<div class="decor-el decor-el--1" data-jarallax-element="-70" data-speed="0.2">
+				<img class="lazy" width="286" height="280" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_1.jpg" alt="demo"/>
+			</div>
+
+			<div class="decor-el decor-el--2" data-jarallax-element="-70" data-speed="0.2">
+				<img class="lazy" width="99" height="88" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_2.jpg" alt="demo"/>
+			</div>
+
+			<div class="decor-el decor-el--3" data-jarallax-element="-70" data-speed="0.2">
+				<img class="lazy" width="115" height="117" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_3.jpg" alt="demo"/>
+			</div>
+
+			<div class="decor-el decor-el--4" data-jarallax-element="-70" data-speed="0.2">
+				<img class="lazy" width="84" height="76" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_4.jpg" alt="demo"/>
+			</div>
+
+			<div class="decor-el decor-el--5" data-jarallax-element="-70" data-speed="0.2">
+				<img class="lazy" width="248" height="309" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_5.jpg" alt="demo"/>
+			</div>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-md-8 col-lg-9">
+
+						<!-- start product single -->
+						<div class="product-single">
+							<div class="row">
+								<div class="col-12 col-lg-7">
+									<div class="__product-img">
+										<img width="400" src="{{ asset('uploads/images/'~product.product_image) }}" alt="{{ product.slug }}" />
+									</div>
+								</div>
+
+								<div class="col-12 col-lg-5">
+									<div class="content-container">
+										<h3 class="__name">{{ product.product_name }}</h3>
+
+										<div class="__categories">
+											Category:
+											<span>{{ product.category }}</span>
+										</div>
+
+										<div class="product-price">
+											<span class="product-price__item product-price__item--new"> {{ (product.product_price )  }} FCFA</span>
+										</div>
+
+										<div class="rating">
+											<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
+											<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
+											<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
+											<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
+											<span class="rating__item"><i class="fontello-star"></i></span>
+										</div>
+
+										<p>
+
+										</p>
+
+										<p>
+											{{ product.product_description | striptags[:259] ~ '...'  }}
+										</p>
+
+										<form class="__add-to-cart" action="{{ path('app_add_to_cart',{'slug': product.slug})}}">
+
+											<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button"><i class="fontello-shopping-bag"></i>Ajouter au panier</button>
+										</form>
+
+									</div>
+								</div>
+
+								<div class="col-12">
+									<div class="spacer py-5 py-md-9"></div>
+
+									<!-- start tab -->
+									<div class="tab-container">
+										<nav class="tab-nav">
+											<a href="#">Description complète</a>
+											<a href="#">Les avis</a>
+										</nav>
+
+										<div class="tab-content">
+											<div class="tab-content__item is-visible">
+												<p>
+													{{ product.product_description | raw  }}
+												</p>
+
+												<p>
+													Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish filefish Antarctic icefish goldeye aholehole trumpetfish pilot fish airbreathing catfish, electric ray sweeper.
+												</p>
+
+												<div class="description-table" style="max-width: 370px;">
+													<table>
+														<tbody>
+														<tr>
+															<td>Weight</td>
+															<td>1 kg</td>
+														</tr>
+														<tr>
+															<td>Country of Origin</td>
+															<td>Agro Farm</td>
+														</tr>
+														<tr>
+															<td>Quality</td>
+															<td>Organic</td>
+														</tr>
+														<tr>
+															<td>Сheck</td>
+															<td>Healthy</td>
+														</tr>
+														<tr>
+															<td>Min Weight</td>
+															<td>250 Kg</td>
+														</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+
+											<div class="tab-content__item">
+												<!-- start comments list -->
+												{% include "frontoffice/comments_list.html.twig" %}
+												<!-- end comments list -->
+
+												<!-- start add review -->
+												<div class="__add-review">
+													<h5>Laissez un avis</h5>
+
+													<form id="product_review" name="product_review" method="post">
+
+														<div class="input-wrp">
+															<textarea  name="message" id="message" class="textfield" placeholder="Votre commentaire ..."></textarea>
+														</div>
+
+														<div class="spacer py-md-5"></div>
+
+														<div class="row align-items-sm-center justify-content-sm-between">
+															<div class="col-12 col-sm-auto">
+																<fieldset class="rating">
+																	<span class="__note">Veuillez noter le produit s'il vous plaît:</span>
+
+																	<input class="form-control" type="radio" id="star5" name="rating" value="5" />
+																	<label class="rating__item" for="star5" title="Awesome - 5 stars"><i class="fontello-star"></i></label>
+
+																	<input class="form-control" type="radio" id="star4" name="rating" value="4" />
+																	<label class="rating__item" for="star4" title="Pretty good - 4 stars"><i class="fontello-star"></i></label>
+
+																	<input class="form-control" type="radio" id="star3" name="rating" value="3" />
+																	<label class="rating__item" for="star3" title="Meh - 3 stars"><i class="fontello-star"></i></label>
+
+																	<input class="form-control" type="radio" id="star2" name="rating" value="2" />
+																	<label class="rating__item" for="star2" title="Kinda bad - 2 stars"><i class="fontello-star"></i></label>
+
+																	<input class="form-control" type="radio" id="star1" name="rating" value="1" />
+																	<label class="rating__item" for="star1" title="Sucks big time - 1 star"><i class="fontello-star"></i></label>
+																</fieldset>
+															</div>
+
+															<div class="col-12 col-sm-auto">
+																<input type="hidden" name="token" value="{{ csrf_token(product.slug) }}"/>
+																<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Soumettre</button>
+															</div>
+														</div>
+													</form>
+
+													<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+													<script >
+														$(document).ready(function (){
+															$("#product_review").submit(function (e){
+																var FormData = $('#product_review').serialize();
+																console.log(FormData);
+																e.preventDefault();
+																$.ajax({
+																	url: "{{ path('app_single_product',{'slug':product.slug}) }}",
+																	type: "POST",
+																	data: $('#product_review').serialize(),
+																	success: function (ReviewContent)
+																	{
+																		$('#comments_list').html(ReviewContent);
+																		alert('ok');
+																	}
+																});
+															});
+														})
+													</script>
+												</div>
+												<!-- end add review -->
+											</div>
+										</div>
+									</div>
+									<!-- end tab -->
+
+									<div class="spacer py-5 py-md-9"></div>
+								</div>
+							</div>
+						</div>
+						<!-- start product single -->
+
+
+					</div>
+
+					<div class="col-12 my-6 d-md-none"></div>
+
+				</div>
+			</div>
+		</section>
+		<!-- end section -->
+
+	</main>
+	<!-- end main -->
+
+	<!-- start footer -->
+	<footer id="footer" class="footer footer--style-4">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-sm-4 col-md-3 col-lg-2">
+					<div class="footer__item">
+						<a class="site-logo" href="index.html">
+							<img class="img-fluid  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo"/>
+						</a>
+					</div>
+				</div>
+
+				<div class="col-12 col-md-9 col-lg-6">
+					<div class="footer__item">
+						<nav id="footer__navigation" class="navigation">
+							<div class="row">
+								<div class="col-6 col-sm-4">
+									<h5 class="footer__item__title h6">Menu</h5>
+
+									<ul>
+										<li class="active">
+											<a href="index.html">Home</a>
+										</li>
+										<li>
+											<a href="#">About</a>
+										</li>
+										<li>
+											<a href="#">Pages</a>
+										</li>
+										<li>
+											<a href="#">Gallery</a>
+										</li>
+										<li>
+											<a href="#">Blog</a>
+										</li>
+										<li>
+											<a href="#">Contacts</a>
+										</li>
+									</ul>
+								</div>
+
+								<div class="col-6 col-sm-4">
+									<h5 class="footer__item__title h6">Shop</h5>
+
+									<ul>
+										<li><a href="#">Partners</a></li>
+										<li><a href="#">Customer Service</a></li>
+										<li><a href="#">Vegetables</a></li>
+										<li><a href="#">Fruits</a></li>
+										<li><a href="#">Organic Food</a></li>
+										<li><a href="#">Privacy policy</a></li>
+									</ul>
+								</div>
+
+								<div class="col-6 col-sm-4">
+									<h5 class="footer__item__title h6">Information</h5>
+
+									<ul>
+										<li><a href="#">Delivery</a></li>
+										<li><a href="#">Legal Notice</a></li>
+										<li><a href="#">About Us</a></li>
+										<li><a href="#">Secure Payment</a></li>
+										<li><a href="#">Prices Drop</a></li>
+										<li><a href="#">Documents</a></li>
+									</ul>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
+
+				<div class="col-12 col-md col-lg-4">
+					<div class="footer__item">
+						<h5 class="footer__item__title h6">Contacts</h5>
+
+						<address>
+							<p>
+								523 Sylvan Ave, 5th Floor Mountain View, CA 940 USA
+							</p>
 
 							<p>
-								The point of using is that it has a more-or-less normal distribution of letters, as opposed to using Content here content here making it look
+								+1 (234) 56789,  +1 987 654 3210
 							</p>
+
+							<p>
+								<a href="mailto:support@agrocompany.com">support@agrocompany.com</a>
+							</p>
+						</address>
+
+						<div class="social-btns">
+							<a href="#">
+								<i class="fontello-twitter"></i>
+							</a>
+							<a href="#">
+								<i class="fontello-facebook"></i>
+							</a>
+							<a href="#">
+								<i class="fontello-linkedin-squared"></i>
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- end hero -->
 
-			<!-- start main -->
-			<main role="main">
-				<!-- Common styles
-				================================================== -->
-				<link rel="stylesheet" href="{{asset('frontoffice/')}}css/style.min.css" type="text/css">
-
-				<!-- Load lazyLoad scripts
-				================================================== -->
-				<script>
-					(function(w, d){
-						var m = d.getElementsByTagName('main')[0],
-							s = d.createElement("script"),
-							v = !("IntersectionObserver" in w) ? "8.17.0" : "10.19.0",
-							o = {
-								elements_selector: ".lazy",
-								data_src: 'src',
-								data_srcset: 'srcset',
-								threshold: 500,
-								callback_enter: function (element) {
-
-								},
-								callback_load: function (element) {
-									element.removeAttribute('data-src')
-
-									oTimeout = setTimeout(function ()
-									{
-										clearTimeout(oTimeout);
-
-										AOS.refresh();
-									}, 1000);
-								},
-								callback_set: function (element) {
-
-								},
-								callback_error: function(element) {
-									element.src = "https://placeholdit.imgix.net/~text?txtsize=21&txt=Image%20not%20load&w=200&h=200";
-								}
-							};
-						s.type = 'text/javascript';
-						s.async = true; // This includes the script as async. See the "recipes" section for more information about async loading of LazyLoad.
-						s.src = "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" + v + "/dist/lazyload.min.js";
-						m.appendChild(s);
-						// m.insertBefore(s, m.firstChild);
-						w.lazyLoadOptions = o;
-					}(window, document));
-				</script>
-
-				<!-- start section -->
-				<section class="section">
-					<div class="decor-el decor-el--1" data-jarallax-element="-70" data-speed="0.2">
-						<img class="lazy" width="286" height="280" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_1.jpg" alt="demo"/>
-					</div>
-
-					<div class="decor-el decor-el--2" data-jarallax-element="-70" data-speed="0.2">
-						<img class="lazy" width="99" height="88" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_2.jpg" alt="demo"/>
-					</div>
-
-					<div class="decor-el decor-el--3" data-jarallax-element="-70" data-speed="0.2">
-						<img class="lazy" width="115" height="117" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_3.jpg" alt="demo"/>
-					</div>
-
-					<div class="decor-el decor-el--4" data-jarallax-element="-70" data-speed="0.2">
-						<img class="lazy" width="84" height="76" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_4.jpg" alt="demo"/>
-					</div>
-
-					<div class="decor-el decor-el--5" data-jarallax-element="-70" data-speed="0.2">
-						<img class="lazy" width="248" height="309" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_5.jpg" alt="demo"/>
-					</div>
-
-					<div class="container">
-						<div class="row">
-							<div class="col-12 col-md-8 col-lg-9">
-
-								<!-- start product single -->
-								<div class="product-single">
-									<div class="row">
-										<div class="col-12 col-lg-7">
-											<div class="__product-img">
-												<img width="400" src="{{ asset('uploads/images/'~product.product_image) }}" alt="{{ product.slug }}" />
-											</div>
-										</div>
-
-										<div class="col-12 col-lg-5">
-											<div class="content-container">
-												<h3 class="__name">{{ product.product_name }}</h3>
-
-												<div class="__categories">
-													Category:
-													<span>{{ product.category }}</span>
-												</div>
-
-												<div class="product-price">
-													<span class="product-price__item product-price__item--new"> {{ (product.product_price / 100)  }} FCFA</span>
-												</div>
-
-												 <div class="rating">
-													{#  <span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-													<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-													<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-													<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
-													<span class="rating__item"><i class="fontello-star"></i></span> #}
-												</div>
-
-												<p>
-
-												</p>
-
-												<p>
-													{{ product.product_description | striptags[:259] ~ '...'  }}
-												</p>
-
-												<form class="__add-to-cart" action="{{ path('app_add_to_cart',{'slug': product.slug})}}">
-
-													<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button"><i class="fontello-shopping-bag"></i>Ajouter au panier</button>
-												</form>
-
-											</div>
-										</div>
-
-										<div class="col-12">
-											<div class="spacer py-5 py-md-9"></div>
-
-											<!-- start tab -->
-											<div class="tab-container">
-												<nav class="tab-nav">
-													<a href="#">Description complète</a>
-													<a href="#">Les avis</a>
-												</nav>
-
-												<div class="tab-content">
-													<div class="tab-content__item is-visible">
-														<p>
-															{{ product.product_description | raw  }}
-														</p>
-
-														<p>
-															Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish filefish Antarctic icefish goldeye aholehole trumpetfish pilot fish airbreathing catfish, electric ray sweeper.
-														</p>
-
-														<div class="description-table" style="max-width: 370px;">
-															<table>
-																<tbody>
-																	<tr>
-																		<td>Weight</td>
-																		<td>1 kg</td>
-																	</tr>
-																	<tr>
-																		<td>Country of Origin</td>
-																		<td>Agro Farm</td>
-																	</tr>
-																	<tr>
-																		<td>Quality</td>
-																		<td>Organic</td>
-																	</tr>
-																	<tr>
-																		<td>Сheck</td>
-																		<td>Healthy</td>
-																	</tr>
-																	<tr>
-																		<td>Min Weight</td>
-																		<td>250 Kg</td>
-																	</tr>
-																</tbody>
-															</table>
-														</div>
-													</div>
-
-													<div class="tab-content__item">
-														<!-- start comments list -->
-														{% include "frontoffice/comments_list.html.twig" %}
-														<!-- end comments list -->
-													</div>
-												</div>
-											</div>
-											<!-- end tab -->
-
-											<div class="spacer py-5 py-md-9"></div>
-										</div>
-									</div>
-								</div>
-								<!-- start product single -->
-
-
-							</div>
-
-							<div class="col-12 my-6 d-md-none"></div>
-
-						</div>
-					</div>
-				</section>
-				<!-- end section -->
-
-			</main>
-			<!-- end main -->
-
-			<!-- start footer -->
-			<footer id="footer" class="footer footer--style-4">
-				<div class="container">
-					<div class="row">
-						<div class="col-12 col-sm-4 col-md-3 col-lg-2">
-							<div class="footer__item">
-								<a class="site-logo" href="index.html">
-									<img class="img-fluid  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/logo_scoops_feraga.png" alt="demo"/>
-								</a>
-							</div>
-						</div>
-
-						<div class="col-12 col-md-9 col-lg-6">
-							<div class="footer__item">
-								<nav id="footer__navigation" class="navigation">
-									<div class="row">
-										<div class="col-6 col-sm-4">
-											<h5 class="footer__item__title h6">Menu</h5>
-
-											<ul>
-												<li class="active">
-													<a href="index.html">Home</a>
-												</li>
-												<li>
-													<a href="#">About</a>
-												</li>
-												<li>
-													<a href="#">Pages</a>
-												</li>
-												<li>
-													<a href="#">Gallery</a>
-												</li>
-												<li>
-													<a href="#">Blog</a>
-												</li>
-												<li>
-													<a href="#">Contacts</a>
-												</li>
-											</ul>
-										</div>
-
-										<div class="col-6 col-sm-4">
-											<h5 class="footer__item__title h6">Shop</h5>
-
-											<ul>
-												<li><a href="#">Partners</a></li>
-												<li><a href="#">Customer Service</a></li>
-												<li><a href="#">Vegetables</a></li>
-												<li><a href="#">Fruits</a></li>
-												<li><a href="#">Organic Food</a></li>
-												<li><a href="#">Privacy policy</a></li>
-											</ul>
-										</div>
-
-										<div class="col-6 col-sm-4">
-											<h5 class="footer__item__title h6">Information</h5>
-
-											<ul>
-												<li><a href="#">Delivery</a></li>
-												<li><a href="#">Legal Notice</a></li>
-												<li><a href="#">About Us</a></li>
-												<li><a href="#">Secure Payment</a></li>
-												<li><a href="#">Prices Drop</a></li>
-												<li><a href="#">Documents</a></li>
-											</ul>
-										</div>
-									</div>
-								</nav>
-							</div>
-						</div>
-
-						<div class="col-12 col-md col-lg-4">
-							<div class="footer__item">
-								<h5 class="footer__item__title h6">Contacts</h5>
-
-								<address>
-									<p>
-										523 Sylvan Ave, 5th Floor Mountain View, CA 940 USA
-									</p>
-
-									<p>
-										+1 (234) 56789,  +1 987 654 3210
-									</p>
-
-									<p>
-										<a href="mailto:support@agrocompany.com">support@agrocompany.com</a>
-									</p>
-								</address>
-
-								<div class="social-btns">
-									<a href="#">
-										<i class="fontello-twitter"></i>
-									</a>
-									<a href="#">
-										<i class="fontello-facebook"></i>
-									</a>
-									<a href="#">
-										<i class="fontello-linkedin-squared"></i>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row align-items-lg-end justify-content-lg-between copyright">
-						<div class="col-12 col-lg-6">
-							<div class="footer__item">
+			<div class="row align-items-lg-end justify-content-lg-between copyright">
+				<div class="col-12 col-lg-6">
+					<div class="footer__item">
 							<span class="__copy">© 2019, AgroTheme by
 								<a class="__dev" href="https://themeforest.net/user/artureanec" target="_blank">Artureanec</a>
 								|
@@ -474,48 +538,48 @@
 								|
 								<a href="#">Sitemap</a>
 							</span>
-							</div>
-						</div>
-
-						<div class="col-12 col-lg-6">
-							<div class="footer__item">
-								<form class="form--horizontal no-gutters" action="#">
-									<div class="col-sm-6">
-										<div class="input-wrp">
-											<input class="textfield" name="s" type="text" placeholder="Your E-mail"/>
-										</div>
-									</div>
-
-									<div class="col-sm-6">
-										<button class="custom-btn custom-btn--medium custom-btn--style-3 wide" type="submit" role="button">subscribe</button>
-									</div>
-								</form>
-							</div>
-						</div>
 					</div>
 				</div>
-			</footer>
-			<!-- end footer -->
+
+				<div class="col-12 col-lg-6">
+					<div class="footer__item">
+						<form class="form--horizontal no-gutters" action="#">
+							<div class="col-sm-6">
+								<div class="input-wrp">
+									<input class="textfield" name="s" type="text" placeholder="Your E-mail"/>
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<button class="custom-btn custom-btn--medium custom-btn--style-3 wide" type="submit" role="button">subscribe</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
+	</footer>
+	<!-- end footer -->
+</div>
 
-		<div id="btn-to-top-wrap">
-			<a id="btn-to-top" class="circled" href="javascript:void(0);" data-visible-offset="800"></a>
-		</div>
+<div id="btn-to-top-wrap">
+	<a id="btn-to-top" class="circled" href="javascript:void(0);" data-visible-offset="800"></a>
+</div>
 
 
 
-		<script>window.jQuery || document.write('<script src="{{asset('frontoffice/')}}js/jquery-2.2.4.min.js"><\/script>')</script>
+<script>window.jQuery || document.write('<script src="{{asset('frontoffice/')}}js/jquery-2.2.4.min.js"><\/script>')</script>
 
-		<script type="text/javascript" src="{{asset('frontoffice/')}}js/main.min.js"></script>
-		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-		<script>
-			(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+<script type="text/javascript" src="{{asset('frontoffice/')}}js/main.min.js"></script>
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+	(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
 			function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-			e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-			e.src='https://www.google-analytics.com/analytics.js';
-			r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-			ga('create','UA-XXXXX-X','auto');ga('send','pageview');
-		</script>
-		{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
-	</body>
+		e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+		e.src='https://www.google-analytics.com/analytics.js';
+		r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+	ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+</script>
+{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+</body>
 </html>

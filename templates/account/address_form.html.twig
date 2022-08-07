@@ -64,12 +64,12 @@
             <div class="col-12">
               <!-- start checkout -->
               <div class="checkout">
-                <h2>ADRESSES <span>DETAILS</span></h2>
+                <h2 style="color: #3daa35; text-align: center; ">ADRESSE </h2>
 
                 <div class="spacer py-3"></div>
 
                 {{ form_start(form) }}
-                <div class="row justify-content-xl-between">
+                <div class="row justify-content-center">
                   <div class="col-12 col-md-5 col-lg-6">
                     <div><h6>Personal Information</h6></div>
 
@@ -146,7 +146,7 @@
                           {{
                           form_row(form.country, {
                             attr: {
-                              class: "textfield wide js-select",
+                              class: "textfield",
                             }
                           })
                           }}
@@ -186,7 +186,7 @@
                         </div>
                       </div>
                       <button
-                              class="custom-btn custom-btn--medium custom-btn--style-1 wide"
+                              class="center-block card-btn"
                               type="submit"
                               value="submit"
                               role="button"

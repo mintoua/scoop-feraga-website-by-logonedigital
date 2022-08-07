@@ -56,7 +56,7 @@ class ProductCrudController extends AbstractCrudController
        return [
             TextField::new('product_name','Nom du Produit'),
             SlugField::new('slug')->setTargetFieldName('product_name'),
-            MoneyField::new('product_price','Prix')->setCurrency('XAF'),
+            IntegerField::new('product_price','Prix(en FCFA)'),
             IntegerField::new('product_quantity','Quantité'),
             AssociationField::new('category')->setLabel ("Catégorie"),
             ImageField::new('product_image','Image')->setBasePath('uploads\images')
