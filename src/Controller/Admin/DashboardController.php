@@ -63,11 +63,11 @@ class DashboardController extends AbstractDashboardController
 
         
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class)->setPermission('ROLE_SUPER_ADMIN');
-        yield MenuItem::linkToCrud('Commentaires', 'fas fa-comment', Comments::class);
 
         yield MenuItem::section('Boutique');
         yield MenuItem::linkToCrud('Categorie des Produits', 'fas fa-list', ProductCategory::class);
         yield MenuItem::linkToCrud('Produits', 'fas fa-store', Product::class);
+        yield MenuItem::linkToCrud('Avis sur les produits', 'fas fa-comment', Comments::class);
         yield MenuItem::linkToCrud('Transporteurs', 'fas fa-truck', Carrier::class);
         yield MenuItem::linkToCrud('Commandes', 'fas fa-shopping-cart', Order::class);
         yield MenuItem::section('Blog');
