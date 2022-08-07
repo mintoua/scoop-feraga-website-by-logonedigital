@@ -35,7 +35,7 @@ class PostsCrudController extends AbstractCrudController
             TextField::new('title'),
             SlugField::new('slug')->setTargetFieldName('title')->hideWhenUpdating()->hideWhenCreating(),
             ImageField::new('post_image')->setBasePath('uploads\images')->setUploadDir('public\uploads\images'),
-            TextareaField::new('description')->setFormType(CKEditorType::class)->hideOnIndex(),
+            TextareaField::new('description')->setFormType(CKEditorType::class)->renderAsHtml(),
             AssociationField::new('postCategory'),
             DateTimeField::new('createdAt')->hideOnForm(),
         ];
