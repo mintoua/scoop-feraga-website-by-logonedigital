@@ -47,7 +47,7 @@ class Product
     }
 
     public function __toString(){
-        return $this->productName;
+        return $this->slug;
     }
 
     public function getId(): ?int

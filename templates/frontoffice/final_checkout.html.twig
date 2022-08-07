@@ -315,7 +315,7 @@
 																</td>
 
 																<td width="1%">
-																	<span class="__total">{{ ((product.product.product_price * product.quantity) / 100) | number_format  }} FCFA</span>
+																	<span class="__total">{{ ((product.product.product_price * product.quantity) ) | number_format  }} FCFA</span>
 																</td>
 															</tr>
 														{% endfor %}
@@ -354,7 +354,7 @@
 														<tbody>
 															<tr>
 																<td>Total:</td>
-																<td>{{ (total / 100) | number_format }} FCFA</td>
+																<td>{{ (total ) | number_format }} FCFA</td>
 															</tr>
 
 															<tr>
@@ -364,7 +364,7 @@
 
 															<tr>
 																<td>Total avec livraison</td>
-																<td>{{ (total / 100 + carrier.price) | number_format}} FCFA</td>
+																<td>{{ (total  + carrier.price) | number_format}} FCFA</td>
 															</tr>
 														</tbody>
 													</table>

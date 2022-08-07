@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
@@ -141,9 +142,9 @@ class OrderCrudController extends AbstractCrudController
             DateTimeField::new('createdAt','Créée le'),
             TextField::new('user.getUsername','Utilisateur'),
             TextareaField::new('delivery', 'Adresse de Livraison') ->onlyOnDetail()->renderAsHtml (),
-            MoneyField::new('total')->setCurrency('XAF'),
+            IntegerField::new('total'),
             TextField::new('carrierName','Transporteur'),
-            MoneyField::new('carrierPrice','Frais de port')->setCurrency('XAF'),
+            IntegerField::new('carrierPrice','Frais de port'),
             ChoiceField::new('state','Etat')->setChoices([
                 'Non payée'=>0,
                 'Payée'=>1,
