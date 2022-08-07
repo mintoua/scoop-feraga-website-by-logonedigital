@@ -1,6 +1,10 @@
 <head>
-  {{ sonata_seo_title() }}
-  {{ sonata_seo_metadatas() }}
+  {{
+    sonata_seo_title()
+  }}
+  {{
+    sonata_seo_metadatas()
+  }}
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
@@ -19,20 +23,6 @@
     rel="shortcut icon"
     href="{{ asset('frontoffice/img/favicon_scoops_feraga.png') }} "
   />
-  <link
-    rel="apple-touch-icon"
-    href="{{ asset('frontoffice/img/apple-touch-icon.png') }}"
-  />
-  <link
-    rel="apple-touch-icon"
-    sizes="72x72"
-    href="{{ asset('frontoffice/img/apple-touch-icon-72x72.png') }}"
-  />
-  <link
-    rel="apple-touch-icon"
-    sizes="114x114"
-    href="{{ asset('frontoffice/img/apple-touch-icon-114x114.png') }}"
-  />
 
   <!-- Critical styles
 		================================================== -->
@@ -41,7 +31,9 @@
     href="{{ asset('frontoffice/css/critical.css') }}"
     type="text/css"
   />
-
+    {% block stylesheet %}
+      
+    {% endblock %}
   <script
     defer
     src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"

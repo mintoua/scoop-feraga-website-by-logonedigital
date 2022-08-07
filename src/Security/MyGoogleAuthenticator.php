@@ -4,6 +4,7 @@ namespace App\Security;
 
 use App\Entity\User; // your user entity
 use Doctrine\ORM\EntityManagerInterface;
+use Flasher\Prime\FlasherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
@@ -37,7 +38,8 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
     UserPasswordHasherInterface $encoder,
     AuthorizationCheckerInterface $authChecker,
     UrlGeneratorInterface $urlGenerator,
-    private SessionInterface $session
+    private SessionInterface $session,
+    private FlasherInterface $flasher
     )
     {
         $this->clientRegistry = $clientRegistry;
@@ -128,16 +130,19 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
         
             $path = parse_url($redirectUrl, PHP_URL_PATH);
             if(parse_url($redirectUrl, PHP_URL_PATH) === $cartUrl){
+                $this->flasher->addFlash('Succès !');
                 return new RedirectResponse($redirectUrl);
             }else if($redirectUrl === $blogDetailUrl){
+                $this->flasher->addFlash('Succès !');
                 return new RedirectResponse($redirectUrl);
             }
+            $this->flasher->addFlash('Succès !');
             return new RedirectResponse($this->urlGenerator->generate('app_user_account'));
           }
 
         // $targetUrl = $this->router->generate('app_home');
-
-        return new RedirectResponse($request->headers->get('referer'));
+          $this->flasher->addFlash('Succès !');
+        return new RedirectResponse($this->urlGenerator->generate('app_user_account'));
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response

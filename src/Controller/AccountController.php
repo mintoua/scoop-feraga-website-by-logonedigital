@@ -2,24 +2,27 @@
 
 namespace App\Controller;
 
-use App\Entity\AddressLivraison;
-use App\Entity\Comments;
 use App\Entity\Order;
-use App\Entity\Product;
-use App\Form\AddressLivraisonType;
-use App\Services\BoutiqueService;
 use App\Services\Cart;
+use App\Entity\Product;
+use App\Entity\Comments;
 use App\Services\CurlService;
+use App\Entity\AddressLivraison;
+use App\Form\ChangePasswordType;
+use App\Services\BoutiqueService;
+use App\Form\AddressLivraisonType;
+use Flasher\Prime\FlasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use MercurySeries\FlashyBundle\FlashyNotifier;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 
 class AccountController extends AbstractController
@@ -29,15 +32,70 @@ class AccountController extends AbstractController
     /**
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager){
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        private AuthorizationCheckerInterface $authChecker
+        ){
         $this->entityManager = $entityManager;
     }
+    
+    #[Route(path:"/mon-compte", name:"app_user_account")]
+    public function account(FlasherInterface $flasher){
+        if($this->authChecker->isGranted('ROLE_ADMIN')){
+            return $this->redirectToRoute('admin');
+        }
 
+        $user = $this->getUser();
+        if($user->isBlocked()){
+            $flasher->addError('Votre compte a été bloqué par les administrateurs.');
+            return $this->redirectToRoute('app_home');
+        }else if(!$user->isIsVirified()){
+            $flasher->addWarning("Veuillez confirmez votre email avant d'accéder à votre compte.");
+            return $this->redirectToRoute('app_home');
+        }
+        return $this->render("frontoffice/account.html.twig");
+    }
 
-    //
-    //ALL ABOUT THE USER ADDRESSES
-    //
+    #[Route(path:"/mon-compte/mofier-mon-mot-de-passe", name:'app_user_password')]
+    public function accountChangePassword(
+        Request $req, 
+        UserPasswordHasherInterface $passwordHasher
+        ){
+        $user = $this->getUser();
+        $form = $this->createForm(ChangePasswordType::class, $user);
 
+        $form->handleRequest($req);
+        if($form->isSubmitted() ){
+            dd($form->getData());
+            //TODO: must fixed change password bug
+            
+            $old_password = $form->get('old_password')->getData();
+            if($passwordHasher->isPasswordValid($user, $old_password)){
+                $new_password = $form->get('new_password')->getData();
+                
+                $hashedPassword = $passwordHasher->hashPassword($user, $new_password);
+                $user->setPassword($hashedPassword);
+
+                $this->em->flush();
+
+                $this->flasher->addSuccess('Votre mot de passe à bien été modifier !');
+                return $this->redirect($req->headers->get('referer'));
+            }else{
+                dd($this->flasher);
+                $this->flasher->addError("le mot de passe que vous avez entré </br> ne 
+                                        correspont pas à votre ancien mot de passe. </br>
+                                        Si l'avez oublié dans cas vous devez faire une procédure de mot de passe oublié.
+                                        ");
+                return $this->redirectToRoute('app_user_password');
+            }
+        }
+
+        return $this->render('frontoffice/account-infos.html.twig', [
+            'form'=>$form->createView()
+        ]);
+    }
+
+    
     #[Route('/mon-compte/address', name: 'app_account_address')]
     public function index(): Response
     {
@@ -78,7 +136,7 @@ class AccountController extends AbstractController
                         return $this->redirectToRoute('app_checkout');
                     }
                 }else{
-                    dd("error");
+                   
                     return $this->redirectToRoute('app_account_address_add');
                 }
             }

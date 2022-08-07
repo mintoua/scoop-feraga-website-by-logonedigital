@@ -78,7 +78,7 @@ class UserType extends AbstractType
                     ]
                     ),
                     ],
-                    'help'=> 'Le mot de passe doit contenir au moins 8 caractères, dontau moins: une Majuscule, un chiffre, un caractère spéciale.',
+                    'help'=> 'Le mot de passe doit contenir au moins 8 caractères, dont au moins: une Majuscule, un chiffre, un caractère spéciale.',
                     ],
                 'second_options'=>[
                     

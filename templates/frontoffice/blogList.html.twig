@@ -1,67 +1,96 @@
-<br>
+<br />
 <!-- start posts -->
-{% set queryParams1 = app.request.query.all |filter((v,k)=>k!="page" and k!="ajax")|url_encode %}
+{% set queryParams1 = app.request.query.all |filter((v,k)=>k!="page" and
+k!="ajax")|url_encode %}
 
 <!-- start item -->
 <div class="row">
-    {% for i in posts %}
-        <div class="col-12 col-sm-6 col-lg-4">
-            <div class="__item __item--preview">
-                <figure class="__image">
-                    <img
-                            src="{{ asset('uploads/images'~asset(i.postimage)) }}"
-                            alt="demo"
-                    />
-                </figure>
+  {% for post in posts %}
+  <div class="col-12 col-sm-6 col-lg-4">
+    <div
+      class="__item __item--preview"
+      data-aos="flip-up"
+      data-aos-delay="100"
+      data-aos-offset="0"
+    >
+      <figure class="__image">
+        <img
+          src="{{ asset('uploads/images'~asset(post.postimage)) }}"
+          alt="{{ post.title }}"
+        />
+      </figure>
 
-                <div class="__content">
-                    <p class="__category">
-                        <a href="#">{{ i.postcategory.name }}</a>
-                    </p>
+      <div class="__content">
+        <p class="__category">
+          <a>{{ post.postcategory.name }}</a>
+        </p>
 
-                    <h3 class="__title h5">
-                        <a href="{{ path('blog_details',{'slug':i.slug}) }}">{{ i.title }}</a
-                        >
-                    </h3>
+        <h3 class="__title h5">
+          <a href="{{ path('blog_details', { slug: post.slug }) }}">{{
+            post.title
+          }}</a>
+        </h3>
 
-                    <p>
-                        {{ i.description|striptags[:50] ~ '...' }}
-                    </p>
-                </div>
+        <p>
+          {{ post.description|striptags[:200] ~ '...' }}
+        </p>
 
-                <span class="__date-post"> <strong>{{ i.getCreatedAt().format('j') }}</strong>{{ i.getCreatedAt().format('M') }} </span>
-            </div>
-        </div>
-        <!-- end item -->
-    {% endfor %}
+        <a
+          class="custom-btn custom-btn--medium custom-btn--style-1"
+          href="{{ path('blog_details', { slug: post.slug }) }}"
+          >voir plus</a
+        >
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </div>
 <!-- New pagination -->
 <ul class="page1">
-    <a class="{{ (page == 1 or page ==0 )?'disabled ':'' }}" href="?page={{ page-1 }}&{{ queryParams1 }}">
-        <li class="page__btn {{ (page == 1 or page ==0 )?'disabled ':'active' }}"><span
-                    class="iconify {{ (page == 1 or page ==0 )?'disabled ':'' }}" style="font-size: 2.6rem"
-                    data-icon="mdi:chevron-double-left"></span>
-        </li>
-    </a>
-    {% if total == 0 %}
-        <a class=" disabled " href="#">
-            <li class="page__numbers disabled active"> 1</li>
-        </a>
-    {% else %}
-        {% for i in 1..(total / limit)|round(0,'ceil') %}
-            <a class="{{ (page == i or page ==0 )?'disabled ':'' }}" href="?page={{ i }}&{{ queryParams1 }}">
-                <li class="page__numbers {{ (page == i or page ==0 )?'disabled active':'' }} "> {{ i }}</li>
-            </a>
-        {% endfor %}
-    {% endif %}
+  <a
+    class="{{ (page == 1 or page ==0 )?'disabled ':'' }}"
+    href="?page={{ page - 1 }}&{{ queryParams1 }}"
+  >
+    <li class="page__btn {{ (page == 1 or page ==0 )?'disabled ':'active' }}">
+      <span
+        class="iconify {{ (page == 1 or page ==0 )?'disabled ':'' }}"
+        style="font-size: 2.6rem"
+        data-icon="mdi:chevron-double-left"
+      ></span>
+    </li>
+  </a>
+  {% if total == 0 %}
+  <a class="disabled" href="#">
+    <li class="page__numbers disabled active">1</li>
+  </a>
+  {% else %} {% for i in 1..(total / limit)|round(0,'ceil') %}
+  <a
+    class="{{ (page == i or page ==0 )?'disabled ':'' }}"
+    href="?page={{ i }}&{{ queryParams1 }}"
+  >
+    <li
+      class="page__numbers {{ (page == i or page ==0 )?'disabled active':'' }} "
+    >
+      {{ i }}
+    </li>
+  </a>
+  {% endfor %} {% endif %}
 
-    <!-- <li class="page__dots">...</li> -->
-    <a class="{{ (page == (total / limit)|round(0,'ceil') or total ==0 )?'disabled ':'' }}"
-       href="?page={{ page+1 }}&{{ queryParams1 }}">
-        <li class="page__btn {{ (page == (total / limit)|round(0,'ceil') or total ==0 )?'disabled ':'active' }}"><span
-                    class="iconify {{ (page == (total / limit)|round(0,'ceil') or total ==0 )?'disabled ':'' }} "
-                    style="font-size: 2.6rem" data-icon="mdi:chevron-double-right"></span></li>
-    </a>
+  <!-- <li class="page__dots">...</li> -->
+  <a
+    class="{{ (page == (total / limit)|round(0,'ceil') or total ==0 )?'disabled ':'' }}"
+    href="?page={{ page + 1 }}&{{ queryParams1 }}"
+  >
+    <li
+      class="page__btn {{ (page == (total / limit)|round(0,'ceil') or total ==0 )?'disabled ':'active' }}"
+    >
+      <span
+        class="iconify {{ (page == (total / limit)|round(0,'ceil') or total ==0 )?'disabled ':'' }} "
+        style="font-size: 2.6rem"
+        data-icon="mdi:chevron-double-right"
+      ></span>
+    </li>
+  </a>
 </ul>
 
 <!-- end posts -->

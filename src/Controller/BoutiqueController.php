@@ -16,6 +16,7 @@ use App\Entity\ProductCategory;
 use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Flasher\Prime\FlasherInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use MercurySeries\FlashyBundle\FlashyNotifier;
 use Sonata\SeoBundle\Seo\SeoPageInterface;
@@ -39,16 +40,16 @@ class BoutiqueController extends AbstractController
     private $entityManager;
     private $cart;
     private $cache;
-    private $flashy;
+    private $flasher;
     private $BoutiqueService;
     private $seoPage;
 
-    public function __construct ( SeoPageInterface $seoPage , EntityManagerInterface $entityManager , CacheInterface $cache , Cart $cart , FlashyNotifier $flashy , BoutiqueService $service )
+    public function __construct ( SeoPageInterface $seoPage , EntityManagerInterface $entityManager , CacheInterface $cache , Cart $cart , FlasherInterface $flasher , BoutiqueService $service )
     {
         $this -> entityManager = $entityManager;
         $this -> cart = $cart;
         $this -> cache = $cache;
-        $this -> flashy = $flashy;
+        $this -> flasher = $flasher;
         $this -> BoutiqueService = $service;
         $this -> seoPage = $seoPage;
     }
@@ -84,7 +85,7 @@ class BoutiqueController extends AbstractController
             -> addMeta ( 'property' , 'og:type' , 'produits' );
 
         $filters = $request -> get ( "categories" );
-        $limit = 8;
+        $limit = 9;
 
         if ( $request -> get ( 'ajax' ) ) {
             if ( $filters != null ) {
@@ -152,11 +153,11 @@ class BoutiqueController extends AbstractController
     public function searchedProduct ( Request $request )
     {
 
-        $products = $this -> entityManager -> getRepository ( Product::class ) -> productSearch ( $request -> get ( 'searchValue' ) );
+            $products = $this -> entityManager -> getRepository ( Product::class ) -> productSearch ( $request -> get ( 'searchValue' ) );
+            return $this -> render ( 'frontoffice/product_list.html.twig' , [
+                'products' => $products
+            ] );
 
-        return $this -> render ( 'frontoffice/product_list.html.twig' , [
-            'products' => $products
-        ] );
     }
 
 
@@ -195,7 +196,7 @@ class BoutiqueController extends AbstractController
     {
 
         $this -> cart -> add ( $slug );
-        $this -> flashy -> success ( 'Ajouter au panier avec succes' , '' );
+        $this->flasher->addSuccess ("Ajouté au panier");
         return $this -> redirectToRoute ( 'app_shop' );
     }
 
@@ -222,8 +223,8 @@ class BoutiqueController extends AbstractController
     #[Route( '/boutique/panier/supprimer/{slug}' , name : 'app_remove_to_cart' )]
     public function removeToCart ( $slug )
     {
-        dd ("remove");
         $this -> cart -> remove ( $slug );
+        $this->flasher->addWarning ("Rétiré du panier");
         if ( count ( $this -> cart -> getFullCart () ) > 0 ) {
             return $this -> redirectToRoute ( 'app_cart' );
         }
@@ -239,7 +240,6 @@ class BoutiqueController extends AbstractController
     #[Route( '/boutique/panier/diminuer_quantite/{slug}' , name : 'app_decrease_quantity_cart' )]
     public function decrease ( $slug )
     {
-     //   dd ("decrease");
         $this -> cart -> decrease ( $slug );
 
         return $this -> redirectToRoute ( "app_cart" );

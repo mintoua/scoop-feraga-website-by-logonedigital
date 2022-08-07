@@ -1,0 +1,50 @@
+
+.profil-card {
+  border: 1px solid #acc90f;
+  border-radius: 0.5rem;
+  padding: 20px;
+  background: #f8f9fa36;
+}
+
+.adresse-card{
+  border: 1px solid #acc90f;
+  border-radius: 1rem;
+  padding: 20px;
+  background: #f8f9fa36;
+}
+
+.card-btn {
+  border: 2px solid #3daa35;
+  color: white;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #3daa35;
+  padding: 10px 30px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: background-color 0.25s ease-in-out, border-color 0.25s ease-in-out,
+    color 0.25s ease-in-out;
+}
+.card-btn:hover {
+  color: #4f4a37;
+  border: 2px solid #acc90f;
+  background-color: #f8f9fa36;
+}
+
+.profil-card h5 {
+  font-size: 30px;
+}
+
+.box-part{
+  background:#FFF;
+  border-radius:0;
+  padding:60px 10px;
+  margin:30px 0px;
+}
+.addresse-text{
+  margin:20px 0px;
+}
+
