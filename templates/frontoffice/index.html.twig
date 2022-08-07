@@ -1459,6 +1459,7 @@ block content %}
 
           <div class="col-12 my-3 d-md-none"></div>
 
+          {#
           <div class="col-12 col-md-auto col-lg-3 col-xl-4 text-center">
             <a
               class="play-btn"
@@ -1468,6 +1469,7 @@ block content %}
               <span></span>
             </a>
           </div>
+          #}
         </div>
       </div>
     </div>
@@ -1565,7 +1567,7 @@ block content %}
   <section class="section">
     <div class="container">
       <div class="section-heading section-heading--center" data-aos="fade">
-        <h2 class="__title">Special <span>Offers</span></h2>
+        <h2 class="__title">Nos <span>spécialités</span></h2>
 
         <p>
           Latin words, combined with a handful of model sentence structures, to
@@ -1590,7 +1592,7 @@ block content %}
                     class="img-fluid lazy"
                     src="{{ asset('frontoffice/img/blank.gif') }}"
                     data-src="{{ asset('frontoffice/img/feature_img/1.png') }}"
-                    alt="demo"
+                    alt="logo partenaire"
                   />
                 </i>
 
@@ -1612,7 +1614,7 @@ block content %}
                     class="img-fluid lazy"
                     src="{{ asset('frontoffice/img/blank.gif') }}"
                     data-src="{{ asset('frontoffice/img/feature_img/2.png') }}"
-                    alt="demo"
+                    alt="logo partenaire"
                   />
                 </i>
 
@@ -1686,27 +1688,27 @@ block content %}
               </div>
             </div>
             <!-- end item -->
-
-            <!-- start item -->
             <div class="col-6 col-sm-4 col-lg-2">
               <div
                 class="__item text-center"
                 data-aos="fade"
-                data-aos-delay="600"
+                data-aos-delay="500"
                 data-aos-offset="100"
               >
                 <i class="__ico">
                   <img
                     class="img-fluid lazy"
                     src="{{ asset('frontoffice/img/blank.gif') }}"
-                    data-src="{{ asset('frontoffice/img/feature_img/6.png') }}"
-                    alt="demoo"
+                    data-src="{{ asset('frontoffice/img/feature_img/5.png') }}"
+                    alt="demo"
                   />
                 </i>
 
-                <h5 class="__title">Agro Machinery</h5>
+                <h5 class="__title">Awesome Wheats</h5>
               </div>
             </div>
+            <!-- start item -->
+
             <!-- end item -->
           </div>
         </div>
@@ -1717,7 +1719,13 @@ block content %}
   <!-- end section -->
 
   <!-- start section -->
-  <section class="section section--gutter section--base-bg">
+  <section
+    class="section section--gutter section--base-bg"
+    style="background-color: #3daa35"
+  >
+    <div class="section-heading section-heading--center" data-aos="fade">
+      <h2 class="__title" style="color: white">Nos <span>chiffres</span></h2>
+    </div>
     <div class="container">
       <!-- start counters -->
       <div class="counter">
@@ -1737,20 +1745,23 @@ block content %}
                       <img
                         class="img-fluid lazy"
                         src="{{ asset('frontoffice/img/blank.gif') }}"
-                        data-src="{{
-                          asset('frontoffice/img/ico/ico_count_1.png')
-                        }}"
-                        alt="demo"
+                        data-src="{{ asset('frontoffice/img/tree.png') }}"
+                        alt="icone plante ferme scoops feraga"
                       />
                     </i>
                   </div>
 
                   <div class="d-table-cell align-middle">
-                    <p class="__count js-count" data-from="0" data-to="19500">
+                    <p
+                      class="__count js-count"
+                      data-from="0"
+                      data-to="19500"
+                      style="color: white"
+                    >
                       19 500
                     </p>
 
-                    <p class="__title">Tons of harvesta</p>
+                    <p class="__title" style="color: white">plants</p>
                   </div>
                 </div>
               </div>
@@ -1771,20 +1782,23 @@ block content %}
                       <img
                         class="img-fluid lazy"
                         src="{{ asset('frontoffice/img/blank.gif') }}"
-                        data-src="{{
-                          asset('frontoffice/img/ico/ico_count_2.png')
-                        }}"
-                        alt="demo"
+                        data-src="{{ asset('frontoffice/img/animal.png') }}"
+                        alt="icone animaux ferme scoops feraga"
                       />
                     </i>
                   </div>
 
                   <div class="d-table-cell align-middle">
-                    <p class="__count js-count" data-from="0" data-to="2720">
+                    <p
+                      class="__count js-count"
+                      data-from="0"
+                      data-to="2720"
+                      style="color: white"
+                    >
                       2 720
                     </p>
 
-                    <p class="__title">Units of Cattle</p>
+                    <p class="__title" style="color: white">têtes d'animaux</p>
                   </div>
                 </div>
               </div>
@@ -1804,21 +1818,26 @@ block content %}
                     <i class="__ico">
                       <img
                         class="img-fluid lazy"
-                        src="{{ asset('frontOffice/') }}img/blank.gif"
-                        data-src="{{
-                          asset('frontOffice/')
-                        }}img/ico/ico_count_3.png"
-                        alt="demo"
+                        src="{{ asset('frontOffice/') }}img/shovels.png"
+                        data-src="{{ asset('frontOffice/') }}img/champ.png"
+                        alt="icone terre agricole"
                       />
                     </i>
                   </div>
 
                   <div class="d-table-cell align-middle">
-                    <p class="__count js-count" data-from="0" data-to="375">
+                    <p
+                      class="__count js-count"
+                      data-from="0"
+                      data-to="375"
+                      style="color: white"
+                    >
                       375
                     </p>
 
-                    <p class="__title">Hectares de terrain</p>
+                    <p class="__title" style="color: white">
+                      Hectares de terrain cultivable
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1839,20 +1858,25 @@ block content %}
                       <img
                         class="img-fluid lazy"
                         src="{{ asset('frontOffice/') }}img/blank.gif"
-                        data-src="{{
-                          asset('frontOffice/')
-                        }}img/ico/ico_count_4.png"
-                        alt="demo"
+                        data-src="{{ asset('frontOffice/') }}img/tractor.png"
+                        alt="icone tracteur scoops feraga"
                       />
                     </i>
                   </div>
 
                   <div class="d-table-cell align-middle">
-                    <p class="__count js-count" data-from="0" data-to="128">
+                    <p
+                      class="__count js-count"
+                      data-from="0"
+                      data-to="128"
+                      style="color: white"
+                    >
                       128
                     </p>
 
-                    <p class="__title">Units of technic</p>
+                    <p class="__title" style="color: white">
+                      Machines agricoles
+                    </p>
                   </div>
                 </div>
               </div>
@@ -1877,7 +1901,11 @@ block content %}
           generate Lorem Ipsum which looks reasonable.
         </p>
       </div>
-
+      <style>
+        .text-color {
+          color: black;
+        }
+      </style>
       <!-- start posts -->
       <div class="posts posts--style-1">
         <div class="__inner">
@@ -1914,7 +1942,7 @@ block content %}
                   </p>
 
                   <a
-                    class="custom-btn custom-btn--medium custom-btn--style-1"
+                    class="custom-btn custom-btn--medium custom-btn--style-1 text-color"
                     href="blog_details.html"
                     >Read more</a
                   >
@@ -1959,7 +1987,7 @@ block content %}
                   </p>
 
                   <a
-                    class="custom-btn custom-btn--medium custom-btn--style-1"
+                    class="custom-btn custom-btn--medium custom-btn--style-1 text-color"
                     href="blog_details.html"
                     >Read more</a
                   >
@@ -2004,7 +2032,7 @@ block content %}
                   </p>
 
                   <a
-                    class="custom-btn custom-btn--medium custom-btn--style-1"
+                    class="custom-btn custom-btn--medium custom-btn--style-1 text-color"
                     href="blog_details.html"
                     >Read more</a
                   >
@@ -2018,6 +2046,88 @@ block content %}
         </div>
       </div>
       <!-- end posts -->
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="partners-list">
+        <div
+          class="js-slick"
+          data-slick='{
+								 "autoplay": true,
+								 "arrows": false,
+								 "dots": true,
+								 "speed": 1000,
+								 "responsive": [
+									{
+										"breakpoint":576,
+										"settings":{
+											"slidesToShow": 2
+										}
+									},
+									{
+										"breakpoint":767,
+										"settings":{
+											"slidesToShow": 3
+										}
+									},
+									{
+										"breakpoint":991,
+										"settings":{
+											"slidesToShow": 4
+										}
+									},
+									{
+										"breakpoint":1199,
+										"settings":{
+											"autoplay": false,
+											"dots": false,
+											"slidesToShow": 5
+										}
+									}
+								]}'
+        >
+          <div class="__item">
+            <img
+              class="img-fluid m-auto"
+              src="{{ asset('frontOffice/') }}img/partners_img/1.jpg"
+              alt="demo"
+            />
+          </div>
+
+          <div class="__item">
+            <img
+              class="img-fluid m-auto"
+              src="{{ asset('frontOffice/') }}img/partners_img/2.jpg"
+              alt="demo"
+            />
+          </div>
+
+          <div class="__item">
+            <img
+              class="img-fluid m-auto"
+              src="{{ asset('frontOffice/') }}img/partners_img/3.jpg"
+              alt="demo"
+            />
+          </div>
+
+          <div class="__item">
+            <img
+              class="img-fluid m-auto"
+              src="{{ asset('frontOffice/') }}img/partners_img/4.jpg"
+              alt="logo partenaire"
+            />
+          </div>
+
+          <div class="__item">
+            <img
+              class="img-fluid m-auto"
+              src="{{ asset('frontOffice/') }}img/partners_img/5.jpg"
+              alt="logo partenaire"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </section>
   <!-- end section -->
