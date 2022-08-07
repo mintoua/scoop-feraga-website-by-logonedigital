@@ -8,7 +8,7 @@
             class="jarallax"
             data-speed="0.7"
             data-img-position="50% 80%"
-            style="background-image: url({{ asset('frontoffice/') }}img/intro_img/4.jpg)"
+            style="background-image: url({{ asset('frontoffice/') }}img/mais.jpg)"
     >
         <div class="container">
             <div class="row">
@@ -287,18 +287,14 @@
 
                                             <time class="__date-post">{{ p.getCreatedAt().format('j, M, Y ') }}</time>
 
-                                            <p class="__category">Categorie : <a href="#">{{ p.postcategory.name }}</a>
+                                            <p class="__category">Thématique : <a href="#">{{ p.postcategory.name }}</a>
                                             </p>
 
                                             <h3 class="__title h3">{{ p.title }}</h3>
                                         </div>
-                                        <blockquote class="blockquot">
                                             <p>
-                                                <i>
-                                                    {{ p.description |raw }}
-                                                </i>
+                                                {{ p.description |raw }}
                                             </p>
-                                        </blockquote>
 
                                         <p>
                                         </p>
@@ -358,8 +354,21 @@
                                 </ul>
                             </div>
                             <!-- End Share -->
-
-                            <h6>Leave a Reply</h6>
+                            <style>
+                                textarea {
+                                width: 80%;
+                                height: 200px;
+                                padding: 12px;
+                                border: 1px solid #ccc;
+                                border-radius: 4px;
+                                box-sizing: border-box;
+                                margin-top: 6px;
+                                margin-bottom: 20px;
+                                resize: vertical;
+                                outline-color: #3daa35;
+                                }
+                            </style>
+                            <h6>Laisser un commentaire.</h6>
                             {% if app.user %}
                                 <div class="input-wrp">
                                     <!-- textarea message -->
@@ -372,7 +381,7 @@
                                 </div>
                                 <button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit"
                                         onclick="addcommentjs('{{ post[0].slug }}')"
-                                        role="button">Comment
+                                        role="button">envoyer
                                 </button>
                             {% else %}
                                 <button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit"
@@ -403,7 +412,7 @@
                         <aside class="sidebar">
                             <!-- start widget -->
                             <div class="widget widget--text">
-                                <h4 class="h6 widget-title">About</h4>
+                                <h4 class="h6 widget-title">thêmatique : </h4>
 
                                 <p>
                                     We believe in helping brands create through strategy, story-telling, digital
@@ -414,14 +423,14 @@
 
                             <!-- start widget -->
                             <div class="widget widget--categories">
-                                <h4 class="h6 widget-title">CAtegories</h4>
+                                <h4 class="h6 widget-title">Toutes nos thématiqques</h4>
 
                                 <ul class="list">
                                     {% for c in category %}
                                         <li class="list__item">
                                             <a class="list__item__link"
                                                href="{{ path('Blog_filter',{ 'id':c.id }) }}">{{ c.name }}</a>
-                                            <!-- <span>(8)</span> -->
+                                             <span>{{loop.index}}</span> 
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -429,22 +438,8 @@
                             <!-- end widget -->
 
                             <!-- start widget -->
-                            <div class="widget widget--search">
-                                <form class="form--horizontal" action="#" method="get">
-                                    <div class="input-wrp">
-                                        <input class="textfield" name="s" type="text" placeholder="Search"/>
-                                    </div>
-
-                                    <button class="custom-btn custom-btn--tiny custom-btn--style-1" type="submit"
-                                            role="button">Find
-                                    </button>
-                                </form>
-                            </div>
-                            <!-- end widget -->
-
-                            <!-- start widget -->
                             <div class="widget widget--posts">
-                                <h4 class="h6 widget-title">Features Posts</h4>
+                                <h4 class="h6 widget-title">Dans la même thématique</h4>
 
                                 <div>
                                     <article>
@@ -475,21 +470,6 @@
                                         </div>
                                     </article>
                                 </div>
-                            </div>
-                            <!-- end widget -->
-
-                            <!-- start widget -->
-                            <div class="widget widget--tags">
-                                <h4 class="h6 widget-title">Popular Tags</h4>
-
-                                <ul>
-                                    <li><a href="#">Art</a></li>
-                                    <li><a href="#">design</a></li>
-                                    <li><a href="#">concept</a></li>
-                                    <li><a href="#">Media</a></li>
-                                    <li><a href="#">Photography</a></li>
-                                    <li><a href="#">UI</a></li>
-                                </ul>
                             </div>
                             <!-- end widget -->
 

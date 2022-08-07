@@ -53,7 +53,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('SCOOPS FERAGA')
+            ->setTitle('<img src="https://logonedigital.com/assetF/img/logo.png" />')
             ->setFaviconPath('/public/frontOffice/img/favicon_scoops_feraga.png');
     }
 
@@ -63,20 +63,19 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Stastistiques', 'fas fa-chart-bar');
 
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class)->setPermission('ROLE_SUPER_ADMIN');
-        yield MenuItem::linkToCrud('Commentaires', 'fas fa-comment', Comments::class);
 
 
         yield MenuItem::section('Boutique');
         yield MenuItem::linkToCrud('Categorie des Produits', 'fas fa-list', ProductCategory::class);
         yield MenuItem::linkToCrud('Produits', 'fas fa-store', Product::class);
+        yield MenuItem::linkToCrud('Avis sur les produits', 'fas fa-comment', Comments::class);
         yield MenuItem::linkToCrud('Transporteurs', 'fas fa-truck', Carrier::class);
         yield MenuItem::linkToCrud('Commandes', 'fas fa-shopping-cart', Order::class);
 
         yield MenuItem::section('Blog');
-        yield MenuItem::linkToCrud('Actualités', 'fas fa-newspaper', Posts::class);
-        yield MenuItem::linkToCrud('Categorie des Actualités', 'fas fa-list-alt', PostCategory::class);
+        yield MenuItem::linkToCrud('Thématique', 'fas fa-list-alt', PostCategory::class);
+        yield MenuItem::linkToCrud('Post', 'fas fa-newspaper', Posts::class);
         yield MenuItem::linkToCrud('Commentaires ', 'fas fa-comments', Commentaire::class);
-
         yield MenuItem::section('Demande de contacts');
         yield MenuItem::linkToCrud('Courriel', 'fas fa-envelope', Contact::class);
         yield MenuItem::section('Farm pictures');

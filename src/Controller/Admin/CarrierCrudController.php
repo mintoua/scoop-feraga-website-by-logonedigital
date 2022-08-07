@@ -6,6 +6,7 @@ use App\Entity\Carrier;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -27,8 +28,8 @@ class CarrierCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name','Nom'),
-            IntegerField::new('price','Prix'),
-            TextEditorField::new ('description','Description')
+            IntegerField::new('price','Prix(en FCFA)'),
+            TextareaField::new ('description','Description')
         ];
     }
 

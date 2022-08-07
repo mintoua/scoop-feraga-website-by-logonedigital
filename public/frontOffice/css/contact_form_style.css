@@ -18,8 +18,7 @@ h1.title-contact-form {
   color: #3daa35;
 }
 
-input[type="text"],
-select {
+.form-input {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -33,6 +32,7 @@ select {
 
 textarea {
   width: 100%;
+  height: 200px;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
