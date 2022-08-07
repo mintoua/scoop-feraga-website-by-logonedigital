@@ -122,9 +122,7 @@ class BoutiqueController extends AbstractController
     #[Route( '/boutique/nos_produits/{slug}' , name : 'app_single_product' )]
     public function singleProduct ( Request $request , $slug )
     {
-
-        $product = $this -> entityManager -> getRepository ( Product::class ) -> findOneBySlug ( $slug );
-
+        $product =  $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
         $this -> seoPage -> setTitle ( $slug )
             -> addMeta ( 'property' , 'og:title' , $slug )
             -> addMeta ( 'property' , 'og:type' , 'product' )
@@ -136,6 +134,21 @@ class BoutiqueController extends AbstractController
             $item -> expiresAfter ( 3600 );
             return $this -> entityManager -> getRepository ( Comments::class ) -> findComments ( $product );
         } );
+
+        $data = $request->request->all();
+        $token = $request->request->get('token');
+
+        if(!$product){
+            return $this->redirectToRoute('app_shop');
+        }
+        if($this->isCsrfTokenValid('add_comment', $token) && $data){
+            $this->BoutiqueService->persistComment($data["message"],$data["rating"],$this->getUser(),$product);
+            $comments = $this->entityManager->getRepository(Comments::class)->findComments($product);
+            return $this->render('frontoffice/comments_list.html.twig', [
+                'product' => $product,
+                'comments'=> $comments
+            ]);
+        }
 
         return $this -> render ( 'frontoffice/single_product.html.twig' , [
             'product' => $product ,

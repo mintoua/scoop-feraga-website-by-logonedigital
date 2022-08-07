@@ -289,19 +289,12 @@
 									<!-- start tab -->
 									<div class="tab-container">
 										<nav class="tab-nav">
-											<a href="#">Description complète</a>
 											<a href="#">Les avis</a>
+											<a href="#">Description complète</a>
 										</nav>
 
 										<div class="tab-content">
 											<div class="tab-content__item is-visible">
-												<p>
-													{{ product.product_description | raw  }}
-												</p>
-
-											</div>
-
-											<div class="tab-content__item">
 												<!-- start comments list -->
 												{% include "frontoffice/comments_list.html.twig" %}
 												<!-- end comments list -->
@@ -341,7 +334,7 @@
 															</div>
 
 															<div class="col-12 col-sm-auto">
-																<input type="hidden" name="token" value="{{ csrf_token(product.slug) }}"/>
+																<input type="hidden" name="token" id="token" value="{{ csrf_token(product.slug) }}"/>
 																<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Soumettre</button>
 															</div>
 														</div>
@@ -361,7 +354,8 @@
 																	data: $('#product_review').serialize(),
 																	success: function (ReviewContent)
 																	{
-																		$('#comments_list').html(ReviewContent);
+																		//$('#comments_list').html(ReviewContent);
+																		console.log(ReviewContent);
 																		alert('ok');
 																	}
 																});
@@ -371,6 +365,13 @@
 												</div>
 												<!-- end add review -->
 											</div>
+											<div class="tab-content__item">
+												<p>
+													{{ product.product_description | raw  }}
+												</p>
+
+											</div>
+
 										</div>
 									</div>
 									<!-- end tab -->
