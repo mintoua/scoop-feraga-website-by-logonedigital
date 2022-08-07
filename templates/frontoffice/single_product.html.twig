@@ -272,7 +272,7 @@
 										</p>
 
 										<p>
-											{{ product.product_description | striptags[:259] ~ '...'  }}
+											{{ product.product_description | striptags[:200] ~ '...'  }}
 										</p>
 
 										<form class="__add-to-cart" action="{{ path('app_add_to_cart',{'slug': product.slug})}}">
@@ -299,36 +299,6 @@
 													{{ product.product_description | raw  }}
 												</p>
 
-												<p>
-													Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish filefish Antarctic icefish goldeye aholehole trumpetfish pilot fish airbreathing catfish, electric ray sweeper.
-												</p>
-
-												<div class="description-table" style="max-width: 370px;">
-													<table>
-														<tbody>
-														<tr>
-															<td>Weight</td>
-															<td>1 kg</td>
-														</tr>
-														<tr>
-															<td>Country of Origin</td>
-															<td>Agro Farm</td>
-														</tr>
-														<tr>
-															<td>Quality</td>
-															<td>Organic</td>
-														</tr>
-														<tr>
-															<td>Сheck</td>
-															<td>Healthy</td>
-														</tr>
-														<tr>
-															<td>Min Weight</td>
-															<td>250 Kg</td>
-														</tr>
-														</tbody>
-													</table>
-												</div>
 											</div>
 
 											<div class="tab-content__item">
