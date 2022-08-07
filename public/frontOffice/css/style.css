@@ -4778,7 +4778,7 @@ img {
   color: #fff;
   text-align: center;
   text-decoration: none;
-  background-color: #fcd641;
+  background-color: #f39200;
   opacity: 0.7;
   -webkit-transition: opacity 0.3s ease-in-out;
   -o-transition: opacity 0.3s ease-in-out;
@@ -5057,7 +5057,7 @@ img {
   font-weight: 700;
   text-transform: none;
 }
-.feature--style-1 .__item:before {
+/* .feature--style-1 .__item:before {
   content: "";
   position: absolute;
   left: 50%;
@@ -5070,16 +5070,16 @@ img {
   -webkit-transition: border-color 0.3s ease-in-out;
   -o-transition: border-color 0.3s ease-in-out;
   transition: border-color 0.3s ease-in-out;
-}
+} */
 .feature--style-1 .__item .__ico {
   height: 65px;
 }
 .feature--style-1 .__item .__title {
   font-size: 1.4rem;
 }
-.feature--style-1 .__item:hover:before {
-  border-color: #fcdb5a;
-}
+/* .feature--style-1 .__item:hover:before {
+  border-color: #3daa35;
+} */
 .feature--style-2 .__item {
   padding-left: 85px;
 }
@@ -5674,7 +5674,7 @@ img {
   margin-bottom: 10px;
   line-height: 1.2;
   font-size: 1.2rem;
-  color: #ddc051;
+  color: #3daa35;
 }
 .posts .__item .__category a {
   color: inherit;
@@ -5699,13 +5699,13 @@ img {
 }
 .posts .__item--preview .__date-post {
   display: inline-block;
-  background-color: #fcdb5a;
+  background-color: #3daa35;
   min-width: 60px;
   padding: 13px 10px;
   line-height: 1;
   font-weight: 700;
   text-align: center;
-  color: #9a8841;
+  color: white;
 }
 .posts .__item--preview .__date-post strong {
   display: block;
@@ -5713,7 +5713,7 @@ img {
   font-size: 2.5rem;
   font-weight: 900;
   font-family: Raleway, sans-serif;
-  color: #333;
+  color: white;
 }
 .posts .__item--preview p {
   margin-top: 10px;
