@@ -7,12 +7,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class PostsCrudController extends AbstractCrudController
@@ -25,6 +24,8 @@ class PostsCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+            ->setSearchFields(['title'])
+            ->setAutofocusSearch()
             ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
 
@@ -38,7 +39,30 @@ class PostsCrudController extends AbstractCrudController
             TextareaField::new('description')->setFormType(CKEditorType::class)->renderAsHtml(),
             AssociationField::new('postCategory'),
             DateTimeField::new('createdAt')->hideOnForm(),
+            TextField::new('description')->stripTags()->setLabel('Contenu'),
         ];
     }
+
+
+    // public function configureFilters(Filters $filters): Filters
+    // {
+    //     return $filters
+    //         ->add(DateTimeFilter::new('createdAt'))
+    //         ->add(DateTimeFilter::new('updatedAt'))
+    //         ->add(BooleanFilter::new('isVirified'))
+    //         ->add(BooleanFilter::new('blocked'))
+    //     ;
+    // }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+            ->add(Crud::PAGE_EDIT, Action::SAVE_AND_ADD_ANOTHER)
+            ->add(Crud::PAGE_NEW, Action::INDEX)
+            ->add(Crud::PAGE_EDIT, Action::INDEX)
+        ;
+    }
+
 
 }

@@ -17,7 +17,6 @@
 
     <!-- Favicons
 		================================================== -->
-      <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
     <link rel="shortcut icon" href="{{asset('frontoffice/')}}img/favicon.ico" />
     <link rel="apple-touch-icon" href="{{asset('frontoffice/')}}img/apple-touch-icon.png" />
     <link
@@ -37,7 +36,6 @@
 
     <!-- Load google font
 		================================================== -->
-      <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
     <script type="text/javascript">
       WebFontConfig = {
         google: {
@@ -115,7 +113,7 @@
                       <li >
                         <a href="{{path('app_home')}}">Accueil</a>
                       </li>
-					  
+
                       <li>
                         <a href="{{path('app_activities')}}">Vie à la ferme</a>
                       </li>
@@ -449,12 +447,13 @@
                                           
                                           currentRequest = $.ajax({
                                               url : "{{ path('app_shop_search') }}",
-                                              type : 'GET',
+                                              type : 'POST',
                                               data: {
                                                   'searchValue' : value
                                               },
                                               success : function(retour)
                                               {
+
                                                   $('#all').html(retour);
                                               },
                                           });
@@ -478,7 +477,7 @@
         </section>
         <!-- end section -->
 
-        <!-- start section -->
+        {# <!-- start section -->
         <section class="section section--no-pt section--no-pb section--gutter">
           <div class="container-fluid px-md-0">
             <!-- start banner simple -->
@@ -521,7 +520,7 @@
             <!-- end banner simple -->
           </div>
         </section>
-        <!-- end section -->
+        <!-- end section --> #}
       </main>
       <!-- end main -->
 
@@ -693,7 +692,5 @@
       ga("create", "UA-XXXXX-X", "auto");
       ga("send", "pageview");
     </script>
-
-    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
   </body>
 </html>

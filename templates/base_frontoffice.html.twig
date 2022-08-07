@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
+  <!-- Including the head tag-->
+  {% include('includes/frontoffice/head.html.twig')%}
 
-    <!-- Including the head tag-->
-    {% include('includes/frontoffice/head.html.twig')%}
-
-  <body >
+  <body>
     <div id="app">
+      {{ flasher_render() }}
+      {{
+        flasher_render({
+          limit: 4,
+          priority: { min: 1, max: 6 },
+          order_by: {
+            "Flasher\\prime\\Stamp\\PriorityStamp": "DESC"
+          }
+        })
+      }}
       <!-- start header -->
-        <!-- Including the header tag-->
-      {% block header %}
-     
-      {% endblock header %}
+      <!-- Including the header tag-->
+      {% block header %} {% endblock header %}
       <!-- end header -->
 
-    {% block content %}
-
-    {% endblock content %}
+      {% block content %} {% endblock content %}
 
       <!-- start footer -->
-      {% block footer %}
-        
-      {% endblock footer %}
-        
+      {% block footer %} {% endblock footer %}
+
       <!-- end footer -->
     </div>
 
@@ -40,7 +43,10 @@
         document.write('<script src="{{ asset('frontoffice/js/jquery-2.2.4.min.js') }}"><\/script>');
     </script>
 
-    <script type="text/javascript" src="{{ asset('frontoffice/js/main.min.js') }}"></script>
+    <script
+      type="text/javascript"
+      src="{{ asset('frontoffice/js/main.min.js') }}"
+    ></script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
       (function (b, o, i, l, e, r) {

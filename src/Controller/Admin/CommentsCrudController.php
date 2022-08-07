@@ -32,19 +32,21 @@ class CommentsCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
        return $crud
+           ->setEntityLabelInPlural  ('Les Avis')
+           ->setEntityLabelInSingular ('Avis')
            ->setDefaultSort(['createdAt' => 'DESC']);
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
-            AssociationField::new('product'),
-            TextField::new('autor'),
+            AssociationField::new('product','Produit'),
+            TextField::new('autor','Auteur'),
             EmailField::new('email')->onlyOnForms(),
-            DateTimeField::new('createdAt'),
-            TextareaField::new('message'),
-            IntegerField::new('rating'),
-            BooleanField::new('isPublished'),
+            DateTimeField::new('createdAt','Avis ajouté le'),
+            TextareaField::new('message','Commentaire'),
+            IntegerField::new('rating','Note'),
+            BooleanField::new('isPublished','Valide'),
         ];
     }
 
