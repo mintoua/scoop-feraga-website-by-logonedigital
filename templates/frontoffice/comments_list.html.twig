@@ -29,11 +29,13 @@
                         <span class="comment__author-name">{{ comment.autor }}</span>
 
                         <div class="rating  d-none d-sm-block">
-                            {% for star in 0..comment.rating %}
+                            {% for star in 1..comment.rating %}
                             <span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
                             {% endfor %}
-                            {% if comment.rating != 5 %}
-                            <span class="rating__item"><i class="fontello-star"></i></span>
+                            {% if comment.rating < 5 %}
+                                {% for i in 1..(5 - comment.rating) %}
+                                    <span class="rating__item"><i class="fontello-star"></i></span>
+                                {% endfor %}
                             {% endif %}
                         </div>
                     </div>

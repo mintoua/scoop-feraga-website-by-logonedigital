@@ -141,12 +141,12 @@ class BoutiqueController extends AbstractController
         if(!$product){
             return $this->redirectToRoute('app_shop');
         }
-        if($this->isCsrfTokenValid('add_comment', $token) && $data){
+        if($data){
             $this->BoutiqueService->persistComment($data["message"],$data["rating"],$this->getUser(),$product);
             $comments = $this->entityManager->getRepository(Comments::class)->findComments($product);
-            return $this->render('frontoffice/comments_list.html.twig', [
+            return $this->render('frontoffice/single_product.html.twig', [
                 'product' => $product,
-                'comments'=> $comments
+                'comments'=> $this -> BoutiqueService -> toPaginate ( $comments , $request , 10 )
             ]);
         }
 

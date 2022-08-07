@@ -196,9 +196,6 @@
 
         <!-- start section -->
         <section class="section">
-            <div class="decor-el decor-el--1" data-jarallax-element="-70" data-speed="0.2">
-                <img class="lazy" width="286" height="280" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_1.jpg" alt="demo"/>
-            </div>
 
             <div class="decor-el decor-el--3" data-jarallax-element="-70" data-speed="0.2">
                 <img class="lazy" width="115" height="117" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/decor-el_3.jpg" alt="demo"/>
@@ -264,9 +261,11 @@
                                         <span class="__total">{{ (product.total /100) | number_format }} FCFA</span>
                                     </td>
                                     <td>
-                                        <a class="custom-btn custom-btn--small custom-btn--style-1" type="submit" href="{{ path('app_account_add_review',{'slug':product.product}) }}">
-                                            Ajouter un avis
-                                        </a>
+                                        {% if order.state == 4 %}
+                                            <a class="custom-btn custom-btn--small custom-btn--style-1" type="submit" href="{{ path('app_account_add_review',{'slug':product.product}) }}">
+                                                Ajouter un avis
+                                            </a>
+                                        {% endif %}
                                     </td>
                                 </tr>
                                  {% endfor %}

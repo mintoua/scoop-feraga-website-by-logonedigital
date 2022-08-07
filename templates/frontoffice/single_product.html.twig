@@ -297,6 +297,7 @@
 											<div class="tab-content__item is-visible">
 												<!-- start comments list -->
 												{% include "frontoffice/comments_list.html.twig" %}
+
 												<!-- end comments list -->
 
 												<!-- start add review -->
@@ -335,7 +336,7 @@
 
 															<div class="col-12 col-sm-auto">
 																<input type="hidden" name="token" id="token" value="{{ csrf_token(product.slug) }}"/>
-																<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Soumettre</button>
+																<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Ajouter mon avis</button>
 															</div>
 														</div>
 													</form>
@@ -346,7 +347,7 @@
 														$(document).ready(function (){
 															$("#product_review").submit(function (e){
 																var FormData = $('#product_review').serialize();
-																console.log(FormData);
+																//console.log(FormData);
 																e.preventDefault();
 																$.ajax({
 																	url: "{{ path('app_single_product',{'slug':product.slug}) }}",
@@ -355,8 +356,8 @@
 																	success: function (ReviewContent)
 																	{
 																		//$('#comments_list').html(ReviewContent);
-																		console.log(ReviewContent);
-																		alert('ok');
+																		//alert('ok');
+																		window.location.reload();
 																	}
 																});
 															});
