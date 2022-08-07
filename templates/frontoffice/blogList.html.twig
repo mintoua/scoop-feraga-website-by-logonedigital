@@ -5,7 +5,7 @@ k!="ajax")|url_encode %}
 
 <!-- start item -->
 <div class="row">
-    {% for i in posts %}
+    {% for post in posts %}
         <!-- start posts -->
 
         <!-- start item -->
@@ -18,7 +18,7 @@ k!="ajax")|url_encode %}
             >
                 <figure class="__image">
                     <img
-                            src="{{ asset('uploads/images'~asset(i.postimage)) }}"
+                            src="{{ asset('uploads/images'~asset(post.postimage)) }}"
                             alt="demo"
                     />
                 </figure>
@@ -26,7 +26,7 @@ k!="ajax")|url_encode %}
                 <div class="__content">
                     <p class="__category">
                         {% for c in category %}
-                            {% if c.id == i.postcategory.id%}
+                            {% if c.id == post.postcategory.id%}
                         <a href="#">{{ c.name }}</a>
                             {% endif %}
                         {% endfor %}
@@ -34,22 +34,22 @@ k!="ajax")|url_encode %}
 
         <h3 class="__title h5">
           <a href="{{ path('blog_details', { slug: post.slug }) }}">{{
-            post.title
+              post.title
           }}</a>
         </h3>
 
                     <p>
-                        {{ i.description|striptags[:50] ~ '...' }}
+                        {{ post.description|striptags[:50] ~ '...' }}
                     </p>
 
                     <a
                             class="custom-btn custom-btn--medium custom-btn--style-1"
-                            href="{{ path('blog_details',{'slug':i.slug}) }}"
+                            href="{{ path('blog_details',{'slug':post.slug}) }}"
                     >Voir plus</a
                     >
                 </div>
 
-                <span class="__date-post"> <strong>{{ i.getCreatedAt().format('j') }}</strong>{{ i.getCreatedAt().format('M') }} </span>
+                <span class="__date-post"> <strong>{{ post.getCreatedAt().format('j') }}</strong>{{ post.getCreatedAt().format('M') }} </span>
             </div>
         </div>
         <!-- end item -->

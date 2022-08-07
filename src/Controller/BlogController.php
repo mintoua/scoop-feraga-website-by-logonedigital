@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
+use App\Entity\PostCategory;
 use App\Entity\Posts;
 use App\Form\CommentaireType;
 use App\Repository\CommentaireRepository;
@@ -10,6 +11,7 @@ use App\Repository\PostCategoryRepository;
 use App\Repository\PostsRepository;
 use App\Repository\LikesRepository;
 use App\Entity\Likes;
+use Flasher\Prime\FlasherInterface;
 use Sonata\SeoBundle\Seo\SeoPageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\DBAL\Types\TextType;
@@ -29,43 +31,46 @@ use App\Services\CurlService;
 
 class BlogController extends AbstractController
 {
+    public function __construct(private FlasherInterface $flasher,
+                                private PostsRepository $postsRepository,
+                                private PostCategoryRepository $categoryRepository,
+                                private CommentaireRepository $commentairerepository,
+                                private LikesRepository $likesRepository,
+                                private CurlService $client
 
-    
-    #[Route('/Blog_filter/{id}', name: 'Blog_filter')]
-    public function filter($id, PostsRepository $repository, PostCategoryRepository $categoryRepository): Response
+
+    )
     {
-        if ($id == 0) {
-            $posts = $repository->findAll();
-        } else {
-            $posts = $repository->findBy(['postCategory' => $id]);
-        }
-        return $this->render('frontoffice/blog.html.twig', [
-                'posts' => $posts,
-                'category' => $categoryRepository->findAll()
-            ]
-        );
+
+    }
+
+    #[Route('/Blog_filter/{slug}', name: 'Blog_filter')]
+    public function filter(PostCategory $postCategory ): Response
+    {
+        return $this->redirect($this->generateUrl('app_blog', array('catSlug' => $postCategory->getSlug()
+        )));
     }
 
     #[Route('/blog_details/{slug}', name: 'blog_details')]
-    public function blog_details( Posts $post,SeoPageInterface $seoPage,CurlService $client,CommentaireRepository $commentairerepository,PostsRepository $postsRepository,LikesRepository $likesRepository ,Request $request,$slug,PostsRepository $repository , PostCategoryRepository $categoryRepository): Response
+    public function blog_details(Posts $post, SeoPageInterface $seoPage, $slug , Request $request): Response
     {
         //Referencement
         $seoPage->setTitle($slug)
-            ->addMeta('property','og:title',$slug)
-            ->addMeta('property','og:type','blog')
+            ->addMeta('property', 'og:title', $slug)
+            ->addMeta('property', 'og:type', 'blog')
             ->addMeta('name', 'description', $post->getDescription())
             ->addMeta('property', 'og:description', $post->getDescription());
 
         // to display comments related to blog
-        $comments = $commentairerepository->findByBlog($post->getId());
+        $comments = $this->commentairerepository->findByBlog($post->getId());
         // partie creation comment
-        if($this->getUser()){
+        if ($this->getUser()) {
             $em = $this->getDoctrine()->getManager();
             $postId = $request->get("postId");
             //on verifi si il ya une requette ajax ( on a un paramettre ajax ,is ajax = 1 alors on a une req ajax)
-            if($request->get("ajax") == 1){
+            if ($request->get("ajax") == 1) {
                 // on verifi si l'utilisateur deja liker ce post ou non
-                if ($likesRepository->isLiked($postId ,$this->getUser()->getId()) == []){
+                if ($this->likesRepository->isLiked($postId, $this->getUser()->getId()) == []) {
                     // il s'agit d'une nouveau like
                     $like = new Likes();
                     $like->setUser($this->getUser());
@@ -73,19 +78,19 @@ class BlogController extends AbstractController
                     $em->persist($like);
                     $em->flush();
                     return new JsonResponse([
-                        "content" =>  $this->renderView('frontoffice/totalLike.html.twig',[
-                            'totalLikes'=>$likesRepository->likesParPost($postId)
+                        "content" => $this->renderView('frontoffice/totalLike.html.twig', [
+                            'totalLikes' => $this->likesRepository->likesParPost($postId)
                         ])
 
                     ]);
-                }else{
+                } else {
                     //l'utilisateur est déja liké ce post donc on delete le like
-                    $like =  $likesRepository->find($likesRepository->isLiked($postId ,$this->getUser()->getId())[0]);
+                    $like = $this->likesRepository->find($this->likesRepository->isLiked($postId, $this->getUser()->getId())[0]);
                     $em->remove($like);
                     $em->flush();
                     return new JsonResponse([
-                        "content" =>  $this->renderView('frontoffice/totalLike.html.twig',[
-                            'totalLikes'=>$likesRepository->likesParPost($postId)
+                        "content" => $this->renderView('frontoffice/totalLike.html.twig', [
+                            'totalLikes' => $this->likesRepository->likesParPost($postId)
                         ])
 
                     ]);
@@ -94,35 +99,38 @@ class BlogController extends AbstractController
             }
             // lors de chargement du page on verifi si l'utlisateur liker cette post ou non
             $liked = 0;
-            if(! $likesRepository->isLiked($post->getId() ,$this->getUser()->getId()) == []){
+            if (!$this->likesRepository->isLiked($post->getId(), $this->getUser()->getId()) == []) {
                 $liked = 1;
             }
-            return $this->render('frontoffice/blog_details.html.twig',[
-                    'post'=>[$post] ,
-                    'category'=>$categoryRepository->findAll(),
-                    'totalLikes'=>$likesRepository->likesParPost($post->getId()),
-                    'isLiked'=> $liked,
+            return $this->render('frontoffice/blog_details.html.twig', [
+                    'post' => [$post],
+                    'category' => $this->categoryRepository->findAll(),
+                    'relatedPosts' => $this->postsRepository->getRelatedPosts($post->getPostCategory()->getId(), $post->getId()),
+                    'totalLikes' => $this->likesRepository->likesParPost($post->getId()),
+                    'isLiked' => $liked,
                     'comments' => $comments,
                     'id' => $post->getId(),
                 ]
             );
         }
 
-        return $this->render('frontoffice/blog_details.html.twig',[
-                'post'=>$repository->findBy(['slug'=>$slug]) ,
-                'category'=>$categoryRepository->findAll(),
-                'totalLikes'=>$likesRepository->likesParPost($repository->findBy(['slug' => $slug])[0]->getId()),
-                'isLiked'=>false,
+        return $this->render('frontoffice/blog_details.html.twig', [
+                'post' => $this->postsRepository->findBy(['slug' => $slug]),
+                'category' => $this->categoryRepository->findAll(),
+                'relatedPosts' => $this->postsRepository->getRelatedPosts($post->getPostCategory()->getId(), $post->getId()),
+                'totalLikes' => $this->likesRepository->likesParPost($this->postsRepository->findBy(['slug' => $slug])[0]->getId()),
+                'isLiked' => false,
                 'comments' => $comments,
-                'id' => $repository->findBy(['slug' => $slug])[0]->getId(),
+                'id' => $this->postsRepository->findBy(['slug' => $slug])[0]->getId(),
             ]
         );
-        }
+    }
+
     #[Route('/blog_details/addComment/{slug}', name: 'addComment')]
-    public function addComment(CurlService $client, CommentaireRepository $commentaireRepository,Request $request,Posts $post, PostsRepository $repository, PostCategoryRepository $categoryRepository): Response
+    public function addComment(Posts $post, Request $request): Response
     {
         $url = "https://www.google.com/recaptcha/api/siteverify?secret=6Lc96AYfAAAAAEP84ADjdx5CBfEpgbTyYqgemO5n&response={$request->get('gtoken')}";
-        $response = $client->curlManager($url);
+        $response = $this->client->curlManager($url);
         if (!empty($response) || !is_null($response)) {
             if ($request->get("message") != null && $this->isCsrfTokenValid('comment', $request->get("_token"))) {
                 $commentaire = new Commentaire();
@@ -136,54 +144,55 @@ class BlogController extends AbstractController
                 //return la nouveau list des commentaires en format HTML
                 return new JsonResponse([
                     "content" => $this->renderView('frontoffice/CommentList.html.twig', [
-                        'comments' => $commentaireRepository->findByBlog($post),
+                        'comments' => $this->commentairerepository->findByBlog($post),
                     ])
                 ]);
             }
         }
     }
-    
+
     #[Route('/blog_details/updateComment/{id}', name: 'updateComment')]
-    public function updateComment( FlashyNotifier $flashy,CurlService $client,CommentaireRepository $commentaireRepository,Request $request,Commentaire $commentaire, PostsRepository $postsRepository, PostCategoryRepository $categoryRepository): Response
+    public function updateComment(Commentaire $commentaire, Request $request): Response
     {
         $url = "https://www.google.com/recaptcha/api/siteverify?secret=6Lc96AYfAAAAAEP84ADjdx5CBfEpgbTyYqgemO5n&response={$request->get('gtoken')}";
-        $response = $client->curlManager($url);
+        $response = $this->client->curlManager($url);
         if (!empty($response) || !is_null($response)) {
             $this->denyAccessUnlessGranted('EDIT', $commentaire);
             if ($request->get("message") != null && $this->isCsrfTokenValid('updateCommentaire', $request->get("_token"))) {
                 $commentaire->setMessage($request->get("message"));
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
-                $post = $postsRepository->findBy(['slug' => $commentaire->getBlog()->getSlug()]);
+                $post = $this->postsRepository->findBy(['slug' => $commentaire->getBlog()->getSlug()]);
                 //return la nouveau list des commentaires en format HTML
                 return new JsonResponse([
                     "content" => $this->renderView('frontoffice/CommentList.html.twig', [
-                        'comments' => $commentaireRepository->findByBlog($post),
+                        'comments' => $this->commentairerepository->findByBlog($post),
                     ])
                 ]);
-            }else{
-                 die();
+            } else {
+                die();
             }
-        }else{
+        } else {
             die();
         }
     }
+
     #[Route('/blog_details/deleteComment/{id}', name: 'deleteComment')]
-    public function deleteComment(CommentaireRepository $commentaireRepository,Request $request,Commentaire $commentaire, PostsRepository $postsRepository, PostCategoryRepository $categoryRepository): Response
+    public function deleteComment(Commentaire $commentaire, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('DELETE',$commentaire);
-        if ( $this->isCsrfTokenValid('delete', $request->get("_token"))){
+        $this->denyAccessUnlessGranted('DELETE', $commentaire);
+        if ($this->isCsrfTokenValid('delete', $request->get("_token"))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($commentaire);
             $em->flush();
-            $post = $postsRepository->findBy(['slug' =>$commentaire->getBlog()->getSlug()]);
+            $post = $this->postsRepository->findBy(['slug' => $commentaire->getBlog()->getSlug()]);
             //return la nouveau list des commentaires en format HTML
             return new JsonResponse([
-                "content" =>  $this->renderView('frontoffice/CommentList.html.twig',[
-                    'comments' => $commentaireRepository->findByBlog($post),
+                "content" => $this->renderView('frontoffice/CommentList.html.twig', [
+                    'comments' => $this->commentairerepository->findByBlog($post),
                 ])
             ]);
-        }else{
+        } else {
             die();
         }
         //   if ($request->isMethod('post')) {

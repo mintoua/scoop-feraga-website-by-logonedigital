@@ -150,6 +150,11 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             })
+                            //changer le nombre de comments
+                            var countCommentsContent = document.getElementById('totalComments');
+                            var total = document.getElementById('commentCount').value;
+                            document.getElementById('commentCount').value = parseInt(total) + 1;
+                            countCommentsContent.innerText = parseInt(total) + 1 + ' Commentaire,'
                         }
                     ).catch(e => console.log(e));
                 }
@@ -250,6 +255,11 @@
                                         var content = document.getElementById("commment_zone");
                                         //remplace le continue par le nouveau list des commentaires
                                         content.innerHTML = data.content;
+                                        //changer le nombre de comments
+                                        var countCommentsContent = document.getElementById('totalComments');
+                                        var total = document.getElementById('commentCount').value;
+                                        document.getElementById('commentCount').value = parseInt(total) - 1;
+                                        countCommentsContent.innerText = parseInt(total) - 1 + ' Commentaire,'
                                     }
                                 ).catch(e => console.log(e));
                                 //alert de succes
@@ -265,6 +275,27 @@
                 })
 
 
+            }
+
+            // *** start dropdown menu script
+            /* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+            function show() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function (event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
             }
 
         </script>
@@ -292,9 +323,9 @@
 
                                             <h3 class="__title h3">{{ p.title }}</h3>
                                         </div>
-                                            <p>
-                                                {{ p.description |raw }}
-                                            </p>
+                                        <p>
+                                            {{ p.description |raw }}
+                                        </p>
 
                                         <p>
                                         </p>
@@ -321,7 +352,8 @@
                             </svg>
                             J'aime
                             </button><br><br>
-                            <b>4 Comments , </b>
+                            <input id="commentCount" type="hidden" value="{{ comments|length }}">
+                            <b id="totalComments">{{ comments|length }} Commentaire , </b>
                             <span id="totalLike"
                                   style="margin-left:7px ; margin-top: 10px"> {% include("frontoffice/totalLike.html.twig") %}</span>
                             <!-- Post list-->
@@ -356,16 +388,16 @@
                             <!-- End Share -->
                             <style>
                                 textarea {
-                                width: 80%;
-                                height: 200px;
-                                padding: 12px;
-                                border: 1px solid #ccc;
-                                border-radius: 4px;
-                                box-sizing: border-box;
-                                margin-top: 6px;
-                                margin-bottom: 20px;
-                                resize: vertical;
-                                outline-color: #3daa35;
+                                    width: 80%;
+                                    height: 200px;
+                                    padding: 12px;
+                                    border: 1px solid #ccc;
+                                    border-radius: 4px;
+                                    box-sizing: border-box;
+                                    margin-top: 6px;
+                                    margin-bottom: 20px;
+                                    resize: vertical;
+                                    outline-color: #3daa35;
                                 }
                             </style>
                             <h6>Laisser un commentaire.</h6>
@@ -415,8 +447,11 @@
                                 <h4 class="h6 widget-title">thêmatique : </h4>
 
                                 <p>
-                                    We believe in helping brands create through strategy, story-telling, digital
-                                    products, and integrated experiences on web, mobile, and in the world.
+                                    {% for c in category %}
+                                        {% if p.postcategory.name == c.name %}
+                                            {{ c.getCategoryDescription() | raw }}
+                                        {% endif %}
+                                    {% endfor %}
                                 </p>
                             </div>
                             <!-- end widget -->
@@ -429,8 +464,8 @@
                                     {% for c in category %}
                                         <li class="list__item">
                                             <a class="list__item__link"
-                                               href="{{ path('Blog_filter',{ 'id':c.id }) }}">{{ c.name }}</a>
-                                             <span>{{loop.index}}</span> 
+                                               href="{{ path('Blog_filter',{ 'slug':c.slug }) }}">{{ c.name }}</a>
+                                            <span>{{ loop.index }}</span>
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -442,33 +477,23 @@
                                 <h4 class="h6 widget-title">Dans la même thématique</h4>
 
                                 <div>
-                                    <article>
-                                        <a class="link" href="#">
-                                            <img class="lazy" width="100" height="75"
-                                                 src="{{ asset('frontoffice/') }}img/blank.gif"
-                                                 data-src="{{ asset('frontoffice/') }}img/posts_img/1s.jpg" alt="demo"/>
-                                        </a>
+                                    {% for relatedPost in relatedPosts %}
+                                        <article>
+                                            <a class="link"
+                                               href="{{ path('blog_details', { slug: relatedPost.slug }) }}">
+                                                <img width="100" height="75"
+                                                     src="{{ asset('uploads/images/'~asset(relatedPost.postimage)) }}"
+                                                     data-src="{{ asset('uploads/images/'~asset(relatedPost.postimage)) }}"
+                                                     alt="demo"/>
+                                            </a>
 
-                                        <div>
-                                            This has led us to assemble a multi
+                                            <div>
+                                                {{ relatedPost.description |striptags[:50] ~ '...' }}
 
-                                            <span class="date-post">April 12, 2017</span>
-                                        </div>
-                                    </article>
-
-                                    <article>
-                                        <a class="link" href="#">
-                                            <img class="lazy" width="100" height="75"
-                                                 src="{{ asset('frontoffice/') }}img/blank.gif"
-                                                 data-src="{{ asset('frontoffice/') }}img/posts_img/2s.jpg" alt="demo"/>
-                                        </a>
-
-                                        <div>
-                                            Our team has a passion for making things with
-
-                                            <span class="date-post">April 12, 2017</span>
-                                        </div>
-                                    </article>
+                                                <span class="date-post">{{ relatedPost.getCreatedAt().format('j, M, Y ') }}</span>
+                                            </div>
+                                        </article>
+                                    {% endfor %}
                                 </div>
                             </div>
                             <!-- end widget -->
