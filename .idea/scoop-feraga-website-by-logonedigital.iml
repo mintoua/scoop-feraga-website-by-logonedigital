@@ -31,6 +31,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-flasher/flasher-notyf-symfony" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-flasher/flasher-notyf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-flasher/flasher-symfony" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/expression-language" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/friendsofsymfony/ckeditor-bundle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

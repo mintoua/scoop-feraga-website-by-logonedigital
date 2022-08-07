@@ -33,8 +33,8 @@ class EasyAdminSubcriber implements EventSubscriberInterface
     {
         // TODO: Implement getSubscribedEvents() method.
         return[
-            BeforeEntityPersistedEvent::class => ['setCreatedAt'],
-            BeforeEntityUpdatedEvent::class => ['setSlug'],
+            //BeforeEntityPersistedEvent::class => ['setCreatedAt'],
+            //BeforeEntityUpdatedEvent::class => ['setSlug'],
             AfterEntityPersistedEvent::class => ['clearCacheAfter'],
             AfterEntityDeletedEvent::class => ['clearCacheAfterDeleted'],
             AfterEntityUpdatedEvent::class => ['clearCacheAfterUpdated'],
@@ -43,16 +43,16 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         ];
     }
 
-    public function setCreatedAt(BeforeEntityPersistedEvent $event){
+   /* public function setCreatedAt(BeforeEntityPersistedEvent $event){
 
         $entity = $event->getEntityInstance();
         if($entity instanceof Posts){
             $now =new DateTimeImmutable('now');
             $entity->setCreatedAt($now);
         }
-    }
+    }*/
 
-    public function setBoutiqueSlug(BeforeEntityPersistedEvent $event)
+    /*public function setBoutiqueSlug(BeforeEntityPersistedEvent $event)
     {
 
     }
@@ -74,7 +74,7 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         if ($entity instanceof Product){
             $entity->setSlug($entity->getProduct_name());
         }
-    }
+    }*/
 
     //permet de faire des actions sur l'utisateur lorsqu'il est ajouter depuis le dashboard
     public function persistanceUserProcess(BeforeEntityPersistedEvent $event){
@@ -84,6 +84,21 @@ class EasyAdminSubcriber implements EventSubscriberInterface
             $entity->setCreatedAt(new \DateTime('now'));
             //$entity->setBlocked(false);
         }
+        //permet de set la date de creation a la current date lorsque l'admin add un post
+        if($entity instanceof Posts){
+            $now =new DateTimeImmutable('now');
+            $entity->setCreatedAt($now);
+        }
+        //permet de set le slug = title lors de persistance du post
+        if($entity instanceof Posts){
+            $entity->setSlug($entity->getTitle());
+        }
+        //permet de set le slug = name lors de persistance du categoryPost
+        if($entity instanceof PostCategory){
+            $entity->setSlug($entity->getName());
+        }
+
+
     }
 
     /**
@@ -98,6 +113,24 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         if($entity instanceof User){
             $entity->setUpdatedAt(new \DateTime('now'));
         }
+
+        // modifier les slugs lors de la modification
+        if($entity instanceof Posts){
+            $entity->setSlug($entity->getTitle());
+        }
+        if($entity instanceof PostCategory){
+            $entity->setSlug($entity->getName());
+        }
+
+        if($entity instanceof ProductCategory)
+        {
+            $entity->setSlug($entity->getName());
+        }
+
+        if ($entity instanceof Product){
+            $entity->setSlug($entity->getProduct_name());
+        }
+
     }
 
     public function clearCacheAfter(AfterEntityPersistedEvent $event){
@@ -108,6 +141,7 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
         if($entity instanceof PostCategory){
             $this->cache->delete('category_list');
+            $this->cache->delete('post_list');
         }
         if($entity instanceof ProductCategory){
             $this->cache->delete('product_categories_list');
@@ -127,6 +161,7 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
         if($entity instanceof PostCategory){
             $this->cache->delete('category_list');
+            $this->cache->delete('post_list');
         }
         if($entity instanceof ProductCategory){
             $this->cache->delete('product_categories_list');
@@ -145,6 +180,7 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
         if($entity instanceof PostCategory){
             $this->cache->delete('category_list');
+            $this->cache->delete('post_list');
         }
         if($entity instanceof ProductCategory){
             $this->cache->delete('product_categories_list');

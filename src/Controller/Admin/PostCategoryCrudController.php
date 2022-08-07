@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class PostCategoryCrudController extends AbstractCrudController
 {
@@ -25,8 +26,11 @@ class PostCategoryCrudController extends AbstractCrudController
 
            // IdField::new('id'),
             TextField::new('name'),
-            SlugField::new('slug')->setTargetFieldName('name')->hideWhenUpdating(),
-            TextEditorField::new('category_description'),
+            SlugField::new('slug')->setTargetFieldName('name')->hideWhenUpdating()->hideWhenCreating(),
+            TextareaField::new('category_description')
+                ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig')
+                ->setFormType(CKEditorType::class)
+                ->hideOnIndex(),
             // ImageField::new('post_category_image')->setBasePath('uploads\images')->setUploadDir('public\uploads\images'),
         ];
     }

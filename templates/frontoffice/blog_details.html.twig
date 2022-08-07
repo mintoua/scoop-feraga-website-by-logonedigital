@@ -32,6 +32,7 @@
         ================================================== -->
         <link rel="stylesheet" href="{{ asset('frontoffice/') }}css/style.min.css" type="text/css"/>
         <link rel="stylesheet" href="{{ asset('frontoffice/') }}css/likeStyle.css" type="text/css"/>
+        <link rel="stylesheet" href="{{ asset('frontoffice/') }}css/threeDotOptionsStyle.css" type="text/css"/>
 
         <!-- Load  scripts
         ================================================== -->
@@ -156,7 +157,7 @@
 
             function update(id, message) {
                 messageCh = message.toString()
-                document.getElementById("comment-description" + id).innerHTML = '<textarea id="message' + id + '" style="width:600px; border-radius: 10px ;" >' + message.toString() + '</textarea> <br><button style="height: 30px;margin-top: 5px" class="custom-btn custom-btn--style-1" role="button" onclick="modifierCommentaire(' + id + ')"> Modifier </button><button style="height: 30px;margin-top: 5px ; background-color:red ; " class="custom-btn custom-btn--style-7" role="button" onclick="cancelUpdate(' + id + ')"> Annuler </button><input type="hidden" id="C_token" name="C_token" value="{{ csrf_token("updateCommentaire") }}"/>';
+                document.getElementById("comment-description" + id).innerHTML = '<textarea id="message' + id + '" style="width:600px; border-radius: 10px ;" >' + message.toString() + '</textarea> <br><button style="height: 30px;margin-top: 5px" class="custom-btn custom-btn--style-1" role="button" onclick="modifierCommentaire(' + id + ')"> Modifier </button><button style="height: 30px;margin-top: 5px;margin-left : 5px  ;color : white ; border-color: red;background-color : red " class="custom-btn custom-btn--style-7" role="button" onclick="cancelUpdate(' + id + ')"> Annuler </button><input type="hidden" id="C_token" name="C_token" value="{{ csrf_token("updateCommentaire") }}"/>';
             }
 
             function cancelUpdate(id) {
@@ -249,9 +250,6 @@
                                         var content = document.getElementById("commment_zone");
                                         //remplace le continue par le nouveau list des commentaires
                                         content.innerHTML = data.content;
-                                        // vider l'input & rendre le borderColor black
-                                        // document.getElementById("message").style.borderColor = "black";
-                                        //  document.getElementById("message").value = "";
                                     }
                                 ).catch(e => console.log(e));
                                 //alert de succes
@@ -270,9 +268,6 @@
             }
 
         </script>
-        <!-- Start Alert de confirmation -->
-
-        <!-- End Alert -->
         <!-- start section -->
         {% for p in post %}
         <section class="section">
@@ -376,8 +371,12 @@
                             <h6>Laisser un commentaire.</h6>
                             {% if app.user %}
                                 <div class="input-wrp">
-                                    <textarea  id="message" class="comment-tag" placeholder="que pense-tu de cette article ?"></textarea>
+                                    <!-- textarea message -->
+                                    <textarea style="width: 700px;height: 200px;border-radius: 10px;" id="message"
+                                              class="textfield" placeholder="Message.."></textarea>
+                                    <!-- CRSF TOKEN INPUT -->
                                     <input type="hidden" id="token" name="token" value="{{ csrf_token('comment') }}"/>
+                                    <!-- GRECAPTCHA TOKEN INPUT -->
                                     <input type="hidden" id="grecaptcha_token" name="gtoken"/>
                                 </div>
                                 <button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit"

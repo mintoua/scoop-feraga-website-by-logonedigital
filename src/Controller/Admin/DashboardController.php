@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 
+use App\Entity\Commentaire;
 use App\Entity\Comments;
 use App\Entity\PostCategory;
 use App\Entity\Posts;
@@ -61,8 +62,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fas fa-tachometer-alt-average');
         yield MenuItem::linkToDashboard('Stastistiques', 'fas fa-chart-bar');
 
-        
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class)->setPermission('ROLE_SUPER_ADMIN');
+
 
         yield MenuItem::section('Boutique');
         yield MenuItem::linkToCrud('Categorie des Produits', 'fas fa-list', ProductCategory::class);
@@ -70,9 +71,11 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Avis sur les produits', 'fas fa-comment', Comments::class);
         yield MenuItem::linkToCrud('Transporteurs', 'fas fa-truck', Carrier::class);
         yield MenuItem::linkToCrud('Commandes', 'fas fa-shopping-cart', Order::class);
+
         yield MenuItem::section('Blog');
         yield MenuItem::linkToCrud('Thématique', 'fas fa-list-alt', PostCategory::class);
         yield MenuItem::linkToCrud('Post', 'fas fa-newspaper', Posts::class);
+        yield MenuItem::linkToCrud('Commentaires ', 'fas fa-comments', Commentaire::class);
         yield MenuItem::section('Demande de contacts');
         yield MenuItem::linkToCrud('Courriel', 'fas fa-envelope', Contact::class);
         yield MenuItem::section('Farm pictures');
