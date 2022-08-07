@@ -24,7 +24,7 @@ class OrderType extends AbstractType
                 'multiple'=>false,
                 'expanded'=>true,
                 'attr'=>[
-                    'class'=>'d-flex flex-column'
+                    'class'=>'d-flex flex-column justify-content-start'
                 ]
             ])
             ->add('carriers', EntityType::class,[
@@ -34,7 +34,7 @@ class OrderType extends AbstractType
                 'multiple'=>false,
                 'expanded'=>true,
                 'attr'=>[
-                    'class'=>'d-flex flex-column'
+                    'class'=>'d-flex flex-column justify-content-start'
                 ]
             ])
             ->add('submit',SubmitType::class,[

@@ -170,24 +170,6 @@
 			</header>
 			<!-- end header -->
 
-			<!-- start hero -->
-			<div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 80%" style="background-image: url({{asset('frontoffice/')}}img/intro_img/12.jpg);color: #333;">
-				<div class="container">
-					<div class="row">
-						<div class="col-12 col-md-7">
-							<h1 class="__title">
-								<span>Agro Shop</span>
-								Checkout</h1>
-
-							<p>
-								The point of using is that it has a more-or-less normal distribution of letters, as opposed to using Content here content here making it look
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- end hero -->
-
 			<!-- start main -->
 			<main role="main">
 				<!-- Common styles
@@ -266,7 +248,11 @@
 									<h2>COMMANDE <span>DéTAILS</span></h2>
 
 									<div class="spacer py-3"></div>
-
+									<style>
+									#order_addresses_2, #order_addresses_3{
+										margin-top: 10px;
+									}
+									</style>
 
 										{{ form_start(form, {action:path('app_add_order')}) }}
 										<div class="row justify-content-xl-between">
@@ -278,7 +264,7 @@
 												{% endif %}
 
 															{% set formHtml %}
-																{{ form_widget(form.addresses) }}
+																{{ form_row(form.addresses) }}
 															{% endset %}
 															{{ formHtml|replace({'[br]':'<br/>'})|raw }}
 
@@ -339,30 +325,6 @@
 
 							</div>
 						</div>
-					</div>
-				</section>
-				<!-- end section -->
-
-				<!-- start section -->
-				<section class="section section--no-pt section--no-pb section--gutter">
-					<div class="container-fluid px-md-0">
-						<!-- start banner simple -->
-						<div class="simple-banner simple-banner--style-2" data-aos="fade" data-aos-offset="50">
-							<div class="d-none d-lg-block">
-								<img class="img-logo img-fluid  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/logo_scoops_feraga.png" alt="demo" />
-							</div>
-
-							<div class="row no-gutters">
-								<div class="col-12 col-lg-6">
-									<a href="#"><img class="img-fluid w-100  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/banner_bg_3.jpg" alt="demo" /></a>
-								</div>
-
-								<div class="col-12 col-lg-6">
-									<a href="#"><img class="img-fluid w-100  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/banner_bg_4.jpg" alt="demo" /></a>
-								</div>
-							</div>
-						</div>
-						<!-- end banner simple -->
 					</div>
 				</section>
 				<!-- end section -->
