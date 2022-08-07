@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
@@ -30,6 +31,7 @@ class ProductCrudController extends AbstractCrudController
     {
         return $actions
             ->add(Crud::PAGE_NEW, Action::INDEX)
+            ->add (Crud::PAGE_INDEX, Action::DETAIL)
             ->add(Crud::PAGE_EDIT, Action::INDEX)
             ;
     }
@@ -54,9 +56,10 @@ class ProductCrudController extends AbstractCrudController
     {
        return [
             TextField::new('product_name','Nom du Produit'),
-            SlugField::new('slug')->setTargetFieldName('product_name'),
+            SlugField::new('slug')->setTargetFieldName('product_name')->hideOnIndex (),
             IntegerField::new('product_price','Prix(en FCFA)'),
             IntegerField::new('product_quantity','Quantité'),
+           BooleanField::new ('isBest','Mettre à la une'),
             AssociationField::new('category')->setLabel ("Catégorie"),
             ImageField::new('product_image','Image')->setBasePath('uploads\images')
                 ->setUploadDir('public\uploads\images')
@@ -64,6 +67,7 @@ class ProductCrudController extends AbstractCrudController
             TextareaField::new('product_description','Description')
                 ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig')
                 ->setFormType (CKEditorType::class)
+                ->hideOnIndex ()
                 ->renderAsHtml (),
 
         ];

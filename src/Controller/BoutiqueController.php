@@ -191,7 +191,14 @@ class BoutiqueController extends AbstractController
     #[Route( '/boutique/panier' , name : 'app_cart' )]
     public function myCart ()
     {
-
+        if($this->BoutiqueService->getOrderSession ()){
+            return $this -> render ( 'frontoffice/final_checkout.html.twig' , [
+                'cart' => $this -> cart -> getFullCart () ,
+                'total' => $this -> cart -> getTotal () ,
+                'carrier' => $this->BoutiqueService->getOrderSession ()[0] ,
+                'delivery' => $this->BoutiqueService->getOrderSession ()[1]
+            ] );
+        }
         return $this -> render ( 'frontoffice/cart.html.twig' , [
             'cart' => $this -> cart -> getFullCart ()
         ] );
@@ -363,8 +370,10 @@ class BoutiqueController extends AbstractController
                 $this -> entityManager -> persist ( $orderDetails );
             }
 
-            $this -> entityManager -> flush ();
+            //$this -> entityManager -> flush ();
 
+            $this->BoutiqueService->addOrderSession ($carriers,$delivery_content);
+          //  dd ($this->BoutiqueService->getOrderSession ()[1]);
             return $this -> render ( 'frontoffice/final_checkout.html.twig' , [
                 'cart' => $this -> cart -> getFullCart () ,
                 'total' => $this -> cart -> getTotal () ,
@@ -372,6 +381,7 @@ class BoutiqueController extends AbstractController
                 'delivery' => $delivery_content
             ] );
         }
+
 
 
         return $this -> redirectToRoute ( 'app_cart' );
@@ -393,6 +403,7 @@ class BoutiqueController extends AbstractController
            $mail->send($this->getUser()->getUsername(),$this->getUser()->getFirstname(),'Votre commande SCOOPS FERAGA est bien validée.', $content);*/
 
         $this -> cart -> clearCart ();
+        $this->BoutiqueService->clearOrderSession ();
         return $this -> redirectToRoute ( 'app_shop' );
     }
 

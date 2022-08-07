@@ -41,6 +41,9 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Comments::class, cascade: ["remove"])]
     private Collection $comments;
 
+    #[ORM\Column]
+    private ?bool $isBest = null;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -188,6 +191,18 @@ class Product
                 $comment->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsBest(): ?bool
+    {
+        return $this->isBest;
+    }
+
+    public function setIsBest(bool $isBest): self
+    {
+        $this->isBest = $isBest;
 
         return $this;
     }

@@ -2,29 +2,42 @@
 
 namespace App\Controller;
 
-use App\Entity\PostCategory;
-use App\Entity\Posts;
+
+use App\Entity\Product;
 use App\Repository\PostCategoryRepository;
 use App\Repository\PostsRepository;
 use DateInterval;
+use Doctrine\ORM\EntityManagerInterface;
 use Sonata\SeoBundle\Seo\SeoPageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use App\Classes\Mail;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
-use function Clue\StreamFilter\fun;
+
 
 class HomeController extends AbstractController
 {
+    private $entityManager;
+    private $cache;
+
+    public function __construct(EntityManagerInterface $entityManager, CacheInterface $cache){
+        $this->entityManager = $entityManager;
+        $this->cache =$cache;
+    }
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
+        $products = $this -> cache -> get ( 'product_best_list' , function ( ItemInterface $item ) {
+            $item -> expiresAfter ( 3600 );
+            return $this->entityManager->getRepository (Product::class)->findByIsBest(1);
+        } );
 
-        return $this->render('frontoffice/index.html.twig');
+        return $this->render('frontoffice/index.html.twig',[
+            'products'=>$products
+        ]);
     }
 
     #[Route('/a_propos', name: 'app_about')]
