@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\PostCategory;
+use App\Entity\Posts;
 use App\Repository\PostCategoryRepository;
 use App\Repository\PostsRepository;
 use DateInterval;
@@ -39,68 +40,68 @@ class HomeController extends AbstractController
     // }
 
     #[Route('/nos_actualités', name: 'app_blog')]
-    public function blog( SeoPageInterface $seoPage,CacheInterface $cache,PostsRepository $repository , PostCategoryRepository $categoryRepository , Request $request): Response
+    public function blog(SeoPageInterface $seoPage, CacheInterface $cache, PostsRepository $repository, PostCategoryRepository $categoryRepository, Request $request): Response
     {
-        $cat = $request->get("catSlug" , 'Tous');
+        $cat = $request->get("catSlug", 'Tous');
         // on definie le nombre d'element par page
         $limit = 2;
         // o n recupere le num de la page
-        $page = (int)$request->query->get("page",1);
+        $page = (int)$request->query->get("page", 1);
         //NEW
         $postsP = $postsP = $cache->get('post_list', function (ItemInterface $item) use ($repository) {
             $item->expiresAfter(DateInterval::createFromDateString('48 hour'));
             return $repository->getAllPostesOrdred();
         });
-        $result=[];
-        foreach ( $postsP as $key=>$value){
-            if ($key <= ($limit*$page)-1 and $key >= ($limit*$page)-$limit){
-                array_push($result,$value);
+        $result = [];
+        foreach ($postsP as $key => $value) {
+            if ($key <= ($limit * $page) - 1 and $key >= ($limit * $page) - $limit) {
+                array_push($result, $value);
             }
         }
-        if($cat != 'Tous'){
-            $result=[];
-            $res=[];
+        if ($cat != 'Tous') {
+            $result = [];
+            $res = [];
             $categorySelectedId = $categoryRepository->findBySlug($cat)[0]->getId();
-            foreach ( $postsP as $key=>$value){
-                if ($value->getPostCategory()->getId() == $categorySelectedId){
-                    array_push($res,$value);
+            foreach ($postsP as $key => $value) {
+                if ($value->getPostCategory()->getId() == $categorySelectedId) {
+                    array_push($res, $value);
                 }
             }
-            foreach ( $res as $key=>$value){
-                if ($key <= ($limit*$page)-1 and $key >= ($limit*$page)-$limit){
-                    array_push($result,$value);
+            foreach ($res as $key => $value) {
+                if ($key <= ($limit * $page) - 1 and $key >= ($limit * $page) - $limit) {
+                    array_push($result, $value);
                 }
             }
             $total = count($res);
-        }else{
+        } else {
             $total = count($postsP);
         }
 
-        $category = $cache->get('category_list',function (ItemInterface $item) use($categoryRepository){
+        $category = $cache->get('category_list', function (ItemInterface $item) use ($categoryRepository) {
             //$item->expiresAfter(30);
             return $categoryRepository->findAll();
         });
         // on verifie si on a un requette ajax ou non
-        if($request->get("ajax")){
-        return new JsonResponse([
-        "content" =>  $this->renderView('frontoffice/blogList.html.twig',[
-                'posts'=>$result,
-            'total' => $total,
-            'limit'=> $limit,
-            'page' => $page
+        if ($request->get("ajax")) {
+            return new JsonResponse([
+                "content" => $this->renderView('frontoffice/blogList.html.twig', [
+                    'posts' => $result,
+                    'total' => $total,
+                    'limit' => $limit,
+                    'page' => $page
 
-            ])
+                ])
 
-]);
+            ]);
         }
-            $seoPage->setTitle("Blogs")
-                ->addMeta('property','og:title','blogs')
-                ->addMeta('property','og:type','blog');
-        return $this->render('frontoffice/blog.html.twig',[
-            'posts'=>$result,
-            'category'=>$category,
+        $seoPage->setTitle("Blogs")
+            ->addMeta('property', 'og:title', 'blogs')
+            ->addMeta('property', 'og:type', 'blog');
+        return $this->render('frontoffice/blog.html.twig', [
+                'posts' => $result,
+                'category' => $category,
                 'total' => $total,
-                'limit'=> $limit,
+                'limit' => $limit,
                 'page' => $page
             ]
         );

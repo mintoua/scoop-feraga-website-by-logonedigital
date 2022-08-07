@@ -10,7 +10,6 @@ use App\Services\MailerHelper;
 use Flasher\Prime\FlasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\NotNull;
@@ -31,7 +30,6 @@ class ContactController extends AbstractController
         Request $req, 
         EntityManagerInterface $em,
         CurlService $client,
-        FlashyNotifier $flashy,
         MailerHelper $mail
         ): Response
     {
