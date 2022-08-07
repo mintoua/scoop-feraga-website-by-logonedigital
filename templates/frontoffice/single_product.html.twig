@@ -272,7 +272,7 @@
 										</p>
 
 										<p>
-											{{ product.product_description | striptags[:259] ~ '...'  }}
+											{{ product.product_description | striptags[:200] ~ '...'  }}
 										</p>
 
 										<form class="__add-to-cart" action="{{ path('app_add_to_cart',{'slug': product.slug})}}">
@@ -289,51 +289,15 @@
 									<!-- start tab -->
 									<div class="tab-container">
 										<nav class="tab-nav">
-											<a href="#">Description complète</a>
 											<a href="#">Les avis</a>
+											<a href="#">Description complète</a>
 										</nav>
 
 										<div class="tab-content">
 											<div class="tab-content__item is-visible">
-												<p>
-													{{ product.product_description | raw  }}
-												</p>
-
-												<p>
-													Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish filefish Antarctic icefish goldeye aholehole trumpetfish pilot fish airbreathing catfish, electric ray sweeper.
-												</p>
-
-												<div class="description-table" style="max-width: 370px;">
-													<table>
-														<tbody>
-														<tr>
-															<td>Weight</td>
-															<td>1 kg</td>
-														</tr>
-														<tr>
-															<td>Country of Origin</td>
-															<td>Agro Farm</td>
-														</tr>
-														<tr>
-															<td>Quality</td>
-															<td>Organic</td>
-														</tr>
-														<tr>
-															<td>Сheck</td>
-															<td>Healthy</td>
-														</tr>
-														<tr>
-															<td>Min Weight</td>
-															<td>250 Kg</td>
-														</tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
-
-											<div class="tab-content__item">
 												<!-- start comments list -->
 												{% include "frontoffice/comments_list.html.twig" %}
+
 												<!-- end comments list -->
 
 												<!-- start add review -->
@@ -371,8 +335,8 @@
 															</div>
 
 															<div class="col-12 col-sm-auto">
-																<input type="hidden" name="token" value="{{ csrf_token(product.slug) }}"/>
-																<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Soumettre</button>
+																<input type="hidden" name="token" id="token" value="{{ csrf_token(product.slug) }}"/>
+																<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Ajouter mon avis</button>
 															</div>
 														</div>
 													</form>
@@ -383,7 +347,7 @@
 														$(document).ready(function (){
 															$("#product_review").submit(function (e){
 																var FormData = $('#product_review').serialize();
-																console.log(FormData);
+																//console.log(FormData);
 																e.preventDefault();
 																$.ajax({
 																	url: "{{ path('app_single_product',{'slug':product.slug}) }}",
@@ -391,8 +355,9 @@
 																	data: $('#product_review').serialize(),
 																	success: function (ReviewContent)
 																	{
-																		$('#comments_list').html(ReviewContent);
-																		alert('ok');
+																		//$('#comments_list').html(ReviewContent);
+																		//alert('ok');
+																		window.location.reload();
 																	}
 																});
 															});
@@ -401,6 +366,13 @@
 												</div>
 												<!-- end add review -->
 											</div>
+											<div class="tab-content__item">
+												<p>
+													{{ product.product_description | raw  }}
+												</p>
+
+											</div>
+
 										</div>
 									</div>
 									<!-- end tab -->
