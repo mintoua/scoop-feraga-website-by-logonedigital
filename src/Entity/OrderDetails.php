@@ -32,7 +32,7 @@ class OrderDetails
     public function __toString(): string
     {
         // TODO: Implement __toString() method.
-        return $this->getProduct().' '.'Quantité'.' '."x".$this->getQuantity();
+        return $this->getProduct().' '.'Quantité'.' '."x".' '.$this->getQuantity();
     }
 
     public function getId(): ?int

@@ -3,11 +3,17 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Order;
+use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Router\CrudUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
@@ -52,32 +58,57 @@ class OrderCrudController extends AbstractCrudController
         $updateDelivering = Action::new('updateDelivering','Livraison en cours','fas fa-truck')
             ->linkToCrudAction('updateDelivering');
 
-        $delivered = Action::new('delivered','Commande Livrée')
+        $delivered = Action::new('delivered','Commande Livrée','fas fa-bag-shopping')
             ->linkToCrudAction('delivered');
+
+        $generatePdf = Action::new ('generatePdf', 'Générer le Bon de Commande', 'fas fa-file-pdf')
+            ->linkToCrudAction ('generatePdf');
 
        return $actions
            ->add('index','detail')
            ->add('detail', $updatePreparation)
            ->add('detail', $updateDelivering)
            ->add('detail',$delivered)
-           ->disable(Action::NEW);
+           ->add ('detail',$generatePdf)
+           ->disable(Action::NEW)
+           ->add(Crud::PAGE_EDIT, Action::INDEX);
     }
 
-    public function urlDispatcher(){
+    public function urlDispatcher(String $action){
         $url = $this->adminUrlGenerator
             ->setDashboard(DashboardController::class)
             ->setController(OrderCrudController::class)
-            ->setAction(Action::INDEX)
+            ->setAction($action)
             ->generateUrl();
 
         return $url;
     }
+
+    public function generatePdf(AdminContext $context){
+
+        $order = $context->getEntity ()->getInstance ();
+        if($order){
+         return $this->redirectToRoute ('generate_pdf',['id'=>$order->getId()]);
+        }
+        return $this->redirect($this->urlDispatcher (Action::INDEX));
+    }
+
     public function delivered(AdminContext $context){
+
         $order = $context->getEntity()->getInstance();
+        foreach ($order->getOrderDetails() as $productInCart ){
+           $product = $this->entityManager->getRepository (Product::class)->findOneByProductName($productInCart->getProduct());
+
+           $product->setProductQuantity($product->getProductQuantity() - $productInCart->getQuantity());
+           if($product->getProductQuantity() == 0 ){
+               $this->addFlash ('notice', "<span style='color: red;'> <strong>Le produit ".$product->getProductName().": Quantité en Stock = 0</strong> </span>");
+           }
+        }
+
         $order->setState(4);
         $this->entityManager->flush();
         $this->addFlash('notice',"<span style='color: green'  > <strong> La commande ".$order->getReference()." a bien été mise à jour  </strong> </span>");
-        return $this->redirect($this->urlDispatcher ());
+        return $this->redirect($this->urlDispatcher (Action::INDEX));
     }
 
     public function updatePreparation(AdminContext $context){
@@ -85,7 +116,7 @@ class OrderCrudController extends AbstractCrudController
         $order->setState(2);
         $this->entityManager->flush();
         $this->addFlash('notice',"<span style='color: green'  > <strong> La commande ".$order->getReference()." a bien été mise à jour  </strong> </span>");
-        return $this->redirect($this->urlDispatcher ());
+        return $this->redirect($this->urlDispatcher (Action::INDEX));
     }
 
     public function updateDelivering(AdminContext $context){
@@ -93,13 +124,16 @@ class OrderCrudController extends AbstractCrudController
         $order->setState(3);
         $this->entityManager->flush();
         $this->addFlash('notice',"<span style='color: orange'  > <strong> La commande ".$order->getReference()." a bien été mise à jour  </strong> </span>");
-        return $this->redirect($this->urlDispatcher ());
+        return $this->redirect($this->urlDispatcher (Action::INDEX));
     }
 
     public function configureCrud(Crud $crud): Crud
     {
-        return $crud->setDefaultSort(['id'=>'DESC']);
+        return $crud
+            ->setEntityLabelInPlural ('Commandes')
+            ->setDefaultSort(['id'=>'DESC']);
     }
+
 
     public function configureFields(string $pageName): iterable
     {
@@ -107,19 +141,34 @@ class OrderCrudController extends AbstractCrudController
             IdField::new('id'),
             DateTimeField::new('createdAt','Créée le'),
             TextField::new('user.getUsername','Utilisateur'),
-            TextEditorField::new('delivery', 'Adresse de Livraison')->onlyOnDetail(),
-            MoneyField::new('total')->setCurrency('XAF'),
+            TextareaField::new('delivery', 'Adresse de Livraison') ->onlyOnDetail()->renderAsHtml (),
+            IntegerField::new('total'),
             TextField::new('carrierName','Transporteur'),
-            MoneyField::new('carrierPrice','Frais de port')->setCurrency('XAF'),
-            ChoiceField::new('state')->setChoices([
+            IntegerField::new('carrierPrice','Frais de port'),
+            ChoiceField::new('state','Etat')->setChoices([
                 'Non payée'=>0,
                 'Payée'=>1,
                 'Préparation en cours'=>2,
                 'Livraison en cours'=>3,
                 'Commande Livrée'=>4
             ]),
-            ArrayField::new('orderDetails','Produits acheté')->hideOnIndex()
+            ArrayField::new('orderDetails','Produit(s)')->hideOnIndex()
         ];
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add(DateTimeFilter::new('createdAt'))
+            ->add(ChoiceFilter::new('state')->setChoices ([
+                'Non payée'=>0,
+                'Payée'=>1,
+                'Préparation en cours'=>2,
+                'Livraison en cours'=>3,
+                'Commande Livrée'=>4
+            ]))
+            ->add('carrierName')
+            ;
     }
 
 }

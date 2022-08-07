@@ -37,10 +37,10 @@ class Posts
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Likes::class)]
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Likes::class , cascade: ['remove'])]
     private Collection $likes;
 
-    #[ORM\OneToMany(mappedBy: 'blog', targetEntity: Commentaire::class)]
+    #[ORM\OneToMany(mappedBy: 'blog', targetEntity: Commentaire::class , cascade: ['remove'])]
     private Collection $commentaires;
 
 
@@ -188,6 +188,8 @@ class Posts
         return $this;
     }
 
-
+    public function __toString() {
+        return $this->getSlug();
+    }
 
 }

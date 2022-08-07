@@ -241,7 +241,7 @@
                                         <thead>
                                         <tr>
                                             <td width="10%">&nbsp;</td>
-                                            <td width="35%">Produits Ajoutés</td>
+                                            <td width="35%">Produit(s) Ajouté(s)</td>
                                             <td width="15%">Prix</td>
                                             <td width="10%">Quantité</td>
                                             <td width="15%">Total</td>
@@ -272,7 +272,7 @@
                                                 </td>
 
                                                 <td>
-                                                    <span class="__price"> {{ (product.product.product_price / 100) | number_format }} FCFA</span>
+                                                    <span class="__price"> {{ (product.product.product_price ) | number_format }} FCFA</span>
                                                 </td>
 
                                                 <td>
@@ -286,7 +286,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <span class="__total">{{ ((product.product.product_price * product.quantity) / 100) | number_format }} FCFA</span>
+                                                    <span class="__total">{{ ((product.product.product_price * product.quantity) ) | number_format }} FCFA</span>
                                                 </td>
 
                                                 <td>
@@ -348,7 +348,7 @@
                                                 <tbody>
                                                 <tr>
                                                     <td>Total:</td>
-                                                    <td>{{ (total / 100) | number_format }} FCFA</td>
+                                                    <td>{{ (total ) | number_format }} FCFA</td>
                                                 </tr>
                                                 </tbody>
                                             </table>

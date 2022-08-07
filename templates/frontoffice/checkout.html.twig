@@ -245,7 +245,7 @@
 
 								<!-- start checkout -->
 								<div class="checkout">
-									<h2>BILLING <span>DETAILS</span></h2>
+									<h2>COMMANDE <span>DéTAILS</span></h2>
 
 									<div class="spacer py-3"></div>
 									<style>
@@ -259,8 +259,10 @@
 											<div class="col-12 col-md-5 col-lg-6">
 
 												<h6>Choississez votre adresses de Livraison</h6>
-												<a class="custom-btn custom-btn--tiny custom-btn--style-1"  href="{{ path('app_account_address_add') }}">Une autre adresse ?</a>
-												
+												{% if app.user.addressLivraisons.count < 3 %}
+													<a class="custom-btn custom-btn--tiny custom-btn--style-1"  href="{{ path('app_account_address_add') }}">Une autre adresse ?</a>
+												{% endif %}
+
 															{% set formHtml %}
 																{{ form_row(form.addresses) }}
 															{% endset %}
@@ -275,7 +277,7 @@
 											</div>
 
 											<div class="col-12 col-md-7 col-lg-6 col-xl-5">
-												<div><h6>Your products</h6></div>
+												<div><h6>Produit(s)</h6></div>
 
 												<div class="checkout__table">
 													<table>
@@ -303,7 +305,7 @@
 																</td>
 
 																<td width="1%">
-																	<span class="__total">{{ ((product.product.product_price * product.quantity) / 100) | number_format }} FCFA</span>
+																	<span class="__total">{{ ((product.product.product_price * product.quantity)) | number_format }} FCFA</span>
 																</td>
 															</tr>
 														{% endfor %}
