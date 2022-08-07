@@ -1,4 +1,3 @@
-/*! normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */
 html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
@@ -1065,7 +1064,7 @@ a {
 }
 a:focus,
 a:hover {
-  color: #fcdb5a;
+  color: #3daa35;
   text-decoration: none;
 }
 .section-heading {
@@ -1250,7 +1249,7 @@ a:hover {
   top: -5px;
   right: -5px;
   min-width: 17px;
-  background-color: #fcdb5a;
+  background-color: #3daa35;
   line-height: 17px;
   font-size: 1.2rem;
   text-align: center;
@@ -1271,8 +1270,8 @@ a:hover {
   float: right;
   width: 6px;
   height: 6px;
-  border-bottom: 2px solid #fcdb5a;
-  border-right: 2px solid #fcdb5a;
+  border-bottom: 2px solid #3daa35;
+  border-right: 2px solid #3daa35;
   margin-left: 10px;
   margin-right: -15px;
   margin-top: 2px;
@@ -1347,7 +1346,7 @@ a:hover {
 }
 .top-bar__contacts .social-btns a:focus,
 .top-bar__contacts .social-btns a:hover {
-  color: #fcdb5a;
+  color: #3daa35;
 }
 .top-bar--style-1 .top-bar__navigation a:not(.custom-btn) {
   color: #fff;
@@ -1385,7 +1384,7 @@ a:hover {
   content: "";
   position: absolute;
   width: 5px;
-  background-color: #fcdb5a;
+  background-color: #3daa35;
   -webkit-border-radius: 5px;
   border-radius: 5px;
 }
@@ -1466,7 +1465,7 @@ a:hover {
   display: block;
   width: 100%;
   height: 100%;
-  background-color: #fcdb5a;
+  background-color: #3daa35;
   -webkit-border-radius: inherit;
   border-radius: inherit;
   -webkit-animation: 1.5s infinite play-btnPulse;
@@ -1669,7 +1668,7 @@ a:hover {
   left: 50%;
   width: 0;
   height: 2px;
-  background-color: #fcdb5a;
+  background-color: #3daa35;
   opacity: 0;
   visibility: hidden;
   -webkit-transition: left 0.3s ease-in-out, width 0.3s ease-in-out,
@@ -1694,8 +1693,8 @@ a:hover {
   text-shadow: none !important;
   text-transform: uppercase;
   letter-spacing: 0;
-  color: #4f4a37;
-  border: 2px solid #fcdb5a;
+  color: white;
+  border: 2px solid #acc90f;
   -webkit-border-radius: 30px;
   border-radius: 30px;
   -webkit-box-shadow: none;
@@ -1719,7 +1718,7 @@ a:hover {
 }
 .custom-btn:focus,
 .custom-btn:hover {
-  color: #4f4a37;
+  color: white;
 }
 .custom-btn--tiny {
   min-width: 85px;
@@ -1753,7 +1752,7 @@ a:hover {
 .custom-btn.custom-btn--style-1:focus,
 .custom-btn.custom-btn--style-1:hover,
 .custom-btn.custom-btn--style-2 {
-  background-color: #fcdb5a;
+  background-color: #3daa35;
 }
 .custom-btn.custom-btn--style-2:focus,
 .custom-btn.custom-btn--style-2:hover {
@@ -1765,11 +1764,13 @@ a:hover {
 }
 .custom-btn.custom-btn--style-3:focus,
 .custom-btn.custom-btn--style-3:hover {
-  background-color: #fcdb5a;
-  color: #4f4a37;
+  background-color: #3daa35;
+  color: white;
 }
 .custom-btn.custom-btn--style-4 {
-  background-color: #fcdb5a;
+  background-color: #3daa35;
+  color: white;
+  border-color: #acc90f;
 }
 .custom-btn.custom-btn--style-4:focus,
 .custom-btn.custom-btn--style-4:hover {
@@ -1783,9 +1784,9 @@ a:hover {
 }
 .custom-btn.custom-btn--style-5:focus,
 .custom-btn.custom-btn--style-5:hover {
-  background-color: #fcdb5a;
-  border-color: #fcdb5a;
-  color: #4f4a37;
+  background-color: #3daa35;
+  border-color: #3daa35;
+  color: white;
 }
 .custom-btn.wide {
   width: 100%;
@@ -1853,7 +1854,7 @@ form .textfield:-ms-input-placeholder {
   transition: color 0.3s ease-in-out;
 }
 form .textfield.error {
-  border-color: #fcdb5a !important;
+  border-color: #3daa35 !important;
 }
 form .nice-select.textfield,
 form input.textfield,
@@ -1926,8 +1927,8 @@ label {
   clip: rect(2px, 2px, 2px, 2px);
 }
 .checkfield input[type="checkbox"]:checked ~ i {
-  background-color: #fcdb5a;
-  border-color: #fcdb5a;
+  background-color: #3daa35;
+  border-color: #3daa35;
 }
 .checkfield input[type="checkbox"]:checked ~ i:before {
   -webkit-transform: scale(1) rotate(45deg);
@@ -1935,7 +1936,7 @@ label {
   transform: scale(1) rotate(45deg);
 }
 .checkfield input[type="checkbox"]:checked ~ span a {
-  color: #fcdb5a;
+  color: #3daa35;
 }
 .checkfield i {
   position: relative;
