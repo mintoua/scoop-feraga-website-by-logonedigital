@@ -87,6 +87,7 @@ class HomeController extends AbstractController
                 "content" => $this->renderView('frontoffice/blogList.html.twig', [
                     'posts' => $result,
                     'total' => $total,
+                    'category' => $category,
                     'limit' => $limit,
                     'page' => $page
 
