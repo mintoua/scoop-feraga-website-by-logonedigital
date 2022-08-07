@@ -29,6 +29,8 @@ use App\Services\CurlService;
 
 class BlogController extends AbstractController
 {
+
+    
     #[Route('/Blog_filter/{id}', name: 'Blog_filter')]
     public function filter($id, PostsRepository $repository, PostCategoryRepository $categoryRepository): Response
     {
@@ -140,6 +142,7 @@ class BlogController extends AbstractController
             }
         }
     }
+    
     #[Route('/blog_details/updateComment/{id}', name: 'updateComment')]
     public function updateComment( FlashyNotifier $flashy,CurlService $client,CommentaireRepository $commentaireRepository,Request $request,Commentaire $commentaire, PostsRepository $postsRepository, PostCategoryRepository $categoryRepository): Response
     {
@@ -166,7 +169,7 @@ class BlogController extends AbstractController
         }
     }
     #[Route('/blog_details/deleteComment/{id}', name: 'deleteComment')]
-    public function deleteComment( CommentaireRepository $commentaireRepository,Request $request,Commentaire $commentaire, PostsRepository $postsRepository, PostCategoryRepository $categoryRepository): Response
+    public function deleteComment(CommentaireRepository $commentaireRepository,Request $request,Commentaire $commentaire, PostsRepository $postsRepository, PostCategoryRepository $categoryRepository): Response
     {
         $this->denyAccessUnlessGranted('DELETE',$commentaire);
         if ( $this->isCsrfTokenValid('delete', $request->get("_token"))){
