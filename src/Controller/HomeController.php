@@ -35,9 +35,7 @@ class HomeController extends AbstractController
             return $this->entityManager->getRepository (Product::class)->findByIsBest(1);
         } );
 
-        return $this->render('frontoffice/index.html.twig',[
-            'products'=>$products
-        ]);
+        return $this->render('frontoffice/index.html.twig');
     }
 
     #[Route('/a_propos', name: 'app_about')]
