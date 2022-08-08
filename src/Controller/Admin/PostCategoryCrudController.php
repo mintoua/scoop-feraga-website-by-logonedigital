@@ -31,6 +31,7 @@ class PostCategoryCrudController extends AbstractCrudController
                 ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig')
                 ->setFormType(CKEditorType::class)
                 ->hideOnIndex(),
+            TextField::new('category_description')->stripTags()->setLabel('Contenu')->hideOnForm(),
             // ImageField::new('post_category_image')->setBasePath('uploads\images')->setUploadDir('public\uploads\images'),
         ];
     }

@@ -24,10 +24,10 @@ k!="ajax")|url_encode %}
                 </figure>
 
                 <div class="__content">
-                    <p class="__category">
+                    <p class="__category" style="color:#3daa35">
                         {% for c in category %}
                             {% if c.id == post.postcategory.id%}
-                        <a href="#">{{ c.name }}</a>
+                        <span>{{ c.name }}</span>
                             {% endif %}
                         {% endfor %}
                     </p>
@@ -49,7 +49,7 @@ k!="ajax")|url_encode %}
                     >
                 </div>
 
-                <span class="__date-post"> <strong>{{ post.getCreatedAt().format('j') }}</strong>{{ post.getCreatedAt().format('M') }} </span>
+                <span class="__date-post" style="background-color: #3daa35 ; color: white"> <strong style="color: white">{{ post.getCreatedAt().format('j') }}</strong>{{ post.getCreatedAt().format('M') }} </span>
             </div>
         </div>
         <!-- end item -->
@@ -103,4 +103,3 @@ k!="ajax")|url_encode %}
     </li>
   </a>
 </ul>
-

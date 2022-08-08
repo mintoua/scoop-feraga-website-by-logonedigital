@@ -1,6 +1,6 @@
 .dropbtn {
     background-color: transparent;
-    padding: 10px;
+    padding: 16px;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -9,6 +9,7 @@
 .dropbtn:hover, .dropbtn:focus {
     background-color: transparent;
 }
+
 
 .dropdown {
     position: relative;

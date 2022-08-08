@@ -44,7 +44,7 @@ class HomeController extends AbstractController
     {
         $cat = $request->get("catSlug", 'Tous');
         // on definie le nombre d'element par page
-        $limit = 2;
+        $limit = 6;
         // o n recupere le num de la page
         $page = (int)$request->query->get("page", 1);
         //NEW
