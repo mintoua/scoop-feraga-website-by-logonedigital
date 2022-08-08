@@ -289,89 +289,25 @@
 									<!-- start tab -->
 									<div class="tab-container">
 										<nav class="tab-nav">
-											<a href="#">Les avis</a>
 											<a href="#">Description complète</a>
+											<a href="#">Les avis</a>
 										</nav>
 
 										<div class="tab-content">
 											<div class="tab-content__item is-visible">
-												<!-- start comments list -->
-												{% include "frontoffice/comments_list.html.twig" %}
-
-												<!-- end comments list -->
-
-												<!-- start add review -->
-												<div class="__add-review">
-													<h5>Laissez un avis</h5>
-
-													<form id="product_review" name="product_review" method="post">
-
-														<div class="input-wrp">
-															<textarea  name="message" id="message" class="textfield" placeholder="Votre commentaire ..."></textarea>
-														</div>
-
-														<div class="spacer py-md-5"></div>
-
-														<div class="row align-items-sm-center justify-content-sm-between">
-															<div class="col-12 col-sm-auto">
-																<fieldset class="rating">
-																	<span class="__note">Veuillez noter le produit s'il vous plaît:</span>
-
-																	<input class="form-control" type="radio" id="star5" name="rating" value="5" />
-																	<label class="rating__item" for="star5" title="Awesome - 5 stars"><i class="fontello-star"></i></label>
-
-																	<input class="form-control" type="radio" id="star4" name="rating" value="4" />
-																	<label class="rating__item" for="star4" title="Pretty good - 4 stars"><i class="fontello-star"></i></label>
-
-																	<input class="form-control" type="radio" id="star3" name="rating" value="3" />
-																	<label class="rating__item" for="star3" title="Meh - 3 stars"><i class="fontello-star"></i></label>
-
-																	<input class="form-control" type="radio" id="star2" name="rating" value="2" />
-																	<label class="rating__item" for="star2" title="Kinda bad - 2 stars"><i class="fontello-star"></i></label>
-
-																	<input class="form-control" type="radio" id="star1" name="rating" value="1" />
-																	<label class="rating__item" for="star1" title="Sucks big time - 1 star"><i class="fontello-star"></i></label>
-																</fieldset>
-															</div>
-
-															<div class="col-12 col-sm-auto">
-																<input type="hidden" name="token" id="token" value="{{ csrf_token(product.slug) }}"/>
-																<button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit" role="button">Ajouter mon avis</button>
-															</div>
-														</div>
-													</form>
-
-													<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
-													<script >
-														$(document).ready(function (){
-															$("#product_review").submit(function (e){
-																var FormData = $('#product_review').serialize();
-																//console.log(FormData);
-																e.preventDefault();
-																$.ajax({
-																	url: "{{ path('app_single_product',{'slug':product.slug}) }}",
-																	type: "POST",
-																	data: $('#product_review').serialize(),
-																	success: function (ReviewContent)
-																	{
-																		//$('#comments_list').html(ReviewContent);
-																		//alert('ok');
-																		window.location.reload();
-																	}
-																});
-															});
-														})
-													</script>
-												</div>
-												<!-- end add review -->
-											</div>
-											<div class="tab-content__item">
 												<p>
 													{{ product.product_description | raw  }}
 												</p>
 
 											</div>
+											<div class="tab-content__item ">
+												<!-- start comments list -->
+												{% include "frontoffice/comments_list.html.twig" %}
+
+												<!-- end comments list -->
+
+											</div>
+
 
 										</div>
 									</div>
@@ -552,6 +488,6 @@
 		r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
 	ga('create','UA-XXXXX-X','auto');ga('send','pageview');
 </script>
-{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+
 </body>
 </html>

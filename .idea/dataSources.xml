@@ -8,7 +8,7 @@
       <jdbc-url>jdbc:mysql://localhost:3306/scoop_feraga_database</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="Scoops Feraga" uuid="1cdbc34c-d3ba-4a5a-882b-fc6458b7eb97">
+    <data-source source="LOCAL" name="Scoops" uuid="d36ddb9a-81f4-44a9-945e-7d65f2317d81">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

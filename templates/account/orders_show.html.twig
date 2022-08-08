@@ -166,7 +166,7 @@
                                     </td>
 
                                     <td>
-                                        <span class="__price">{{ (product.price /100) | number_format }} FCFA</span>
+                                        <span class="__price">{{ (product.price) | number_format }} FCFA</span>
                                     </td>
 
                                     <td>
@@ -174,7 +174,7 @@
                                     </td>
 
                                     <td>
-                                        <span class="__total">{{ (product.total /100) | number_format }} FCFA</span>
+                                        <span class="__total">{{ (product.total) | number_format }} FCFA</span>
                                     </td>
                                     <td>
                                         {% if order.state == 4 %}
@@ -188,9 +188,9 @@
                                 </tbody>
                             </table>
                             <div class="text-right mt-2">
-                                <strong> Sous-total:</strong>  {{ (order.getTotal /100) | number_format }} FCFA<br/>
-                                <strong> Livraison:</strong>  {{ (order.carrierPrice /100) | number_format }} FCFA<br/>
-                                <strong> Total:</strong>  {{ ((order.carrierPrice + order.getTotal) / 100 ) | number_format}} FCFA <br/>
+                                <strong> Sous-total:</strong>  {{ (order.getTotal ) | number_format }} FCFA<br/>
+                                <strong> Livraison:</strong>  {{ (order.carrierPrice ) | number_format }} FCFA<br/>
+                                <strong> Total:</strong>  {{ ((order.carrierPrice + order.getTotal) ) | number_format}} FCFA <br/>
                             </div>
 
                         </div>

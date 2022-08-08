@@ -111,7 +111,6 @@ class BoutiqueController extends AbstractController
         ] );
     }
 
-
     /**
      * @param Request $request
      * @param $slug
@@ -135,6 +134,37 @@ class BoutiqueController extends AbstractController
             return $this -> entityManager -> getRepository ( Comments::class ) -> findComments ( $product );
         } );
 
+
+        return $this -> render ( 'frontoffice/single_product.html.twig' , [
+            'product' => $product ,
+            'comments' => $this -> BoutiqueService -> toPaginate ( $comments , $request , 10 )
+        ] );
+    }
+
+
+    /**
+     * @param Request $request
+     * @param $slug
+     * @return Response
+     * @throws \Psr\Cache\InvalidArgumentException
+     * #Comment product detail
+     */
+    #[Route( '/mon-compte/commandes/avis/{slug}' , name : 'app_account_add_review' )]
+    public function singleReviewProduct ( Request $request , $slug )
+    {
+        $product =  $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
+        $this -> seoPage -> setTitle ( $slug )
+            -> addMeta ( 'property' , 'og:title' , $slug )
+            -> addMeta ( 'property' , 'og:type' , 'product' )
+            -> addMeta ( 'name' , 'description' , $product -> getProductDescription () )
+            -> addMeta ( 'name' , 'keywords' , $slug )
+            -> addMeta ( 'property' , 'og:description' , $product -> getProductDescription () );
+
+        $comments = $this -> cache -> get ( 'product_reviews_list' , function ( ItemInterface $item ) use ( $product ) {
+            $item -> expiresAfter ( 3600 );
+            return $this -> entityManager -> getRepository ( Comments::class ) -> findComments ( $product );
+        } );
+
         $data = $request->request->all();
         $token = $request->request->get('token');
 
@@ -144,13 +174,13 @@ class BoutiqueController extends AbstractController
         if($data){
             $this->BoutiqueService->persistComment($data["message"],$data["rating"],$this->getUser(),$product);
             $comments = $this->entityManager->getRepository(Comments::class)->findComments($product);
-            return $this->render('frontoffice/single_product.html.twig', [
+            return $this->render('account/account_single_product.html.twig', [
                 'product' => $product,
                 'comments'=> $this -> BoutiqueService -> toPaginate ( $comments , $request , 10 )
             ]);
         }
 
-        return $this -> render ( 'frontoffice/single_product.html.twig' , [
+        return $this -> render ( 'account/account_single_product.html.twig' , [
             'product' => $product ,
             'comments' => $this -> BoutiqueService -> toPaginate ( $comments , $request , 10 )
         ] );
@@ -370,10 +400,10 @@ class BoutiqueController extends AbstractController
                 $this -> entityManager -> persist ( $orderDetails );
             }
 
-            //$this -> entityManager -> flush ();
+            $this -> entityManager -> flush ();
 
             $this->BoutiqueService->addOrderSession ($carriers,$delivery_content);
-          //  dd ($this->BoutiqueService->getOrderSession ()[1]);
+
             return $this -> render ( 'frontoffice/final_checkout.html.twig' , [
                 'cart' => $this -> cart -> getFullCart () ,
                 'total' => $this -> cart -> getTotal () ,

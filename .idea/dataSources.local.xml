@@ -15,7 +15,7 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
-    <data-source name="Scoops Feraga" uuid="1cdbc34c-d3ba-4a5a-882b-fc6458b7eb97">
+    <data-source name="Scoops" uuid="d36ddb9a-81f4-44a9-945e-7d65f2317d81">
       <database-info product="MySQL" version="5.7.36" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="5.7.36" exact-driver-version="8.0">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>

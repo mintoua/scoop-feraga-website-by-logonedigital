@@ -209,7 +209,7 @@ class AccountController extends AbstractController
         ]);
     }
 
-    #[Route('/mon-compte/commandes/avis/{slug}', name: 'app_account_add_review')]
+   /* #[Route('/mon-compte/commandes/avis/{slug}', name: 'app_account_add_review')]
     public function addReviewProduct($slug, Request $request, BoutiqueService $service){
         $message = $request->get("message");
         $rating = $request->get("rating");
@@ -226,6 +226,6 @@ class AccountController extends AbstractController
                 ])
             ]);
         }
-    }
+    }*/
 
 }

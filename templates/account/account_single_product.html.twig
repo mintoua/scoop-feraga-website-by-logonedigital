@@ -148,21 +148,10 @@
 	</header>
 	<!-- end header -->
 
-	<!-- start hero -->
-	<div id="hero" class="jarallax" data-speed="0.7" data-img-position="50% 100%" style="background-image: url({{asset('frontoffice/')}}img/intro_img/13.jpg);color: #333;">
-		<div class="container">
-			<div class="row">
-				<div class="col-12 col-md-7">
-					<h1 class="__title"><span>Agro Shop</span> Product Single</h1>
+	<p>
+		vbiezobivzeovbzeivbzeiubk
+	</p>
 
-					<p>
-						The point of using is that it has a more-or-less normal distribution of letters, as opposed to using Content here content here making it look
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end hero -->
 
 	<!-- start main -->
 	<main role="main">
@@ -259,17 +248,13 @@
 											<span class="product-price__item product-price__item--new"> {{ (product.product_price )  }} FCFA</span>
 										</div>
 
-										<div class="rating">
+										{# <div class="rating">
 											<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
 											<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
 											<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
 											<span class="rating__item rating__item--active"><i class="fontello-star"></i></span>
 											<span class="rating__item"><i class="fontello-star"></i></span>
-										</div>
-
-										<p>
-
-										</p>
+										</div> #}
 
 										<p>
 											{{ product.product_description | striptags[:200] ~ '...'  }}
@@ -350,7 +335,7 @@
 																//console.log(FormData);
 																e.preventDefault();
 																$.ajax({
-																	url: "{{ path('app_single_product',{'slug':product.slug}) }}",
+																	url: "{{ path('app_account_add_review',{'slug':product.slug}) }}",
 																	type: "POST",
 																	data: $('#product_review').serialize(),
 																	success: function (ReviewContent)
