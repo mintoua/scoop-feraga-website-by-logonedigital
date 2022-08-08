@@ -349,6 +349,7 @@ toggle between hiding and showing the dropdown content */
                         <!-- start posts feedback -->
 
                         <div class="posts-feedback">
+                            <div class="row">
                             <button type="button" id="like-button" {% if app.user %}
                                     onclick="addLike({{ post[0].id }})"
                                 {% else %}
@@ -358,7 +359,22 @@ toggle between hiding and showing the dropdown content */
                                 <path d="M91.6 13A28.7 28.7 0 0 0 51 13l-1 1-1-1A28.7 28.7 0 0 0 8.4 53.8l1 1L50 95.3l40.5-40.6 1-1a28.6 28.6 0 0 0 0-40.6z"/>
                             </svg>
                             J'aime
-                            </button><br><br>
+                            </button>
+                            <!-- Start share -->
+                            <div style="margin: 10px" class="share-btns">
+                                <ul>
+
+                                    <li>
+                                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a></div>
+                                        //TODO: intégré le nom de domaine en production
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <!-- End Share -->
+                            </div>
+                                <br><br>
                             <input id="commentCount" type="hidden" value="{{ comments|length }}">
                             <b id="totalComments">{{ comments|length }} Commentaire , </b>
                             <span id="totalLike"
@@ -370,19 +386,7 @@ toggle between hiding and showing the dropdown content */
                                 </div>
                             </ul>
                             <!-- end post list -->
-                            <!-- Start share -->
-                            <div class="share-btns">
-                                <ul>
 
-                                    <li>
-                                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a></div>
-                                        //TODO: intégré le nom de domaine en production
-
-                                    </li>
-                                    
-                                </ul>
-                            </div>
-                            <!-- End Share -->
                             <style>
                                 textarea {
                                     width: 80%;
@@ -487,7 +491,7 @@ toggle between hiding and showing the dropdown content */
                                             <div>
                                                 {{ relatedPost.description |striptags[:50] ~ '...' }}
 
-                                                <span class="date-post">{{ relatedPost.getCreatedAt().format('j, M, Y ') }}</span>
+                                              <br>  <span class="date-post">{{ relatedPost.getCreatedAt().format('j, M, Y ') }}</span>
                                             </div>
                                         </article>
                                     {% endfor %}

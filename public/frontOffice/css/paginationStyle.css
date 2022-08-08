@@ -117,24 +117,24 @@ ul {
     border-radius: 0.4rem;
 }
 .page__numbers:hover {
-    color: gray;
-    border: 1px solid #fcdb5a;
+    color: #0d5e42;
+    border: 1px solid #3daa35;
 }
 .page__numbers.active {
     color: #ffffff;
-    background: #fcdb5a;
+    background: #3daa35;
     font-weight: 600;
-    border: 1px solid #fcdb5a;
+    border: 1px solid #3daa35;
 }
 .page__btn {
     color: var(--greyLight);
     pointer-events: none;
 }
 .page__btn.active {
-    color: #fcdb5a;
+    color: #3daa35;
     pointer-events: initial;
 }
 .page__btn.active:hover {
-    color: #fcdb5a;
-    border: 1px solid #fcdb5a;
+    color: #0d5e42;
+    border: 1px solid #3daa35;
 }

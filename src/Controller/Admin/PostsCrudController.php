@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Posts;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -29,18 +30,27 @@ class PostsCrudController extends AbstractCrudController
             ->setAutofocusSearch()
             ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
-
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('createdAt')
+            ->add ('postCategory')
+            ;
+    }
     public function configureFields(string $pageName): iterable
     {
         return [
             //IdField::new('id'),
             TextField::new('title'),
             SlugField::new('slug')->setTargetFieldName('title')->hideWhenUpdating()->hideWhenCreating(),
-            ImageField::new('post_image')->setBasePath('uploads\images')->setUploadDir('public\uploads\images'),
+            ImageField::new('post_image')
+                ->setBasePath('uploads\images')
+                ->setUploadDir('public\uploads\images')
+                ->setUploadedFileNamePattern('[randomhash].[extension]')->setRequired(false),
             TextareaField::new('description')->setFormType(CKEditorType::class)->hideOnIndex(),
             AssociationField::new('postCategory'),
             DateTimeField::new('createdAt')->hideOnForm(),
-            TextField::new('description')->stripTags()->setLabel('Contenu'),
+            TextField::new('description')->stripTags()->setLabel('Contenu')->hideOnForm(),
         ];
     }
 
