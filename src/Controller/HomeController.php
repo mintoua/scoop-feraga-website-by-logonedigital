@@ -35,9 +35,7 @@ class HomeController extends AbstractController
             return $this->entityManager->getRepository (Product::class)->findByIsBest(1);
         } );
 
-        return $this->render('frontoffice/index.html.twig',[
-            'products'=>$products
-        ]);
+        return $this->render('frontoffice/index.html.twig');
     }
 
     #[Route('/a_propos', name: 'app_about')]
@@ -57,7 +55,7 @@ class HomeController extends AbstractController
     {
         $cat = $request->get("catSlug", 'Tous');
         // on definie le nombre d'element par page
-        $limit = 2;
+        $limit = 6;
         // o n recupere le num de la page
         $page = (int)$request->query->get("page", 1);
         //NEW

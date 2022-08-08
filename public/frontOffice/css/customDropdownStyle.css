@@ -130,9 +130,9 @@
     -ms-flex-pack: center;
     text-align: center;
     border: none;
-    background-color: #fcdb5a;
+    background-color: #3daa35;
     cursor: pointer;
-    color: #102770;
+    color: white;
     box-shadow: 0 12px 35px 0 rgba(255,235,167,.15);
 }
 .dark-light:checked ~ .sec-center .for-dropdown{
@@ -248,7 +248,7 @@
 }
 .a1:hover {
     color: #102770;
-    background-color: #ffeba7;
+    background-color: #3daa35;
 }
 .dark-light:checked ~ .sec-center .section-dropdown a1:hover {
     color: #ffeba7;
