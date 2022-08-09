@@ -7,8 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[UniqueEntity(fields: ['productName'], message:'Ce produit existe déjà! Vous pouvez juste augmenter sa quantité')]
 class Product
 {
     #[ORM\Id]
@@ -40,6 +42,9 @@ class Product
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Comments::class, cascade: ["remove"])]
     private Collection $comments;
+
+    #[ORM\Column]
+    private ?bool $isBest = null;
 
     public function __construct()
     {
@@ -188,6 +193,18 @@ class Product
                 $comment->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsBest(): ?bool
+    {
+        return $this->isBest;
+    }
+
+    public function setIsBest(bool $isBest): self
+    {
+        $this->isBest = $isBest;
 
         return $this;
     }

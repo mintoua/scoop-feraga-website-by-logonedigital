@@ -1,9 +1,9 @@
 {% extends 'base_frontoffice.html.twig' %}
       {% block header %}
-          {% include('includes/frontoffice/header.html.twig') %}
+          {% include('includes/frontoffice/header_black.html.twig') %}
       {% endblock header %}
 {% block content %}
-    <div
+    {# <div
             id="hero"
             class="jarallax"
             data-speed="0.7"
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> #}
     <!-- end hero -->
 
     <!-- start main -->
@@ -152,6 +152,11 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             })
+                            //changer le nombre de comments
+                            var countCommentsContent = document.getElementById('totalComments');
+                            var total = document.getElementById('commentCount').value;
+                            document.getElementById('commentCount').value = parseInt(total) + 1;
+                            countCommentsContent.innerText = parseInt(total) + 1 + ' Commentaire,'
                         }
                     ).catch(e => console.log(e));
                 }
@@ -252,6 +257,11 @@
                                         var content = document.getElementById("commment_zone");
                                         //remplace le continue par le nouveau list des commentaires
                                         content.innerHTML = data.content;
+                                        //changer le nombre de comments
+                                        var countCommentsContent = document.getElementById('totalComments');
+                                        var total = document.getElementById('commentCount').value;
+                                        document.getElementById('commentCount').value = parseInt(total) - 1;
+                                        countCommentsContent.innerText = parseInt(total) - 1 + ' Commentaire,'
                                     }
                                 ).catch(e => console.log(e));
                                 //alert de succes
@@ -269,7 +279,33 @@
 
             }
 
+            // *** start dropdown menu script
+            /* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+            function show() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function (event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+
         </script>
+        <style>
+            .text-color {
+                color: black;
+            }
+            </style>
         <!-- start section -->
         {% for p in post %}
         <section class="section">
@@ -294,9 +330,9 @@
 
                                             <h3 class="__title h3">{{ p.title }}</h3>
                                         </div>
-                                            <p>
-                                                {{ p.description |raw }}
-                                            </p>
+                                        <p>
+                                            {{ p.description |raw }}
+                                        </p>
 
                                         <p>
                                         </p>
@@ -313,6 +349,7 @@
                         <!-- start posts feedback -->
 
                         <div class="posts-feedback">
+                            <div class="row">
                             <button type="button" id="like-button" {% if app.user %}
                                     onclick="addLike({{ post[0].id }})"
                                 {% else %}
@@ -322,8 +359,24 @@
                                 <path d="M91.6 13A28.7 28.7 0 0 0 51 13l-1 1-1-1A28.7 28.7 0 0 0 8.4 53.8l1 1L50 95.3l40.5-40.6 1-1a28.6 28.6 0 0 0 0-40.6z"/>
                             </svg>
                             J'aime
-                            </button><br><br>
-                            <b>4 Comments , </b>
+                            </button>
+                            <!-- Start share -->
+                            <div style="margin: 10px" class="share-btns">
+                                <ul>
+
+                                    <li>
+                                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a></div>
+                                        //TODO: intégré le nom de domaine en production
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <!-- End Share -->
+                            </div>
+                                <br><br>
+                            <input id="commentCount" type="hidden" value="{{ comments|length }}">
+                            <b id="totalComments">{{ comments|length }} Commentaire , </b>
                             <span id="totalLike"
                                   style="margin-left:7px ; margin-top: 10px"> {% include("frontoffice/totalLike.html.twig") %}</span>
                             <!-- Post list-->
@@ -333,31 +386,19 @@
                                 </div>
                             </ul>
                             <!-- end post list -->
-                            <!-- Start share -->
-                            <div class="share-btns">
-                                <ul>
 
-                                    <li>
-                                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a></div>
-                                        //TODO: intégré le nom de domaine en production
-
-                                    </li>
-                                    
-                                </ul>
-                            </div>
-                            <!-- End Share -->
                             <style>
                                 textarea {
-                                width: 80%;
-                                height: 200px;
-                                padding: 12px;
-                                border: 1px solid #ccc;
-                                border-radius: 4px;
-                                box-sizing: border-box;
-                                margin-top: 6px;
-                                margin-bottom: 20px;
-                                resize: vertical;
-                                outline-color: #3daa35;
+                                    width: 80%;
+                                    height: 200px;
+                                    padding: 12px;
+                                    border: 1px solid #ccc;
+                                    border-radius: 4px;
+                                    box-sizing: border-box;
+                                    margin-top: 6px;
+                                    margin-bottom: 20px;
+                                    resize: vertical;
+                                    outline-color: #3daa35;
                                 }
                             </style>
                             <h6>Laisser un commentaire.</h6>
@@ -371,7 +412,7 @@
                                     <!-- GRECAPTCHA TOKEN INPUT -->
                                     <input type="hidden" id="grecaptcha_token" name="gtoken"/>
                                 </div>
-                                <button class="custom-btn custom-btn--medium custom-btn--style-1" type="submit"
+                                <button class="custom-btn custom-btn--medium custom-btn--style-1 text-color" type="submit"
                                         onclick="addcommentjs('{{ post[0].slug }}')"
                                         role="button">envoyer
                                 </button>
@@ -407,8 +448,11 @@
                                 <h4 class="h6 widget-title">thêmatique : </h4>
 
                                 <p>
-                                    We believe in helping brands create through strategy, story-telling, digital
-                                    products, and integrated experiences on web, mobile, and in the world.
+                                    {% for c in category %}
+                                        {% if p.postcategory.name == c.name %}
+                                            {{ c.getCategoryDescription() | raw }}
+                                        {% endif %}
+                                    {% endfor %}
                                 </p>
                             </div>
                             <!-- end widget -->
@@ -421,8 +465,8 @@
                                     {% for c in category %}
                                         <li class="list__item">
                                             <a class="list__item__link"
-                                               href="{{ path('Blog_filter',{ 'id':c.id }) }}">{{ c.name }}</a>
-                                             <span>{{loop.index}}</span> 
+                                               href="{{ path('Blog_filter',{ 'slug':c.slug }) }}">{{ c.name }}</a>
+                                            <span>{{ loop.index }}</span>
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -434,33 +478,23 @@
                                 <h4 class="h6 widget-title">Dans la même thématique</h4>
 
                                 <div>
-                                    <article>
-                                        <a class="link" href="#">
-                                            <img class="lazy" width="100" height="75"
-                                                 src="{{ asset('frontoffice/') }}img/blank.gif"
-                                                 data-src="{{ asset('frontoffice/') }}img/posts_img/1s.jpg" alt="demo"/>
-                                        </a>
+                                    {% for relatedPost in relatedPosts %}
+                                        <article>
+                                            <a class="link"
+                                               href="{{ path('blog_details', { slug: relatedPost.slug }) }}">
+                                                <img width="100" height="75"
+                                                     src="{{ asset('uploads/images/'~asset(relatedPost.postimage)) }}"
+                                                     data-src="{{ asset('uploads/images/'~asset(relatedPost.postimage)) }}"
+                                                     alt="demo"/>
+                                            </a>
 
-                                        <div>
-                                            This has led us to assemble a multi
+                                            <div>
+                                                {{ relatedPost.description |striptags[:50] ~ '...' }}
 
-                                            <span class="date-post">April 12, 2017</span>
-                                        </div>
-                                    </article>
-
-                                    <article>
-                                        <a class="link" href="#">
-                                            <img class="lazy" width="100" height="75"
-                                                 src="{{ asset('frontoffice/') }}img/blank.gif"
-                                                 data-src="{{ asset('frontoffice/') }}img/posts_img/2s.jpg" alt="demo"/>
-                                        </a>
-
-                                        <div>
-                                            Our team has a passion for making things with
-
-                                            <span class="date-post">April 12, 2017</span>
-                                        </div>
-                                    </article>
+                                              <br>  <span class="date-post">{{ relatedPost.getCreatedAt().format('j, M, Y ') }}</span>
+                                            </div>
+                                        </article>
+                                    {% endfor %}
                                 </div>
                             </div>
                             <!-- end widget -->
@@ -479,40 +513,6 @@
             </div>
         </section>
         <!-- end section -->
-
-        <!-- start section -->
-        <section class="section section--no-pt">
-            <div class="container">
-                <ul class="post-nav">
-                    <li class="post-nav__item">
-                        <a class="post-nav__link post-nav__link--prev" href="#">
-									<span class="d-table">
-										<span class="d-table-cell align-middle"><i
-                                                    class="ico fontello-left-1"></i></span>
-										<span class="d-table-cell align-middle">
-											Previous reading
-											<span class="name">Health Benefits of a Raw Food</span>
-										</span>
-									</span>
-                        </a>
-                    </li>
-
-                    <li class="post-nav__item">
-                        <a class="post-nav__link post-nav__link--next" href="#">
-									<span class="d-table">
-										<span class="d-table-cell align-middle">
-											next reading
-											<span class="name">Tips for Ripening your Fruit</span>
-										</span>
-										<span class="d-table-cell align-middle"><i
-                                                    class="ico fontello-right-1"></i></span>
-									</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <!-- end section -->
     </main>
     <!-- end main -->
 
@@ -520,7 +520,7 @@
     </div>
 
     <div id="btn-to-top-wrap">
-        <a id="btn-to-top" class="circled" href="javascript:void(0);" data-visible-offset="800"></a>
+        <a id="btn-to-top" class="circled" href="javascript:void(0);" data-visible-offset="800" style="background-color: #f39200;"></a>
     </div>
 
     <script src="{{ asset('frontoffice/') }}https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>

@@ -2,7 +2,7 @@
 Feraga {% endblock %} {% block stylesheet %}
 <link
   rel="stylesheet"
-  href="{{ asset('frontoffice/') }}css/style.min.css"
+  href="{{ asset('frontoffice/') }}css/style.css"
   type="text/css"
 />
 <link
@@ -71,7 +71,7 @@ Feraga {% endblock %} {% block stylesheet %}
               <div class="profil-card">
                 <h5 class="card-title">votre profil</h5>
                 <p class="card-text">
-                  Vous retrouvez toutes les informations liées à votre compte.
+                  Vous retrouverez toutes les informations liées à votre compte.
                 </p>
                 <a href="{{ path('app_user_password') }}" class="card-btn"
                   >VOIR</a
@@ -82,7 +82,8 @@ Feraga {% endblock %} {% block stylesheet %}
               <div class="profil-card">
                 <h5 class="card-title">vos adresses</h5>
                 <p class="card-text">
-                  Vous retrouvez vos adresses.
+                  Vous retrouverez les informations de vos adresses de
+                  livraisons
                 </p>
                 <a href="{{ path('app_account_address') }}" class="card-btn"
                   >VOIR</a
@@ -93,8 +94,8 @@ Feraga {% endblock %} {% block stylesheet %}
               <div class="profil-card">
                 <h5 class="card-title">vos commandes</h5>
                 <p class="card-text">
-                  Vous retrouvez toutes les informations liées à vos commande en
-                  cours.
+                  Vous retrouverez toutes les informations liées à vos commande
+                  en cours.
                 </p>
                 <a href="{{ path('app_account_orders') }}" class="card-btn"
                   >VOIR</a
@@ -112,7 +113,7 @@ Feraga {% endblock %} {% block stylesheet %}
   <!-- end main -->
 
   <!-- start footer -->
-  {% include('includes/frontoffice/footer_2.html.twig')%}
+  {% include('includes/frontoffice/footer_shop.html.twig')%}
   <!-- end footer -->
 </div>
 

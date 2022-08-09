@@ -2,27 +2,38 @@
 
 namespace App\Controller;
 
-use App\Entity\PostCategory;
-use App\Entity\Posts;
+
+use App\Entity\Product;
 use App\Repository\PostCategoryRepository;
 use App\Repository\PostsRepository;
 use DateInterval;
+use Doctrine\ORM\EntityManagerInterface;
 use Sonata\SeoBundle\Seo\SeoPageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use App\Classes\Mail;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
-use function Clue\StreamFilter\fun;
+
 
 class HomeController extends AbstractController
 {
+    private $entityManager;
+    private $cache;
+
+    public function __construct(EntityManagerInterface $entityManager, CacheInterface $cache){
+        $this->entityManager = $entityManager;
+        $this->cache =$cache;
+    }
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
+        $products = $this -> cache -> get ( 'product_best_list' , function ( ItemInterface $item ) {
+            $item -> expiresAfter ( 3600 );
+            return $this->entityManager->getRepository (Product::class)->findByIsBest(1);
+        } );
 
         return $this->render('frontoffice/index.html.twig');
     }
@@ -44,7 +55,7 @@ class HomeController extends AbstractController
     {
         $cat = $request->get("catSlug", 'Tous');
         // on definie le nombre d'element par page
-        $limit = 2;
+        $limit = 6;
         // o n recupere le num de la page
         $page = (int)$request->query->get("page", 1);
         //NEW
@@ -87,6 +98,7 @@ class HomeController extends AbstractController
                 "content" => $this->renderView('frontoffice/blogList.html.twig', [
                     'posts' => $result,
                     'total' => $total,
+                    'category' => $category,
                     'limit' => $limit,
                     'page' => $page
 

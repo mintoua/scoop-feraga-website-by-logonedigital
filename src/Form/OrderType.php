@@ -40,7 +40,7 @@ class OrderType extends AbstractType
             ->add('submit',SubmitType::class,[
                 'label'=>'Valider',
                 'attr'=>[
-                    'class'=>'custom-btn custom-btn--medium custom-btn--style-1',
+                    'class'=>'custom-btn custom-btn--medium custom-btn--style-1 btn-cart',
                     'role'=>'button'
                 ]
             ])

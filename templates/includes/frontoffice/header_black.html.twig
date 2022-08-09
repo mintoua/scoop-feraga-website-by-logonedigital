@@ -1,5 +1,8 @@
+
+
+
 <header id="top-bar" class="top-bar top-bar--style-1">
-        <div
+        {# <div
           class="top-bar__bg"
           style="
             background-color: #24292c;
@@ -7,14 +10,14 @@
             background-repeat: no-repeat;
             background-position: left bottom;
           "
-        ></div>
+        ></div> #}
 
         <div class="container-fluid">
           <div
             class="row align-items-center justify-content-between no-gutters"
           >
             <a class="top-bar__logo site-logo" href="{{path('app_home')}}">
-              <img class="img-fluid" src="{{ asset('frontoffice/img/logo_scoops_feraga.png') }}" alt="logo scoops feraga" />
+              <img class="img-fluid" src="{{ asset('frontoffice/img/Fav-logo-noir.png') }}" alt="logo scoops feraga" />
             </a>
 
             <a
@@ -33,42 +36,43 @@
                 >
                   <ul>
                     <li>
-                      <a href="{{path('app_home')}}">Accueil</a>
+                      <a style="color: #333; font-weight: bold;" href="{{path('app_home')}}">Accueil</a>
                     </li>
                     <li>
-                      <a href="{{path('app_activities')}}">Vie à la ferme</a>
+                      <a style="color: #333; font-weight: bold;" href="{{path('app_activities')}}">Vie à la ferme</a>
                     </li>
 
                     <li class="has-submenu">
-                      <a href="{{path('app_shop')}}">Boutique</a>
+                      <a style="color: #333; font-weight: bold;" href="{{path('app_shop')}}">Boutique</a>
 
                       <ul class="submenu">
-                        {% for category in ProductCategories.getProductCategories %}
-                        <li><a href="shop_catalog.html">{{ category.name }}</a></li>
-                        {% endfor %}
+                        <li><a style="color: #333; font-weight: bold;" href="shop_catalog.html">Categ-1</a></li>
                       </ul>
                     </li>
 
                     <li>
-                      <a href="{{path('app_blog')}}">Nos Actualités</a>
+                      <a style="color: #333; font-weight: bold;" href="{{path('app_blog')}}">Nos Actualités</a>
                     </li>
 
                     {% if not app.user %}
                     <li>
-                      <a href="{{path("app_login")}}"><i class="fas fa-user"></i> Mon compte</a>
+                      <a style="color: #333; font-weight: bold;" href="{{path("app_login")}}"><i class="fas fa-user"></i> Mon compte</a>
                     </li>
                     {% else %}
                     <li>
-                      <a href="{{path("app_user_account")}}"><i class="fas fa-user"></i> Mon compte</a>
+                      <a style="color: #333; font-weight: bold;" href="{{path("app_user_account")}}"><i class="fas fa-user"></i> Mon compte</a>
                     </li>
                     <li>
-                      <a href="{{path("app_logout")}}"><i class="fas fa-user-alt-slash"></i> Deconnexion</a>
+                      <a style="color: #333; font-weight: bold;" href="{{path("app_logout")}}"><i class="fas fa-user-alt-slash"></i> Deconnexion</a>
                     </li>
                     {% endif %}
-
+                    <style>
+                    
+                    </style>
                     <li class="li-btn">
-                      <a
-                        class="custom-btn custom-btn--small custom-btn--style-4"
+                      <a 
+                        class="custom-btn custom-btn--small custom-btn--style-3 text-color"
+                        style="color: #333;"
                         href="{{ path('app_contact') }}"
                         >Contacts</a
                       >

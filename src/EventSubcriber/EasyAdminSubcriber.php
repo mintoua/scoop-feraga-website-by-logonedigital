@@ -148,6 +148,7 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
         if($entity instanceof Product){
             $this->cache->delete('product_list');
+            $this->cache->delete ('product_best_list');
         }
 
         if ($entity instanceof Comments){
@@ -168,6 +169,7 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
         if($entity instanceof Product){
             $this->cache->delete('product_list');
+            $this->cache->delete ('product_best_list');
         }
         if ($entity instanceof Comments){
             $this->cache->delete('product_reviews_list');
@@ -187,6 +189,7 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
         if($entity instanceof Product){
             $this->cache->delete('product_list');
+            $this->cache->delete ('product_best_list');
         }
         if ($entity instanceof Comments){
             $this->cache->delete('product_reviews_list');

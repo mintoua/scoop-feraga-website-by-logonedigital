@@ -1,5 +1,5 @@
 {% extends 'base_frontoffice.html.twig'%} {% block header %} {%
-include('includes/frontoffice/header.html.twig')%} {% block stylesheet %}
+include('includes/frontoffice/header_black.html.twig')%} {% block stylesheet %}
 <link
   rel="stylesheet"
   href="{{ asset('frontoffice/css/contact_form_style.css') }}"
@@ -7,29 +7,7 @@ include('includes/frontoffice/header.html.twig')%} {% block stylesheet %}
 />
 {% endblock %} {% endblock header %} {% block content %}
 <!-- start hero -->
-<div
-  id="hero"
-  class="jarallax"
-  data-speed="0.7"
-  data-img-position="50% 55%"
-  style="background-image: url({{
-    asset('frontoffice/')
-  }}img/poule-couvrant-oeufs.jpg); "
->
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-lg-7">
-        <h1 class="__title"><span>Scoops feraga</span> Contactez-nous</h1>
-
-        <p>
-          The point of using Lorem Ipsum is that it has a more-or-less normal
-          distribution of letters, as opposed to using 'Content here, content
-          here', making it look like readable English
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
+<div></div>
 <!-- end hero -->
 
 <!-- start main -->
@@ -83,7 +61,7 @@ include('includes/frontoffice/header.html.twig')%} {% block stylesheet %}
   </script>
 
   <!-- start section -->
-  <div class="form-container">
+  <div class="form-container" style="margin-top: 70px">
     <p class="form_use_icon"><i class="fas fa-user"></i></p>
     <h1 class="title-contact-form">Demande de contact</h1>
     {{ form_start(form) }}

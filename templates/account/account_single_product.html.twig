@@ -1,0 +1,449 @@
+{% extends "base_frontoffice_2.html.twig" %} {% block title %} Compte | Scoops
+Feraga {% endblock %} {% block stylesheet %}
+<link
+  rel="stylesheet"
+  href="{{ asset('frontoffice/') }}css/style.css"
+  type="text/css"
+/>
+<link
+  rel="stylesheet"
+  href="{{ asset('frontoffice/') }}css/account_style.css"
+  type="text/css"
+/>
+{% endblock %} {% block body %} {% block bodyclass %} woocommerce-page auth-page
+{% endblock %}
+<div id="app">
+  <!-- start header -->
+  {% include('includes/frontoffice/header_account.html.twig')%}
+  <!-- end header -->
+
+  <!-- start main -->
+  <main role="main" style="margin-top: 50px">
+    <!-- Common styles
+        ================================================== -->
+    <style>
+      .btn-cart {
+        border-color: #3daa35;
+        background-color: transparent !important;
+      }
+      .btn-cart:hover {
+        background-color: #3daa35 !important;
+        color: white;
+      }
+    </style>
+
+    <!-- Load lazyLoad scripts
+        ================================================== -->
+    <script>
+      (function (w, d) {
+        var m = d.getElementsByTagName("main")[0],
+          s = d.createElement("script"),
+          v = !("IntersectionObserver" in w) ? "8.17.0" : "10.19.0",
+          o = {
+            elements_selector: ".lazy",
+            data_src: "src",
+            data_srcset: "srcset",
+            threshold: 500,
+            callback_enter: function (element) {},
+            callback_load: function (element) {
+              element.removeAttribute("data-src");
+
+              oTimeout = setTimeout(function () {
+                clearTimeout(oTimeout);
+
+                AOS.refresh();
+              }, 1000);
+            },
+            callback_set: function (element) {},
+            callback_error: function (element) {
+              element.src =
+                "https://placeholdit.imgix.net/~text?txtsize=21&txt=Image%20not%20load&w=200&h=200";
+            },
+          };
+        s.type = "text/javascript";
+        s.async = true; // This includes the script as async. See the "recipes" section for more information about async loading of LazyLoad.
+        s.src =
+          "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" +
+          v +
+          "/dist/lazyload.min.js";
+        m.appendChild(s);
+        // m.insertBefore(s, m.firstChild);
+        w.lazyLoadOptions = o;
+      })(window, document);
+    </script>
+
+    <!-- start section -->
+    <section class="section">
+      <div
+        class="decor-el decor-el--1"
+        data-jarallax-element="-70"
+        data-speed="0.2"
+      >
+        <img
+          class="lazy"
+          width="286"
+          height="280"
+          src="{{ asset('frontoffice/') }}img/blank.gif"
+          data-src="{{ asset('frontoffice/') }}img/decor-el_1.jpg"
+          alt="demo"
+        />
+      </div>
+
+      <div
+        class="decor-el decor-el--2"
+        data-jarallax-element="-70"
+        data-speed="0.2"
+      >
+        <img
+          class="lazy"
+          width="99"
+          height="88"
+          src="{{ asset('frontoffice/') }}img/blank.gif"
+          data-src="{{ asset('frontoffice/') }}img/decor-el_2.jpg"
+          alt="demo"
+        />
+      </div>
+
+      <div
+        class="decor-el decor-el--3"
+        data-jarallax-element="-70"
+        data-speed="0.2"
+      >
+        <img
+          class="lazy"
+          width="115"
+          height="117"
+          src="{{ asset('frontoffice/') }}img/blank.gif"
+          data-src="{{ asset('frontoffice/') }}img/decor-el_3.jpg"
+          alt="demo"
+        />
+      </div>
+
+      <div
+        class="decor-el decor-el--4"
+        data-jarallax-element="-70"
+        data-speed="0.2"
+      >
+        <img
+          class="lazy"
+          width="84"
+          height="76"
+          src="{{ asset('frontoffice/') }}img/blank.gif"
+          data-src="{{ asset('frontoffice/') }}img/decor-el_4.jpg"
+          alt="demo"
+        />
+      </div>
+
+      <div
+        class="decor-el decor-el--5"
+        data-jarallax-element="-70"
+        data-speed="0.2"
+      >
+        <img
+          class="lazy"
+          width="248"
+          height="309"
+          src="{{ asset('frontoffice/') }}img/blank.gif"
+          data-src="{{ asset('frontoffice/') }}img/decor-el_5.jpg"
+          alt="demo"
+        />
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-8 col-lg-9">
+            <!-- start product single -->
+            <div class="product-single">
+              <div class="row">
+                <div class="col-12 col-lg-7">
+                  <div class="__product-img">
+                    <img
+                      width="400"
+                      src="{{ asset('uploads/images/'~product.product_image) }}"
+                      alt="{{ product.slug }}"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-12 col-lg-5">
+                  <div class="content-container">
+                    <h3 class="__name">{{ product.product_name }}</h3>
+
+                    <div class="__categories">
+                      Category:
+                      <span>{{ product.category }}</span>
+                    </div>
+
+                    <div class="product-price">
+                      <span
+                        class="product-price__item product-price__item--new"
+                      >
+                        {{ product.product_price }} FCFA</span
+                      >
+                    </div>
+
+                    {#
+                    <div class="rating">
+                      <span class="rating__item rating__item--active"
+                        ><i class="fontello-star"></i
+                      ></span>
+                      <span class="rating__item rating__item--active"
+                        ><i class="fontello-star"></i
+                      ></span>
+                      <span class="rating__item rating__item--active"
+                        ><i class="fontello-star"></i
+                      ></span>
+                      <span class="rating__item rating__item--active"
+                        ><i class="fontello-star"></i
+                      ></span>
+                      <span class="rating__item"
+                        ><i class="fontello-star"></i
+                      ></span>
+                    </div>
+                    #}
+
+                    <p>
+                      {{ product.product_description | striptags[:200] ~ '...'  }}
+                    </p>
+
+                    <form
+                      class="__add-to-cart"
+                      action="{{
+                        path('app_add_to_cart', { slug: product.slug })
+                      }}"
+                    >
+                      <button
+                        class="custom-btn custom-btn--medium custom-btn--style-1 btn-cart"
+                        type="submit"
+                        role="button"
+                      >
+                        <i class="fontello-shopping-bag"></i>Ajouter au panier
+                      </button>
+                    </form>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="spacer py-5 py-md-9"></div>
+
+                  <!-- start tab -->
+                  <div class="tab-container">
+                    <nav class="tab-nav">
+                      <a href="#">Les avis</a>
+                      <a href="#">Description complète</a>
+                    </nav>
+
+                    <div class="tab-content">
+                      <div class="tab-content__item is-visible">
+                        <!-- start comments list -->
+                        {% include "frontoffice/comments_list.html.twig" %}
+
+                        <!-- end comments list -->
+
+                        <!-- start add review -->
+                        <div class="__add-review">
+                          <h5>Laissez un avis</h5>
+
+                          <form
+                            id="product_review"
+                            name="product_review"
+                            method="post"
+                          >
+                            <div class="input-wrp">
+                              <textarea
+                                name="message"
+                                id="message"
+                                class="textfield"
+                                placeholder="Votre commentaire ..."
+                              ></textarea>
+                            </div>
+
+                            <div class="spacer py-md-5"></div>
+
+                            <div
+                              class="row align-items-sm-center justify-content-sm-between"
+                            >
+                              <div class="col-12 col-sm-auto">
+                                <fieldset class="rating">
+                                  <span class="__note"
+                                    >Veuillez noter le produit s'il vous
+                                    plaît:</span
+                                  >
+
+                                  <input
+                                    class="form-control"
+                                    type="radio"
+                                    id="star5"
+                                    name="rating"
+                                    value="5"
+                                  />
+                                  <label
+                                    class="rating__item"
+                                    for="star5"
+                                    title="Awesome - 5 stars"
+                                    ><i class="fontello-star"></i
+                                  ></label>
+
+                                  <input
+                                    class="form-control"
+                                    type="radio"
+                                    id="star4"
+                                    name="rating"
+                                    value="4"
+                                  />
+                                  <label
+                                    class="rating__item"
+                                    for="star4"
+                                    title="Pretty good - 4 stars"
+                                    ><i class="fontello-star"></i
+                                  ></label>
+
+                                  <input
+                                    class="form-control"
+                                    type="radio"
+                                    id="star3"
+                                    name="rating"
+                                    value="3"
+                                  />
+                                  <label
+                                    class="rating__item"
+                                    for="star3"
+                                    title="Meh - 3 stars"
+                                    ><i class="fontello-star"></i
+                                  ></label>
+
+                                  <input
+                                    class="form-control"
+                                    type="radio"
+                                    id="star2"
+                                    name="rating"
+                                    value="2"
+                                  />
+                                  <label
+                                    class="rating__item"
+                                    for="star2"
+                                    title="Kinda bad - 2 stars"
+                                    ><i class="fontello-star"></i
+                                  ></label>
+
+                                  <input
+                                    class="form-control"
+                                    type="radio"
+                                    id="star1"
+                                    name="rating"
+                                    value="1"
+                                  />
+                                  <label
+                                    class="rating__item"
+                                    for="star1"
+                                    title="Sucks big time - 1 star"
+                                    ><i class="fontello-star"></i
+                                  ></label>
+                                </fieldset>
+                              </div>
+
+                              <div class="col-12 col-sm-auto">
+                                <input
+                                  type="hidden"
+                                  name="token"
+                                  id="token"
+                                  value="{{ csrf_token(product.slug) }}"
+                                />
+                                <button
+                                  class="custom-btn custom-btn--medium custom-btn--style-1 btn-cart"
+                                  type="submit"
+                                  role="button"
+                                >
+                                  Ajouter mon avis
+                                </button>
+                              </div>
+                            </div>
+                          </form>
+
+                          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+                          <script>
+                            $(document).ready(function () {
+                              $("#product_review").submit(function (e) {
+                                var FormData = $("#product_review").serialize();
+                                //console.log(FormData);
+                                e.preventDefault();
+                                $.ajax({
+                                  url: "{{ path('app_account_add_review',{'slug':product.slug}) }}",
+                                  type: "POST",
+                                  data: $("#product_review").serialize(),
+                                  success: function (ReviewContent) {
+                                    //$('#comments_list').html(ReviewContent);
+                                    //alert('ok');
+                                    window.location.reload();
+                                  },
+                                });
+                              });
+                            });
+                          </script>
+                        </div>
+                        <!-- end add review -->
+                      </div>
+                      <div class="tab-content__item">
+                        <p>
+                          {{ product.product_description | raw }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end tab -->
+
+                  <div class="spacer py-5 py-md-9"></div>
+                </div>
+              </div>
+            </div>
+            <!-- start product single -->
+          </div>
+
+          <div class="col-12 my-6 d-md-none"></div>
+        </div>
+      </div>
+    </section>
+    <!-- end section -->
+  </main>
+  <!-- end main -->
+
+  {% include('includes/frontoffice/footer_shop.html.twig')%}
+</div>
+
+<div id="btn-to-top-wrap">
+  <a
+    id="btn-to-top"
+    class="circled"
+    href="javascript:void(0);"
+    data-visible-offset="800"
+  ></a>
+</div>
+
+<script>
+  window.jQuery || document.write('<script src="{{asset('frontoffice/')}}js/jquery-2.2.4.min.js"><\/script>')
+</script>
+
+<script
+  type="text/javascript"
+  src="{{ asset('frontoffice/') }}js/main.min.js"
+></script>
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+  (function (b, o, i, l, e, r) {
+    b.GoogleAnalyticsObject = l;
+    b[l] ||
+      (b[l] = function () {
+        (b[l].q = b[l].q || []).push(arguments);
+      });
+    b[l].l = +new Date();
+    e = o.createElement(i);
+    r = o.getElementsByTagName(i)[0];
+    e.src = "https://www.google-analytics.com/analytics.js";
+    r.parentNode.insertBefore(e, r);
+  })(window, document, "script", "ga");
+  ga("create", "UA-XXXXX-X", "auto");
+  ga("send", "pageview");
+</script>
+{{ include("@MercurySeriesFlashy/flashy.html.twig") }}
+{% endblock %}
