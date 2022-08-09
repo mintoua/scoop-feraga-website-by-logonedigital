@@ -85,6 +85,8 @@ Feraga {% endblock %} {% block stylesheet %}
         <span class="__name">Livrasion en cours</span>
         {% elseif order.state == 4 %}
         <span class="__name">Livrée</span>
+        {% elseif order.state == 0 %}
+          <span class="__name">Vérification en cours...</span>
         {% endif %} <br />
 
         <strong> Commande passée le : </strong> {{ order.createdAt | date

@@ -111,6 +111,7 @@ class BoutiqueController extends AbstractController
         ] );
     }
 
+
     /**
      * @param Request $request
      * @param $slug

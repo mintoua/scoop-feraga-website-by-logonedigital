@@ -95,26 +95,41 @@ Feraga {% endblock %} {% block stylesheet %}
               </tr>
             </thead>
 
-            <tbody>
-              {% for order in orders %}
-              <tr>
-                <td>
-                  <span class="__name">{{ order.reference }}</span>
-                </td>
-                <td>
-                  {% if order.state == 1 %}
-                  <span class="__name">Paiement accepté</span>
-                  {% elseif order.state == 2 %}
-                  <span class="__name">Préparation en cours</span>
-                  {% elseif order.state == 3%}
-                  <span class="__name">Livrasion en cours</span>
-                  {% elseif order.state == 4 %}
-                  <span class="__name">Livrée</span>
-                  {% endif %}
-                </td>
-                <td>
-                  <span
-                    class="__name"
+            <div class="cart__table">
+              <table>
+                <thead>
+                <tr>
+                  <td width="25%">Référence</td>
+                  <td width="25%">Statut</td>
+                  <td width="10%">Passée le</td>
+                  <td width="15%">Produit(s)</td>
+                  <td width="15%">Total</td>
+                  <td width="5%">&nbsp;</td>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for order in orders %}
+                  <tr>
+                    <td>
+                      <span class="__name">{{ order.reference }}</span>
+                    </td>
+                    <td>
+                      {% if order.state == 1 %}
+                        <span class="__name">Paiement accepté</span>
+                      {% elseif order.state == 2 %}
+                        <span class="__name">Préparation en cours</span>
+                      {% elseif order.state == 3%}
+                        <span class="__name">Livrasion en cours</span>
+                      {% elseif order.state == 4 %}
+                        <span class="__name">Livrée</span>
+                      {% elseif order.state == 0 %}
+                        <span class="__name">Vérification en cours...</span>
+                      {% endif %}
+                    </td>
+                    <td>
+                    <span
+                            class="__name"
                     >{{ order.createdAt|date('d/m/Y') }}</span
                   >
                 </td>
@@ -123,15 +138,15 @@ Feraga {% endblock %} {% block stylesheet %}
                   <span class="__price">{{ order.orderDetails | length }}</span>
                 </td>
 
-                <td>
-                  <span class="__total">
-                    {{
-                      (order.carrierPrice + order.getTotal) / 100
-                        | number_format
-                    }}
-                    FCFA
-                  </span>
-                </td>
+                    <td>
+                    <span class="__total">
+                      {{
+                      (order.carrierPrice + order.getTotal)
+                      | number_format
+                      }}
+                      FCFA
+                    </span>
+                    </td>
 
                 <td>
                   <a

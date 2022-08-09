@@ -54,7 +54,7 @@ class ContactController extends AbstractController
             $response = $client->curlManager($url);
 
             if(empty($response) || is_null($response)){
-               $this->flasher->addWarning("Votre demande m'a pas pue être envoyé.");
+               $this->flasher->addWarning("Votre demande n'a pas pu être envoyé.");
                 return $this->redirectToRoute('app_contact');
             }else{
                 $data = json_decode($response);
