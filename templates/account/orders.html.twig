@@ -1,74 +1,99 @@
 {% extends "base_frontoffice_2.html.twig" %} {% block title %} Compte | Scoops
-  Feraga {% endblock %} {% block stylesheet %}
-  <link
-          rel="stylesheet"
-          href="{{ asset('frontoffice/') }}css/style.min.css"
-          type="text/css"
-  />
-  <link
-          rel="stylesheet"
-          href="{{ asset('frontoffice/') }}css/account_style.css"
-          type="text/css"
-  />
+Feraga {% endblock %} {% block stylesheet %}
+<link
+  rel="stylesheet"
+  href="{{ asset('frontoffice/') }}css/style.min.css"
+  type="text/css"
+/>
+<link
+  rel="stylesheet"
+  href="{{ asset('frontoffice/') }}css/account_style.css"
+  type="text/css"
+/>
 {% endblock %} {% block body %} {% block bodyclass %} woocommerce-page auth-page
 {% endblock %}
-  <div id="app">
-    <!-- start header -->
-    {% include('includes/frontoffice/header_account.html.twig')%}
-    <main role="main">
-      <!-- Common styles ================================================== -->
+<div id="app">
+  <!-- start header -->
+  {% include('includes/frontoffice/header_account.html.twig')%}
+  <main role="main">
+    <!-- Common styles ================================================== -->
+    <style>
+      .btn-cart {
+        border-color: #3daa35;
+        background-color: transparent !important;
+      }
+      .btn-cart:hover {
+        background-color: #3daa35 !important;
+        color: white;
+      }
+    </style>
+    <!-- Load lazyLoad scripts ================================================== -->
+    <script>
+      (function (w, d) {
+        var m = d.getElementsByTagName("main")[0],
+          s = d.createElement("script"),
+          v = !("IntersectionObserver" in w) ? "8.17.0" : "10.19.0",
+          o = {
+            elements_selector: ".lazy",
+            data_src: "src",
+            data_srcset: "srcset",
+            threshold: 500,
+            callback_enter: function (element) {},
+            callback_load: function (element) {
+              element.removeAttribute("data-src");
 
-      <!-- Load lazyLoad scripts ================================================== -->
-      <script>
-        (function (w, d) {
-          var m = d.getElementsByTagName("main")[0],
-                  s = d.createElement("script"),
-                  v = !("IntersectionObserver" in w) ? "8.17.0" : "10.19.0",
-                  o = {
-                    elements_selector: ".lazy",
-                    data_src: "src",
-                    data_srcset: "srcset",
-                    threshold: 500,
-                    callback_enter: function (element) {},
-                    callback_load: function (element) {
-                      element.removeAttribute("data-src");
+              oTimeout = setTimeout(function () {
+                clearTimeout(oTimeout);
 
-                      oTimeout = setTimeout(function () {
-                        clearTimeout(oTimeout);
+                AOS.refresh();
+              }, 1000);
+            },
+            callback_set: function (element) {},
+            callback_error: function (element) {
+              element.src =
+                "https://placeholdit.imgix.net/~text?txtsize=21&txt=Image%20not%20load&w=200&h=200";
+            },
+          };
+        s.type = "text/javascript";
+        s.async = true; // This includes the script as async. See the "recipes" section for more information about async loading of LazyLoad.
+        s.src =
+          "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" +
+          v +
+          "/dist/lazyload.min.js";
+        m.appendChild(s);
+        // m.insertBefore(s, m.firstChild);
+        w.lazyLoadOptions = o;
+      })(window, document);
+    </script>
 
-                        AOS.refresh();
-                      }, 1000);
-                    },
-                    callback_set: function (element) {},
-                    callback_error: function (element) {
-                      element.src =
-                              "https://placeholdit.imgix.net/~text?txtsize=21&txt=Image%20not%20load&w=200&h=200";
-                    },
-                  };
-          s.type = "text/javascript";
-          s.async = true; // This includes the script as async. See the "recipes" section for more information about async loading of LazyLoad.
-          s.src =
-                  "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" +
-                  v +
-                  "/dist/lazyload.min.js";
-          m.appendChild(s);
-          // m.insertBefore(s, m.firstChild);
-          w.lazyLoadOptions = o;
-        })(window, document);
-      </script>
+    <!-- start section -->
+    <section class="section">
+      <div class="container">
+        <div class="row back_button" style="margin-bottom: 10%">
+          <a style="color: #3daa35" href="{{ path('app_user_account') }}"
+            ><i class="fas fa-arrow-left" style="font-size: 25px"></i
+            >&nbsp;&nbsp;Retour
+          </a>
+        </div>
 
-      <!-- start section -->
-      <section class="section">
-        <div class="container">
-          <div class="row back_button" style="margin-bottom: 10%">
-            <a style="color: #3daa35" href="{{path('app_user_account')}}"><i class="fas fa-arrow-left" style="font-size: 25px;"></i>&nbsp;&nbsp;Retour </a>
-          </div>
+        {% if orders | length ==0 %}
 
-          {% if orders | length ==0 %}
+        <h3>Vous n'avez pas encore passé de commande chez SCOOPS FERAGA.</h3>
 
-            <h3>Vous n'avez pas encore passé de commande chez SCOOPS FERAGA.</h3>
+        {% else %}
 
-          {% else %}
+        <div class="cart__table">
+          <table>
+            <thead>
+              <tr>
+                <td width="25%">Référence</td>
+                <td width="25%">Statut</td>
+                <td width="10%">Passée le</td>
+                <td width="15%">Produit(s)</td>
+                <td width="15%">Total</td>
+                <td width="5%">&nbsp;</td>
+              </tr>
+            </thead>
 
             <div class="cart__table">
               <table>
@@ -98,74 +123,74 @@
                         <span class="__name">Livrasion en cours</span>
                       {% elseif order.state == 4 %}
                         <span class="__name">Livrée</span>
+                      {% elseif order.state == 0 %}
+                        <span class="__name">Vérification en cours...</span>
                       {% endif %}
                     </td>
                     <td>
                     <span
                             class="__name"
                     >{{ order.createdAt|date('d/m/Y') }}</span
-                    >
-                    </td>
+                  >
+                </td>
 
-                    <td>
-                    <span class="__price">{{
-                      order.orderDetails | length
-                      }}</span>
-                    </td>
+                <td>
+                  <span class="__price">{{ order.orderDetails | length }}</span>
+                </td>
 
                     <td>
                     <span class="__total">
                       {{
-                      (order.carrierPrice + order.getTotal) / 100
+                      (order.carrierPrice + order.getTotal)
                       | number_format
                       }}
                       FCFA
                     </span>
                     </td>
 
-                    <td>
-                      <a
-                              class="custom-btn custom-btn--small custom-btn--style-1"
-                              href="{{
-                              path('app_account_orders_show', {
-                                reference: order.reference
-                              })
-                              }}"
-                      >
-                        Voir
-                      </a>
-                    </td>
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          {% endif %}
+                <td>
+                  <a
+                    class="custom-btn custom-btn--small custom-btn--style-1 btn-cart"
+                    href="{{
+                      path('app_account_orders_show', {
+                        reference: order.reference
+                      })
+                    }}"
+                  >
+                    Voir
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
-      </section>
-      <!-- end section -->
-    </main>
-    <!-- end main -->
+        {% endif %}
+      </div>
+    </section>
+    <!-- end section -->
+  </main>
+  <!-- end main -->
 
-    <!-- start footer -->
-    {% include('includes/frontoffice/footer_2.html.twig')%}
-    <!-- end footer -->
-  </div>
+  <!-- start footer -->
+  {% include('includes/frontoffice/footer_shop.html.twig')%}
+  <!-- end footer -->
+</div>
 
-  <div id="btn-to-top-wrap">
-    <a
-            id="btn-to-top"
-            class="circled"
-            href="javascript:void(0);"
-            data-visible-offset="800"
-    ></a>
-  </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-  <script>
-    window.jQuery || document.write('<script src="{{asset('frontoffice/')}}js/jquery-2.2.4.min.js"><\/script>')
-  </script>
-  <script
-          type="text/javascript"
-          src="{{ asset('frontoffice/') }}js/main.min.js"
-  ></script>
+<div id="btn-to-top-wrap">
+  <a
+    id="btn-to-top"
+    class="circled"
+    href="javascript:void(0);"
+    data-visible-offset="800"
+  ></a>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+  window.jQuery || document.write('<script src="{{asset('frontoffice/')}}js/jquery-2.2.4.min.js"><\/script>')
+</script>
+<script
+  type="text/javascript"
+  src="{{ asset('frontoffice/') }}js/main.min.js"
+></script>
 {% endblock %}

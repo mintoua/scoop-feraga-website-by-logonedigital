@@ -63,92 +63,7 @@
 <div
         id="app">
     <!-- start header -->
-    <header id="top-bar" class="top-bar top-bar--style-2">
-        <div class="top-bar__bg"
-             style="background-color: #FFF;background-image: url({{ asset('frontoffice/') }}img/top_bar_bg-2.png);background-repeat: no-repeat;background-position: center bottom;"></div>
-
-        <div class="container position-relative">
-            <div class="row justify-content-between no-gutters">
-
-                <a class="top-bar__logo site-logo" href="index_4.html">
-                    <img class="img-fluid" src="{{ asset('frontoffice/') }}img/logo_scoops_feraga.png" alt="demo"/>
-                </a>
-
-                <a id="top-bar__navigation-toggler"
-                   class="top-bar__navigation-toggler top-bar__navigation-toggler--dark" href="javascript:void(0);">
-                    <span></span>
-                </a>
-
-                <div id="top-bar__inner" class="top-bar__inner  text-lg-right">
-                    <div>
-                        <div class="d-lg-flex flex-lg-column-reverse align-items-lg-end">
-                            <nav id="top-bar__navigation" class="top-bar__navigation navigation" role="navigation">
-                                <ul>
-                                    <li>
-                                        <a href="{{ path('app_home') }}">Accueil</a>
-                                    </li>
-
-
-                                    <li>
-                                        <a href="{{ path('app_activities') }}">Vie à la ferme</a>
-                                    </li>
-                                    <li class="active">
-                                        <a href="{{ path('app_shop') }}">Boutique</a>
-                                    </li>
-
-                                    <ul class="submenu">
-                                        <li>
-                                            <a href="shop_catalog.html">Categ-1</a>
-                                        </li>
-                                    </ul>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{ path('app_blog') }}">Nos Actualités</a>
-                                    </li>
-
-                                    <li class="li-profile">
-                                        <a href="{{ path('app_login') }}"
-                                        ><i class="fontello-profile"></i
-                                            ></a>
-                                    </li>
-
-                                    <li class="li-cart">
-                                        <a href="{{ path('app_cart') }}"
-                                        ><i class="fontello-shopping-bag"></i
-                                            ><span class="total">{{ app.session.get('cart') | length }}</span></a
-                                        >
-                                    </li>
-
-                                    <li class="li-btn">
-                                        <a class="custom-btn custom-btn--small custom-btn--style-2" href="#">Get in
-                                            Touch</a>
-                                    </li>
-                                </ul>
-                            </nav>
-
-                            <div class="top-bar__contacts">
-                                <span>523 Sylvan Ave, 5th Floor Mountain View, CA 940 USA</span>
-                                <span>
-										<a href="#">+1 (234) 56789</a>,&nbsp;&nbsp;<a href="#">+1 987 654 3210</a>
-									</span>
-                                <span>
-										<a href="mailto:support@agrocompany.com">support@agrocompany.com</a>
-									</span>
-
-                                <div class="social-btns">
-                                    <a class="fontello-twitter" href="#"></a>
-                                    <a class="fontello-facebook" href="#"></a>
-                                    <a class="fontello-linkedin-squared" href="#"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </header>
+    {% include('includes/frontoffice/header_shop.html.twig')%}
     <!-- end header -->
 
     <!-- start main -->
@@ -226,7 +141,16 @@
                 <img class="lazy" width="248" height="309" src="{{ asset('frontoffice/') }}img/blank.gif"
                      data-src="{{ asset('frontoffice/') }}img/decor-el_5.jpg" alt="demo"/>
             </div>
-
+            <style>
+            .btn-cart{
+                border-color: #3daa35;
+                background-color: transparent!important;
+            }
+            .btn-cart:hover{
+                background-color: #3daa35!important;
+                color:white
+            }
+            </style>
             <div class="container">
                 <div class="row">
                     <div
@@ -314,7 +238,7 @@
                                                 <input class="textfield" type="text" placeholder="Code"/>
                                             </div>
 
-                                            <button class="custom-btn custom-btn--medium custom-btn--style-1"
+                                            <button class="custom-btn custom-btn--medium  btn-cart"
                                                     type="submit" role="button">Coupon de Réduction
                                             </button>
                                         </div>
@@ -339,7 +263,7 @@
                                                 <tfoot>
                                                 <tr>
                                                     <td colspan="2">
-                                                        <a class="custom-btn custom-btn--medium custom-btn--style-1"
+                                                        <a class="custom-btn custom-btn--medium  btn-cart"
                                                            href="{{ path('app_checkout') }}">Continuer</a>
                                                     </td>
                                                 </tr>
@@ -359,8 +283,8 @@
                         </div>
                         <!-- start cart -->
                         {% else %}
-                            <h3>Désole, votre panier est vide <br><br>
-                                <span>nous vous invitons à faire un tour dans notre catalogue de produits &#128521; </span>
+                            <h3>Désole, le panier est vide <br><br>
+                                <span>nous vous invitons à faire un tour dans notre <a style="text-decoration: underline; color: #3daa35" href="{{ path('app_shop') }}"> Boutique</a>  &#128521; </span>
                             </h3>
                         {% endif %}
                     </div>
@@ -402,143 +326,7 @@
     <!-- end main -->
 
     <!-- start footer -->
-    <footer id="footer" class="footer footer--style-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-sm-4 col-md-3 col-lg-2">
-                    <div class="footer__item">
-                        <a class="site-logo" href="index.html">
-                            <img class="img-fluid  lazy" src="{{ asset('frontoffice/') }}img/blank.gif"
-                                 data-src="{{ asset('frontoffice/') }}img/logo_scoops_feraga.png" alt="demo"/>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-9 col-lg-6">
-                    <div class="footer__item">
-                        <nav id="footer__navigation" class="navigation">
-                            <div class="row">
-                                <div class="col-6 col-sm-4">
-                                    <h5 class="footer__item__title h6">Menu</h5>
-
-                                    <ul>
-                                        <li class="active">
-                                            <a href="index.html">Home</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">About</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Pages</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Gallery</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Blog</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Contacts</a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-6 col-sm-4">
-                                    <h5 class="footer__item__title h6">Shop</h5>
-
-                                    <ul>
-                                        <li><a href="#">Partners</a></li>
-                                        <li><a href="#">Customer Service</a></li>
-                                        <li><a href="#">Vegetables</a></li>
-                                        <li><a href="#">Fruits</a></li>
-                                        <li><a href="#">Organic Food</a></li>
-                                        <li><a href="#">Privacy policy</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-6 col-sm-4">
-                                    <h5 class="footer__item__title h6">Information</h5>
-
-                                    <ul>
-                                        <li><a href="#">Delivery</a></li>
-                                        <li><a href="#">Legal Notice</a></li>
-                                        <li><a href="#">About Us</a></li>
-                                        <li><a href="#">Secure Payment</a></li>
-                                        <li><a href="#">Prices Drop</a></li>
-                                        <li><a href="#">Documents</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md col-lg-4">
-                    <div class="footer__item">
-                        <h5 class="footer__item__title h6">Contacts</h5>
-
-                        <address>
-                            <p>
-                                523 Sylvan Ave, 5th Floor Mountain View, CA 940 USA
-                            </p>
-
-                            <p>
-                                +1 (234) 56789, +1 987 654 3210
-                            </p>
-
-                            <p>
-                                <a href="mailto:support@agrocompany.com">support@agrocompany.com</a>
-                            </p>
-                        </address>
-
-                        <div class="social-btns">
-                            <a href="#">
-                                <i class="fontello-twitter"></i>
-                            </a>
-                            <a href="#">
-                                <i class="fontello-facebook"></i>
-                            </a>
-                            <a href="#">
-                                <i class="fontello-linkedin-squared"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row align-items-lg-end justify-content-lg-between copyright">
-                <div class="col-12 col-lg-6">
-                    <div class="footer__item">
-							<span class="__copy">© 2019, AgroTheme by
-								<a class="__dev" href="https://themeforest.net/user/artureanec" target="_blank">Artureanec</a>
-								|
-								<a href="#">Privacy Policy</a>
-								|
-								<a href="#">Sitemap</a>
-							</span>
-                    </div>
-                </div>
-
-                <div class="col-12 col-lg-6">
-                    <div class="footer__item">
-                        <form class="form--horizontal no-gutters" action="#">
-                            <div class="col-sm-6">
-                                <div class="input-wrp">
-                                    <input class="textfield" name="s" type="text" placeholder="Your E-mail"/>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <button class="custom-btn custom-btn--medium custom-btn--style-3 wide" type="submit"
-                                        role="button">subscribe
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    {%include('includes/frontoffice/footer_shop.html.twig')%}
     <!-- end footer -->
 </div>
 {{ include('@MercurySeriesFlashy/flashy.html.twig') }}

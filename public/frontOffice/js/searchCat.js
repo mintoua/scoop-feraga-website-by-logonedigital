@@ -18,7 +18,7 @@ window.onload = ()=>{
             const Url = new URL(window.location.href);
 
             //start the request
-            fetch(Url.pathname + "?" + Params.toString() + "&ajax=1",{
+            fetch('/boutique/nos_produits' + "?" + Params.toString() + "&ajax=1",{
                 headers: {
                     "X-Requested-With": "XMLHttpRequest"
                 }

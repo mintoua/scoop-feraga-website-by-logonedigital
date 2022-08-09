@@ -81,6 +81,8 @@ class MyFacebookAuthenticator extends OAuth2Authenticator
                     $user->setFacebookId($facebookUser->getId());
                     $user->setFirstname($facebookUser->getFirstname());
                     $user->setLastname($facebookUser->getLastname());
+                    $user->setIsVirified(true);
+                    $user->setBlocked(false);
                     $this->entityManager->persist($user);
                     $this->entityManager->flush();
                 }   

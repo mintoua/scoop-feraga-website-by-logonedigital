@@ -91,7 +91,10 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
                     $user->setEmail($googleUser->getEmail());
                     $user->setGoogleId($googleUser->getId());
                     $user->setFirstname($googleUser->getFirstname());
-                    $user->setLastname($googleUser->getLastname());
+                    $user->setLastname($googleUser->getLastname()); 
+                    $user->setIsVirified(true);
+                    $user->setBlocked(false);
+                    //$user->
                     $user->setRgpd(true);
                     $user->setRoles(['ROLE_USER']);
                     $hashedPassword =$this->encoder->hashPassword($user,md5(uniqid()));

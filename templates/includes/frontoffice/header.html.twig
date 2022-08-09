@@ -43,7 +43,9 @@
                       <a href="{{path('app_shop')}}">Boutique</a>
 
                       <ul class="submenu">
-                        <li><a href="shop_catalog.html">Categ-1</a></li>
+                        {% for category in ProductCategories.getProductCategories %}
+                        <li><a href="shop_catalog.html">{{ category.name }}</a></li>
+                        {% endfor %}
                       </ul>
                     </li>
 
