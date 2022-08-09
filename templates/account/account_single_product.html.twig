@@ -1,64 +1,17 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-
-<head>
-	<title>AGRO</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
-	<meta name="viewport" content="user-scalable=no, width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui"/>
-
-	<meta name="theme-color" content="#FCDB5A"/>
-	<meta name="msapplication-navbutton-color" content="#FCDB5A"/>
-	<meta
-			name="apple-mobile-web-app-status-bar-style" content="#FCDB5A"/>
-
-	<!-- Favicons
-            ================================================== -->
-	<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
-	<link rel="shortcut icon" href="{{asset('frontoffice/')}}img/favicon.ico">
-	<link rel="apple-touch-icon" href="{{asset('frontoffice/')}}img/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="{{asset('frontoffice/')}}img/apple-touch-icon-72x72.png">
-	<link
-			rel="apple-touch-icon" sizes="114x114" href="{{asset('frontoffice/')}}img/apple-touch-icon-114x114.png">
-
-	<!-- Critical styles
-            ================================================== -->
-	<link
-			rel="stylesheet" href="{{asset('frontoffice/')}}css/critical.min.css" type="text/css">
-
-	<!-- Load google font
-            ================================================== -->
-	<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
-	<script type="text/javascript">
-		WebFontConfig = {
-			google: {
-				families: ['Open+Sans:300,400,500,600,700,800', 'Raleway:100,400,400i,500,500i,700,700i,900']
-			}
-		};
-		(function () {
-			var wf = document.createElement('script');
-			wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
-			wf.type = 'text/javascript';
-			wf.async = 'true';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(wf, s);
-		})();
-	</script>
-
-	<!-- Load other scripts
-            ================================================== -->
-	<script type="text/javascript">
-		var _html = document.documentElement,
-				isTouch = (('ontouchstart' in _html) || (navigator.msMaxTouchPoints > 0) || (navigator.maxTouchPoints));
-
-		_html.className = _html.className.replace("no-js", "js");
-		_html.classList.add(isTouch ? "touch" : "no-touch");
-	</script>
-	<script type="text/javascript" src="{{asset('frontoffice/')}}js/device.min.js"></script>
-</head>
-
-<body class="woocommerce-page product-page">
+{% extends "base_frontoffice_2.html.twig" %} {% block title %} Compte | Scoops
+Feraga {% endblock %} {% block stylesheet %}
+<link
+  rel="stylesheet"
+  href="{{ asset('frontoffice/') }}css/style.css"
+  type="text/css"
+/>
+<link
+  rel="stylesheet"
+  href="{{ asset('frontoffice/') }}css/account_style.css"
+  type="text/css"
+/>
+{% endblock %} {% block body %} {% block bodyclass %} woocommerce-page auth-page
+{% endblock %}
 <div id="app">
 	<!-- start header -->
 	<header id="top-bar" class="top-bar top-bar--style-2">
@@ -376,142 +329,8 @@
 	</main>
 	<!-- end main -->
 
-	<!-- start footer -->
-	<footer id="footer" class="footer footer--style-4">
-		<div class="container">
-			<div class="row">
-				<div class="col-12 col-sm-4 col-md-3 col-lg-2">
-					<div class="footer__item">
-						<a class="site-logo" href="index.html">
-							<img class="img-fluid  lazy" src="{{asset('frontoffice/')}}img/blank.gif" data-src="{{asset('frontoffice/')}}img/site_logo.png" alt="demo"/>
-						</a>
-					</div>
-				</div>
-
-				<div class="col-12 col-md-9 col-lg-6">
-					<div class="footer__item">
-						<nav id="footer__navigation" class="navigation">
-							<div class="row">
-								<div class="col-6 col-sm-4">
-									<h5 class="footer__item__title h6">Menu</h5>
-
-									<ul>
-										<li class="active">
-											<a href="index.html">Home</a>
-										</li>
-										<li>
-											<a href="#">About</a>
-										</li>
-										<li>
-											<a href="#">Pages</a>
-										</li>
-										<li>
-											<a href="#">Gallery</a>
-										</li>
-										<li>
-											<a href="#">Blog</a>
-										</li>
-										<li>
-											<a href="#">Contacts</a>
-										</li>
-									</ul>
-								</div>
-
-								<div class="col-6 col-sm-4">
-									<h5 class="footer__item__title h6">Shop</h5>
-
-									<ul>
-										<li><a href="#">Partners</a></li>
-										<li><a href="#">Customer Service</a></li>
-										<li><a href="#">Vegetables</a></li>
-										<li><a href="#">Fruits</a></li>
-										<li><a href="#">Organic Food</a></li>
-										<li><a href="#">Privacy policy</a></li>
-									</ul>
-								</div>
-
-								<div class="col-6 col-sm-4">
-									<h5 class="footer__item__title h6">Information</h5>
-
-									<ul>
-										<li><a href="#">Delivery</a></li>
-										<li><a href="#">Legal Notice</a></li>
-										<li><a href="#">About Us</a></li>
-										<li><a href="#">Secure Payment</a></li>
-										<li><a href="#">Prices Drop</a></li>
-										<li><a href="#">Documents</a></li>
-									</ul>
-								</div>
-							</div>
-						</nav>
-					</div>
-				</div>
-
-				<div class="col-12 col-md col-lg-4">
-					<div class="footer__item">
-						<h5 class="footer__item__title h6">Contacts</h5>
-
-						<address>
-							<p>
-								523 Sylvan Ave, 5th Floor Mountain View, CA 940 USA
-							</p>
-
-							<p>
-								+1 (234) 56789,  +1 987 654 3210
-							</p>
-
-							<p>
-								<a href="mailto:support@agrocompany.com">support@agrocompany.com</a>
-							</p>
-						</address>
-
-						<div class="social-btns">
-							<a href="#">
-								<i class="fontello-twitter"></i>
-							</a>
-							<a href="#">
-								<i class="fontello-facebook"></i>
-							</a>
-							<a href="#">
-								<i class="fontello-linkedin-squared"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="row align-items-lg-end justify-content-lg-between copyright">
-				<div class="col-12 col-lg-6">
-					<div class="footer__item">
-							<span class="__copy">© 2019, AgroTheme by
-								<a class="__dev" href="https://themeforest.net/user/artureanec" target="_blank">Artureanec</a>
-								|
-								<a href="#">Privacy Policy</a>
-								|
-								<a href="#">Sitemap</a>
-							</span>
-					</div>
-				</div>
-
-				<div class="col-12 col-lg-6">
-					<div class="footer__item">
-						<form class="form--horizontal no-gutters" action="#">
-							<div class="col-sm-6">
-								<div class="input-wrp">
-									<input class="textfield" name="s" type="text" placeholder="Your E-mail"/>
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<button class="custom-btn custom-btn--medium custom-btn--style-3 wide" type="submit" role="button">subscribe</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<!-- end footer -->
+	{%
+include('includes/frontoffice/footer_shop.html.twig')%}
 </div>
 
 <div id="btn-to-top-wrap">
@@ -533,5 +352,4 @@
 	ga('create','UA-XXXXX-X','auto');ga('send','pageview');
 </script>
 {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
-</body>
-</html>
+{% endblock %}

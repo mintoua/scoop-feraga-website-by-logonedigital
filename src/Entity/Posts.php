@@ -35,7 +35,7 @@ class Posts
     private ?string $post_image = null;
 
     #[ORM\Column]
-    private ?\DateTime $createdAt = null;
+    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Likes::class , cascade: ['remove'])]
     private Collection $likes;
