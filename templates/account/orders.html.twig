@@ -17,7 +17,16 @@ Feraga {% endblock %} {% block stylesheet %}
   {% include('includes/frontoffice/header_account.html.twig')%}
   <main role="main">
     <!-- Common styles ================================================== -->
-
+    <style>
+      .btn-cart {
+        border-color: #3daa35;
+        background-color: transparent !important;
+      }
+      .btn-cart:hover {
+        background-color: #3daa35 !important;
+        color: white;
+      }
+    </style>
     <!-- Load lazyLoad scripts ================================================== -->
     <script>
       (function (w, d) {
@@ -126,7 +135,7 @@ Feraga {% endblock %} {% block stylesheet %}
 
                 <td>
                   <a
-                    class="custom-btn custom-btn--small custom-btn--style-1"
+                    class="custom-btn custom-btn--small custom-btn--style-1 btn-cart"
                     href="{{
                       path('app_account_orders_show', {
                         reference: order.reference

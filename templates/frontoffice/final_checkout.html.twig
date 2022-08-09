@@ -158,8 +158,8 @@
               class="lazy"
               width="286"
               height="280"
-              src="img/blank.gif"
-              data-src="img/decor-el_1.jpg"
+              src="{{ asset('frontOffice/') }}img/blank.gif"
+              data-src="{{ asset('frontOffice/') }}img/decor-el_1.jpg"
               alt="demo"
             />
           </div>
@@ -173,8 +173,8 @@
               class="lazy"
               width="99"
               height="88"
-              src="img/blank.gif"
-              data-src="img/decor-el_2.jpg"
+              src="{{ asset('frontOffice/') }}img/blank.gif"
+              data-src="{{ asset('frontOffice/') }}img/decor-el_2.jpg"
               alt="demo"
             />
           </div>
@@ -188,8 +188,8 @@
               class="lazy"
               width="115"
               height="117"
-              src="img/blank.gif"
-              data-src="img/decor-el_3.jpg"
+              src="{{ asset('frontOffice/') }}img/blank.gif"
+              data-src="{{ asset('frontOffice/') }}img/decor-el_3.jpg"
               alt="demo"
             />
           </div>
@@ -204,7 +204,7 @@
               width="84"
               height="76"
               src="img/blank.gif"
-              data-src="img/decor-el_4.jpg"
+              data-src="{{ asset('frontOffice/') }}img/decor-el_4.jpg"
               alt="demo"
             />
           </div>
@@ -218,12 +218,21 @@
               class="lazy"
               width="248"
               height="309"
-              src="img/blank.gif"
-              data-src="img/decor-el_5.jpg"
+              src="{{ asset('frontOffice/') }}img/blank.gif"
+              data-src="{{ asset('frontOffice/') }}img/decor-el_5.jpg"
               alt="demo"
             />
           </div>
-
+          <style>
+            .btn-cart {
+              border-color: #3daa35;
+              background-color: transparent !important;
+            }
+            .btn-cart:hover {
+              background-color: #3daa35 !important;
+              color: white;
+            }
+          </style>
           <div class="container">
             <div class="row">
               <div class="col-12">
@@ -334,7 +343,7 @@
                             <tr>
                               <td colspan="2">
                                 <a
-                                  class="custom-btn custom-btn--medium custom-btn--style-1"
+                                  class="custom-btn custom-btn--medium custom-btn--style-1 btn-cart"
                                   href="{{ path('app_order_saved') }}"
                                   >Passer la commande</a
                                 >

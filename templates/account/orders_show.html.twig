@@ -1,163 +1,194 @@
 {% extends "base_frontoffice_2.html.twig" %} {% block title %} Compte | Scoops
-    Feraga {% endblock %} {% block stylesheet %}
-    <link
-            rel="stylesheet"
-            href="{{ asset('frontoffice/') }}css/style.min.css"
-            type="text/css"
-    />
-    <link
-            rel="stylesheet"
-            href="{{ asset('frontoffice/') }}css/account_style.css"
-            type="text/css"
-    />
+Feraga {% endblock %} {% block stylesheet %}
+<link
+  rel="stylesheet"
+  href="{{ asset('frontoffice/') }}css/style.min.css"
+  type="text/css"
+/>
+<link
+  rel="stylesheet"
+  href="{{ asset('frontoffice/') }}css/account_style.css"
+  type="text/css"
+/>
 {% endblock %} {% block body %} {% block bodyclass %} woocommerce-page auth-page
 {% endblock %}
-    <div id="app">
-        <!-- start header -->
-        {% include('includes/frontoffice/header_account.html.twig')%}
-        <main role="main">
-            <!-- Common styles ================================================== -->
-
-            <!-- Load lazyLoad scripts ================================================== -->
-            <script>
-                (function (w, d) {
-                    var m = d.getElementsByTagName("main")[0],
-                        s = d.createElement("script"),
-                        v = !("IntersectionObserver" in w) ? "8.17.0" : "10.19.0",
-                        o = {
-                            elements_selector: ".lazy",
-                            data_src: "src",
-                            data_srcset: "srcset",
-                            threshold: 500,
-                            callback_enter: function (element) {},
-                            callback_load: function (element) {
-                                element.removeAttribute("data-src");
-
-                                oTimeout = setTimeout(function () {
-                                    clearTimeout(oTimeout);
-
-                                    AOS.refresh();
-                                }, 1000);
-                            },
-                            callback_set: function (element) {},
-                            callback_error: function (element) {
-                                element.src =
-                                    "https://placeholdit.imgix.net/~text?txtsize=21&txt=Image%20not%20load&w=200&h=200";
-                            },
-                        };
-                    s.type = "text/javascript";
-                    s.async = true; // This includes the script as async. See the "recipes" section for more information about async loading of LazyLoad.
-                    s.src =
-                        "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" +
-                        v +
-                        "/dist/lazyload.min.js";
-                    m.appendChild(s);
-                    // m.insertBefore(s, m.firstChild);
-                    w.lazyLoadOptions = o;
-                })(window, document);
-            </script>
-
-            <!-- start section -->
-            <section class="section">
-                <div class="container">
-                    <div class="row back_button" style="margin-bottom: 5%">
-                        <a style="color: #3daa35" href="{{path('app_account_orders')}}"><i class="fas fa-arrow-left" style="font-size: 25px;"></i>&nbsp;&nbsp;Retour </a>
-                    </div>
-                    <hr>
-                    <strong>Statut de la commande:</strong>
-                    {% if order.state == 1 %}
-                        <span class="__name">Paiement accepté</span>
-                    {% elseif order.state == 2 %}
-                        <span class="__name">Préparation en cours</span>
-                    {% elseif order.state == 3%}
-                        <span class="__name">Livrasion en cours</span>
-                    {% elseif order.state == 4 %}
-                        <span class="__name">Livrée</span>
-                    {% endif %} <br/>
-
-                    <strong> Commande passée le : </strong> {{ order.createdAt | date }}<br/>
-                    <strong> Référence de ma commande: </strong> <small> {{ order.reference }} </small> <br/>
-                    <strong> Transporteur choisi: </strong> {{ order.carrierName }}
-                    <hr><br/><br/>
-
-                    <h6> Details </h6> <br/>
-                    <hr><br/>
-                    <div class="cart">
-                        <div class="cart__table">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <td width="35%">Produit</td>
-                                    <td width="15%">Prix</td>
-                                    <td width="20%">Quantity</td>
-                                    <td width="15%">Total</td>
-                                    <td width="5%"></td>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-                                {% for product in order.orderDetails %}
-                                    <tr>
-
-                                        <td>
-                                            <span class="__name">{{ product.product }}</span>
-                                        </td>
-
-                                        <td>
-                                            <span class="__price">{{ (product.price) | number_format }} FCFA</span>
-                                        </td>
-
-                                        <td>
-                                            <span class="__name">{{ product.quantity }}</span>
-                                        </td>
-
-                                        <td>
-                                            <span class="__total">{{ (product.total) | number_format }} FCFA</span>
-                                        </td>
-                                        <td>
-                                            {% if order.state == 4 %}
-                                                <a class="custom-btn custom-btn--small custom-btn--style-1" type="submit" href="{{ path('app_account_add_review',{'slug':product.product}) }}">
-                                                    Ajouter un avis
-                                                </a>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                            <div class="text-right mt-2">
-                                <strong> Sous-total:</strong>  {{ (order.getTotal ) | number_format }} FCFA<br/>
-                                <strong> Livraison:</strong>  {{ (order.carrierPrice ) | number_format }} FCFA<br/>
-                                <strong> Total:</strong>  {{ ((order.carrierPrice + order.getTotal) ) | number_format}} FCFA <br/>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- end section -->
-        </main>
-        <!-- end main -->
-
-        <!-- start footer -->
-        {% include('includes/frontoffice/footer_2.html.twig')%}
-        <!-- end footer -->
-    </div>
-
-    <div id="btn-to-top-wrap">
-        <a
-                id="btn-to-top"
-                class="circled"
-                href="javascript:void(0);"
-                data-visible-offset="800"
-        ></a>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<div id="app">
+  <!-- start header -->
+  {% include('includes/frontoffice/header_account.html.twig')%}
+  <main role="main">
+    <!-- Common styles ================================================== -->
+    <style>
+      .btn-cart {
+        border-color: #3daa35;
+        background-color: transparent !important;
+      }
+      .btn-cart:hover {
+        background-color: #3daa35 !important;
+        color: white;
+      }
+    </style>
+    <!-- Load lazyLoad scripts ================================================== -->
     <script>
-        window.jQuery || document.write('<script src="{{asset('frontoffice/')}}js/jquery-2.2.4.min.js"><\/script>')
+      (function (w, d) {
+        var m = d.getElementsByTagName("main")[0],
+          s = d.createElement("script"),
+          v = !("IntersectionObserver" in w) ? "8.17.0" : "10.19.0",
+          o = {
+            elements_selector: ".lazy",
+            data_src: "src",
+            data_srcset: "srcset",
+            threshold: 500,
+            callback_enter: function (element) {},
+            callback_load: function (element) {
+              element.removeAttribute("data-src");
+
+              oTimeout = setTimeout(function () {
+                clearTimeout(oTimeout);
+
+                AOS.refresh();
+              }, 1000);
+            },
+            callback_set: function (element) {},
+            callback_error: function (element) {
+              element.src =
+                "https://placeholdit.imgix.net/~text?txtsize=21&txt=Image%20not%20load&w=200&h=200";
+            },
+          };
+        s.type = "text/javascript";
+        s.async = true; // This includes the script as async. See the "recipes" section for more information about async loading of LazyLoad.
+        s.src =
+          "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" +
+          v +
+          "/dist/lazyload.min.js";
+        m.appendChild(s);
+        // m.insertBefore(s, m.firstChild);
+        w.lazyLoadOptions = o;
+      })(window, document);
     </script>
-    <script
-            type="text/javascript"
-            src="{{ asset('frontoffice/') }}js/main.min.js"
-    ></script>
+
+    <!-- start section -->
+    <section class="section">
+      <div class="container">
+        <div class="row back_button" style="margin-bottom: 5%">
+          <a style="color: #3daa35" href="{{ path('app_account_orders') }}"
+            ><i class="fas fa-arrow-left" style="font-size: 25px"></i
+            >&nbsp;&nbsp;Retour
+          </a>
+        </div>
+        <hr />
+        <strong>Statut de la commande:</strong>
+        {% if order.state == 1 %}
+        <span class="__name">Paiement accepté</span>
+        {% elseif order.state == 2 %}
+        <span class="__name">Préparation en cours</span>
+        {% elseif order.state == 3%}
+        <span class="__name">Livrasion en cours</span>
+        {% elseif order.state == 4 %}
+        <span class="__name">Livrée</span>
+        {% endif %} <br />
+
+        <strong> Commande passée le : </strong> {{ order.createdAt | date
+        }}<br />
+        <strong> Référence de ma commande: </strong>
+        <small> {{ order.reference }} </small> <br />
+        <strong> Transporteur choisi: </strong> {{ order.carrierName }}
+        <hr />
+        <br /><br />
+
+        <h6>Details</h6>
+        <br />
+        <hr />
+        <br />
+        <div class="cart">
+          <div class="cart__table">
+            <table>
+              <thead>
+                <tr>
+                  <td width="35%">Produit</td>
+                  <td width="15%">Prix</td>
+                  <td width="20%">Quantity</td>
+                  <td width="15%">Total</td>
+                  <td width="5%"></td>
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for product in order.orderDetails %}
+                <tr>
+                  <td>
+                    <span class="__name">{{ product.product }}</span>
+                  </td>
+
+                  <td>
+                    <span class="__price"
+                      >{{ product.price | number_format }} FCFA</span
+                    >
+                  </td>
+
+                  <td>
+                    <span class="__name">{{ product.quantity }}</span>
+                  </td>
+
+                  <td>
+                    <span class="__total"
+                      >{{ product.total | number_format }} FCFA</span
+                    >
+                  </td>
+                  <td>
+                    {% if order.state == 4 %}
+                    <a
+                      class="custom-btn custom-btn--small custom-btn--style-1 btn-cart"
+                      type="submit"
+                      href="{{
+                        path('app_account_add_review', {
+                          slug: product.product
+                        })
+                      }}"
+                    >
+                      Ajouter un avis
+                    </a>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="text-right mt-2">
+              <strong> Sous-total:</strong>
+              {{ order.getTotal | number_format }} FCFA<br />
+              <strong> Livraison:</strong>
+              {{ order.carrierPrice | number_format }} FCFA<br />
+              <strong> Total:</strong>
+              {{ order.carrierPrice + order.getTotal }} FCFA
+              <br />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end section -->
+  </main>
+  <!-- end main -->
+
+  <!-- start footer -->
+  {% include('includes/frontoffice/footer_2.html.twig')%}
+  <!-- end footer -->
+</div>
+
+<div id="btn-to-top-wrap">
+  <a
+    id="btn-to-top"
+    class="circled"
+    href="javascript:void(0);"
+    data-visible-offset="800"
+  ></a>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+  window.jQuery || document.write('<script src="{{asset('frontoffice/')}}js/jquery-2.2.4.min.js"><\/script>')
+</script>
+<script
+  type="text/javascript"
+  src="{{ asset('frontoffice/') }}js/main.min.js"
+></script>
 {% endblock %}

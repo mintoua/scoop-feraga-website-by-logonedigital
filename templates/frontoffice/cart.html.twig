@@ -141,7 +141,16 @@
                 <img class="lazy" width="248" height="309" src="{{ asset('frontoffice/') }}img/blank.gif"
                      data-src="{{ asset('frontoffice/') }}img/decor-el_5.jpg" alt="demo"/>
             </div>
-
+            <style>
+            .btn-cart{
+                border-color: #3daa35;
+                background-color: transparent!important;
+            }
+            .btn-cart:hover{
+                background-color: #3daa35!important;
+                color:white
+            }
+            </style>
             <div class="container">
                 <div class="row">
                     <div
@@ -229,7 +238,7 @@
                                                 <input class="textfield" type="text" placeholder="Code"/>
                                             </div>
 
-                                            <button class="custom-btn custom-btn--medium custom-btn--style-1"
+                                            <button class="custom-btn custom-btn--medium  btn-cart"
                                                     type="submit" role="button">Coupon de Réduction
                                             </button>
                                         </div>
@@ -254,7 +263,7 @@
                                                 <tfoot>
                                                 <tr>
                                                     <td colspan="2">
-                                                        <a class="custom-btn custom-btn--medium custom-btn--style-1"
+                                                        <a class="custom-btn custom-btn--medium  btn-cart"
                                                            href="{{ path('app_checkout') }}">Continuer</a>
                                                     </td>
                                                 </tr>
