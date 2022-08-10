@@ -61,11 +61,24 @@
                         <a href="{{path('app_blog')}}">Nos Actualités</a>
                       </li>
 
-                      <li class="li-profile">
+                      {% if app.user %}
+                      <li>
+                        <a href="{{ path('app_user_account') }}"
+                          ><i class="fontello-profile"></i
+                        >mon compte</a>
+                      </li>
+                      <li>
+                        <a href="{{ path('app_logout') }}"
+                          ><i class="fas fa-user-alt-slash"></i
+                        >déconnexion</a>
+                      </li> 
+                      {% else %}
+                        <li>
                         <a href="{{ path('app_login') }}"
                           ><i class="fontello-profile"></i
-                        ></a>
+                        >mon compte</a>
                       </li>
+                      {% endif %}
 
                       <li class="li-cart">
                         <a href="{{path('app_cart')}}" 
@@ -110,4 +123,4 @@
             </div>
           </div>
         </div>
-      </header>
+</header>
