@@ -130,6 +130,9 @@ class OrderCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+            ->setPageTitle('index', 'Gérer Les Commandes')
+            ->setPageTitle('edit', "Modifier la commande")
+            ->setPageTitle ('detail','Détails de la commande')
             ->setEntityLabelInPlural ('Commandes')
             ->setDefaultSort(['id'=>'DESC']);
     }
@@ -138,13 +141,12 @@ class OrderCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
             DateTimeField::new('createdAt','Créée le'),
             TextField::new('user.getUsername','Utilisateur'),
             TextareaField::new('delivery', 'Adresse de Livraison') ->onlyOnDetail()->renderAsHtml (),
-            IntegerField::new('total'),
-            TextField::new('carrierName','Transporteur'),
-            IntegerField::new('carrierPrice','Frais de port'),
+            IntegerField::new('total','Total (en FCFA)'),
+            TextField::new('carrierName','Transporteur')->hideOnIndex (),
+            IntegerField::new('carrierPrice','Frais de port')->hideOnIndex (),
             ChoiceField::new('state','Etat')->setChoices([
                 'Non payée'=>0,
                 'Payée'=>1,

@@ -1399,7 +1399,7 @@ block content %}
               <span class="d-none d-sm-block"
                 ><a
                   class="custom-btn custom-btn--big custom-btn--style-3"
-                  href="#"
+                  href="{{ path('app_about') }}"
                   >découvrir</a
                 ></span
               >
@@ -1407,7 +1407,7 @@ block content %}
               <span class="d-block d-sm-none"
                 ><a
                   class="custom-btn custom-btn--small custom-btn--style-3"
-                  href="#"
+                  href="{{ path('app_about') }}"
                   >découvrir</a
                 ></span
               >
@@ -1437,7 +1437,7 @@ block content %}
               <span class="d-none d-sm-block"
                 ><a
                   class="custom-btn custom-btn--big custom-btn--style-3"
-                  href="#"
+                  href="{{ path('app_about') }}"
                   >Découvrir</a
                 ></span
               >
@@ -1886,7 +1886,78 @@ block content %}
     </div>
   </section>
   <!-- end section -->
+  <section class="section section--no-pb">
+    <div class="container">
+      <div class="section-heading section-heading--center" data-aos="fade">
+        <h2 class="__title">Meilleurs <span>produits</span></h2>
 
+      </div>
+      <style>
+        .add-to-cart-btn{
+          color: #0a0a0a;
+        }
+        .btn-card {
+          border-color: #3daa35 !important;
+        }
+        .btn-card:hover {
+          background-color: transparent !important;
+          background-color: #3daa35 !important;
+          color: white;
+        }
+      </style>
+
+      <div id="all" class="goods goods--style-1">
+        <div class="__inner">
+          <div class="row">
+            <!-- start item -->
+            {% for product in products %} {% if product.product_quantity > 0 %}
+              <div class="col-12 col-sm-6 col-lg-4">
+                <div class="__item">
+                  <figure class="__image">
+                    <img
+                            width="188"
+                            src="{{ asset('uploads/images/'~product.product_image) }}"
+                            alt="demo"
+                    />
+                  </figure>
+
+                  <div class="__content">
+                    <h4 class="h6 __title">
+                      <a
+                              href="{{ path('app_single_product', { slug: product.slug }) }}"
+                      >{{ product.product_name }}</a
+                      >
+                    </h4>
+
+
+
+                    <div class="product-price">
+              <span class="product-price__item product-price__item--new">
+                {{ product.product_price }} FCFA</span
+              >
+                    </div>
+
+                    <a
+                            class="custom-btn custom-btn--medium btn-card add-to-cart-btn"
+                            href="{{ path('app_add_to_cart', { slug: product.slug }) }}"
+                    ><i class="fontello-shopping-bag"></i>Ajouter panier</a
+                    >
+                    <a
+
+                            style="display: block"
+                            href="{{ path('app_single_product', { slug: product.slug }) }}"
+                    >VOIR PLUS</a
+                    >
+                  </div>
+                </div>
+              </div>
+            {% endif %} {% endfor %}
+            <!-- end item -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <!-- start section -->
   <section class="section section--no-pb">
     <div class="container">

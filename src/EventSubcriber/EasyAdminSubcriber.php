@@ -54,10 +54,7 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
     }*/
 
-    /*public function setBoutiqueSlug(BeforeEntityPersistedEvent $event)
-    {
-
-    }
+    /*
     public function setSlug(BeforeEntityUpdatedEvent $event){
 
         $entity = $event->getEntityInstance();
@@ -147,10 +144,13 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
         if($entity instanceof ProductCategory){
             $this->cache->delete('product_categories_list');
+            $this->cache->delete('product_list');
+            $this->cache->delete ('product_best_list');
         }
         if($entity instanceof Product){
             $this->cache->delete('product_list');
             $this->cache->delete ('product_best_list');
+            $this->cache->delete('product_reviews_list');
         }
 
         if ($entity instanceof Comments){
@@ -177,10 +177,13 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
         if($entity instanceof ProductCategory){
             $this->cache->delete('product_categories_list');
+            $this->cache->delete('product_list');
+            $this->cache->delete ('product_best_list');
         }
         if($entity instanceof Product){
             $this->cache->delete('product_list');
             $this->cache->delete ('product_best_list');
+            $this->cache->delete('product_reviews_list');
         }
         if ($entity instanceof Comments){
             $this->cache->delete('product_reviews_list');
@@ -194,6 +197,7 @@ class EasyAdminSubcriber implements EventSubscriberInterface
             $this->cache->delete('categeroriesPictureFarm');
         }
     }
+
     public function clearCacheAfterUpdated(AfterEntityUpdatedEvent $event){
         $entity = $event->getEntityInstance();
         if($entity instanceof Posts){
@@ -207,10 +211,13 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
         if($entity instanceof ProductCategory){
             $this->cache->delete('product_categories_list');
+            $this->cache->delete('product_list');
+            $this->cache->delete ('product_best_list');
         }
         if($entity instanceof Product){
             $this->cache->delete('product_list');
             $this->cache->delete ('product_best_list');
+            $this->cache->delete('product_reviews_list');
         }
         if ($entity instanceof Comments){
             $this->cache->delete('product_reviews_list');
