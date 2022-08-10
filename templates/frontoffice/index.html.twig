@@ -1588,12 +1588,14 @@ block content %}
                   <img
                     class="img-fluid lazy"
                     src="{{ asset('frontoffice/img/blank.gif') }}"
-                    data-src="{{ asset('frontoffice/img/feature_img/1.png') }}"
-                    alt="logo partenaire"
+                    data-src="{{
+                      asset('frontoffice/img/feature_img/pig.png')
+                    }}"
+                    alt="icone cochon scoops feraga"
                   />
                 </i>
 
-                <h5 class="__title">Farm Livestock</h5>
+                <h5 class="__title">Elévage de cochon</h5>
               </div>
             </div>
             <!-- end item -->
@@ -1610,12 +1612,14 @@ block content %}
                   <img
                     class="img-fluid lazy"
                     src="{{ asset('frontoffice/img/blank.gif') }}"
-                    data-src="{{ asset('frontoffice/img/feature_img/2.png') }}"
-                    alt="logo partenaire"
+                    data-src="{{
+                      asset('frontoffice/img/feature_img/chicken.png')
+                    }}"
+                    alt="icone poulet scoops feraga"
                   />
                 </i>
 
-                <h5 class="__title">Garden Tillage</h5>
+                <h5 class="__title">Elévage poulet</h5>
               </div>
             </div>
             <!-- end item -->
@@ -1632,12 +1636,14 @@ block content %}
                   <img
                     class="img-fluid lazy"
                     src="{{ asset('frontoffice/img/blank.gif') }}"
-                    data-src="{{ asset('frontoffice/img/feature_img/3.png') }}"
-                    alt="demo"
+                    data-src="{{
+                      asset('frontoffice/img/feature_img/goat.png')
+                    }}"
+                    alt="icone chèvre"
                   />
                 </i>
 
-                <h5 class="__title">Fresh Fruits</h5>
+                <h5 class="__title">Elévage de cabris</h5>
               </div>
             </div>
             <!-- end item -->
@@ -1654,12 +1660,14 @@ block content %}
                   <img
                     class="img-fluid lazy"
                     src="{{ asset('frontoffice/img/blank.gif') }}"
-                    data-src="{{ asset('frontoffice/img/feature_img/4.png') }}"
-                    alt="demo"
+                    data-src="{{
+                      asset('frontoffice/img/feature_img/corn.png')
+                    }}"
+                    alt="icone maïs scoops feraga"
                   />
                 </i>
 
-                <h5 class="__title">Vegatables</h5>
+                <h5 class="__title">Culture du maïs</h5>
               </div>
             </div>
             <!-- end item -->
@@ -1676,12 +1684,14 @@ block content %}
                   <img
                     class="img-fluid lazy"
                     src="{{ asset('frontoffice/img/blank.gif') }}"
-                    data-src="{{ asset('frontoffice/img/feature_img/5.png') }}"
-                    alt="demo"
+                    data-src="{{
+                      asset('frontoffice/img/feature_img/soja.png')
+                    }}"
+                    alt="icone soja scoops feraga"
                   />
                 </i>
 
-                <h5 class="__title">Awesome Wheats</h5>
+                <h5 class="__title">Culture du soja</h5>
               </div>
             </div>
             <!-- end item -->
@@ -1696,12 +1706,14 @@ block content %}
                   <img
                     class="img-fluid lazy"
                     src="{{ asset('frontoffice/img/blank.gif') }}"
-                    data-src="{{ asset('frontoffice/img/feature_img/5.png') }}"
-                    alt="demo"
+                    data-src="{{
+                      asset('frontoffice/img/feature_img/tomato.png')
+                    }}"
+                    alt="icone tomate"
                   />
                 </i>
 
-                <h5 class="__title">Awesome Wheats</h5>
+                <h5 class="__title">Culture tomate</h5>
               </div>
             </div>
             <!-- start item -->
@@ -1890,10 +1902,9 @@ block content %}
     <div class="container">
       <div class="section-heading section-heading--center" data-aos="fade">
         <h2 class="__title">Meilleurs <span>produits</span></h2>
-
       </div>
       <style>
-        .add-to-cart-btn{
+        .add-to-cart-btn {
           color: #0a0a0a;
         }
         .btn-card {
@@ -1911,46 +1922,47 @@ block content %}
           <div class="row">
             <!-- start item -->
             {% for product in products %} {% if product.product_quantity > 0 %}
-              <div class="col-12 col-sm-6 col-lg-4">
-                <div class="__item">
-                  <figure class="__image">
-                    <img
-                            width="188"
-                            src="{{ asset('uploads/images/'~product.product_image) }}"
-                            alt="demo"
-                    />
-                  </figure>
+            <div class="col-12 col-sm-6 col-lg-4">
+              <div class="__item">
+                <figure class="__image">
+                  <img
+                    width="188"
+                    src="{{ asset('uploads/images/'~product.product_image) }}"
+                    alt="demo"
+                  />
+                </figure>
 
-                  <div class="__content">
-                    <h4 class="h6 __title">
-                      <a
-                              href="{{ path('app_single_product', { slug: product.slug }) }}"
+                <div class="__content">
+                  <h4 class="h6 __title">
+                    <a
+                      href="{{
+                        path('app_single_product', { slug: product.slug })
+                      }}"
                       >{{ product.product_name }}</a
-                      >
-                    </h4>
-
-
-
-                    <div class="product-price">
-              <span class="product-price__item product-price__item--new">
-                {{ product.product_price }} FCFA</span
-              >
-                    </div>
-
-                    <a
-                            class="custom-btn custom-btn--medium btn-card add-to-cart-btn"
-                            href="{{ path('app_add_to_cart', { slug: product.slug }) }}"
-                    ><i class="fontello-shopping-bag"></i>Ajouter panier</a
                     >
-                    <a
+                  </h4>
 
-                            style="display: block"
-                            href="{{ path('app_single_product', { slug: product.slug }) }}"
-                    >VOIR PLUS</a
+                  <div class="product-price">
+                    <span class="product-price__item product-price__item--new">
+                      {{ product.product_price }} FCFA</span
                     >
                   </div>
+
+                  <a
+                    class="custom-btn custom-btn--medium btn-card add-to-cart-btn"
+                    href="{{ path('app_add_to_cart', { slug: product.slug }) }}"
+                    ><i class="fontello-shopping-bag"></i>Ajouter panier</a
+                  >
+                  <a
+                    style="display: block"
+                    href="{{
+                      path('app_single_product', { slug: product.slug })
+                    }}"
+                    >VOIR PLUS</a
+                  >
                 </div>
               </div>
+            </div>
             {% endif %} {% endfor %}
             <!-- end item -->
           </div>
