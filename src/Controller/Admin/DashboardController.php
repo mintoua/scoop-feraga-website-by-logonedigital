@@ -54,7 +54,7 @@ class DashboardController extends AbstractDashboardController
     {
         return Dashboard::new()
             ->setTitle('<img src="https://logonedigital.com/assetF/img/logo.png" />')
-            ->setFaviconPath('/public/frontOffice/img/favicon_scoops_feraga.png');
+            ->setFaviconPath('https://logonedigital.com/assetF/img/Logone-logo-fav.png');
     }
 
     public function configureMenuItems(): iterable
@@ -73,8 +73,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Commandes', 'fas fa-shopping-cart', Order::class);
 
         yield MenuItem::section('Blog');
-        yield MenuItem::linkToCrud('Thématique', 'fas fa-list-alt', PostCategory::class);
-        yield MenuItem::linkToCrud('Post', 'fas fa-newspaper', Posts::class);
+        yield MenuItem::linkToCrud('Thématiques', 'fas fa-list-alt', PostCategory::class);
+        yield MenuItem::linkToCrud('Articles', 'fas fa-newspaper', Posts::class);
         yield MenuItem::linkToCrud('Commentaires ', 'fas fa-comments', Commentaire::class);
         yield MenuItem::section('Demande de contacts');
         yield MenuItem::linkToCrud('Courriel', 'fas fa-envelope', Contact::class);

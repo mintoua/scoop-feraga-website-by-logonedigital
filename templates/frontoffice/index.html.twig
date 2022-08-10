@@ -1296,15 +1296,15 @@ block content %}
                 slides = [
                   {
                     name: "img 1",
-                    src: "{{ asset('frontoffice/img/home_img/back-dev.jpg')}}",
+                    src: "{{ asset('frontoffice/img/home_img/back-2.jpg')}}",
                   },
                   {
                     name: "img 2",
-                    src: "{{ asset('frontoffice/img/home_img/back-dev-2.jpg')}}",
+                    src: "{{ asset('frontoffice/img/home_img/back-dev-2-black.jpg')}}",
                   },
                   {
                     name: "img 3",
-                    src: "{{ asset('frontoffice/img/home_img/back-dev-3.jpg')}}",
+                    src: "{{ asset('frontoffice/img/home_img/img-poule-poussin-1.jpg')}}",
                   },
                 ],
                 slider_content = $(".start-screen__content__item"),
@@ -1387,24 +1387,20 @@ block content %}
       class="start-screen__content__item start-screen__content__item--1 align-items-center"
     >
       <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-12 col-md-10 col-xl-8">
+        <div class="row align-items-center">
+          <div class="col-12 col-md col-lg-9 col-xl-8">
             <div class="__name">scoops feraga</div>
 
-            <h2 class="__title text-white">ferme intégré</h2>
+            <h2 class="__title text-white">ferme <span>intégrée</span></h2>
 
-            <p class="text-center">
-              The point of using Lorem Ipsum is that it has a more-or-less
-              normal distribution of letters, as opposed to using 'Content here,
-              content here', making it look like readable English
-            </p>
+            <p>le bien-être c'est aussi ce que l'on consomme !</p>
 
-            <p class="text-center mt-5 mt-md-10">
+            <p class="mt-5 mt-md-10">
               <span class="d-none d-sm-block"
                 ><a
                   class="custom-btn custom-btn--big custom-btn--style-3"
                   href="#"
-                  >Discover</a
+                  >découvrir</a
                 ></span
               >
 
@@ -1412,7 +1408,7 @@ block content %}
                 ><a
                   class="custom-btn custom-btn--small custom-btn--style-3"
                   href="#"
-                  >Discover</a
+                  >découvrir</a
                 ></span
               >
             </p>
@@ -1425,25 +1421,24 @@ block content %}
       class="start-screen__content__item start-screen__content__item--2 align-items-center"
     >
       <div class="container">
-        <div class="row align-items-center">
-          <div class="col-12 col-md col-lg-9 col-xl-8">
-            <div class="__name">AgRO</div>
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-10 col-xl-8">
+            <div class="__name">entreprise</div>
 
-            <h2 class="__title text-white">
-              Best harvest <br /><span>in the World</span>
-            </h2>
+            <h2 class="__title text-white">agricole</h2>
 
-            <p>
+            <p class="text-center">
               The point of using Lorem Ipsum is that it has a more-or-less
-              normal distribution
+              normal distribution of letters, as opposed to using 'Content here,
+              content here', making it look like readable English
             </p>
 
-            <p class="mt-5 mt-md-10">
+            <p class="text-center mt-5 mt-md-10">
               <span class="d-none d-sm-block"
                 ><a
                   class="custom-btn custom-btn--big custom-btn--style-3"
                   href="#"
-                  >Discover</a
+                  >Découvrir</a
                 ></span
               >
 
@@ -1451,7 +1446,7 @@ block content %}
                 ><a
                   class="custom-btn custom-btn--small custom-btn--style-3"
                   href="#"
-                  >Discover</a
+                  >Découvrir</a
                 ></span
               >
             </p>
@@ -1480,10 +1475,10 @@ block content %}
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12 col-md-auto col-xl-8">
-            <div class="__name">AgRO</div>
+            <div class="__name">scoops feraga</div>
 
             <h2 class="__title text-white">
-              Live<span style="color: #fcdb5a">stock</span>
+              bien<span style="color: #fcdb5a">venu</span>
             </h2>
 
             <p class="text-center mt-5 mt-md-10">
@@ -1491,17 +1486,19 @@ block content %}
                 ><a
                   class="custom-btn custom-btn--big custom-btn--style-3"
                   href="#"
-                  >Discover</a
+                  >Découvrir</a
                 ></span
               >
 
-              <span class="d-block d-sm-none"
+              {#
+              <span class="d-block d-sm-block"
                 ><a
                   class="custom-btn custom-btn--small custom-btn--style-3"
                   href="#"
-                  >Discover</a
+                  >découvir</a
                 ></span
               >
+              #}
             </p>
           </div>
         </div>
@@ -1894,7 +1891,7 @@ block content %}
   <section class="section section--no-pb">
     <div class="container">
       <div class="section-heading section-heading--center" data-aos="fade">
-        <h2 class="__title">Blog <span>Posts</span></h2>
+        <h2 class="__title">denières <span>actualités</span></h2>
 
         <p>
           Latin words, combined with a handful of model sentence structures, to
@@ -1911,6 +1908,7 @@ block content %}
         <div class="__inner">
           <div class="row">
             <!-- start item -->
+            {% for post in posts %}
             <div class="col-12 col-sm-6 col-lg-4">
               <div
                 class="__item __item--preview"
@@ -1921,126 +1919,48 @@ block content %}
                 <figure class="__image">
                   <img
                     class="lazy"
-                    src="{{ asset('frontOffice/') }}img/blank.gif"
-                    data-src="{{ asset('frontOffice/') }}img/posts_img/1.jpg"
-                    alt="demo"
+                    src="{{ asset('uploads/images'~asset(post.postimage)) }}"
+                    data-src="{{ asset('uploads/images'~asset(post.postimage)) }}"
+                    alt="{{ post.slug }}"
                   />
                 </figure>
 
                 <div class="__content">
+                  {#
                   <p class="__category">
-                    <a href="#">ORGANIC FOOD/TIPS & GUIDES</a>
+                    <a href="#">{{ post.postcategory.name }}</a>
                   </p>
+                  #}
 
                   <h3 class="__title h5">
-                    <a href="blog_details.html">Tips for Ripening your Fruit</a>
+                    <a href="{{ path('blog_details', { slug: post.slug }) }}">{{
+                      post.title
+                    }}</a>
                   </h3>
 
                   <p>
-                    The generated Lorem Ipsum is therefore always free from
-                    repetition injected humour, or non-characteristic words etc.
+                    {{ post.description|striptags[:200] ~ '...' }}
                   </p>
 
                   <a
                     class="custom-btn custom-btn--medium custom-btn--style-1 text-color"
-                    href="blog_details.html"
-                    >Read more</a
+                    href="{{ path('blog_details', { slug: post.slug }) }}"
+                    >Voir plus</a
                   >
                 </div>
 
-                <span class="__date-post"> <strong>07</strong>Nov </span>
+                <span
+                  class="__date-post"
+                  style="background-color: #3daa35; color: white"
+                >
+                  <strong style="color: white">{{
+                    post.getCreatedAt().format("j")
+                  }}</strong
+                  >{{ post.getCreatedAt().format("M") }}
+                </span>
               </div>
             </div>
-            <!-- end item -->
-
-            <!-- start item -->
-            <div class="col-12 col-sm-6 col-lg-4">
-              <div
-                class="__item __item--preview"
-                data-aos="flip-up"
-                data-aos-delay="200"
-                data-aos-offset="0"
-              >
-                <figure class="__image">
-                  <img
-                    class="lazy"
-                    src="{{ asset('frontOffice/') }}img/blank.gif"
-                    data-src="{{ asset('frontOffice/') }}img/posts_img/2.jpg"
-                    alt="demo"
-                  />
-                </figure>
-
-                <div class="__content">
-                  <p class="__category">
-                    <a href="#">DIET/ORGANIC FOOD</a>
-                  </p>
-
-                  <h3 class="__title h5">
-                    <a href="blog_details.html"
-                      >Health Benefits of a Raw Food</a
-                    >
-                  </h3>
-
-                  <p>
-                    The generated Lorem Ipsum is therefore always free from
-                    repetition injected humour, or non-characteristic words etc.
-                  </p>
-
-                  <a
-                    class="custom-btn custom-btn--medium custom-btn--style-1 text-color"
-                    href="blog_details.html"
-                    >Read more</a
-                  >
-                </div>
-
-                <span class="__date-post"> <strong>03</strong>Nov </span>
-              </div>
-            </div>
-            <!-- end item -->
-
-            <!-- start item -->
-            <div class="col-12 col-sm-6 col-lg-4">
-              <div
-                class="__item __item--preview"
-                data-aos="flip-up"
-                data-aos-delay="300"
-                data-aos-offset="0"
-              >
-                <figure class="__image">
-                  <img
-                    class="lazy"
-                    src="{{ asset('frontOffice/') }}img/blank.gif"
-                    data-src="{{ asset('frontoffice/img/posts_img/3.jpg') }}"
-                    alt="demo"
-                  />
-                </figure>
-
-                <div class="__content">
-                  <p class="__category">
-                    <a href="#">DIET/ORGANIC FOOD</a>
-                  </p>
-
-                  <h3 class="__title h5">
-                    <a href="blog_details.html"
-                      >Superfoods you should be eating</a
-                    >
-                  </h3>
-
-                  <p>
-                    The generated Lorem Ipsum is therefore always free from
-                    repetition injected humour, or non-characteristic words etc.
-                  </p>
-
-                  <a
-                    class="custom-btn custom-btn--medium custom-btn--style-1 text-color"
-                    href="blog_details.html"
-                    >Read more</a
-                  >
-                </div>
-
-                <span class="__date-post"> <strong>25</strong>oct </span>
-              </div>
-            </div>
+            {% endfor %}
             <!-- end item -->
           </div>
         </div>
@@ -2088,6 +2008,7 @@ block content %}
 									}
 								]}'
         >
+          {#
           <div class="__item">
             <img
               class="img-fluid m-auto"
@@ -2127,6 +2048,7 @@ block content %}
               alt="logo partenaire"
             />
           </div>
+          #}
         </div>
       </div>
     </div>

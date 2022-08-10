@@ -1,71 +1,78 @@
 {% for c in comments %}
 
-    <li class="comment">
-        <table>
-            <tr>
-                <td>
-                    <div class="d-none d-lg-block">
+<li class="comment">
+  <table>
+    <tr>
+      <td>
+        <div class="d-none d-lg-block">
+          <div class="comment__author-img">
+            <img
+              width="70"
+              src="{{ asset('frontoffice/') }}img/avatar1.png"
+              data-src="{{ asset('frontoffice/') }}img/avatar1.png"
+              alt="demo"
+            />
+          </div>
+        </div>
+      </td>
 
-                        <div class="comment__author-img">
-                            <img width="70" src="{{ asset('frontoffice/') }}img/avatar1.png"
-                                 data-src="{{ asset('frontoffice/') }}img/avatar1.png" alt="demo"/>
-                        </div>
+      <td width="100%">
+        <div class="d-flex align-items-center mb-3 mb-lg-0">
+          <div class="d-block d-lg-none">
+            <div class="comment__author-img">
+              <img
+                width="70"
+                src="{{ asset('frontoffice/') }}img/avatar1.png"
+                data-src="{{ asset('frontoffice/') }}img/avatar1.png"
+                alt="demo"
+              />
+            </div>
+          </div>
+          <div>
+            <span class="comment__author-name"
+              >{{ c.user.firstname }} {{ c.user.lastname }}</span
+            >
+          </div>
+          <div style="position: absolute; right: 0">
+            {% if is_granted('EDIT',c) and is_granted('DELETE',c) %}
 
-                    </div>
-                </td>
+            <div class="dropdown">
+              <button type="button" class="dropbtn" onclick="show()">
+                <i style="color: #0d9488" class="fas fa-ellipsis-v"></i>
+              </button>
+              <div id="myDropdown" class="dropdown-content">
+                <a href="javascript:update({{ c.id }} , '{{ c.message }}')">
+                  <div>
+                    <i style="color: orange" class="fas fa-pen"></i>
+                    Modifier
+                  </div>
+                </a>
+                <a href="javascript:deleteCommentaire({{ c.id }})">
+                  <div>
+                    <input type="hidden" id="CD_token" name="CD_token" value="{{
+                      csrf_token("delete")
+                    }}"/>
+                    <i style="color: red" class="far fa-trash-alt"></i>
+                    Supprimer
+                  </div>
+                </a>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </td>
+    </tr>
 
-                <td width="100%">
-                    <div class="d-flex align-items-center mb-3 mb-lg-0">
-                        <div class="d-block d-lg-none">
-
-                            <div class="comment__author-img">
-                                <img width="70" src="{{ asset('frontoffice/') }}img/avatar1.png"
-                                     data-src="{{ asset('frontoffice/') }}img/avatar1.png" alt="demo"/>
-                            </div>
-
-                        </div>
-                        <div>
-                            <span class="comment__author-name">{{ c.user.firstname }} {{ c.user.lastname }}</span>
-                        </div>
-                        <div style="position: absolute;right: 0;">
-                            {% if is_granted('EDIT',c) and is_granted('DELETE',c) %}
-
-                                <div class="dropdown">
-                                    <button type="button" class="dropbtn" onclick="show()"><i style="color: #0d9488" class="fas fa-ellipsis-v"></i></button>
-                                        <div id="myDropdown" class="dropdown-content">
-                                        <a href="javascript:update({{ c.id }} , '{{ c.message }}')">
-                                            <div>
-                                                <i style="color: orange"
-                                                   class="fas fa-pen"></i>
-                                                Modifier
-                                            </div>
-                                        </a>
-                                        <a href="javascript:deleteCommentaire({{ c.id }})">
-                                            <div>
-                                                <input type="hidden" id="CD_token" name="CD_token"
-                                                       value="{{ csrf_token("delete") }}"/>
-                                                <i style="color: red" class="far fa-trash-alt"></i>
-                                                Supprimer
-                                            </div>
-                                        </a>
-                                        </div>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td></td>
-                <td id="comment-description{{ c.id }}">
-                    <p>
-                        {{ c.message }}
-                    </p>
-                </td>
-                <input id="oldMessage{{ c.id }}" type="hidden" value="{{ c.message }}"/>
-            </tr>
-        </table>
-    </li>
+    <tr>
+      <td></td>
+      <td id="comment-description{{ c.id }}">
+        <p>
+          {{ c.message }}
+        </p>
+      </td>
+      <input id="oldMessage{{ c.id }}" type="hidden" value="{{ c.message }}" />
+    </tr>
+  </table>
+</li>
 {% endfor %}
-

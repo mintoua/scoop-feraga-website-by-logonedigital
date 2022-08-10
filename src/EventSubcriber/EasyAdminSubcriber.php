@@ -2,7 +2,9 @@
 
 namespace App\EventSubcriber;
 
+use App\Entity\CategoryPicture;
 use App\Entity\Comments;
+use App\Entity\FarmPictures;
 use App\Entity\Posts;
 use App\Entity\Product;
 use App\Entity\PostCategory;
@@ -154,6 +156,15 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         if ($entity instanceof Comments){
             $this->cache->delete('product_reviews_list');
         }
+
+        if($entity instanceof CategoryPicture){
+            $this->cache->delete('farm-picture');
+            $this->cache->delete('categeroriesPictureFarm');
+        }
+        if($entity instanceof FarmPictures){
+            $this->cache->delete('farm-picture');
+            $this->cache->delete('categeroriesPictureFarm');
+        }
     }
     public function clearCacheAfterDeleted(AfterEntityDeletedEvent $event){
         $entity = $event->getEntityInstance();
@@ -174,15 +185,25 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         if ($entity instanceof Comments){
             $this->cache->delete('product_reviews_list');
         }
+        if($entity instanceof CategoryPicture){
+            $this->cache->delete('farm-picture');
+            $this->cache->delete('categeroriesPictureFarm');
+        }
+        if($entity instanceof FarmPictures){
+            $this->cache->delete('farm-picture');
+            $this->cache->delete('categeroriesPictureFarm');
+        }
     }
     public function clearCacheAfterUpdated(AfterEntityUpdatedEvent $event){
         $entity = $event->getEntityInstance();
         if($entity instanceof Posts){
             $this->cache->delete('post_list');
+            $this->cache->delete('post_home');
         }
         if($entity instanceof PostCategory){
             $this->cache->delete('category_list');
             $this->cache->delete('post_list');
+            $this->cache->delete('post_home');
         }
         if($entity instanceof ProductCategory){
             $this->cache->delete('product_categories_list');
@@ -193,6 +214,14 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
         if ($entity instanceof Comments){
             $this->cache->delete('product_reviews_list');
+        }
+        if($entity instanceof CategoryPicture){
+            $this->cache->delete('farm-picture');
+            $this->cache->delete('categeroriesPictureFarm');
+        }
+        if($entity instanceof FarmPictures){
+            $this->cache->delete('farm-picture');
+            $this->cache->delete('categeroriesPictureFarm');
         }
     }
 }

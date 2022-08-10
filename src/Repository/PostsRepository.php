@@ -54,6 +54,19 @@ class PostsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+   /**
+    * @return Posts[] Returns an array of Posts objects
+    */
+   public function findByPost(): array
+   {
+       return $this->createQueryBuilder('p')
+           ->orderBy('p.createdAt', 'DESC')
+           ->setMaxResults(3)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
    public function getPaginatedPosts($page , $limit , $cat = null)
     {
         $query = $this->createQueryBuilder('p');

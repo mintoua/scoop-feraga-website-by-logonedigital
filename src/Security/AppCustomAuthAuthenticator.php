@@ -81,6 +81,7 @@ class AppCustomAuthAuthenticator extends AbstractLoginFormAuthenticator
            }
         
             $path = parse_url($redirectUrl, PHP_URL_PATH);
+            //dd($redirectUrl.' </br>'.$blogDetailUrl);
             if(parse_url($redirectUrl, PHP_URL_PATH) === $cartUrl){
                 $this->flasher->addSuccess('Succès !');
                 return new RedirectResponse($redirectUrl);

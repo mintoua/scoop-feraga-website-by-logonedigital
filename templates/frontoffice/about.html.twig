@@ -1,29 +1,6 @@
 {% extends 'base_frontoffice.html.twig'%} {% block header %} {%
-include('includes/frontoffice/header.html.twig')%} {% endblock header %} {%
-block content %}
-<!-- start hero -->
-<div
-  id="hero"
-  class="jarallax"
-  data-speed="0.7"
-  data-img-position="50% 80%"
-  style="background-image: url({{ asset('frontoffice/') }}img/intro_img/1.jpg)"
->
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-lg-7">
-        <h1 class="__title"><span>About</span> company</h1>
-
-        <p>
-          The point of using Lorem Ipsum is that it has a more-or-less normal
-          distribution of letters, as opposed to using 'Content here, content
-          here', making it look like readable English
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end hero -->
+include('includes/frontoffice/header_black.html.twig')%} {% endblock header %}
+{% block content %}
 
 <!-- start main -->
 <main role="main">
@@ -150,10 +127,8 @@ block content %}
                       <img
                         class="img-fluid lazy"
                         src="{{ asset('frontoffice/') }}img/blank.gif"
-                        data-src="{{
-                          asset('frontoffice/')
-                        }}img/ico/ico_count_1-1.png"
-                        alt="demo"
+                        data-src="{{ asset('frontoffice/') }}img/arbre_vert.png"
+                        alt="icone arbre scoops feraga"
                       />
                     </i>
                   </div>
@@ -163,7 +138,7 @@ block content %}
                       19 500
                     </p>
 
-                    <p class="__title">Tons of harvest</p>
+                    <p class="__title">plants</p>
                   </div>
                 </div>
               </div>
@@ -186,8 +161,8 @@ block content %}
                         src="{{ asset('frontoffice/') }}img/blank.gif"
                         data-src="{{
                           asset('frontoffice/')
-                        }}img/ico/ico_count_2-1.png"
-                        alt="demo"
+                        }}img/animal_vert.png"
+                        alt="icone animaux scoops feraga"
                       />
                     </i>
                   </div>
@@ -197,7 +172,7 @@ block content %}
                       2 720
                     </p>
 
-                    <p class="__title">Units of Cattle</p>
+                    <p class="__title">têtes d'animaux</p>
                   </div>
                 </div>
               </div>
@@ -218,10 +193,8 @@ block content %}
                       <img
                         class="img-fluid lazy"
                         src="{{ asset('frontoffice/') }}img/blank.gif"
-                        data-src="{{
-                          asset('frontoffice/')
-                        }}img/ico/ico_count_3-1.png"
-                        alt="demo"
+                        data-src="{{ asset('frontoffice/') }}img/champ_vert.png"
+                        alt="icone terrain scoops feraga"
                       />
                     </i>
                   </div>
@@ -231,7 +204,7 @@ block content %}
                       10 000
                     </p>
 
-                    <p class="__title">Hectares of farm</p>
+                    <p class="__title">terre cultivable</p>
                   </div>
                 </div>
               </div>
@@ -254,8 +227,8 @@ block content %}
                         src="{{ asset('frontoffice/') }}img/blank.gif"
                         data-src="{{
                           asset('frontoffice/')
-                        }}img/ico/ico_count_4-1.png"
-                        alt="demo"
+                        }}img/tracteur_vert.png"
+                        alt="icone tracteur scoops feraga"
                       />
                     </i>
                   </div>
@@ -265,7 +238,7 @@ block content %}
                       128
                     </p>
 
-                    <p class="__title">Units of technic</p>
+                    <p class="__title">machine agricoles</p>
                   </div>
                 </div>
               </div>
@@ -280,6 +253,7 @@ block content %}
   <!-- end section -->
 
   <!-- start section -->
+  {#
   <section class="section section--gutter section--base-bg section--custom-02">
     <div class="container">
       <div class="section-heading" data-aos="fade">
@@ -382,9 +356,11 @@ block content %}
       <!-- end timeline -->
     </div>
   </section>
+  #}
   <!-- end section -->
 
   <!-- start section -->
+  {#
   <section class="section section--no-pb section--custom-03">
     <div class="container">
       <div class="section-heading section-heading--center" data-aos="fade">
@@ -561,9 +537,11 @@ block content %}
       <!-- end team -->
     </div>
   </section>
+  #}
   <!-- end section -->
 
   <!-- start section -->
+  {#
   <section class="section">
     <div class="container">
       <div class="section-heading section-heading--center" data-aos="fade">
@@ -655,6 +633,7 @@ block content %}
       </div>
     </div>
   </section>
+  #}
   <!-- end section -->
 </main>
 <!-- end main -->
