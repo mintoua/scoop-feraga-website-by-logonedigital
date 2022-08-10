@@ -36,34 +36,37 @@
                 >
                   <ul>
                     <li>
-                      <a style="color: #333; font-weight: bold;" href="{{path('app_home')}}">Accueil</a>
+                      <a style="color: #333; " href="{{path('app_home')}}">Accueil</a>
                     </li>
                     <li>
-                      <a style="color: #333; font-weight: bold;" href="{{path('app_activities')}}">Vie à la ferme</a>
+                      <a style="color: #333; " href="{{path('app_about')}}">scoops feraga</a>
+                    </li>
+                    <li>
+                      <a style="color: #333; " href="{{path('app_activities')}}">Vie à la ferme</a>
                     </li>
 
                     <li class="has-submenu">
-                      <a style="color: #333; font-weight: bold;" href="{{path('app_shop')}}">Boutique</a>
+                      <a style="color: #333; " href="{{path('app_shop')}}">Boutique</a>
 
                       <ul class="submenu">
-                        <li><a style="color: #333; font-weight: bold;" href="shop_catalog.html">Categ-1</a></li>
+                        <li><a style="color: #333; " href="shop_catalog.html">Categ-1</a></li>
                       </ul>
                     </li>
 
                     <li>
-                      <a style="color: #333; font-weight: bold;" href="{{path('app_blog')}}">Nos Actualités</a>
+                      <a style="color: #333; " href="{{path('app_blog')}}">Nos Actualités</a>
                     </li>
 
                     {% if not app.user %}
                     <li>
-                      <a style="color: #333; font-weight: bold;" href="{{path("app_login")}}"><i class="fas fa-user"></i> Mon compte</a>
+                      <a style="color: #333; " href="{{path("app_login")}}"><i class="fas fa-user"></i> Mon compte</a>
                     </li>
                     {% else %}
                     <li>
-                      <a style="color: #333; font-weight: bold;" href="{{path("app_user_account")}}"><i class="fas fa-user"></i> Mon compte</a>
+                      <a style="color: #333; " href="{{path("app_user_account")}}"><i class="fas fa-user"></i> Mon compte</a>
                     </li>
                     <li>
-                      <a style="color: #333; font-weight: bold;" href="{{path("app_logout")}}"><i class="fas fa-user-alt-slash"></i> Deconnexion</a>
+                      <a style="color: #333; " href="{{path("app_logout")}}"><i class="fas fa-user-alt-slash"></i> Deconnexion</a>
                     </li>
                     {% endif %}
                     <style>

@@ -28,6 +28,10 @@ class PostsCrudController extends AbstractCrudController
         return $crud
             ->setSearchFields(['title'])
             ->setAutofocusSearch()
+            ->setPageTitle('index', 'gérer vos articles')
+            ->setPageTitle('new', 'ajouter un article')
+            ->setPageTitle('edit', 'modifier un article')
+            ->setPageTitle('detail', "détail d'un article")
             ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
     public function configureFilters(Filters $filters): Filters
@@ -41,16 +45,19 @@ class PostsCrudController extends AbstractCrudController
     {
         return [
             //IdField::new('id'),
-            TextField::new('title'),
-            SlugField::new('slug')->setTargetFieldName('title')->hideWhenUpdating()->hideWhenCreating(),
+            TextField::new('title')->setLabel('titre article'),
+            SlugField::new('slug')->setTargetFieldName('title')->hideOnForm(),
             ImageField::new('post_image')
+                ->setLabel('image')
                 ->setBasePath('uploads\images')
                 ->setUploadDir('public\uploads\images')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')->setRequired(false),
-            TextareaField::new('description')->setFormType(CKEditorType::class)->hideOnIndex(),
-            AssociationField::new('postCategory'),
+            AssociationField::new('postCategory')->setLabel('thématique'),
             DateTimeField::new('createdAt')->hideOnForm(),
-            TextField::new('description')->stripTags()->setLabel('Contenu')->hideOnForm(),
+            TextareaField::new('description')
+                ->setFormType(CKEditorType::class)
+                ->hideOnIndex()
+                ->renderAsHtml(),
         ];
     }
 
@@ -74,6 +81,5 @@ class PostsCrudController extends AbstractCrudController
             ->add(Crud::PAGE_EDIT, Action::INDEX)
         ;
     }
-
 
 }

@@ -2,13 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\PostCategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use App\Repository\PostCategoryRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostCategoryRepository::class)]
+#[UniqueEntity(fields: ['name'], message:'cette thématique existe déjà !')]
 class PostCategory
 {
     #[ORM\Id]
@@ -18,13 +22,23 @@ class PostCategory
 
     #[ORM\Column(length: 255 , unique: true)]
     private ?string $name = null;
-
+    
+     /**
+     * @Gedmo\Slug(fields={"name"})
+     */
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
     #[ORM\OneToMany(mappedBy: 'postCategory', targetEntity: Posts::class, orphanRemoval: true)]
     private Collection $posts;
 
+    #[Assert\NotNull('la description ne peux pas être null')]
+    #[Assert\Length(
+        min: 2,
+        max: 150,
+        minMessage: 'la description ne doit pas être inférieur à {{ limit }} caractères',
+        maxMessage: 'la description ne doit pas être supérieur {{ limit }} caractères',
+    )]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $category_description = null;
 

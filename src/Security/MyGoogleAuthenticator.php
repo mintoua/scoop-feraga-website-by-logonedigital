@@ -130,7 +130,7 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
            } catch (\Throwable $th) {
            
            }
-        
+           //dd('hello world!');
             $path = parse_url($redirectUrl, PHP_URL_PATH);
             if(parse_url($redirectUrl, PHP_URL_PATH) === $cartUrl){
                 $this->flasher->addFlash('Succès !');

@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\PostsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PostsRepository;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: PostsRepository::class)]
+#[UniqueEntity(fields: ['title'], message:'cette article existe déjà !')]
 class Posts
 {
     #[ORM\Id]
@@ -19,8 +22,12 @@ class Posts
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\Column(length: 255 , unique: true)]
+    private ?string $title = null;
 
-
+    /**
+     * @Gedmo\Slug(fields={"title"})
+     */
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
@@ -28,8 +35,6 @@ class Posts
     #[ORM\JoinColumn(nullable: false)]
     private ?PostCategory $postCategory = null;
 
-    #[ORM\Column(length: 255 , unique: true)]
-    private ?string $title = null;
 
     #[ORM\Column(length: 255)]
     private ?string $post_image = null;
