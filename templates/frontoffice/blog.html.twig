@@ -1,6 +1,6 @@
 {% extends 'base_frontoffice.html.twig'%} {% block header %} {%
-include('includes/frontoffice/header.html.twig')%} {% endblock header %} {%
-block content %} {% set queryParams = app.request.query.all
+include('includes/frontoffice/header_black.html.twig')%} {% endblock header %}
+{% block content %} {% set queryParams = app.request.query.all
 |filter((v,k)=>k!="page") %}
 
 <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
@@ -14,33 +14,10 @@ block content %} {% set queryParams = app.request.query.all
   integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
   crossorigin="anonymous"
 ></script>
-<!-- start hero -->
-<div
-  id="hero"
-  class="jarallax"
-  data-speed="0.7"
-  style="background-image: url({{
-    asset('frontoffice/')
-  }}img/poule-couvrant-oeufs.jpg)"
->
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-lg-7">
-        <h1 class="__title"><span>Our</span> Blog</h1>
-
-        <p>
-          Retrouver toutes les actualités autour de notre ferme scoops feraga
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end hero -->
 
 <!-- start main -->
 <main role="main">
-  <!-- Common styles
-				================================================== -->
+  <!-- Common styles================================================== -->
   <link
     rel="stylesheet"
     href="{{ asset('frontoffice/') }}css/style.min.css"
@@ -132,6 +109,14 @@ block content %} {% set queryParams = app.request.query.all
 
   <section class="section">
     <div class="container">
+      <div class="section-heading section-heading--center" data-aos="fade">
+        <h2 class="__title">Toutes nos <span>actualités</span></h2>
+
+        <p>
+          Latin words, combined with a handful of model sentence structures, to
+          generate Lorem Ipsum which looks reasonable.
+        </p>
+      </div>
       <div class="sec-center">
         <input
           class="dropdown"

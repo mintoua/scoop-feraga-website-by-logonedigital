@@ -60,18 +60,17 @@ class AccountController extends AbstractController
 
     #[Route( path : "/mon-compte/mofier-mon-mot-de-passe" , name : 'app_user_password' )]
     public function accountChangePassword (
-        Request                     $req ,
+        Request $req,
         UserPasswordHasherInterface $passwordHasher
     )
     {
-        $user = $this -> getUser ();
-        $form = $this -> createForm ( ChangePasswordType::class , $user );
+        $user = $this->getUser();
+        $form = $this->createForm( ChangePasswordType::class , $user );
 
         $form -> handleRequest ( $req );
+       
         if ( $form -> isSubmitted () ) {
-            dd ( $form -> getData () );
-            //TODO: must fixed change password bug
-
+            //dd ( $form );
             $old_password = $form -> get ( 'old_password' ) -> getData ();
             if ( $passwordHasher -> isPasswordValid ( $user , $old_password ) ) {
                 $new_password = $form -> get ( 'new_password' ) -> getData ();
@@ -79,12 +78,12 @@ class AccountController extends AbstractController
                 $hashedPassword = $passwordHasher -> hashPassword ( $user , $new_password );
                 $user -> setPassword ( $hashedPassword );
 
-                $this -> em -> flush ();
+                $this -> entityManager -> flush ();
 
                 $this -> flasher -> addSuccess ( 'Votre mot de passe à bien été modifier !' );
                 return $this -> redirect ( $req -> headers -> get ( 'referer' ) );
             } else {
-                dd ( $this -> flasher );
+                //dd ( $this -> flasher );
                 $this -> flasher -> addError ( "le mot de passe que vous avez entré </br> ne 
                                         correspont pas à votre ancien mot de passe. </br>
                                         Si l'avez oublié dans cas vous devez faire une procédure de mot de passe oublié.

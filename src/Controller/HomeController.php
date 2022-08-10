@@ -23,7 +23,11 @@ class HomeController extends AbstractController
     private $entityManager;
     private $cache;
 
-    public function __construct(EntityManagerInterface $entityManager, CacheInterface $cache){
+    public function __construct(
+     EntityManagerInterface $entityManager,
+     CacheInterface $cache,
+     private PostsRepository $postRepo
+     ){
         $this->entityManager = $entityManager;
         $this->cache =$cache;
     }
@@ -31,11 +35,17 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         $products = $this -> cache -> get ( 'product_best_list' , function ( ItemInterface $item ) {
-            $item -> expiresAfter ( 3600 );
+            $item->expiresAfter(DateInterval::createFromDateString('3 hour'));
             return $this->entityManager->getRepository (Product::class)->findByIsBest(1);
-        } );
+        });
 
-        return $this->render('frontoffice/index.html.twig');
+       
+        $posts = $this->cache->get('post_home', function(ItemInterface $item){
+            $item->expiresAfter(DateInterval::createFromDateString('3 hour'));
+            return $this->postRepo->findByPost();
+        });
+        
+        return $this->render('frontoffice/index.html.twig', ['posts'=>$posts]);
     }
 
     #[Route('/a_propos', name: 'app_about')]

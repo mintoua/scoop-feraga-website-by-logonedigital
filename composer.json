@@ -8,6 +8,7 @@
     "ext-ctype": "*",
     "ext-iconv": "*",
     "acseo/typesense-bundle": "dev-master",
+    "antishov/doctrine-extensions-bundle": "^1.4",
     "curl/curl": "^2.3",
     "doctrine/annotations": "^1.13",
     "doctrine/doctrine-migrations-bundle": "^3.2",
