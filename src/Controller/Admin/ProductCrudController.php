@@ -48,6 +48,9 @@ class ProductCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+            ->setPageTitle('index', 'Gérer Les Produits')
+            ->setPageTitle('edit', "Modifier le produit")
+            ->setPageTitle ('detail','Détails du produit')
             ->setEntityLabelInSingular ('Produit')
             ->setEntityLabelInPlural ('Produits');
     }

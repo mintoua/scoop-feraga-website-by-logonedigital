@@ -45,7 +45,10 @@ class HomeController extends AbstractController
             return $this->postRepo->findByPost();
         });
         
-        return $this->render('frontoffice/index.html.twig', ['posts'=>$posts]);
+        return $this->render('frontoffice/index.html.twig', [
+            'posts'=>$posts,
+            'products'=>$products
+            ]);
     }
 
     #[Route('/a_propos', name: 'app_about')]
