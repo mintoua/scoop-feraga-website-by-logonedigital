@@ -77,6 +77,19 @@ textarea {
 
 @media screen and (max-width: 1065px) {
   .form-container {
+    width: 80%;
+    margin-top: none;
+  }
+}
+@media screen and (max-width: 700px) {
+  .form-container {
+    width: 100%;
+    margin-top: none;
+  }
+}
+@media screen and (max-width: 412px) {
+  .form-container {
+    width: 100%;
     margin-top: none;
   }
 }
