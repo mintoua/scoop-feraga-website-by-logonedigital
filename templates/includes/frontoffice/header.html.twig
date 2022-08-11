@@ -47,7 +47,7 @@
 
                       <ul class="submenu">
                         {% for category in ProductCategories.getProductCategories %}
-                        <li><a href="shop_catalog.html">{{ category.name }}</a></li>
+                        <li><a href="{{path('app_shop')}}">{{ category.name }}</a></li>
                         {% endfor %}
                       </ul>
                     </li>
@@ -63,9 +63,6 @@
                     {% else %}
                     <li>
                       <a href="{{path("app_user_account")}}"><i class="fas fa-user"></i> Mon compte</a>
-                    </li>
-                    <li>
-                      <a href="{{path("app_logout")}}"><i class="fas fa-user-alt-slash"></i> Deconnexion</a>
                     </li>
                     {% endif %}
 

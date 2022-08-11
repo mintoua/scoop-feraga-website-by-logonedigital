@@ -43,9 +43,8 @@ class OrderRepository extends ServiceEntityRepository
      * For displaying orders in user account
      */
     public function findSuccessOrders($user){
-
+//->andWhere('o.state > 0')
         return $this->createQueryBuilder('o')
-            ->andWhere('o.state > 0')
             ->andWhere('o.user = :user')
             ->setParameter('user',$user)->orderBy('o.id','DESC')
             ->getQuery()->getResult();

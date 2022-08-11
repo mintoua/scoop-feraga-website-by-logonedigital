@@ -1,16 +1,25 @@
-
+<style>
+  .header-link{
+    color: #333!important;
+  }
+ @media screen and (min-width: 907px) {
+  .header-link{
+    color: white;
+  }
+ }
+</style>
 
 
 <header id="top-bar" class="top-bar top-bar--style-1">
-        {# <div
+        <div
           class="top-bar__bg"
           style="
-            background-color: #24292c;
+            background-color: #f9f9f9;
             background-image: url({{ asset('frontoffcie/') }}img/top_bar_bg-1.jpg);
             background-repeat: no-repeat;
             background-position: left bottom;
           "
-        ></div> #}
+        ></div>
 
         <div class="container-fluid">
           <div
@@ -22,7 +31,7 @@
 
             <a
               id="top-bar__navigation-toggler"
-              class="top-bar__navigation-toggler top-bar__navigation-toggler--light"
+              class="top-bar__navigation-toggler top-bar__navigation-toggler--dark"
               href="javascript:void(0);"
               ><span></span
             ></a>
@@ -36,37 +45,36 @@
                 >
                   <ul>
                     <li>
-                      <a style="color: #333; " href="{{path('app_home')}}">Accueil</a>
+                      <a class="header-link" href="{{path('app_home')}}">Accueil</a>
                     </li>
                     <li>
-                      <a style="color: #333; " href="{{path('app_about')}}">scoops feraga</a>
+                      <a class="header-link" href="{{path('app_about')}}">scoops feraga</a>
                     </li>
                     <li>
-                      <a style="color: #333; " href="{{path('app_activities')}}">Vie à la ferme</a>
+                      <a class="header-link" href="{{path('app_activities')}}">Vie à la ferme</a>
                     </li>
 
                     <li class="has-submenu">
-                      <a style="color: #333; " href="{{path('app_shop')}}">Boutique</a>
+                      <a class="header-link" href="{{path('app_shop')}}">Boutique</a>
 
                       <ul class="submenu">
-                        <li><a style="color: #333; " href="shop_catalog.html">Categ-1</a></li>
+                        {% for category in ProductCategories.getProductCategories %}
+                          <li><a href="{{path('app_shop')}}">{{ category.name }}</a></li>
+                        {% endfor %}
                       </ul>
-                    </li>
+                    </li>+
 
                     <li>
-                      <a style="color: #333; " href="{{path('app_blog')}}">Nos Actualités</a>
+                      <a class="header-link" href="{{path('app_blog')}}">Nos Actualités</a>
                     </li>
 
                     {% if not app.user %}
                     <li>
-                      <a style="color: #333; " href="{{path("app_login")}}"><i class="fas fa-user"></i> Mon compte</a>
+                      <a class="header-link" href="{{path("app_login")}}"><i class="fas fa-user"></i> Mon compte</a>
                     </li>
                     {% else %}
                     <li>
-                      <a style="color: #333; " href="{{path("app_user_account")}}"><i class="fas fa-user"></i> Mon compte</a>
-                    </li>
-                    <li>
-                      <a style="color: #333; " href="{{path("app_logout")}}"><i class="fas fa-user-alt-slash"></i> Deconnexion</a>
+                      <a class="header-link" href="{{path("app_user_account")}}"><i class="fas fa-user"></i> Mon compte</a>
                     </li>
                     {% endif %}
                     <style>

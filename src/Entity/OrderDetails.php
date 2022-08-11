@@ -29,6 +29,9 @@ class OrderDetails
     #[ORM\Column]
     private ?float $total = null;
 
+    #[ORM\Column]
+    private ?int $idProduct = null;
+
     public function __toString(): string
     {
         // TODO: Implement __toString() method.
@@ -96,6 +99,18 @@ class OrderDetails
     public function setTotal(float $total): self
     {
         $this->total = $total;
+
+        return $this;
+    }
+
+    public function getIdProduct(): ?int
+    {
+        return $this->idProduct;
+    }
+
+    public function setIdProduct(int $idProduct): self
+    {
+        $this->idProduct = $idProduct;
 
         return $this;
     }

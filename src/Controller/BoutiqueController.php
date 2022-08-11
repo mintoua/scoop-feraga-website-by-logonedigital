@@ -150,15 +150,15 @@ class BoutiqueController extends AbstractController
      * @throws \Psr\Cache\InvalidArgumentException
      * #Comment product detail
      */
-    #[Route( '/mon-compte/commandes/avis/{slug}' , name : 'app_account_add_review' )]
-    public function singleReviewProduct ( Request $request , $slug )
+    #[Route( '/mon-compte/commandes/avis/{id}' , name : 'app_account_add_review' )]
+    public function singleReviewProduct ( Request $request , $id )
     {
-        $product =  $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
-        $this -> seoPage -> setTitle ( $slug )
-            -> addMeta ( 'property' , 'og:title' , $slug )
+        $product =  $this->entityManager->getRepository(Product::class)->findOneById($id);
+        $this -> seoPage -> setTitle ( $product->getProductName() )
+            -> addMeta ( 'property' , 'og:title' , $product->getProductName() )
             -> addMeta ( 'property' , 'og:type' , 'product' )
             -> addMeta ( 'name' , 'description' , $product -> getProductDescription () )
-            -> addMeta ( 'name' , 'keywords' , $slug )
+            -> addMeta ( 'name' , 'keywords' , $product->getProductName() )
             -> addMeta ( 'property' , 'og:description' , $product -> getProductDescription () );
 
         $comments = $this -> cache -> get ( 'product_reviews_list' , function ( ItemInterface $item ) use ( $product ) {
@@ -292,7 +292,7 @@ class BoutiqueController extends AbstractController
     public function decrease ( $slug )
     {
         $this -> cart -> decrease ( $slug );
-
+        $this->flasher->addSuccess ("Quantité diminué");
         return $this -> redirectToRoute ( "app_cart" );
     }
 
@@ -306,9 +306,9 @@ class BoutiqueController extends AbstractController
     #[Route( '/boutique/panier/augmenter_quantite/{slug}' , name : 'app_encrease_quantity_cart' )]
     public function encrease ( Request $request , $slug )
     {
-     //   dd ("encrease");
-        $this -> cart -> add ( $slug );
 
+        $this -> cart -> add ( $slug );
+        $this->flasher->addSuccess ("Quantité augmenté");
         return $this -> redirectToRoute ( 'app_cart' );
     }
 
@@ -394,15 +394,17 @@ class BoutiqueController extends AbstractController
             foreach ( $this -> cart -> getFullCart () as $product ) {
                 $orderDetails = new OrderDetails();
                 $orderDetails -> setMyOrder ( $order );
+                $orderDetails->setIdProduct ($product['product']->getId());
                 $orderDetails -> setProduct ( $product[ 'product' ] -> getProductName () );
                 $orderDetails -> setQuantity ( $product[ 'quantity' ] );
                 $orderDetails -> setPrice ( $product[ 'product' ] -> getProductPrice () );
                 $orderDetails -> setTotal ( $product[ 'product' ] -> getProductPrice () * $product[ 'quantity' ] );
+
                 $this -> entityManager -> persist ( $orderDetails );
             }
 
             $this -> entityManager -> flush ();
-
+            $this->flasher->addSuccess ("Information enregistré");
             $this->BoutiqueService->addOrderSession ($carriers,$delivery_content);
 
             return $this -> render ( 'frontoffice/final_checkout.html.twig' , [
@@ -433,7 +435,9 @@ class BoutiqueController extends AbstractController
            $content = "Bonjour".$this->getUser()->getFirstname()."<br/>Merci pour votre commande";
            $mail->send($this->getUser()->getUsername(),$this->getUser()->getFirstname(),'Votre commande SCOOPS FERAGA est bien validée.', $content);*/
 
+        $this->flasher->addSuccess ("Commande ajouté! ");
         $this -> cart -> clearCart ();
+        $this->flasher->addInfo  ("Espace client pour suivre l'évolution de la commande !");
         $this->BoutiqueService->clearOrderSession ();
         return $this -> redirectToRoute ( 'app_shop' );
     }
