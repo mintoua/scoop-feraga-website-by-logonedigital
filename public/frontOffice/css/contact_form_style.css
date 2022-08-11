@@ -74,3 +74,9 @@ textarea {
   text-decoration: underline;
   color: #acc90f;
 }
+
+@media screen and (max-width: 1065px) {
+  .form-container {
+    margin-top: none;
+  }
+}
