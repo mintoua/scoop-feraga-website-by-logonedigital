@@ -1191,6 +1191,7 @@ a:hover {
 .top-bar__navigation-toggler--dark span:before {
   background-color: #3e392d;
 }
+
 .top-bar__navigation-toggler.is-active span {
   background-color: transparent !important;
 }

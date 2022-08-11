@@ -17,15 +17,7 @@
 </style>
 
 <header id="top-bar" class="top-bar top-bar--style-2">
-        <div
-          class="top-bar__bg"
-          style="
-            background-color: #fff;
-            background-image: url(img/top_bar_bg-2.png);
-            background-repeat: no-repeat;
-            background-position: center bottom;
-          "
-        ></div>
+
         <div class="container position-relative">
           <div class="row justify-content-between no-gutters">
             <a class="top-bar__logo site-logo" href="{{path('app_home')}}">
@@ -60,9 +52,7 @@
                         <li class="active"><a href="{{path('app_shop')}}">Boutique</a></li>
 
                       <ul class="submenu">
-                        {% for category in ProductCategories.getProductCategories %}
-                          <li><a href="{{path('app_shop')}}">{{ category.name }}</a></li>
-                        {% endfor %}
+                        <li><a href="shop_catalog.html">Categ-1</a></li>
                       </ul>
                     </li>
 
@@ -72,16 +62,21 @@
                       </li>
 
                       {% if app.user %}
-                      <li class="li-profile">
+                      <li>
                         <a href="{{ path('app_user_account') }}"
                           ><i class="fontello-profile"></i
-                        ></a>
+                        >mon compte</a>
                       </li>
+                      <li>
+                        <a href="{{ path('app_logout') }}"
+                          ><i class="fas fa-user-alt-slash"></i
+                        >déconnexion</a>
+                      </li> 
                       {% else %}
-                        <li class="li-profile">
+                        <li>
                         <a href="{{ path('app_login') }}"
                           ><i class="fontello-profile"></i
-                        ></a>
+                        >mon compte</a>
                       </li>
                       {% endif %}
 
