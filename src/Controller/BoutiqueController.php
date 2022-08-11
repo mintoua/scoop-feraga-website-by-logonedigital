@@ -292,7 +292,7 @@ class BoutiqueController extends AbstractController
     public function decrease ( $slug )
     {
         $this -> cart -> decrease ( $slug );
-
+        $this->flasher->addSuccess ("Quantité diminué");
         return $this -> redirectToRoute ( "app_cart" );
     }
 
@@ -306,9 +306,9 @@ class BoutiqueController extends AbstractController
     #[Route( '/boutique/panier/augmenter_quantite/{slug}' , name : 'app_encrease_quantity_cart' )]
     public function encrease ( Request $request , $slug )
     {
-     //   dd ("encrease");
-        $this -> cart -> add ( $slug );
 
+        $this -> cart -> add ( $slug );
+        $this->flasher->addSuccess ("Quantité augmenté");
         return $this -> redirectToRoute ( 'app_cart' );
     }
 
@@ -402,7 +402,7 @@ class BoutiqueController extends AbstractController
             }
 
             $this -> entityManager -> flush ();
-
+            $this->flasher->addSuccess ("Information enregistré");
             $this->BoutiqueService->addOrderSession ($carriers,$delivery_content);
 
             return $this -> render ( 'frontoffice/final_checkout.html.twig' , [
@@ -433,7 +433,9 @@ class BoutiqueController extends AbstractController
            $content = "Bonjour".$this->getUser()->getFirstname()."<br/>Merci pour votre commande";
            $mail->send($this->getUser()->getUsername(),$this->getUser()->getFirstname(),'Votre commande SCOOPS FERAGA est bien validée.', $content);*/
 
+        $this->flasher->addSuccess ("Commande ajouté! ");
         $this -> cart -> clearCart ();
+        $this->flasher->addInfo  ("Espace client pour suivre l'évolution de la commande !");
         $this->BoutiqueService->clearOrderSession ();
         return $this -> redirectToRoute ( 'app_shop' );
     }
