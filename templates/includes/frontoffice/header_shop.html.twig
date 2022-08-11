@@ -52,7 +52,9 @@
                         <li class="active"><a href="{{path('app_shop')}}">Boutique</a></li>
 
                       <ul class="submenu">
-                        <li><a href="shop_catalog.html">Categ-1</a></li>
+                        {% for category in ProductCategories.getProductCategories %}
+                          <li><a href="{{path('app_shop')}}">{{ category.name }}</a></li>
+                        {% endfor %}
                       </ul>
                     </li>
 
