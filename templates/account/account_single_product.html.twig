@@ -369,7 +369,7 @@ Feraga {% endblock %} {% block stylesheet %}
                                 //console.log(FormData);
                                 e.preventDefault();
                                 $.ajax({
-                                  url: "{{ path('app_account_add_review',{'slug':product.slug}) }}",
+                                  url: "{{ path('app_account_add_review',{'id':product.id}) }}",
                                   type: "POST",
                                   data: $("#product_review").serialize(),
                                   success: function (ReviewContent) {

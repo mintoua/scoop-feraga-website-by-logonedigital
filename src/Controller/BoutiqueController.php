@@ -150,15 +150,15 @@ class BoutiqueController extends AbstractController
      * @throws \Psr\Cache\InvalidArgumentException
      * #Comment product detail
      */
-    #[Route( '/mon-compte/commandes/avis/{slug}' , name : 'app_account_add_review' )]
-    public function singleReviewProduct ( Request $request , $slug )
+    #[Route( '/mon-compte/commandes/avis/{id}' , name : 'app_account_add_review' )]
+    public function singleReviewProduct ( Request $request , $id )
     {
-        $product =  $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
-        $this -> seoPage -> setTitle ( $slug )
-            -> addMeta ( 'property' , 'og:title' , $slug )
+        $product =  $this->entityManager->getRepository(Product::class)->findOneById($id);
+        $this -> seoPage -> setTitle ( $product->getProductName() )
+            -> addMeta ( 'property' , 'og:title' , $product->getProductName() )
             -> addMeta ( 'property' , 'og:type' , 'product' )
             -> addMeta ( 'name' , 'description' , $product -> getProductDescription () )
-            -> addMeta ( 'name' , 'keywords' , $slug )
+            -> addMeta ( 'name' , 'keywords' , $product->getProductName() )
             -> addMeta ( 'property' , 'og:description' , $product -> getProductDescription () );
 
         $comments = $this -> cache -> get ( 'product_reviews_list' , function ( ItemInterface $item ) use ( $product ) {
@@ -394,10 +394,12 @@ class BoutiqueController extends AbstractController
             foreach ( $this -> cart -> getFullCart () as $product ) {
                 $orderDetails = new OrderDetails();
                 $orderDetails -> setMyOrder ( $order );
+                $orderDetails->setIdProduct ($product['product']->getId());
                 $orderDetails -> setProduct ( $product[ 'product' ] -> getProductName () );
                 $orderDetails -> setQuantity ( $product[ 'quantity' ] );
                 $orderDetails -> setPrice ( $product[ 'product' ] -> getProductPrice () );
                 $orderDetails -> setTotal ( $product[ 'product' ] -> getProductPrice () * $product[ 'quantity' ] );
+
                 $this -> entityManager -> persist ( $orderDetails );
             }
 
