@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Commentaire;
 use App\Entity\PostCategory;
 use App\Entity\Posts;
-use App\Form\CommentaireType;
 use App\Repository\CommentaireRepository;
 use App\Repository\PostCategoryRepository;
 use App\Repository\PostsRepository;
@@ -14,29 +13,23 @@ use App\Entity\Likes;
 use Flasher\Prime\FlasherInterface;
 use Sonata\SeoBundle\Seo\SeoPageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\DBAL\Types\TextType;
-use MercurySeries\FlashyBundle\FlashyNotifier;
-use PhpParser\Node\Stmt\Label;
-use Snipe\BanBuilder\CensorWords;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\NotNull;
 use App\Services\CurlService;
 
 class BlogController extends AbstractController
 {
-    public function __construct(private FlasherInterface $flasher,
-                                private PostsRepository $postsRepository,
-                                private PostCategoryRepository $categoryRepository,
-                                private CommentaireRepository $commentairerepository,
-                                private LikesRepository $likesRepository,
-                                private CurlService $client
+    public function __construct(
+        private FlasherInterface $flasher,
+        private PostsRepository $postsRepository,
+        private PostCategoryRepository $categoryRepository,
+        private CommentaireRepository $commentairerepository,
+        private LikesRepository $likesRepository,
+        private CurlService $client,
+        private UrlGeneratorInterface $urlGenerator
 
 
     )
@@ -44,22 +37,29 @@ class BlogController extends AbstractController
 
     }
 
-    #[Route('/Blog_filter/{slug}', name: 'Blog_filter')]
+    #[Route('/Blog-filter/{slug}', name: 'Blog_filter')]
     public function filter(PostCategory $postCategory ): Response
     {
         return $this->redirect($this->generateUrl('app_blog', array('catSlug' => $postCategory->getSlug()
         )));
     }
 
-    #[Route('/blog_details/{slug}', name: 'blog_details')]
+    #[Route('/blog-details/{slug}', name: 'blog_details')]
     public function blog_details(Posts $post, SeoPageInterface $seoPage, $slug , Request $request): Response
     {
         //Referencement
         $seoPage->setTitle($slug)
-            ->addMeta('property', 'og:title', $slug)
+            ->addMeta('property', 'og:title', $post->getSlug())
             ->addMeta('property', 'og:type', 'blog')
             ->addMeta('name', 'description', $post->getDescription())
-            ->addMeta('property', 'og:description', $post->getDescription());
+            ->addMeta('property', 'og:description', $post->getDescription())
+            ->addMeta('name', 'keywords', "ferme intégrée, nutrition animal, cameroun, ferme songaï")
+            ->addMeta('property', 'og:title', $post->getSlug())
+            ->addMeta('property', 'og:image', "https://127.0.0.1:8000/uploads/images//". $post->getPostImage())
+            ->setLinkCanonical($this->urlGenerator->generate('blog_details',['slug'=>$slug], urlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:url',  $this->urlGenerator->generate('blog_details',['slug'=>$slug], urlGeneratorInterface::ABSOLUTE_URL))
+            ->setBreadcrumb('blog', ["article"=>$post]);
+            ;
 
         // to display comments related to blog
         $comments = $this->commentairerepository->findByBlog($post->getId());
@@ -126,7 +126,7 @@ class BlogController extends AbstractController
         );
     }
 
-    #[Route('/blog_details/addComment/{slug}', name: 'addComment')]
+    #[Route('/blog-details/addComment/{slug}', name: 'addComment')]
     public function addComment(Posts $post, Request $request): Response
     {
         $url = "https://www.google.com/recaptcha/api/siteverify?secret=6Lc96AYfAAAAAEP84ADjdx5CBfEpgbTyYqgemO5n&response={$request->get('gtoken')}";
