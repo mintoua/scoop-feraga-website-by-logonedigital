@@ -1,7 +1,11 @@
-{% extends 'base_frontoffice.html.twig'%} {% block header %} {%
+{% extends 'base_frontoffice.html.twig'%} {% block meta %}
+{{ sonata_seo_title() }}
+{{ sonata_seo_metadatas() }}
+{{ sonata_seo_link_canonical() }} {% endblock %} {% block header %} {%
 include('includes/frontoffice/header.html.twig')%} {% endblock header %} {%
 block content %}
 <!-- start start screen -->
+
 <div
   id="start-screen"
   class="start-screen start-screen--style-1"
@@ -1445,7 +1449,7 @@ block content %}
               <span class="d-block d-sm-none"
                 ><a
                   class="custom-btn custom-btn--small custom-btn--style-3"
-                  href="#"
+                  href="{{ path('app_about') }}"
                   >Découvrir</a
                 ></span
               >
@@ -1485,7 +1489,7 @@ block content %}
               <span class="d-none d-sm-block"
                 ><a
                   class="custom-btn custom-btn--big custom-btn--style-3"
-                  href="#"
+                  href="{{ path('app_about') }}"
                   >Découvrir</a
                 ></span
               >
@@ -1567,8 +1571,8 @@ block content %}
         <h2 class="__title">Nos <span>spécialités</span></h2>
 
         <p>
-          Latin words, combined with a handful of model sentence structures, to
-          generate Lorem Ipsum which looks reasonable.
+          Nous apportons une solution durable aux problèmes alimentaires des
+          animaux et des populations grâce à nos différents services.
         </p>
       </div>
 
@@ -1977,8 +1981,8 @@ block content %}
         <h2 class="__title">denières <span>actualités</span></h2>
 
         <p>
-          Latin words, combined with a handful of model sentence structures, to
-          generate Lorem Ipsum which looks reasonable.
+          Pour vous faire découvrir la magie que nous opérons lorsque nous
+          travaillons et sur la valeur de nos cultures.
         </p>
       </div>
       <style>

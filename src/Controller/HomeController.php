@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
@@ -26,7 +27,9 @@ class HomeController extends AbstractController
     public function __construct(
      EntityManagerInterface $entityManager,
      CacheInterface $cache,
-     private PostsRepository $postRepo
+     private PostsRepository $postRepo,
+     private UrlGeneratorInterface $urlGenerator,
+     private SeoPageInterface $seoPage
      ){
         $this->entityManager = $entityManager;
         $this->cache =$cache;
@@ -44,27 +47,46 @@ class HomeController extends AbstractController
             $item->expiresAfter(DateInterval::createFromDateString('3 hour'));
             return $this->postRepo->findByPost();
         });
-        
+
+        //bloc seo
+        $description="Scoops Ferega est une ferme intégrée mis sur pied pour augmenter la production des ressources alimentaires en utilisant peu de moyens externes. Son atout est que ses activités se regroupent et sont interdépendantes : l’élevage et l'agriculture se complètent afin de diversifier la nourriture et d'améliorer les capacités nutritionnelles.";
+        $this->seoPage->setTitle("la meilleure ferme intégrée du Cameroun")
+            ->addMeta('name', 'description', $description)
+            ->addMeta('name', 'keywords', "ferme intégrée, nutrition animal, cameroun, ferme songaï")
+            ->addMeta('property', 'og:title', "ferme intégrée Cameroun - scoops feraga")
+            ->setLinkCanonical($this->urlGenerator->generate('app_home',[], urlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:url',  $this->urlGenerator->generate('app_home',[], urlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:description',$description)
+            ->setBreadcrumb('Accueil', []);
+
+      
         return $this->render('frontoffice/index.html.twig', [
             'posts'=>$posts,
             'products'=>$products
-            ]);
+        ]);
     }
 
-    #[Route('/a_propos', name: 'app_about')]
+    #[Route('/scoops-feraga', name: 'app_about')]
     public function a_propos(): Response
-    {
+    {   
+        $description="Scoops Ferega est une ferme intégrée basé au Cameroun dans la ville de Yaoundé depuis quelques années. 
+        Son but principal est de produire une quantité plus que suffisante des matières premières de ressource alimentaire, 
+        afin d’assurer la bonne alimentation, la reproduction, 
+        le survis des animaux et des populations du Cameroun voire même de toute l’Afrique.";
+        $this->seoPage->setTitle("présentation de la ferme intégrée scoops Ferega")
+            ->addMeta('name', 'description', $description)
+            ->addMeta('name', 'keywords', "ferme intégrée, nutrition animale, cameroun, yaoundé, agriculture, élévage")
+            ->addMeta('property', 'og:title', "présentation de la ferme intégrée scoops Ferega")
+            ->setLinkCanonical($this->urlGenerator->generate('app_about',[], urlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:url',  $this->urlGenerator->generate('app_about',[], urlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:description',$description)
+            ->setBreadcrumb('A propos', []);
         return $this->render('frontoffice/about.html.twig');
     }
 
-    // #[Route('/vie_a_la_ferme', name: 'app_activities')]
-    // public function vie_a_la_ferme(): Response
-    // {
-    //     return $this->render('frontoffice/activities.html.twig');
-    // }
 
-    #[Route('/nos_actualites', name: 'app_blog')]
-    public function blog(SeoPageInterface $seoPage, CacheInterface $cache, PostsRepository $repository, PostCategoryRepository $categoryRepository, Request $request): Response
+    #[Route('/nos-actualites', name: 'app_blog')]
+    public function blog(CacheInterface $cache, PostsRepository $repository, PostCategoryRepository $categoryRepository, Request $request): Response
     {
         $cat = $request->get("catSlug", 'Tous');
         // on definie le nombre d'element par page
@@ -119,9 +141,19 @@ class HomeController extends AbstractController
 
             ]);
         }
-        $seoPage->setTitle("Blogs")
-            ->addMeta('property', 'og:title', 'blogs')
-            ->addMeta('property', 'og:type', 'blog');
+        $description = "Offrir le meilleur de la nature est la source de vitalité de scoops Ferega. 
+        Pour vous faire découvrir la magie que nous opérons lorsque nous travaillons et sur la valeur de nos cultures, 
+        nous allons vous présenter continuellement quelques astuces et conseils sur l’élevage des animaux et la culture maraichers. 
+        Ceci dans nos articles spécialement conçus pour vous.";
+
+        $this->seoPage->setTitle("toutes les actualités liées à la ferme intégrée scoops feraga")
+            ->addMeta('name', 'description', $description)
+            ->addMeta('name', 'keywords', "ferme intégrée, nutrition animale, cameroun, yaoundé, agriculture, élévage, poulet, maïs, soja, animaux, provende, nutrition animal")
+            ->addMeta('property', 'og:title', "toutes les actualités liées à la ferme intégrée scoops feraga")
+            ->setLinkCanonical($this->urlGenerator->generate('app_blog',[], urlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:url',  $this->urlGenerator->generate('app_blog',[], urlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:description',$description)
+            ->setBreadcrumb('Nos actualités', []);
         return $this->render('frontoffice/blog.html.twig', [
                 'posts' => $result,
                 'category' => $category,

@@ -3,22 +3,22 @@ sonata_seo:
   page:
     title: "scoops feraga"
     #title_prefix:  'Prefix |'
-    title_suffix: "| scoops feraga"
+    title_suffix: " | scoops feraga"
     default: sonata.seo.page.default
     metas:
       name:
-        keywords: SEO, LOGONE, LOGONEDIGITAL,LOGONE, MARKETING DIGITAL, E-REPUTATION SEO, SEA, RELATION CLIENT, ASSITANCE VIRTUELLE, CALL CENTER, RSE
+        keywords: scoops feraga, cameroun, ferme intégée, agriculture, élévage
 
         robots: index, follow
 
       property:
         # Facebook application settings
-        #'fb:app_id':          XXXXXX
-        #'fb:admins':          admin1, admin2
+        "fb:app_id": "389898079878693"
+        "fb:admins": Emmanuel Ngue
 
         # Open Graph information
         # see http://developers.facebook.com/docs/opengraphprotocol/#types or http://ogp.me/
-        "og:site_name": logonedigital
+        "og:site_name": scoops feraga
 
       http-equiv:
         "Content-Type": text/html; charset=utf-8

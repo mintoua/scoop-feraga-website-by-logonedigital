@@ -1,30 +1,13 @@
 {% extends 'base_frontoffice.html.twig' %}
+{% block meta %}
+{{ sonata_seo_title() }}
+{{ sonata_seo_metadatas() }}
+{{ sonata_seo_link_canonical() }} {% endblock %}
+
       {% block header %}
           {% include('includes/frontoffice/header_black.html.twig') %}
       {% endblock header %}
 {% block content %}
-    {# <div
-            id="hero"
-            class="jarallax"
-            data-speed="0.7"
-            data-img-position="50% 80%"
-            style="background-image: url({{ asset('frontoffice/') }}img/mais.jpg)"
-    >
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-lg-7">
-                    <h1 class="__title"><span>Our</span> Blog</h1>
-
-                    <p>
-                        The point of using Lorem Ipsum is that it has a more-or-less
-                        normal distribution of letters, as opposed to using 'Content
-                        here, content here', making it look like readable English
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div> #}
-    <!-- end hero -->
 
     <!-- start main -->
     <main role="main">

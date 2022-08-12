@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
@@ -44,7 +44,15 @@ class BoutiqueController extends AbstractController
     private $BoutiqueService;
     private $seoPage;
 
-    public function __construct ( SeoPageInterface $seoPage , EntityManagerInterface $entityManager , CacheInterface $cache , Cart $cart , FlasherInterface $flasher , BoutiqueService $service )
+    public function __construct ( 
+        SeoPageInterface $seoPage , 
+        EntityManagerInterface $entityManager , 
+        CacheInterface $cache , 
+        Cart $cart , 
+        FlasherInterface $flasher , 
+        BoutiqueService $service,
+        private UrlGeneratorInterface $urlGenerator
+        )
     {
         $this -> entityManager = $entityManager;
         $this -> cart = $cart;
@@ -68,7 +76,7 @@ class BoutiqueController extends AbstractController
      * @throws \Psr\Cache\InvalidArgumentException
      * #Comment all the products with categories product, and also filter products bycategory with ajax to display
      */
-    #[Route( '/boutique/nos_produits' , name : 'app_shop' )]
+    #[Route( '/boutique/nos-produits' , name : 'app_shop' )]
     public function index ( Request $request )
     {
         $categories = $this -> cache -> get ( 'product_categories_list' , function ( ItemInterface $item ) {
@@ -80,9 +88,17 @@ class BoutiqueController extends AbstractController
             return $this -> entityManager -> getRepository ( Product::class ) -> findAll ();
         } );
 
-        $this -> seoPage -> setTitle ( "Produits" )
-            -> addMeta ( 'property' , 'og:title' , 'produits' )
-            -> addMeta ( 'property' , 'og:type' , 'produits' );
+        $description = "commander des produits 100% naturels et frais dans la boutique en ligne scoops feraga.";
+        $this -> seoPage -> setTitle ( "boutique en ligne scoops feraga" )
+            -> addMeta ( 'property' , 'og:title' , '' )
+            ->addMeta('name', 'description', $description)
+            ->addMeta('name', 'keywords', "ferme intégrée, nutrition animal, cameroun, ferme songaï")
+            ->addMeta('property', 'og:title', "boutique en ligne scoops feraga")
+            ->setLinkCanonical($this->urlGenerator->generate('app_shop',[], urlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:url',  $this->urlGenerator->generate('app_shop',[], urlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:description',$description)
+            ->setBreadcrumb('Boutique', []);
+
 
         $filters = $request -> get ( "categories" );
         $limit = 9;
@@ -119,16 +135,25 @@ class BoutiqueController extends AbstractController
      * @throws \Psr\Cache\InvalidArgumentException
      * #Comment product detail
      */
-    #[Route( '/boutique/nos_produits/{slug}' , name : 'app_single_product' )]
+    #[Route( '/boutique/nos-produits/{slug}' , name : 'app_single_product' )]
     public function singleProduct ( Request $request , $slug )
     {
         $product =  $this->entityManager->getRepository(Product::class)->findOneBySlug($slug);
-        $this -> seoPage -> setTitle ( $slug )
-            -> addMeta ( 'property' , 'og:title' , $slug )
-            -> addMeta ( 'property' , 'og:type' , 'product' )
-            -> addMeta ( 'name' , 'description' , $product -> getProductDescription () )
-            -> addMeta ( 'name' , 'keywords' , $slug )
-            -> addMeta ( 'property' , 'og:description' , $product -> getProductDescription () );
+        $this -> seoPage 
+            -> setTitle( $product->getProductName() )
+            ->addMeta ( 'property' , 'og:title' , $product->getSlug() )
+            ->addMeta ( 'property' , 'og:type' , 'product' )
+            ->addMeta ( 'name' , 'description' , $product -> getProductDescription () )
+            ->addMeta ( 'name' , 'keywords' , $slug )
+            ->addMeta('property', 'og:type', 'blog')
+            ->addMeta('property', 'og:description', $product->getProductDescription())
+            ->addMeta('name', 'keywords', "ferme intégrée, nutrition animal, cameroun, ferme songaï")
+            ->addMeta('property', 'og:title', $product->getSlug())
+            ->addMeta('property', 'og:image', "https://127.0.0.1:8000/uploads/images//". $product->getProductImage())
+            ->setLinkCanonical($this->urlGenerator->generate('app_single_product',['slug'=>$slug], urlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:url',  $this->urlGenerator->generate('app_single_product',['slug'=>$slug], urlGeneratorInterface::ABSOLUTE_URL))
+            ->setBreadcrumb('blog', ["boutique"=>$product]);
+            ;;
 
         $comments = $this -> cache -> get ( 'product_reviews_list' , function ( ItemInterface $item ) use ( $product ) {
             $item -> expiresAfter ( DateInterval::createFromDateString('1 day') );
