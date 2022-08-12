@@ -121,14 +121,14 @@ class EasyAdminSubcriber implements EventSubscriberInterface
             $entity->setSlug($entity->getName());
         }
 
-        if($entity instanceof ProductCategory)
+        /*if($entity instanceof ProductCategory)
         {
             $entity->setSlug($entity->getName());
         }
 
         if ($entity instanceof Product){
             $entity->setSlug($entity->getProduct_name());
-        }
+        }*/
 
     }
 

@@ -5449,16 +5449,16 @@
         },
         {
             "name": "sonata-project/block-bundle",
-            "version": "4.16.1",
+            "version": "4.16.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataBlockBundle.git",
-                "reference": "60c9a9f2c74e20c964014645a6247c1a6145f81b"
+                "reference": "9bfe9ed6988a767152b92f1108e847a2cac1f684"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/60c9a9f2c74e20c964014645a6247c1a6145f81b",
-                "reference": "60c9a9f2c74e20c964014645a6247c1a6145f81b",
+                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/9bfe9ed6988a767152b92f1108e847a2cac1f684",
+                "reference": "9bfe9ed6988a767152b92f1108e847a2cac1f684",
                 "shasum": ""
             },
             "require": {
@@ -5548,7 +5548,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sonata-project/SonataBlockBundle/issues",
-                "source": "https://github.com/sonata-project/SonataBlockBundle/tree/4.16.1"
+                "source": "https://github.com/sonata-project/SonataBlockBundle/tree/4.16.2"
             },
             "funding": [
                 {
@@ -5568,7 +5568,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-05T10:39:39+00:00"
+            "time": "2022-08-12T09:23:04+00:00"
         },
         {
             "name": "sonata-project/cache",
@@ -11516,16 +11516,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.4.1",
+            "version": "v3.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "e939eae92386b69b49cfa4599dd9bead6bf4a342"
+                "reference": "e07cdd3d430cd7e453c31b36eb5ad6c0c5e43077"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/e939eae92386b69b49cfa4599dd9bead6bf4a342",
-                "reference": "e939eae92386b69b49cfa4599dd9bead6bf4a342",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/e07cdd3d430cd7e453c31b36eb5ad6c0c5e43077",
+                "reference": "e07cdd3d430cd7e453c31b36eb5ad6c0c5e43077",
                 "shasum": ""
             },
             "require": {
@@ -11576,7 +11576,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.4.1"
+                "source": "https://github.com/twigphp/Twig/tree/v3.4.2"
             },
             "funding": [
                 {
@@ -11588,7 +11588,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-17T05:48:52+00:00"
+            "time": "2022-08-12T06:47:24+00:00"
         },
         {
             "name": "typesense/typesense-php",

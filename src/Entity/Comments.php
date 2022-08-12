@@ -26,7 +26,7 @@ class Comments
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\ManyToOne(inversedBy: 'comments',cascade : ["remove"])]
     private ?Product $product = null;
 
     #[ORM\Column]

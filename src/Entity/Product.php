@@ -82,12 +82,12 @@ class Product
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+ /*   public function setSlug(string $slug): self
     {
         $this->slug = $slug;
 
         return $this;
-    }
+    }*/
 
     public function getProductDescription(): ?string
     {
