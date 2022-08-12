@@ -63,7 +63,7 @@ class HomeController extends AbstractController
     //     return $this->render('frontoffice/activities.html.twig');
     // }
 
-    #[Route('/nos_actualités', name: 'app_blog')]
+    #[Route('/nos_actualites', name: 'app_blog')]
     public function blog(SeoPageInterface $seoPage, CacheInterface $cache, PostsRepository $repository, PostCategoryRepository $categoryRepository, Request $request): Response
     {
         $cat = $request->get("catSlug", 'Tous');

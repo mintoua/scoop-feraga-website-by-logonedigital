@@ -72,11 +72,11 @@ class BoutiqueController extends AbstractController
     public function index ( Request $request )
     {
         $categories = $this -> cache -> get ( 'product_categories_list' , function ( ItemInterface $item ) {
-            $item -> expiresAfter ( 3600 );
+            $item -> expiresAfter (  DateInterval::createFromDateString('1 day') );
             return $this -> entityManager -> getRepository ( ProductCategory::class ) -> findAll ();
         } );
         $products = $this -> cache -> get ( 'product_list' , function ( ItemInterface $item ) {
-            $item -> expiresAfter ( 3600 );
+            $item -> expiresAfter (  DateInterval::createFromDateString('1 day') );
             return $this -> entityManager -> getRepository ( Product::class ) -> findAll ();
         } );
 
@@ -131,7 +131,7 @@ class BoutiqueController extends AbstractController
             -> addMeta ( 'property' , 'og:description' , $product -> getProductDescription () );
 
         $comments = $this -> cache -> get ( 'product_reviews_list' , function ( ItemInterface $item ) use ( $product ) {
-            $item -> expiresAfter ( 3600 );
+            $item -> expiresAfter ( DateInterval::createFromDateString('1 day') );
             return $this -> entityManager -> getRepository ( Comments::class ) -> findComments ( $product );
         } );
 
@@ -162,7 +162,7 @@ class BoutiqueController extends AbstractController
             -> addMeta ( 'property' , 'og:description' , $product -> getProductDescription () );
 
         $comments = $this -> cache -> get ( 'product_reviews_list' , function ( ItemInterface $item ) use ( $product ) {
-            $item -> expiresAfter ( 3600 );
+            $item -> expiresAfter (  DateInterval::createFromDateString('1 day') );
             return $this -> entityManager -> getRepository ( Comments::class ) -> findComments ( $product );
         } );
 

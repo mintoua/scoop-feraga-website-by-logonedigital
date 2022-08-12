@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: ProductCategoryRepository::class)]
 #[ORM\Table(name: '`ProductCategory`')]
@@ -24,6 +25,7 @@ class ProductCategory
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]
     private Collection $products;
 
+    #[Gedmo\Slug(fields: ["name"])]
     #[ORM\Column(length: 32)]
     private ?string $slug = null;
 
@@ -91,10 +93,10 @@ class ProductCategory
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+  /*  public function setSlug(string $slug): self
     {
         $this->slug = $slug;
 
         return $this;
-    }
+    }*/
 }
