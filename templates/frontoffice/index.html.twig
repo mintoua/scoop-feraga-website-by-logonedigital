@@ -1,7 +1,11 @@
-{% extends 'base_frontoffice.html.twig'%} {% block header %} {%
+{% extends 'base_frontoffice.html.twig'%} {% block meta %}
+{{ sonata_seo_title() }}
+{{ sonata_seo_metadatas() }}
+{{ sonata_seo_link_canonical() }} {% endblock %} {% block header %} {%
 include('includes/frontoffice/header.html.twig')%} {% endblock header %} {%
 block content %}
 <!-- start start screen -->
+
 <div
   id="start-screen"
   class="start-screen start-screen--style-1"

@@ -1,5 +1,7 @@
-{% extends "base_frontoffice_2.html.twig" %} {% block title %} Compte | Scoops
-Feraga {% endblock %} {% block stylesheet %}
+{% extends "base_frontoffice_2.html.twig" %} {% block meta %}
+{{ sonata_seo_title() }}
+{{ sonata_seo_metadatas() }}
+{{ sonata_seo_link_canonical() }} {% endblock %} {% block stylesheet %}
 <link
   rel="stylesheet"
   href="{{ asset('frontoffice/') }}css/style.css"
