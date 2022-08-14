@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Classes\Mail;
+
 use App\Entity\Comments;
 use App\Entity\Order;
 use App\Entity\OrderDetails;
@@ -17,7 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Flasher\Prime\FlasherInterface;
-use Knp\Component\Pager\PaginatorInterface;
+
 use DateInterval;
 use Sonata\SeoBundle\Seo\SeoPageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
