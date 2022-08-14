@@ -18,7 +18,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Flasher\Prime\FlasherInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use MercurySeries\FlashyBundle\FlashyNotifier;
+use DateInterval;
 use Sonata\SeoBundle\Seo\SeoPageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -80,7 +80,7 @@ class BoutiqueController extends AbstractController
     public function index ( Request $request )
     {
         $categories = $this -> cache -> get ( 'product_categories_list' , function ( ItemInterface $item ) {
-            $item -> expiresAfter (  DateInterval::createFromDateString('1 day') );
+            $item -> expiresAfter (  \DateInterval::createFromDateString('1 day') );
             return $this -> entityManager -> getRepository ( ProductCategory::class ) -> findAll ();
         } );
         $products = $this -> cache -> get ( 'product_list' , function ( ItemInterface $item ) {
