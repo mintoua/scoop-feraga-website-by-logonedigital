@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Classes\Mail;
 use App\Form\UserType;
 use App\Services\MailerHelper;
 use App\Repository\UserRepository;
@@ -16,13 +17,12 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
-use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {   
 
 
-    public function __construct(private FlasherInterface $flasher)
+    public function __construct(private FlasherInterface $flasher, private Mail $sender)
     {
         
     }
@@ -43,8 +43,6 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher, 
         EntityManagerInterface $entityManager,
         VerifyEmailHelperInterface $verifyEmailHelper,
-        MailerHelper $mail,
-        FlashyNotifier $flashy
         ): Response
     {
         $user = new User();
@@ -62,6 +60,7 @@ class RegistrationController extends AbstractController
             //dd("hello world");
             $user->setRoles(["ROLE_USER"]);
             $user->setBlocked(false);
+            $user->setCreatedAt(new \DateTime('now'));
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -74,13 +73,22 @@ class RegistrationController extends AbstractController
                 ['id' => $user->getId()]
             );
 
-            $mail->send (
-                        "MAIL DE VERIFICATION", 
-                        $user->getEmail(),
-                        "email/verificationmail.html.twig", 
-                        ["verificationUrl" => $signatureComponents->getSignedUrl()],
-                        "ngueemmanuel@gmail.com"
-            );
+            $content = "Bonjour ".$user->getFirstname().' '.$user->getLastname()."<br> Nous vous remercions pour votre inscription sur le site scoops feraga<br> <br>";
+            $content .="Merci de bien vouloir cliquez sur le lien suivant pour <a href='".$signatureComponents->getSignedUrl()."'>afin de valider votre email</a>.";
+
+            $this->sender->send(
+            $user->getEmail(), 
+            $user->getFirstname().' '.$user->getLastname(),
+            $content,
+            "vérification d'e-mail"
+        );
+            // $mail->send (
+            //             "MAIL DE VERIFICATION", 
+            //             $user->getEmail(),
+            //             "email/verificationmail.html.twig", 
+            //             ["verificationUrl" => $signatureComponents->getSignedUrl()],
+            //             "ngueemmanuel@gmail.com"
+            // );
             $this->flasher->addInfo('Un email de confirmation vous a-été envoyé! </br> Veuillez vérifier votre boîte mail.');
             return $this->redirectToRoute('app_login');
         }
