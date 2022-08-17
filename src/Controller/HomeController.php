@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-
+use App\Classes\Mail;
 use App\Entity\Product;
 use App\Repository\PostCategoryRepository;
 use App\Repository\PostsRepository;
@@ -35,7 +35,7 @@ class HomeController extends AbstractController
         $this->cache =$cache;
     }
     #[Route('/', name: 'app_home')]
-    public function index(): Response
+    public function index(Mail $sender): Response
     {
         $products = $this -> cache -> get ( 'product_best_list' , function ( ItemInterface $item ) {
             $item->expiresAfter(DateInterval::createFromDateString('3 hour'));
@@ -47,6 +47,8 @@ class HomeController extends AbstractController
             $item->expiresAfter(DateInterval::createFromDateString('3 hour'));
             return $this->postRepo->findByPost();
         });
+
+        
 
         //bloc seo
         $description="Scoops Ferega est une ferme intégrée mis sur pied pour augmenter la production des ressources alimentaires en utilisant peu de moyens externes. Son atout est que ses activités se regroupent et sont interdépendantes : l’élevage et l'agriculture se complètent afin de diversifier la nourriture et d'améliorer les capacités nutritionnelles.";

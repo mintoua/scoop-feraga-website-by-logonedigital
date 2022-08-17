@@ -3,31 +3,32 @@
 namespace App\Controller;
 
 
-use App\Entity\Comments;
+use DateInterval;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use App\Classes\Mail;
 use App\Entity\Order;
-use App\Entity\OrderDetails;
-use App\Form\OrderType;
-use App\Services\BoutiqueService;
 use App\Services\Cart;
 
 use App\Entity\Product;
+use App\Form\OrderType;
+
+use App\Entity\Comments;
+use App\Entity\OrderDetails;
 use App\Entity\ProductCategory;
+use App\Services\BoutiqueService;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use Flasher\Prime\FlasherInterface;
-
-use DateInterval;
+use Doctrine\ORM\EntityManagerInterface;
 use Sonata\SeoBundle\Seo\SeoPageInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Contracts\Cache\CacheInterface;
-use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * ####### HERE YOU WILL FIND ############
@@ -51,7 +52,8 @@ class BoutiqueController extends AbstractController
         Cart $cart , 
         FlasherInterface $flasher , 
         BoutiqueService $service,
-        private UrlGeneratorInterface $urlGenerator
+        private UrlGeneratorInterface $urlGenerator,
+        private Mail $sender
         )
     {
         $this -> entityManager = $entityManager;
@@ -430,6 +432,15 @@ class BoutiqueController extends AbstractController
 
             $this -> entityManager -> flush ();
             $this->flasher->addSuccess ("Information enregistré");
+
+            $user= $this->getUser();
+            $content = "Une nouvelle commande a été ajouté. Accédez à l'espace d'administration";
+            $this->sender->send(
+            "emmanuel1991benjamin@gmail.com", 
+            "emmanuel benjamin",
+            $content,
+            "Nouvelle commande de ".': '.$order->getReference()
+        );
             $this->BoutiqueService->addOrderSession ($carriers,$delivery_content);
 
             return $this -> render ( 'frontoffice/final_checkout.html.twig' , [

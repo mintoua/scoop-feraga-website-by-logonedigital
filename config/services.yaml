@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
   url.transport: url
+  api_key: "%env(api_key)%"
+  api_key_secret: "%env(api_key_secret)%"
 
 services:
   # default configuration for services in *this* file

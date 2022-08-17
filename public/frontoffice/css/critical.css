@@ -268,11 +268,16 @@ template {
 .fontello-linkedin-squared:before {
   content: "\f30c";
 }
+
+.separator {
+  height: 50px;
+}
+
 #hero {
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 475px;
+  max-height: 475px;
   padding-top: 150px;
   padding-bottom: 30px;
   color: #fff;

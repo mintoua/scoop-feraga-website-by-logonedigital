@@ -23,7 +23,7 @@ class ResetPasswordController extends AbstractController
     private $manager;
     private $mailHelper;
 
-    public function __construct(EntityManagerInterface $manager, MailerHelper $mailerHelper)
+    public function __construct(EntityManagerInterface $manager, MailerHelper $mailerHelper, private Mail $sender)
     {
         $this->manager = $manager;
         $this->mailHelper = $mailerHelper;
@@ -59,27 +59,34 @@ class ResetPasswordController extends AbstractController
                 $this->manager->flush();
 
                 // 2 :Envoyer un email à l'utilisateur avec le lien lui permettant de mettre à jour son mot de passe.
-                $mail = new Mail();
+                
 
                 $url = $this->generateUrl('app_reset_password', [
                     'token'=>$token
                 ]);
-                
-                // $content = "Bonjour ".$user->getFirstname()."<br> Vous avez demander à reinitialiser votre mot de passe sur le site scoops feraga <br> <br>";
-                // $content .="Merci de bien vouloir cliquez sur le lien suivant pour <a href='".$url."'>mettre à jour votre mot de passe</a>.";
-                // $mail->send($user->getEmail(), $user->getFirstname().''.$user->getLastname(), "Reinitialiser votre mot de passe", $content);
-                
+
                 $url = $this->generateUrl("app_reset_password", [
                 "token"=>$token
                 ], UrlGeneratorInterface::ABSOLUTE_URL);
-                $this->mailHelper->send(
-                    "Reinitialisation du mot de passe", 
-                     $user->getEmail(), 
-                     "email/reset_password.html.twig", 
-                     ["token" => $token ],
-                     "no-reply@scoopsferaga.com"
-                    );
-
+                
+                 $content = "Bonjour ".$user->getFirstname()."<br> Vous avez demander à reinitialiser votre mot de passe sur le site scoops feraga <br> <br>";
+                 $content .="Merci de bien vouloir cliquez sur le lien suivant pour <a href='".$url."'>mettre à jour votre mot de passe</a>.";
+                // $this->sender->send($user->getEmail(), $user->getFirstname().''.$user->getLastname(), $content,  "reinitialiser votre mot de passe");
+                
+                // $this->mailHelper->send(
+                //     "Reinitialisation du mot de passe", 
+                //      $user->getEmail(), 
+                //      "email/reset_password.html.twig", 
+                //      ["token" => $token ],
+                //      "no-reply@scoopsferaga.com"
+                //     );
+                
+                $this->sender->send(
+                $user->getEmail(), 
+                $user->getFirstname().' '.$user->getLastname(),
+                $content,
+                "réinitialisation de mot de passe"
+            );
                 $flasher->addInfo('Un email de reinitialisation vous a été envoyé.');
                 return $this->redirectToRoute('app_login');
             }else{
@@ -117,6 +124,7 @@ class ResetPasswordController extends AbstractController
 
             $userPasswordHasher->hashPassword($resetPassword->getUser(),$newPassword);
             $resetPassword->getUser()->setPassword($userPasswordHasher->hashPassword($resetPassword->getUser(),$newPassword));
+            $resetPassword->getUser()->setUpdatedAt(new \DateTime('now'));
             $this->manager->flush();
             $flasher->addSuccess('Votre mot de passe a bien été modifié. </br> vous pouvez maintenant vous connectez.');
 
