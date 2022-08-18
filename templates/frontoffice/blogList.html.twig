@@ -42,7 +42,8 @@ k!="ajax")|url_encode %}
         </h3>
 
         <p>
-          {{ post.description|striptags[:200] ~ '...' }}
+          {{ post.description | striptags | slice(0,200)  | raw }} <br />
+          ...
         </p>
 
         <a

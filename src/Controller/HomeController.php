@@ -34,6 +34,12 @@ class HomeController extends AbstractController
         $this->entityManager = $entityManager;
         $this->cache =$cache;
     }
+
+    #[Route('/mentions-legales', name:'app_private_policy')]
+    public function mensionLegage(){
+        return $this->render('frontoffice/mension-legale.html.twig');
+    }
+
     #[Route('/', name: 'app_home')]
     public function index(Mail $sender): Response
     {

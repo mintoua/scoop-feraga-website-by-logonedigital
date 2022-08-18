@@ -53,8 +53,8 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('<img src="https://logonedigital.com/assetF/img/logo.png" />')
-            ->setFaviconPath('https://logonedigital.com/assetF/img/Logone-logo-fav.png');
+            ->setTitle('<img src="https://scoopsferaga.com/frontoffice/img/logo_scoops_feraga.png" />')
+            ->setFaviconPath('https://scoopsferaga.com/frontoffice/img/favicon_scoops_feraga.png');
     }
 
     public function configureMenuItems(): iterable

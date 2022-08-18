@@ -7,9 +7,6 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class Mail extends AbstractController
 {
-    
-    // private $api_key = $this->getParameter('api_key');
-    // private $api_key_secret= $this->getParameter('api_key_secret');
     public function __construct(private ParameterBagInterface $params)
     {
         

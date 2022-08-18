@@ -29,8 +29,8 @@
 
                 <p>
                   +1 (234) 56789, +1 987 654 3210 <br />
-                  <a href="mailto:support@agrocompany.com"
-                    >support@agrocompany.com</a
+                  <a href="mailto:contact@scoopsferaga.com"
+                    >contact@scoopsferaga.com</a
                   >
                 </p>
               </address>
@@ -86,9 +86,9 @@
                 <a href="{{ path('app_home') }}">Accueil</a>
               </li>
               <li><a href="{{ path('app_about') }}">scoops feraga</a></li>
-              <li><a href="{{ path('app_activities') }}">vie à la ferme</a></li>
+              <li><a href="{{ path('app_shop') }}">boutique</a></li>
               <li><a href="{{ path('app_blog') }}">nos actualité</a></li>
-              <li><a href="{{ path('app_contact') }}">Contacte</a></li>
+              <li><a href="{{ path('app_private_policy') }}">cgv</a></li>
             </ul>
           </nav>
         </div>
@@ -97,9 +97,13 @@
       <div class="col-12 col-lg-6">
         <div class="footer__item">
           <span class="__copy"
-            >© 2019 Scoops Feraga. All rights reserved. Created by
+            >©
+            <script>
+              document.write(new Date().getFullYear());
+            </script>
+            Scoops Feraga. All rights reserved. Created by
             <a class="__dev" href="https://logonedigital.com/" target="_blank"
-              >Logonedigital</a
+              >logonedigital</a
             ></span
           >
         </div>
