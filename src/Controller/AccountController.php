@@ -58,7 +58,7 @@ class AccountController extends AbstractController
         return $this -> render ( "frontoffice/account.html.twig" );
     }
 
-    #[Route( path : "/mon-compte/mofier-mon-mot-de-passe" , name : 'app_user_password' )]
+    #[Route( path : "/mon-compte/modifier-mon-mot-de-passe" , name : 'app_user_password' )]
     public function accountChangePassword (
         Request $req,
         UserPasswordHasherInterface $passwordHasher
@@ -77,7 +77,7 @@ class AccountController extends AbstractController
 
                 $hashedPassword = $passwordHasher -> hashPassword ( $user , $new_password );
                 $user -> setPassword ( $hashedPassword );
-
+                $user->setUpdatedAt(new \DateTime('now'));
                 $this -> entityManager -> flush ();
 
                 $this -> flasher -> addSuccess ( 'Votre mot de passe à bien été modifier !' );

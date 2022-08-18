@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ContactController extends AbstractController
 {
 
-    public function __construct(private FlasherInterface $flasher)
+    public function __construct(private FlasherInterface $flasher, private Mail $sender)
     {
         
     }
@@ -61,15 +61,21 @@ class ContactController extends AbstractController
                 if($data->success){
                     $em->persist($contact);
                     $em->flush();
-
+                    //dd($contact);
+                    $this->sender->send(
+                    "emmanuel1991benjamin@gmail.com", 
+                    "emmanuel benjamin",
+                    $contact->getMsg(),
+                    "Nouvelle demande de contact"
+                );
                     //$mail = new Mail();
-                    $mail->send (
-                        "NOUVEAU CONTACT", 
-                        $contact->getEmail(),
-                        "email/contact.html.twig", 
-                        ["",""],
-                        "ngueemmanuel@gmail.com"
-                    );
+                    // $mail->send (
+                    //     "NOUVEAU CONTACT", 
+                    //     $contact->getEmail(),
+                    //     "email/contact.html.twig", 
+                    //     ["",""],
+                    //     "ngueemmanuel@gmail.com"
+                    // );
                     $this->flasher->addSuccess("Votre demande a bien été prise en compte.");
                     return $this->redirectToRoute('app_contact');
                     //$mail->send($contact->getEmail(), $contact->getPrenom(), 'NOUVEAU CONTACT', $contact->getMsg());
