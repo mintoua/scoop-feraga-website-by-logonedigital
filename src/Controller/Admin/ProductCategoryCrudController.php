@@ -49,7 +49,6 @@ class ProductCategoryCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name','Nom de la Catégorie'),
-            SlugField::new('slug')->setTargetFieldName('name')->hideWhenUpdating(),
         ];
     }
 
