@@ -49,8 +49,8 @@ class PostsCrudController extends AbstractCrudController
             SlugField::new('slug')->setTargetFieldName('title')->hideOnForm(),
             ImageField::new('post_image')
                 ->setLabel('image')
-                ->setBasePath('uploads\images')
-                ->setUploadDir('public\uploads\images')
+                ->setBasePath('uploads/images')
+                ->setUploadDir('public/uploads/images')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')->setRequired(false),
             AssociationField::new('postCategory')->setLabel('thématique'),
             DateTimeField::new('createdAt')->hideOnForm(),

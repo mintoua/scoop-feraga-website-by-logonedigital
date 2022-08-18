@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
+use Assert\NotNull;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\Repository\PostCategoryRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: PostCategoryRepository::class)]
 #[UniqueEntity(fields: ['name'], message:'cette thématique existe déjà !')]
@@ -32,7 +33,7 @@ class PostCategory
     #[ORM\OneToMany(mappedBy: 'postCategory', targetEntity: Posts::class, orphanRemoval: true)]
     private Collection $posts;
 
-    #[Assert\NotNull('la description ne peux pas être null')]
+    #[Assert\NotNull]
     #[Assert\Length(
         min: 2,
         max: 150,

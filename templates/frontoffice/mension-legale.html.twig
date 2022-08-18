@@ -1,0 +1,311 @@
+{% extends 'base_frontoffice.html.twig'%} {% block header %} {%
+include('includes/frontoffice/header_black.html.twig')%} {% block stylesheet %}
+<link
+  rel="stylesheet"
+  href="{{ asset('frontoffice/css/contact_form_style.css') }}"
+  type="text/css"
+/>
+{% endblock %} {% endblock header %} {% block content %}
+<!-- start hero -->
+<div></div>
+<!-- end hero -->
+
+<!-- start main -->
+<main class="main-container" role="main">
+  <!-- Common styles
+				================================================== -->
+  <link
+    rel="stylesheet"
+    href="{{ asset('frontoffice/') }}css/style.min.css"
+    type="text/css"
+  />
+
+  <!-- Load lazyLoad scripts
+				================================================== -->
+  <script>
+    (function (w, d) {
+      var m = d.getElementsByTagName("main")[0],
+        s = d.createElement("script"),
+        v = !("IntersectionObserver" in w) ? "8.17.0" : "10.19.0",
+        o = {
+          elements_selector: ".lazy",
+          data_src: "src",
+          data_srcset: "srcset",
+          threshold: 500,
+          callback_enter: function (element) {},
+          callback_load: function (element) {
+            element.removeAttribute("data-src");
+
+            oTimeout = setTimeout(function () {
+              clearTimeout(oTimeout);
+
+              AOS.refresh();
+            }, 1000);
+          },
+          callback_set: function (element) {},
+          callback_error: function (element) {
+            element.src =
+              "https://placeholdit.imgix.net/~text?txtsize=21&txt=Image%20not%20load&w=200&h=200";
+          },
+        };
+      s.type = "text/javascript";
+      s.async = true; // This includes the script as async. See the "recipes" section for more information about async loading of LazyLoad.
+      s.src =
+        "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" +
+        v +
+        "/dist/lazyload.min.js";
+      m.appendChild(s);
+      // m.insertBefore(s, m.firstChild);
+      w.lazyLoadOptions = o;
+    })(window, document);
+  </script>
+
+  <!-- start section -->
+  <div class="form-container" style="margin-top: 70px">
+    <h3>
+      scoops feraga
+      <span
+        >MENTIONS LÉGALES, CONDITIONS GÉNÉRALES D’UTILISATION &
+        CONFIDENTIALITÉ</span
+      >
+    </h3>
+    <h5>Mentions légales</h5>
+
+    <style>
+      .bold-text {
+        font-weight: bold;
+        color: #3daa35;
+      }
+    </style>
+
+    <p style="text-align: justify">
+      <span class="bold-text">Scoops Ferega </span> est une ferme intégrée basé
+      au <span class="bold-text">Cameroun</span> dans la ville de
+      <span class="bold-text">Yaoundé</span> depuis quelques années. Son but
+      principal est de produire une quantité plus que suffisante des matières
+      premières de ressource alimentaire, afin d’assurer la bonne alimentation,
+      la reproduction, le survis des animaux et des populations du Cameroun
+      voire même de toute l’Afrique. Nous avons décidé de combiner élevage et
+      agriculture pour faire ressortir de meilleurs produits. En fait, nous
+      avons opter pour des <span class="bold-text">engrais naturels</span>, pour
+      conserver la saveur naturelle des produits et la texture du sol. Les
+      <span class="bold-text">engrais naturels</span> sont très efficaces pour
+      les plantes, et les cultures maraichers. Alors les fientes d’animaux que
+      nous élevons qui constituent soit des engrais, soit des médicaments utiles
+      pour d’autres animaux. Ça réduit non seulement le nombre de dépenses et
+      aussi garantir des cultures bio et des animaux en bonne santé. Faites nous
+      confiance et contacter nous ; vous bénéficierez des meilleurs produits
+      alimentaires.
+    </p>
+
+    <h6>infos scoops feraga</h6>
+    <ul>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Raison sociale :
+        SCOOPS FERAGA
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Adresse : LOGONE
+        SARL
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Gerant : LOGONE
+        SARL
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> RCS : LOGONE SARL
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Secteur
+        d'activité : LOGONE SARL
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Téléphone :
+        LOGONE SARL
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Email :
+        contact@scoopsferaga.com
+      </li>
+    </ul>
+    <h6>Coordonnées de l'hébergeur</h6>
+    <ul>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Raison sociale :
+        IONOS SARL
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Adresse : 7,
+        place de la Gare, BP 70109, 57200 Sarreguemines Cedex
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> RCS : 431 303 775
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Téléphone : +33
+        0970 808 911
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Email :
+        info@IONOS.fr
+      </li>
+    </ul>
+    <h6>Coordonnées du développeur</h6>
+    <ul>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Raison sociale :
+        LOGONE SARL
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Adresse : Rue
+        Mohamed Badra, Montplaisir Tunis 1073
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> RCS : 431 303 775
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Téléphone : +237
+        6 52 10 98 85 / +216 20 891 449
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Email :
+        emmanuelbenjamin@logonedigital.com
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Site web :
+        <a
+          style="text-decoration: underline; color: #3daa35"
+          href="https://logonedigital.com"
+          target="_blank"
+          >www.logonedigital.com</a
+        >
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> Facebook :
+        <a
+          style="text-decoration: underline; color: #3daa35"
+          href="https://www.facebook.com/Logonedigital/"
+          target="_blank"
+          >logonedigital</a
+        >
+      </li>
+      <li>
+        <span style="font-size: 20px; color: #3daa35">○</span> linkedIn :
+        <a
+          style="text-decoration: underline; color: #3daa35"
+          href="https://www.linkedin.com/company/logonedigital/"
+          target="_blank"
+          >logonedigital</a
+        >
+      </li>
+    </ul>
+    <h5>CONDITIONS GÉNÉRALES D’UTILISATION</h5>
+    <h6>préambule</h6>
+    <p>
+      Toutes les présentes conditions s’appliquent pour l’ensemble du site
+      <a
+        style="text-decoration: underline; color: #3daa35"
+        href="https://scoopsferaga.com"
+        target="_blank"
+        >www.scoopsferaga.com</a
+      >, incluant les sous-domaines et autres noms de domaine appartenant à
+      scoops feraga.
+    </p>
+    <h6>condition de reprise du contenu</h6>
+    <p>
+      Tout contenu, images, logos, noms de domaines, articles, associés au nom
+      de marque
+      <a
+        style="text-decoration: underline; color: #3daa35"
+        href="https://scoopsferaga.com"
+        target="_blank"
+        >www.scoopsferaga.com</a
+      >
+      appartient à la société <span class="bold-text">SCOOPS FERAGA</span> et
+      est protégé par les lois en vigueur relatives à la propriété
+      intellectuelle. La reprise de ces contenus doit faire l’objet d’une
+      autorisation de la société <span class="bold-text">SCOOPS FERAGA</span>.
+      Aucune élément graphique, image, texte, composant le site internet
+      <a
+        style="text-decoration: underline; color: #3daa35"
+        href="https://scoopsferaga.com"
+        target="_blank"
+        >www.scoopsferaga.com</a
+      >
+      ne peut être repris et utilisé sur un autre support que
+      <a
+        style="text-decoration: underline; color: #3daa35"
+        href="https://scoopsferaga.com"
+        target="_blank"
+        >www.scoopsferaga.com</a
+      >
+      de manière partielle ou intégrale, sans autorisation écrite de la société
+      <span class="bold-text">SCOOPS FERAGA</span>.
+    </p>
+    <h6>Liens hypertextes et référencement naturel</h6>
+    <p>
+      Notre équipe d’experts SEO veillent chaque jour à ce que les liens
+      hypertextes postés sur notre site internet et dans nos articles de blog
+      fonctionnent et dirigent correctement vers leur page de destination.
+      Cependant, si vous remarquez des liens cassés, n’hésitez pas à nous le
+      faire remarquer en nous envoyant un e-mail à cette adresse :
+      contact@scooposferaga.fr Toute stratégie de netlinking abusive visant à
+      diriger des liens hypertextes de mauvaise qualité vers les sites de
+      <a
+        style="text-decoration: underline; color: #3daa35"
+        href="https://scoopsferaga.com"
+        target="_blank"
+        >www.scoopsferaga.com</a
+      >
+      est passive de poursuite judiciaire de notre part. Les directeurs de
+      publication de <span class="bold-text">SCOOPS FERAGA</span> ne peuvent
+      être tenus pour responsable d’un préjudice né de l’interprétation d’une
+      information pouvant figurer sur le site
+      <a
+        style="text-decoration: underline; color: #3daa35"
+        href="https://scoopsferaga.com"
+        target="_blank"
+        >www.scoopsferaga.com</a
+      >
+    </p>
+    <h5>POLITIQUE DE CONFIDENTIALITÉ ET DONNÉES PERSONNELLES</h5>
+    <h6>Commentaires</h6>
+    <p>
+      Lorsque vous déposez un commentaire sur notre site web à la suite d’un
+      article de blog, votre adresse IP, navigateur internet et données
+      inscrites dans votre commentaire sont automatiquement collectées afin de
+      nous permettre de filtrer les commentaires indésirables.
+    </p>
+    <h6>Formulaires</h6>
+    <p>
+      Lorsque vous entrez en contact avec
+      <span class="bold-text">SCOOPS FERAGA</span> via les formulaires de
+      contact et de demande de devis présents sur les pages de notre site
+      internet, nous collectons les informations inscrites dans les champs de ce
+      formulaire de contact, à savoir : votre nom, prénom, site internet, numéro
+      de téléphone, et le message renseigné. Ces données sont conservées dans
+      des fichiers informatisés afin d’entrer en contact plus facilement avec
+      nos clients et prospects. Nous ne partageons par ces données avec des
+      supports extérieurs à <span class="bold-text">SCOOPS FERAGA</span>.
+    </p>
+    <h6>Cookies</h6>
+    <p>
+      Nous utilisons Google Analytics afin de mesurer et analyser l’audience et
+      le trafic de notre site internet. Cet outil Analytics installe un cookie
+      sur le navigateur internet de nos visiteurs afin de collecter les données
+      géographiques et de navigation sur le site
+      <a
+        style="text-decoration: underline; color: #3daa35"
+        href="https://scoopsferaga.com"
+        target="_blank"
+        >www.scoopsferaga.com</a
+      >
+      Nous vous conseillons de consulter les Conditions d’Utilisation de Google
+      Analytics.
+    </p>
+  </div>
+  <!-- end section -->
+</main>
+<!-- end main -->
+{% endblock content %} {% block footer %} {%
+include('includes/frontoffice/footer.html.twig')%} {% endblock footer %}
