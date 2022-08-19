@@ -60,9 +60,13 @@ class MyFacebookAuthenticator extends OAuth2Authenticator
                 /** @var FacebookUser $facebookUser */
                 $facebookUser = $client->fetchUserFromToken($accessToken);
                 
+                if(!$facebookUser->getEmail()){
+                  $this->flasher->addError("Votre compte facebook n'est pas attaché à une adresse email");
+                return new RedirectResponse($this->urlGenerator->generate('app_login'));  
+                }
+                 $email = $facebookUser->getEmail();
 
-                $email = $facebookUser->getEmail();
-
+                
 
                 // 1) have they logged in with Facebook before? Easy!
                 $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['facebookId' => $facebookUser->getId()]);
